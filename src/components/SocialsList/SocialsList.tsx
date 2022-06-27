@@ -5,7 +5,7 @@ import links from "./links"
 const SocialsList = () => {
     return (
         <nav>
-            {links.map((IconLink) => <Link to="{IconLink.url}">{IconLink.svg}</Link>)}
+            {links.map((IconLink) => <Link to={IconLink.url}>{IconLink.svg}</Link>)}
         </nav>
     )
 }
