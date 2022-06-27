@@ -1,8 +1,11 @@
 import * as React from "react"
+import SocialsList from "../SocialsList/SocialsList"
 
 const Header = () => {
     return (
-        <header>Header</header>
+        <header>
+            <SocialsList />
+        </header>
     )
 }
 
