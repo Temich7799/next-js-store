@@ -2,8 +2,10 @@ import * as React from "react"
 import SocialsList from "../SocialsList/SocialsList"
 import Menu from "./Menu/Menu"
 import styled from "styled-components"
+require('typeface-comfortaa')
 
 const StyledHeader = styled.header`
+font-family: 'Comfortaa';
 height: 165px;
 width: calc(100% - 86px);
 padding: 12px 43px;
