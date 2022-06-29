@@ -3,9 +3,10 @@ import SocialsList from "../SocialsList/SocialsList"
 import Menu from "./Menu/Menu"
 import styled from "styled-components"
 require('typeface-comfortaa')
+require('typeface-amatic-sc')
 
 const StyledHeader = styled.header`
-font-family: 'Comfortaa';
+font-family: 'Amatic SC';
 height: 165px;
 width: calc(100% - 86px);
 padding: 12px 43px;
