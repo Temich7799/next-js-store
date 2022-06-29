@@ -9,7 +9,10 @@ display: flex;
 justify-content: flex-start;
 align-items: center;
 a{
-    margin-right: 20px;
+    padding: 3px 15px 1px;
+    &:hover {
+        font-weight: 700;
+    }
 }
 `;
 
