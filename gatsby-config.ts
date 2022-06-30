@@ -9,19 +9,26 @@ const config: GatsbyConfig = {
   // If you use VSCode you can also use the GraphQL plugin
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
-  plugins: [{
-    resolve: 'gatsby-plugin-google-analytics',
-    options: {
-      "trackingId": "none"
-    }
-  }, "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-styled-components", {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      "name": "images",
-      "path": "./src/images/"
+  plugins: [
+    {
+      resolve: 'gatsby-source-wordpress',
+      options: {
+        "url": "http://localhost:8888/wordpress/graphql"
+      }
     },
-    __key: "images"
-  }]
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        "trackingId": "none"
+      }
+    }, "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-styled-components", {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        "name": "images",
+        "path": "./src/images/"
+      },
+      __key: "images"
+    }]
 };
 
 export default config;
