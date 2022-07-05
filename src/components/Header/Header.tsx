@@ -1,6 +1,6 @@
 import * as React from "react"
 import SocialsList from "../SocialsList/SocialsList"
-import Menu from "./Menu"
+import Menu from "./HeaderMenu"
 import styled from "styled-components"
 require('typeface-amatic-sc')
 
