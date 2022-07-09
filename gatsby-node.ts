@@ -1,30 +1,29 @@
 const path = require(`path`)
 
 exports.createPages = async function ({ actions, graphql }) {
-    /*
+
     const { data } = await graphql(`
-      query {
-        allMarkdownRemark {
-          edges {
-            node {
-              fields {
-                slug
-              }
+     query Pages {
+                allWpPage {
+                  edges {
+                    node {
+                      content
+                      slug
+                    }
+                  }
+                }
             }
-          }
-        }
-      }
     `)
-    
-    data.allMarkdownRemark.edges.forEach(edge => {
-        */
-    const slug = 'test'
-    actions.createPage({
-        path: slug,
-        component: path.resolve(`./src/pages/Page.tsx`),
-        context: { slug: slug },
+
+    data.allWpPage.edges.forEach(edge => {
+        const slug = edge.node.slug
+
+        actions.createPage({
+            path: slug,
+            component: path.resolve(`./src/pages/Page.tsx`),
+            context: { slug: slug },
+        })
+
     })
-    /*
-  })
-  */
+
 }
