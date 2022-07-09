@@ -1,13 +1,29 @@
 import * as React from "react"
-import Layout from "../components/Layout"
+import { graphql } from "gatsby"
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
 
-const IndexPage = () => {
+const IndexPage = ({ data }: any) => {
+  console.log(data.wpPage.content);
   return (
-    <Layout>
+    <>
+      <Header />
       <main>
+        {(data.wpPage.content) ? data.wpPage.content : '404'}
       </main>
-    </Layout>
+      <Footer />
+    </>
   )
 }
 
 export default IndexPage
+
+export const query = graphql`
+query getHomePage {
+  wpPage(slug: {eq: "home"}) {
+    content
+    title
+  }
+}
+
+`
