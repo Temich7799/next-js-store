@@ -8,10 +8,7 @@ const Layout = ({ data }: any) => {
     return (
         <>
             <Header />
-            <main>
-                <h1>{data.wpPage.title}</h1>
-                {(data.wpPage.content) ? data.wpPage.content : '404'}
-            </main>
+            {(data.wpPage.content) ? <main dangerouslySetInnerHTML={{ __html: data.wpPage.content }} /> : '404'}
             <Footer />
         </>
     )
