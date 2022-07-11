@@ -32,14 +32,14 @@ const Menu = () => {
   `);
 
   const links = data.wpMenu.menuItems.nodes;
-
+  console.log(links);
   return (
     <StyledMenu>
       {links.map((link: any) => (links.indexOf(link) == Math.floor(links.length / 2))
         ?
         <>
           <Link to="https://home">
-            <StaticImage src="../../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
+            <StaticImage src="../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
           </Link>
           <Link to={link.url}>{link.label}</Link>
         </>
