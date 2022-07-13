@@ -21,16 +21,22 @@ const Menu = () => {
 
   const data = useStaticQuery(graphql`
     query HeaderMenu {
-    wpMenu(id: {eq: "dGVybTozMQ=="}) {
-      menuItems {
-        nodes {
-          label
-          url
+      wpMenu(id: {eq: "dGVybTozMQ=="}) {
+        menuItems {
+          nodes {
+            label
+            url
+            parentId
+            childItems {
+              nodes {
+                url
+                label
+              }
+            }
+          }
         }
       }
     }
-  }
-
   `);
 
   const links = data.wpMenu.menuItems.nodes;
@@ -39,22 +45,29 @@ const Menu = () => {
   return (
     <StyledMenu>
       {
-        links.map((link: any) => (links.indexOf(link) == Math.floor(links.length / 2))
-          ?
-          <>
-            <Link to="https://home">
-              <StaticImage src="../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
-            </Link>
-            <Link to={link.url}>{link.label}</Link>
-            {(link.childItems.nodes.length) ? <HeaderSubMenu /> : false}
-          </>
-          :
-          <>
-            <Link to={link.url}>{link.label}</Link>
-            {(link.childItems.nodes.length) ? <HeaderSubMenu /> : false}
-          </>)
+        links.map
+          (
+            (link: any) => (links.indexOf(link) == Math.floor(links.length / 2))
+              ?
+              (link.parentId === null)
+                ? <>
+                  <Link to="https://home">
+                    <StaticImage src="../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
+                  </Link>
+                  <Link to={link.url}>{link.label}</Link>
+                  {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
+                </>
+                : false
+              :
+              (link.parentId === null) ?
+                <>
+                  <Link to={link.url}>{link.label}</Link>
+                  {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
+                </>
+                : false
+          )
       }
-    </StyledMenu>
+    </StyledMenu >
   )
 }
 
