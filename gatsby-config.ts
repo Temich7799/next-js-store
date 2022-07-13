@@ -13,7 +13,10 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-source-wordpress',
       options: {
-        "url": "http://localhost:8888/wordpress/graphql"
+        "url": "http://localhost:8888/wordpress/graphql",
+        schema: {
+          timeout: 50000
+        }
       }
     },
     {
