@@ -54,16 +54,18 @@ const Menu = () => {
                   <Link to="https://home">
                     <StaticImage src="../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
                   </Link>
-                  <Link to={link.url}>{link.label}</Link>
-                  {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
+                  <Link to={link.url}>
+                    {link.label}
+                    {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
+                  </Link>
                 </>
                 : false
               :
               (link.parentId === null) ?
-                <>
-                  <Link to={link.url}>{link.label}</Link>
+                <Link to={link.url}>
+                  {link.label}
                   {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
-                </>
+                </Link>
                 : false
           )
       }
