@@ -1,8 +1,8 @@
 const path = require(`path`)
 
-exports.createPages = async function ({ actions, graphql }) {
+exports.createPages = async function ({ actions, graphql }: any) {
 
-    const { data } = await graphql(`
+  const { data } = await graphql(`
      query Pages {
                 allWpPage {
                   edges {
@@ -15,15 +15,15 @@ exports.createPages = async function ({ actions, graphql }) {
             }
     `)
 
-    data.allWpPage.edges.forEach(edge => {
-        const slug = edge.node.slug
+  data.allWpPage.edges.forEach((edge: any) => {
+    const slug = edge.node.slug
 
-        actions.createPage({
-            path: slug,
-            component: path.resolve(`./src/components/Layout.tsx`),
-            context: { slug: slug },
-        })
-
+    actions.createPage({
+      path: slug,
+      component: path.resolve(`./src/components/Layout.tsx`),
+      context: { slug: slug },
     })
+
+  })
 
 }
