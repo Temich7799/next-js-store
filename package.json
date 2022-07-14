@@ -16,6 +16,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@woocommerce/woocommerce-rest-api": "^1.0.1",
+    "ansi-regex": "^4.1.1",
     "babel-plugin-styled-components": "^2.0.7",
     "gatsby": "^4.17.1",
     "gatsby-plugin-google-analytics": "^4.17.0",
@@ -25,6 +27,7 @@
     "gatsby-plugin-styled-components": "^5.17.0",
     "gatsby-source-filesystem": "^4.17.0",
     "gatsby-source-graphql": "^4.17.0",
+    "gatsby-source-woocommerce": "^0.2.0",
     "gatsby-source-wordpress": "^6.17.0",
     "gatsby-transformer-sharp": "^4.17.0",
     "react": "^18.1.0",

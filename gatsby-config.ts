@@ -24,14 +24,28 @@ const config: GatsbyConfig = {
       options: {
         "trackingId": "none"
       }
-    }, "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-styled-components", {
+    }, "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-styled-components",
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         "name": "images",
         "path": "./src/images/"
       },
       __key: "images"
-    }]
+    },
+    {
+      resolve: 'gatsby-source-woocommerce',
+      options: {
+        api: 'localhost:8888/wordpress',
+        https: false,
+        api_keys: {
+          consumer_key: 'ck_0db198da88b1a81b2e7766af5126771190b31b96',
+          consumer_secret: 'cs_601709c4babde4702e285a2f972dad154f2021c7',
+        },
+        fields: ['products', 'products/categories', 'products/attributes']
+      }
+    }
+  ]
 };
 
 export default config;
