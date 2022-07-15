@@ -1,11 +1,12 @@
 import * as React from "react"
 import styled from "styled-components"
 import { StaticImage } from "gatsby-plugin-image";
+import Button from "../Button";
 
 const StyledCategoryThumb = styled.div`
     height: 490px;
     max-width: 335px;
-    border: 1px red solid;
+    box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
 `;
 
 const ImageFigure = styled.figure`
@@ -41,20 +42,21 @@ const Line = styled.div`
     border-bottom: 1px solid rgba(0,0,0,0.25);
 `;
 
-const CategoryThumb = () => {
+const CategoryThumb = ({ data }: any) => {
+    console.log(data);
     return (
         <StyledCategoryThumb>
             <ImageFigure>
-                <StaticImage src="../../images/logo.png" alt="Category" placeholder="blurred" height={335} />
+                <StaticImage src="../../images/logo.png" alt={data.node.image.alt} placeholder="blurred" height={335} />
                 <ImageCaption>
                     <Line />
-                    <p>Pepotes</p>
+                    <p>{data.node.name}</p>
                     <Line />
                 </ImageCaption>
             </ImageFigure>
             <Caption>
-                <p>Magical</p>
-                <button>Know more</button>
+                <p>{data.node.description}</p>
+                <Button>Know more</Button>
             </Caption>
         </StyledCategoryThumb>
     )
