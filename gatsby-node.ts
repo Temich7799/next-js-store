@@ -18,14 +18,12 @@ exports.createPages = async function ({ actions, graphql }: any) {
   data.allWpPage.edges.forEach((edge: any) => {
     const slug = edge.node.slug
 
-    if (slug !== 'content') {
+    if (slug !== 'catalog') {
       actions.createPage({
         path: slug,
         component: path.resolve(`./src/components/NodeLayout.tsx`),
         context: { slug: slug },
       })
     }
-
   })
-
 }
