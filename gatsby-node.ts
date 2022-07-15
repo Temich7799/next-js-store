@@ -20,7 +20,7 @@ exports.createPages = async function ({ actions, graphql }: any) {
 
     actions.createPage({
       path: slug,
-      component: path.resolve(`./src/components/Layout.tsx`),
+      component: path.resolve(`./src/components/NodeLayout.tsx`),
       context: { slug: slug },
     })
 

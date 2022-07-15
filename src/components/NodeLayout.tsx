@@ -3,7 +3,7 @@ import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import { graphql } from "gatsby";
 
-const Layout = ({ data }: any) => {
+const NodeLayout = ({ data }: any) => {
   console.log(data);
   return (
     <>
@@ -14,7 +14,7 @@ const Layout = ({ data }: any) => {
   )
 }
 
-export default Layout
+export default NodeLayout
 
 export const query = graphql`
 query ($slug: String!) {
