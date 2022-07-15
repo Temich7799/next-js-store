@@ -1,3 +1,4 @@
+import { graphql } from "gatsby";
 import * as React from "react"
 import styled from "styled-components";
 import Layout from "../components/Layout";
@@ -9,14 +10,12 @@ const StyledCatalogPage = styled.main`
   justify-content: space-around;
 `
 
-const CatalogPage = () => {
+const CatalogPage = ({ data }: any) => {
   return (
     <>
       <Layout>
         <StyledCatalogPage>
-          <CategoryThumb />
-          <CategoryThumb />
-          <CategoryThumb />
+          {data.allWcProductsCategories.edges.map((edge: any) => <CategoryThumb data={edge} />)}
         </StyledCatalogPage>
       </Layout>
     </>
@@ -24,3 +23,20 @@ const CatalogPage = () => {
 }
 
 export default CatalogPage;
+
+export const query = graphql`
+query getCategories {
+  allWcProductsCategories {
+    edges {
+      node {
+        image {
+          alt
+        }
+        slug
+        name
+        description
+      }
+    }
+  }
+}
+`;
