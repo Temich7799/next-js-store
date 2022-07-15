@@ -1,15 +1,14 @@
 import * as React from "react";
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
+import Layout from "./Layout";
 import { graphql } from "gatsby";
 
 const NodeLayout = ({ data }: any) => {
   console.log(data);
   return (
     <>
-      <Header />
-      {(data.wpPage.content) ? <main dangerouslySetInnerHTML={{ __html: data.wpPage.content }} /> : '404'}
-      <Footer />
+      <Layout>
+        {(data.wpPage.content) ? <main dangerouslySetInnerHTML={{ __html: data.wpPage.content }} /> : '404'}
+      </Layout>
     </>
   )
 }

@@ -2,7 +2,6 @@ import * as React from "react"
 import SocialsList from "../SocialsList/SocialsList"
 import Menu from "./HeaderMenu"
 import styled from "styled-components"
-require('typeface-amatic-sc')
 
 const StyledHeader = styled.header`
 font-family: 'Amatic SC';
