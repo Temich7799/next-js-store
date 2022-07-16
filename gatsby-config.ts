@@ -34,7 +34,7 @@ const config: GatsbyConfig = {
       __key: "images"
     },
     {
-      resolve: 'gatsby-source-woocommerce-mod',
+      resolve: 'gatsby-source-woocommerce-master',
       options: {
         api: 'localhost:8888/wordpress',
         https: false,
