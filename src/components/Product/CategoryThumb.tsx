@@ -1,6 +1,5 @@
 import * as React from "react"
 import styled from "styled-components"
-import { StaticImage } from "gatsby-plugin-image";
 import Button from "../Button";
 
 const StyledCategoryThumb = styled.div`
@@ -13,6 +12,9 @@ const ImageFigure = styled.figure`
     position: relative;
     max-width: 335px;
     margin: 0;
+    img {
+        width: 100%;
+    }
 `;
 
 const ImageCaption = styled.figcaption`
@@ -47,7 +49,7 @@ const CategoryThumb = ({ data }: any) => {
     return (
         <StyledCategoryThumb>
             <ImageFigure>
-                <StaticImage src="../../images/logo.png" alt={data.node.image.alt} placeholder="blurred" height={335} />
+                <img src={data.node.image.src} alt={data.node.image.alt} />
                 <ImageCaption>
                     <Line />
                     <p>{data.node.name}</p>
