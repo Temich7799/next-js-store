@@ -5,7 +5,7 @@ import Layout from "../components/Layouts/MainLayout";
 import CategoryThumb from "../components/Product/CategoryThumb";
 
 
-const StyledCatalogPage = styled.main`
+const Main = styled.main`
   display: flex;
   justify-content: space-around;
 `
@@ -14,9 +14,9 @@ const CatalogPage = ({ data }: any) => {
   return (
     <>
       <Layout>
-        <StyledCatalogPage>
-          {data.allWcProductsCategories.edges.map((edge: any) => <CategoryThumb data={edge} />)}
-        </StyledCatalogPage>
+        <Main>
+          {data.allWcProductsCategories.edges.map((edge: any) => <CategoryThumb data={edge.node} />)}
+        </Main>
       </Layout>
     </>
   )

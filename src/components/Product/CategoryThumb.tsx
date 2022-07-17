@@ -1,5 +1,5 @@
-import { Link } from "gatsby";
 import * as React from "react"
+import { Link } from "gatsby";
 import styled from "styled-components"
 import Button from "../Button";
 
@@ -50,16 +50,16 @@ const CategoryThumb = ({ data }: any) => {
     return (
         <StyledCategoryThumb>
             <ImageFigure>
-                <img src={data.node.image.src} alt={data.node.image.alt} />
+                <img src={data.image.src} alt={data.image.alt} />
                 <ImageCaption>
                     <Line />
-                    <p>{data.node.name}</p>
+                    <p>{data.name}</p>
                     <Line />
                 </ImageCaption>
             </ImageFigure>
             <Caption>
-                <p>{data.node.description}</p>
-                <Link to={data.node.slug}>
+                <p>{data.description}</p>
+                <Link to={data.slug}>
                     <Button>Know more</Button>
                 </Link>
             </Caption>
