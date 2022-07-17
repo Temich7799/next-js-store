@@ -31,6 +31,7 @@ query getCategories {
       node {
         image {
           alt
+          src
         }
         slug
         name
