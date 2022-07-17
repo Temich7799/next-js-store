@@ -18,7 +18,9 @@ const ImageFigure = styled.figure`
     }
 `;
 
-const ImageCaption = styled.figcaption`
+type ImageCaptionProps = { captionColor: string }
+
+const ImageCaption = styled.figcaption<ImageCaptionProps>`
     position: absolute;
     bottom: 0;
     display: flex;
@@ -26,7 +28,7 @@ const ImageCaption = styled.figcaption`
     justify-content: space-around;
     width: 100%;
     height: 40px;
-    background-color: #54954fac;    
+    background-color: ${props => props.captionColor};    
 `;
 
 const Caption = styled.div`
@@ -46,12 +48,17 @@ const Line = styled.div`
 `;
 
 const CategoryThumb = ({ data }: any) => {
-    console.log(data);
+
+    function randomCaptionColor() {
+        const colors = ['#b4dcd7b5', '#c8ebc3b5', '#fadc87b5', '#facdd7b5', '#aac8d7b5', '#ffaf96b5',];
+        return colors[Math.floor(Math.random() * colors.length)]
+    }
+
     return (
         <StyledCategoryThumb>
             <ImageFigure>
                 <img src={data.image.src} alt={data.image.alt} />
-                <ImageCaption>
+                <ImageCaption captionColor={randomCaptionColor()}>
                     <Line />
                     <p>{data.name}</p>
                     <Line />
