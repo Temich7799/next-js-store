@@ -1,3 +1,4 @@
+import { Link } from "gatsby";
 import * as React from "react"
 import styled from "styled-components"
 import Button from "../Button";
@@ -58,9 +59,11 @@ const CategoryThumb = ({ data }: any) => {
             </ImageFigure>
             <Caption>
                 <p>{data.node.description}</p>
-                <Button>Know more</Button>
+                <Link to={data.node.slug}>
+                    <Button>Know more</Button>
+                </Link>
             </Caption>
-        </StyledCategoryThumb>
+        </StyledCategoryThumb >
     )
 }
 
