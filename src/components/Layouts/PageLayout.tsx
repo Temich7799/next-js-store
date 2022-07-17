@@ -1,9 +1,8 @@
 import * as React from "react";
-import Layout from "./Layout";
+import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 
-const NodeLayout = ({ data }: any) => {
-  console.log(data);
+const PageLayout = ({ data }: any) => {
   return (
     <>
       <Layout>
@@ -13,7 +12,7 @@ const NodeLayout = ({ data }: any) => {
   )
 }
 
-export default NodeLayout
+export default PageLayout
 
 export const query = graphql`
 query ($slug: String!) {
