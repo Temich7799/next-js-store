@@ -3,7 +3,14 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 require('typeface-amatic-sc')
 
-const Layout = ({ children }: any) => {
+type LayoutProps = {
+    children: JSX.Element | string
+}
+
+const Layout = (props: LayoutProps) => {
+
+    const { children } = props;
+
     return (
         <>
             <Header />

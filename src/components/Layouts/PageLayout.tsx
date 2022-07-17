@@ -2,7 +2,18 @@ import * as React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 
-const PageLayout = ({ data }: any) => {
+type PageProps = {
+  data: {
+    wpPage: {
+      content: string
+    }
+  }
+}
+
+const PageLayout = (props: PageProps) => {
+
+  const { data } = props;
+
   return (
     <>
       <Layout>

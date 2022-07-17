@@ -10,17 +10,27 @@ const Main = styled.main`
   gap: 25px;
 `
 
-const ProductsLayout = ({ data }: any) => {
-    console.log(data);
-    return (
-        <>
-            <Layout>
-                <Main>
-                    {data.allWcProducts.edges.map((edge: any) => <ProductThumb data={edge.node} />)}
-                </Main>
-            </Layout>
-        </>
-    )
+type ProductsProps = {
+  data: {
+    allWcProducts: {
+      edges: Array<object>
+    }
+  }
+}
+
+const ProductsLayout = (props: ProductsProps) => {
+
+  const { data } = props;
+
+  return (
+    <>
+      <Layout>
+        <Main>
+          {data.allWcProducts.edges.map((edge: any) => <ProductThumb data={edge.node} />)}
+        </Main>
+      </Layout>
+    </>
+  )
 }
 
 export default ProductsLayout

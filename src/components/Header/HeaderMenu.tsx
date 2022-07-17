@@ -40,7 +40,6 @@ const Menu = () => {
   `);
 
   const links = data.wpMenu.menuItems.nodes;
-  console.log(data)
 
   return (
     <StyledMenu>

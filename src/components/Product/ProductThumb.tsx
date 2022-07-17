@@ -27,7 +27,22 @@ const Caption = styled.div`
     }
 `;
 
-const ProductThumb = ({ data }: any) => {
+type ProductProps = {
+    data: {
+        slug: string
+        sku: string
+        price: string
+        images: [{
+            src: string
+            alt: string
+        }]
+    }
+}
+
+const ProductThumb = (props: ProductProps) => {
+
+    const { data } = props;
+
     return (
         <StyledProductThumb>
             <Link to={data.slug}>

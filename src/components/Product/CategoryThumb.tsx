@@ -47,7 +47,21 @@ const Line = styled.div`
     border-bottom: 1px solid rgba(0,0,0,0.25);
 `;
 
-const CategoryThumb = ({ data }: any) => {
+type CategoryProps = {
+    data: {
+        image: {
+            src: string
+            alt: string
+        }
+        name: string
+        description: string
+        slug: string
+    }
+}
+
+const CategoryThumb = (props: CategoryProps) => {
+    
+    const { data } = props;
 
     function randomCaptionColor() {
         const colors = ['#b4dcd7b5', '#c8ebc3b5', '#fadc87b5', '#facdd7b5', '#aac8d7b5', '#ffaf96b5',];

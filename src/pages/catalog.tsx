@@ -10,7 +10,18 @@ const Main = styled.main`
   justify-content: space-around;
 `
 
-const CatalogPage = ({ data }: any) => {
+type CatalogProps = {
+  data: {
+    allWcProductsCategories: {
+      edges: Array<object>
+    }
+  }
+}
+
+const CatalogPage = (props: CatalogProps) => {
+
+  const { data } = props;
+
   return (
     <>
       <Layout>

@@ -12,7 +12,14 @@ const StyledButton = styled.button`
     cursor: pointer;
 `;
 
-const Button = ({ children }: any) => {
+type ButtonProps = {
+    children: JSX.Element | string
+}
+
+const Button = (props: ButtonProps) => {
+
+    const { children } = props;
+
     return (
         <StyledButton>
             {children}

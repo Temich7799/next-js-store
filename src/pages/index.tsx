@@ -2,8 +2,18 @@ import * as React from "react"
 import Layout from "../components/Layouts/MainLayout";
 import { graphql } from "gatsby"
 
-const IndexPage = ({ data }: any) => {
-  console.log(data.wpPage.content);
+type IndexProps = {
+  data: {
+    wpPage: {
+      content: string
+    }
+  }
+}
+
+const IndexPage = (props: IndexProps) => {
+
+  const { data } = props;
+
   return (
     <>
       <Layout>

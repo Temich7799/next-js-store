@@ -13,7 +13,19 @@ background-color: rgba(5,5,5,0.25);
 z-index: 1000;
 `;
 
-const HeaderSubMenu = ({ childItems }: any) => {
+type SubMenuProps = {
+    childItems: [
+        {
+            url: string
+            label: string
+        }
+    ]
+}
+
+const HeaderSubMenu = (props: SubMenuProps) => {
+
+    const { childItems } = props;
+
     return (
         <StyledHeaderSubMenu>
             {
