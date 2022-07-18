@@ -3,6 +3,7 @@ import * as React from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
 import CategoryThumb from "../components/Product/CategoryThumb";
+import TitleH1 from "../components/TitleH1";
 
 
 const Main = styled.main`
@@ -29,6 +30,7 @@ const CatalogPage = (props: CatalogProps) => {
     <>
       <Layout>
         <Main>
+          <TitleH1>Catalog</TitleH1>
           {data.allWcProductsCategories.edges.map((edge: any) => <CategoryThumb data={edge.node} />)}
         </Main>
       </Layout>
