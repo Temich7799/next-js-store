@@ -2,6 +2,7 @@ import * as React from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
 import Button from "../Button";
+import getRandomColor from "../../services/randomColors/colors";
 
 const StyledCategoryThumb = styled.div`
     height: 490px;
@@ -64,19 +65,14 @@ type CategoryProps = {
 }
 
 const CategoryThumb = (props: CategoryProps) => {
-    
-    const { data } = props;
 
-    function randomCaptionColor() {
-        const colors = ['#b4dcd7b5', '#c8ebc3b5', '#fadc87b5', '#facdd7b5', '#aac8d7b5', '#ffaf96b5',];
-        return colors[Math.floor(Math.random() * colors.length)]
-    }
+    const { data } = props;
 
     return (
         <StyledCategoryThumb>
             <ImageFigure>
                 <img src={data.image.src} alt={data.image.alt} />
-                <ImageCaption captionColor={randomCaptionColor()}>
+                <ImageCaption captionColor={getRandomColor()}>
                     <Line />
                     <p>{data.name}</p>
                     <Line />
