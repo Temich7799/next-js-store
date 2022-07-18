@@ -10,6 +10,9 @@ const StyledButton = styled.button`
     background-color: #F7F7F7;
     background: linear-gradient(0deg, rgba(247,247,247,1) 60%, rgba(255,255,255,1) 100%);
     cursor: pointer;
+    :hover {
+        box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
+    }
 `;
 
 type ButtonProps = {

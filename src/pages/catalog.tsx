@@ -8,6 +8,9 @@ import CategoryThumb from "../components/Product/CategoryThumb";
 const Main = styled.main`
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  column-gap: 25px;
+  row-gap: 50px;
 `
 
 type CatalogProps = {

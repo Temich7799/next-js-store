@@ -3,14 +3,17 @@ import * as React from "react"
 import styled from "styled-components"
 
 const StyledHeaderSubMenu = styled.nav`
-position: absolute;
-display: flex;
-flex-direction: column;
-width: 300px;
-min-height: 50px;
-font-weight: normal !important;
-background-color: rgba(5,5,5,0.25);
-z-index: 1000;
+    font-size: 16px;
+    font-weight: normal !important;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    min-height: 50px;
+    background-color: #fefefe;
+    box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
+    z-index: 1000;
 `;
 
 type SubMenuProps = {

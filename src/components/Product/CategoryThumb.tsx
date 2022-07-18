@@ -28,7 +28,11 @@ const ImageCaption = styled.figcaption<ImageCaptionProps>`
     justify-content: space-around;
     width: 100%;
     height: 40px;
-    background-color: ${props => props.captionColor};    
+    background-color: ${props => props.captionColor};
+    p {
+        font-family: 'Comfortaa';
+        font-size: 24px;
+    }    
 `;
 
 const Caption = styled.div`
