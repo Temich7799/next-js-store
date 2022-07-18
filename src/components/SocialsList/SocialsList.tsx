@@ -4,8 +4,8 @@ import links from "./links"
 import styled from "styled-components"
 
 const StyledSocialsList = styled.nav`
-min-width: 350px;
 display: flex;
+flex-wrap: wrap;
 justify-content: flex-start;
 align-items: center;
 a{

@@ -5,9 +5,10 @@ import { StaticImage } from "gatsby-plugin-image"
 import HeaderSubMenu from "./HeaderSubMenu";
 
 const StyledMenu = styled.nav`
-min-width: 700px;
 display: flex;
+flex-wrap: wrap;
 justify-content: flex-start;
+justify-self: center;
 align-items: center;
 a{
     padding: 3px 15px 1px;
