@@ -1,15 +1,18 @@
 import { StaticImage } from "gatsby-plugin-image";
 import * as React from "react"
 import styled from "styled-components"
+import getRandomColor from "../services/randomColors/colors";
 
-const StyledTitle = styled.div`
+type StyledTitleProps = { backgroundColor: string }
+
+const StyledTitle = styled.div<StyledTitleProps>`
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 115px;
-    background-color: #facdd7b5;
+    background-color: ${props => props.backgroundColor};
     overflow: hidden;
     h1 {
         position: absolute;
@@ -24,19 +27,16 @@ const StyledTitle = styled.div`
     }
 `;
 
-type TitleProps = {
-    children: string
-}
+type TitleProps = { children: string }
 
 const TitleH1 = (props: TitleProps) => {
 
     const { children } = props;
 
     return (
-        <StyledTitle>
+        <StyledTitle backgroundColor={getRandomColor()}>
             <h1>{children}</h1>
             <StaticImage src="../images/title-background.png" alt="Title" placeholder="blurred" />
-
         </StyledTitle>
     )
 }
