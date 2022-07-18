@@ -1,7 +1,8 @@
 import * as React from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-require('typeface-amatic-sc')
+require('typeface-amatic-sc');
+require('typeface-comfortaa');
 
 type LayoutProps = {
     children: JSX.Element | string
