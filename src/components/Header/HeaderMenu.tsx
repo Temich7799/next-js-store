@@ -48,17 +48,20 @@ const Menu = () => {
           (
             (link: any) => (links.indexOf(link) == Math.floor(links.length / 2))
               ?
-              (link.parentId === null)
-                ? <>
-                  <Link to="https://home">
-                    <StaticImage src="../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
-                  </Link>
-                  <Link to={link.url}>
-                    {link.label}
-                    {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
-                  </Link>
-                </>
-                : false
+              <>
+                <Link to="https://home">
+                  <StaticImage src="../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
+                </Link>
+                {
+                  (link.parentId === null)
+                    ?
+                    <Link to={link.url}>
+                      {link.label}
+                      {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
+                    </Link>
+                    : false
+                }
+              </>
               :
               (link.parentId === null) ?
                 <Link to={link.url}>
