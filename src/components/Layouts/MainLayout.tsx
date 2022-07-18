@@ -5,7 +5,7 @@ require('typeface-amatic-sc');
 require('typeface-comfortaa');
 
 type LayoutProps = {
-    children: JSX.Element | string
+    children: JSX.Element
 }
 
 const Layout = (props: LayoutProps) => {
