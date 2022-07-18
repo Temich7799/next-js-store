@@ -15,9 +15,8 @@ a {
 height: 140px;
 width: calc(100% - 86px);
 padding: 12px 43px;
-display: flex;
-justify-content: space-between;
-align-items: center;
+display: grid;
+grid-template-columns: 1fr 4fr 1fr;
 box-shadow: -1px 4px 5px -2px rgba(0,0,0,0.25);
 `;
 
