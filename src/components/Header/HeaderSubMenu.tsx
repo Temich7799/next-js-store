@@ -6,14 +6,17 @@ const StyledHeaderSubMenu = styled.nav`
     font-size: 16px;
     font-weight: normal !important;
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: fit-content;
     min-height: 50px;
     background-color: #fefefe;
     box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
     z-index: 1000;
+    ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+    }
 `;
 
 type SubMenuProps = {
@@ -31,9 +34,9 @@ const HeaderSubMenu = (props: SubMenuProps) => {
 
     return (
         <StyledHeaderSubMenu>
-            {
-                childItems.map((links: any) => <Link to={links.url}>{links.label}</Link>)
-            }
+            <ul>
+                {childItems.map((links: any) => <li><Link to={links.url}>{links.label}</Link></li>)}
+            </ul>
         </StyledHeaderSubMenu>
     )
 }
