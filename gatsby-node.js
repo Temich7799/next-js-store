@@ -3,12 +3,12 @@ const path = require(`path`)
 exports.createPages = async function ({ actions, graphql }) {
 
   async function makePages() {
+
     const { data } = await graphql(`
       query getPages {
       allWpPage {
         edges {
           node {
-            content
             slug
           }
         }
@@ -28,6 +28,7 @@ exports.createPages = async function ({ actions, graphql }) {
   }
 
   async function makeProductsPages() {
+
     const { data } = await graphql(`
       query getCategories {
         allWcProductsCategories {
@@ -49,7 +50,35 @@ exports.createPages = async function ({ actions, graphql }) {
     })
   }
 
+  async function makeProductPages() {
+
+    const { data } = await graphql(`
+      query getProducts {
+        allWcProducts {
+          edges {
+            node {
+              sku
+              slug
+              categories {
+                slug
+              }
+            }
+          }
+        }
+      }
+    `);
+
+    data.allWcProducts.edges.forEach((edge) => {
+      actions.createPage({
+        path: `catalog/${edge.node.categories[0].slug}/${edge.node.categories[0].slug}-${edge.node.sku}`,
+        component: path.resolve(`./src/components/Layouts/ProductLayout.tsx`),
+        context: { slug: edge.node.slug },
+      })
+    })
+  }
+
   makePages();
   makeProductsPages();
+  makeProductPages();
 
 }

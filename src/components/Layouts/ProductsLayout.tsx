@@ -23,21 +23,19 @@ const ProductsLayout = (props: ProductsProps) => {
   const { data } = props;
 
   return (
-    <>
-      <Layout>
-        <Main>
-          {data.allWcProducts.edges.map((edge: any) => <ProductThumb data={edge.node} />)}
-        </Main>
-      </Layout>
-    </>
+    <Layout>
+      <Main>
+        {data.allWcProducts.edges.map((edge: any) => <ProductThumb data={edge.node} />)}
+      </Main>
+    </Layout>
   )
 }
 
 export default ProductsLayout
 
 export const query = graphql`
-  query getProducts ($slug: String!) {
-    allWcProducts(filter: {categories: {elemMatch: {slug: {eq: $slug}}}}) {
+  query getProducts {
+    allWcProducts {
       edges {
         node {
           name
@@ -50,9 +48,12 @@ export const query = graphql`
             src
             alt
           }
+          categories {
+            slug
+          }
         }
       }
     }
   }
-`
+`;
 

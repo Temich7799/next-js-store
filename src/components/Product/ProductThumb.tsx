@@ -36,6 +36,9 @@ type ProductProps = {
             src: string
             alt: string
         }]
+        categories: [
+            { slug: string }
+        ]
     }
 }
 
@@ -45,7 +48,7 @@ const ProductThumb = (props: ProductProps) => {
 
     return (
         <StyledProductThumb>
-            <Link to={data.slug}>
+            <Link to={`${data.categories[0].slug}-${data.sku}`}>
                 <img src={data.images[0].src} alt={data.images[0].alt} />
             </Link>
             <Caption>
