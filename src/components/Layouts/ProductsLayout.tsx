@@ -5,8 +5,9 @@ import ProductThumb from "../Product/ProductThumb";
 import styled from "styled-components";
 
 const Main = styled.main`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(auto,165px));
+  justify-content: center;
   gap: 25px;
   padding: 2.5%;
 `
