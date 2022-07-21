@@ -2,9 +2,17 @@ import * as React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import styled from "styled-components";
+import ProductGallery from "../Product/ProductGallery";
+import ProductAbout from "../Product/ProductAbout";
+import ProductDescription from "../Product/ProductDescription";
+import ProductReviews from "../Product/ProductReviews";
 
 const Main = styled.main`
-
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 25px;
+    padding: 5%;
 `;
 
 type ProductProps = {
@@ -20,7 +28,11 @@ const ProductLayout = (props: ProductProps) => {
     return (
         <Layout>
             <Main>
-            
+                <ProductGallery data={data.wcProducts.images}></ProductGallery>
+                <ProductAbout data={data.wcProducts}></ProductAbout>
+                <ProductDescription data={data.wcProducts.description}></ProductDescription>
+                <hr />
+                <ProductReviews></ProductReviews>
             </Main>
         </Layout>
     )
