@@ -3,9 +3,10 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 require('typeface-amatic-sc');
 require('typeface-comfortaa');
+require('../../styles/global.css')
 
 type LayoutProps = {
-    children: JSX.Element
+    children: JSX.Element | string
 }
 
 const Layout = (props: LayoutProps) => {
