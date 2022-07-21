@@ -8,6 +8,7 @@ const Main = styled.main`
   display: flex;
   flex-wrap: wrap;
   gap: 25px;
+  padding: 2.5%;
 `
 
 type ProductsProps = {
