@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 const StyledProductThumb = styled.div`
     height: 245px;
-    max-width: 167px;
+    width: 165px;
     display: flex;
     flex-direction: column;
     align-items: center;
