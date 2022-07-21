@@ -41,7 +41,7 @@ const Caption = styled.div`
         font-family: 'Amatic SC';
         font-size: 30px;
     }
-    height: 136px;
+    height: 205px;
     width: 100%;
     display: flex;
     flex-direction: column;
