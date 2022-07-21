@@ -37,8 +37,10 @@ const ImageCaption = styled.figcaption<ImageCaptionProps>`
 `;
 
 const Caption = styled.div`
-    font-family: 'Amatic SC';
-    font-size: 30px;
+    p {
+        font-family: 'Amatic SC';
+        font-size: 30px;
+    }
     height: 136px;
     width: 100%;
     display: flex;
