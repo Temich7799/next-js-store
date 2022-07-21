@@ -16,7 +16,6 @@ const StyledTitle = styled.div<StyledTitleProps>`
     overflow: hidden;
     h1 {
         position: absolute;
-        font-family: 'Amatic SC';
         font-weight: 700;
         font-size: 60px;
         margin: 0;
@@ -29,7 +28,7 @@ const StyledTitle = styled.div<StyledTitleProps>`
 
 type TitleProps = { children: string }
 
-const TitleH1 = (props: TitleProps) => {
+const PageTitle = (props: TitleProps) => {
 
     const { children } = props;
 
@@ -41,4 +40,4 @@ const TitleH1 = (props: TitleProps) => {
     )
 }
 
-export default TitleH1;
+export default PageTitle;

@@ -3,7 +3,7 @@ import * as React from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
 import CategoryThumb from "../components/Product/CategoryThumb";
-import TitleH1 from "../components/TitleH1";
+import TitleH1 from "../components/PageTitle";
 
 
 const Main = styled.main`
