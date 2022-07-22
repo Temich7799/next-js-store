@@ -24,7 +24,7 @@ const config: GatsbyConfig = {
       options: {
         "trackingId": "none"
       }
-    }, "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-styled-components",
+    }, "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-styled-components", "gatsby-plugin-breadcrumb",
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -34,7 +34,7 @@ const config: GatsbyConfig = {
       __key: "images"
     },
     {
-      resolve: 'gatsby-source-woocommerce-master',
+      resolve: '@pasdo501/gatsby-source-woocommerce',
       options: {
         api: 'localhost:8888/wordpress',
         https: false,
