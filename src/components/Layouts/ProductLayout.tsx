@@ -16,14 +16,43 @@ const Main = styled.main`
 `;
 
 type ProductProps = {
-    data: any
+    data: {
+        wcProducts: {
+            categories: [{}]
+            description: string
+            dimensions: {
+                height: string
+                length: string
+                width: string
+            }
+            images: [
+                {
+                    alt: string
+                    src: string
+                }
+            ]
+            name: string
+            price: string
+            purchasable: boolean
+            related_products: [{}]
+            sale_price: string
+            sku: string
+            wordpress_id: number
+        }
+        wcProductsReviews: {
+            date_created: string
+            product_id: number
+            product_name: string
+            review: string
+            reviewer: string
+            verified: boolean
+        }
+    }
 }
 
 const ProductLayout = (props: ProductProps) => {
 
     const { data } = props;
-
-    console.log(data);
 
     return (
         <Layout>
@@ -32,7 +61,7 @@ const ProductLayout = (props: ProductProps) => {
                 <ProductAbout data={data.wcProducts}></ProductAbout>
                 <ProductDescription data={data.wcProducts.description}></ProductDescription>
                 <hr />
-                <ProductReviews></ProductReviews>
+                <ProductReviews data={data.wcProductsReviews}></ProductReviews>
             </Main>
         </Layout>
     )
@@ -41,38 +70,47 @@ const ProductLayout = (props: ProductProps) => {
 export default ProductLayout
 
 export const query = graphql`
-  query getProduct($slug: String!){
-    wcProducts(slug: { eq: $slug }){
+  query getProduct($productId: Int!){
+    wcProducts(wordpress_id: {eq: $productId}) {
         price
         sale_price
-      related_products {
+        related_products {
             name
             price
             sale_price
             sku
         images {
-                alt
-                src
-            }
-            purchasable
+            alt
+            src
+        }
+        purchasable
+        on_sale
         }
         description
-      dimensions {
+        dimensions {
             height
             length
             width
         }
-      images {
+        images {
             alt
             src
         }
-      categories {
+        categories {
             slug
         }
         name
         purchasable
         sku
+        wordpress_id
     }
-}
-`;
+    wcProductsReviews(product_id: {eq: $productId}) {
+        date_created
+        product_name
+        review
+        reviewer
+        verified
+        product_id
+    }
+}`;
 

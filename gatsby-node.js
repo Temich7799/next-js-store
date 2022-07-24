@@ -58,6 +58,7 @@ exports.createPages = async function ({ actions, graphql }) {
           edges {
             node {
               sku
+              wordpress_id
               slug
               categories {
                 slug
@@ -66,13 +67,13 @@ exports.createPages = async function ({ actions, graphql }) {
           }
         }
       }
-    `);
+  `);
 
     data.allWcProducts.edges.forEach((edge) => {
       actions.createPage({
         path: `catalog/${edge.node.categories[0].slug}/${edge.node.categories[0].slug}-${edge.node.sku}`,
         component: path.resolve(`./src/components/Layouts/ProductLayout.tsx`),
-        context: { slug: edge.node.slug },
+        context: { productId: edge.node.wordpress_id },
       })
     })
   }

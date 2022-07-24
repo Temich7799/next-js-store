@@ -42,7 +42,7 @@ const config: GatsbyConfig = {
           consumer_key: 'ck_0db198da88b1a81b2e7766af5126771190b31b96',
           consumer_secret: 'cs_601709c4babde4702e285a2f972dad154f2021c7',
         },
-        fields: ['products', 'products/categories', 'products/attributes']
+        fields: ['products', 'products/categories', 'products/attributes', 'products/reviews']
       }
     }
   ]
