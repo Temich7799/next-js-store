@@ -60,26 +60,23 @@ const Menu = () => {
                     <StaticImage src="../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
                   </Link>
                   {
-                    (link.parentId === null)
-                      ?
-                      <li>
-                        <Link to={link.url}>
-                          {link.label}
-                          {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
-                        </Link>
-                      </li>
-                      : false
+                    link.parentId === null &&
+                    <li>
+                      <Link to={link.url}>
+                        {link.label}
+                        {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
+                      </Link>
+                    </li>
                   }
                 </>
                 :
-                (link.parentId === null) ?
-                  <li>
-                    <Link to={link.url}>
-                      {link.label}
-                      {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
-                    </Link>
-                  </li>
-                  : false
+                link.parentId === null &&
+                <li>
+                  <Link to={link.url}>
+                    {link.label}
+                    {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
+                  </Link>
+                </li>
             )
         }
       </ul>
