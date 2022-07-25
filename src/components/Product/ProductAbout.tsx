@@ -56,7 +56,7 @@ const ProductAbout = (props: ProductAboutProps) => {
                 <StyledProductAttributes>
                     <>
                         <ProductAttributes data={data.attributes} />
-                        {height && <p><ProductAttribute svgPath='./svg/height.svg' />{height.options[0]}</p>}
+                        {height && <p><ProductAttribute svgPath='/svg/height.svg' />{height.options[0]}</p>}
                     </>
                 </StyledProductAttributes>
 
