@@ -15,7 +15,11 @@ const StyledProductThumb = styled.div`
     }
 `;
 
-const Caption = styled.div`
+const ProductImage = styled.div`
+    position: relative;
+`;
+
+const ProductCaption = styled.div`
     font-family: 'Amatic SC';
     font-size: 20px;
     height: 100%;
@@ -55,14 +59,17 @@ const ProductThumb = (props: ProductProps) => {
 
     return (
         <StyledProductThumb>
-            <Link to={`${data.categories[0].slug}-${data.sku}`}>
-                <img src={data.images[0].src} alt={data.images[0].alt} />
-            </Link>
-            <Caption>
+            <ProductImage>
+                <Link to={`${data.categories[0].slug}-${data.sku}`}>
+                    <img src={data.images[0].src} alt={data.images[0].alt} />
+                </Link>
+
+            </ProductImage>
+            <ProductCaption>
                 <p>SKU: {data.sku}</p>
-                <ProductAttributes data={data.attributes} />
+                {data.attributes.length && <ProductAttributes data={data.attributes} />}
                 <p>Price: <b>{data.price}</b>$</p>
-            </Caption>
+            </ProductCaption>
         </StyledProductThumb>
     )
 }

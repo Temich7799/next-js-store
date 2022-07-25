@@ -1,28 +1,27 @@
 import * as React from "react"
 import styled from "styled-components"
-import getHeightAttribute from "../../services/getHeightAttribute";
+import { getHeightAttribute } from "../../services/attributes";
 import Button from "../Button";
 import ProductAttribute from "./ProductAttribute";
 import ProductAttributes from "./ProductAttributes";
 
 const StyledProductAbout = styled.div`
+    position: relative;
     width: fit-content;
     max-width: 450px;
     height: 400px;
 `;
 
-const StyledProductAttributes = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-`;
-
 const ProductName = styled.div`
-
+    display: flex;
+    gap:15px;
+    justify-content: space-between;
 `;
 
 const ProductBuy = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap:15px;
 `;
 
 type ProductAttribute = {
@@ -48,17 +47,17 @@ const ProductAbout = (props: ProductAboutProps) => {
     return (
         <StyledProductAbout>
             <ProductName>
-                <h1>{data.name}</h1>
-                <p>SKU: {data.sku}</p>
+                <>
+                    <div>
+                        <h1>{data.name}</h1>
+                        <p>SKU: {data.sku}</p>
+                    </div>
+                    {height != undefined && <p><ProductAttribute svgPath='/svg/height.svg' />{height.options[0]}</p>}
+                </>
             </ProductName>
             {
                 data.attributes.length &&
-                <StyledProductAttributes>
-                    <>
-                        <ProductAttributes data={data.attributes} />
-                        {height && <p><ProductAttribute svgPath='/svg/height.svg' />{height.options[0]}</p>}
-                    </>
-                </StyledProductAttributes>
+                <ProductAttributes data={data.attributes} />
 
             }
             <ProductBuy>

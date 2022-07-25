@@ -1,5 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
+import { checkName, getName, makePath } from "../../services/attributes";
 import ProductAttribute from "./ProductAttribute";
 
 const StyledProductAttributes = styled.div`
@@ -7,9 +8,9 @@ const StyledProductAttributes = styled.div`
     height: 12%;
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    gap: 15px;
     margin: 2.5% 0;
+    overflow-x: scroll;
 `;
 
 type ProductAttributesProps = {
@@ -25,17 +26,6 @@ const ProductAttributes = (props: ProductAttributesProps) => {
 
     const { data } = props;
 
-    function getName(attributeName: string): string {
-        return attributeName.split('/')[1].toLowerCase();
-    }
-
-    function checkName(attributeName: string): boolean {
-        return (attributeName.indexOf('/') == -1) ? false : true
-    }
-
-    function makePath(attributeName: string): string {
-        return `/svg/${getName(attributeName)}.svg`
-    }
 
     return (
         <StyledProductAttributes>
