@@ -3,7 +3,6 @@ import styled from "styled-components"
 import Post from "../Post";
 
 const StyledProductReviews = styled.div`
-    border: 1px solid blue;
     width: 40%;
 `;
 
