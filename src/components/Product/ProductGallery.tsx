@@ -5,7 +5,7 @@ const StyledProductGallery = styled.div`
     width: 500px;
     height: 400px;
     img {
-        width: 400px;
+        height: 100%;
     }
 `;
 
