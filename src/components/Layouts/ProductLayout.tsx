@@ -15,6 +15,11 @@ const Main = styled.main`
     padding: 5%;
 `;
 
+type ProductAttribute = {
+    options: [string]
+    name: string
+}
+
 type ProductProps = {
     data: {
         wcProducts: {
@@ -25,6 +30,7 @@ type ProductProps = {
                 length: string
                 width: string
             }
+            attributes: [ProductAttribute]
             images: [
                 {
                     alt: string
@@ -72,6 +78,10 @@ export default ProductLayout
 export const query = graphql`
   query getProduct($productId: Int!){
     wcProducts(wordpress_id: {eq: $productId}) {
+        attributes {
+            options
+            name
+      }
         price
         sale_price
         related_products {

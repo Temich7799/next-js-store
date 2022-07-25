@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
+import ProductAttributes from "./ProductAttributes";
 
 const StyledProductThumb = styled.div`
     height: 245px;
@@ -27,6 +28,11 @@ const Caption = styled.div`
     }
 `;
 
+type ProductAttribute = {
+    options: [string]
+    name: string
+}
+
 type ProductProps = {
     data: {
         slug: string
@@ -39,6 +45,7 @@ type ProductProps = {
         categories: [
             { slug: string }
         ]
+        attributes: [ProductAttribute]
     }
 }
 
@@ -53,6 +60,7 @@ const ProductThumb = (props: ProductProps) => {
             </Link>
             <Caption>
                 <p>SKU: {data.sku}</p>
+                <ProductAttributes data={data.attributes} />
                 <p>Price: <b>{data.price}</b>$</p>
             </Caption>
         </StyledProductThumb>

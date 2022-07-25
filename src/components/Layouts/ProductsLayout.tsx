@@ -53,6 +53,10 @@ export const query = graphql`
           categories {
             slug
           }
+          attributes {
+            options
+            name
+        }
         }
       }
     }
