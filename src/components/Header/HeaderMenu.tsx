@@ -51,33 +51,27 @@ const Menu = () => {
     <StyledMenu>
       <ul>
         {
-          links.map
-            (
-              (link: any) => (links.indexOf(link) == Math.floor(links.length / 2))
-                ?
-                <>
-                  <Link to="/">
+          links.map(
+            (link: any) =>
+              <>
+                {
+                  links.indexOf(link) == Math.floor(links.length / 2) &&
+                  < Link to="/">
                     <StaticImage src="../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
                   </Link>
-                  {
-                    link.parentId === null &&
-                    <li>
-                      <Link to={link.url}>
-                        {link.label}
-                        {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
-                      </Link>
-                    </li>
-                  }
-                </>
-                :
-                link.parentId === null &&
-                <li>
-                  <Link to={link.url}>
-                    {link.label}
-                    {(link.childItems.nodes.length) ? < HeaderSubMenu childItems={link.childItems.nodes} /> : false}
-                  </Link>
-                </li>
-            )
+                }
+                {
+                  link.parentId === null &&
+                  <li>
+                    {
+                      (link.childItems.nodes.length)
+                        ? <Link to={link.url}>{link.label}< HeaderSubMenu childItems={link.childItems.nodes} /></Link>
+                        : <Link to={link.url}>{link.label}</Link>
+                    }
+                  </li>
+                }
+              </>
+          )
         }
       </ul>
     </StyledMenu >
