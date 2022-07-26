@@ -7,10 +7,11 @@ const StyledProductAttributes = styled.div`
     width: 100%;
     height: 12%;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 15px;
     margin: 2.5% 0;
-    overflow-x: scroll;
+    overflow-y: scroll;
 `;
 
 type ProductAttributesProps = {
