@@ -8,7 +8,7 @@ const Main = styled.main`
   display: grid;
   grid-template-columns: repeat(auto-fill,minmax(auto,165px));
   justify-content: center;
-  gap: 25px;
+  gap: 50px;
   padding: 2.5%;
 `
 
