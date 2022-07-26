@@ -4,7 +4,7 @@ import styled from "styled-components"
 import ProductAttributes from "./ProductAttributes";
 
 const StyledProductThumb = styled.div`
-    height: 245px;
+    height: 280px;
     width: 165px;
     display: flex;
     flex-direction: column;
@@ -12,6 +12,8 @@ const StyledProductThumb = styled.div`
     box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
     img {
         width:100%;
+        height: 220px;
+        object-fit: cover;
     }
 `;
 
@@ -63,11 +65,9 @@ const ProductThumb = (props: ProductProps) => {
                 <Link to={`${data.categories[0].slug}-${data.sku}`}>
                     <img src={data.images[0].src} alt={data.images[0].alt} />
                 </Link>
-
             </ProductImage>
             <ProductCaption>
                 <p>SKU: {data.sku}</p>
-                {data.attributes.length && <ProductAttributes data={data.attributes} />}
                 <p>Price: <b>{data.price}</b>$</p>
             </ProductCaption>
         </StyledProductThumb>
