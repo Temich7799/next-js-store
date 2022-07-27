@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useState } from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
 import ProductAttributes from "./ProductAttributes";
@@ -69,15 +69,20 @@ const ProductThumb = (props: ProductProps) => {
 
     const { data } = props;
 
+    const [isMouseOver, setMouseOver] = useState(false);
+
     return (
         <StyledProductThumb>
-            <ProductImage>
+            <ProductImage onMouseOver={() => setMouseOver(true)} onMouseLeave={() => setMouseOver(false)}>
                 <Link to={`${data.categories[0].slug}-${data.sku}`}>
                     <img src={data.images[0].src} alt={data.images[0].alt} />
                 </Link>
-                <ProductThumbAttributesSlider>
-                    <ProductAttributes data={data.attributes} />
-                </ProductThumbAttributesSlider>
+                {
+                    isMouseOver &&
+                    <ProductThumbAttributesSlider>
+                        <ProductAttributes data={data.attributes} />
+                    </ProductThumbAttributesSlider>
+                }
             </ProductImage>
             <ProductCaption>
                 <p>SKU: {data.sku}</p>
