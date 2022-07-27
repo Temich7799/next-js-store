@@ -14,7 +14,7 @@ const StyledProductAbout = styled.div`
 
 const ProductName = styled.div`
     display: flex;
-    gap:15px;
+    gap: 15px;
     justify-content: space-between;
 `;
 
@@ -58,7 +58,6 @@ const ProductAbout = (props: ProductAboutProps) => {
             {
                 data.attributes.length &&
                 <ProductAttributes data={data.attributes} />
-
             }
             <ProductBuy>
                 <p>Price: <b>{data.price}</b></p>

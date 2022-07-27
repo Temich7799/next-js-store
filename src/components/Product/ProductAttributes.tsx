@@ -5,7 +5,7 @@ import ProductAttribute from "./ProductAttribute";
 
 const StyledProductAttributes = styled.div`
     width: 100%;
-    height: 12%;
+    max-height: 280px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

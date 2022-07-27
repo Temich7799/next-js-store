@@ -6,10 +6,8 @@ type ProductAttributeProps = {
 }
 
 const StyledProductAttribute = styled.div<ProductAttributeProps>`
-    height: 100%;
-    width: 100%;
-    min-height: 25px;
-    max-width: 45px;
+    height: 25px;
+    width: 45px;
     background-image: url(${props => props.svgPath});
     background-size: 100% 100%;
 `;

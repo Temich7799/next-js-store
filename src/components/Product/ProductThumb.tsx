@@ -21,6 +21,16 @@ const ProductImage = styled.div`
     position: relative;
 `;
 
+const ProductThumbAttributesSlider = styled.div`
+    position: absolute; 
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 92%;
+    padding: 5px 0;
+    overflow: scroll;
+`;
+
 const ProductCaption = styled.div`
     font-family: 'Amatic SC';
     font-size: 20px;
@@ -65,6 +75,9 @@ const ProductThumb = (props: ProductProps) => {
                 <Link to={`${data.categories[0].slug}-${data.sku}`}>
                     <img src={data.images[0].src} alt={data.images[0].alt} />
                 </Link>
+                <ProductThumbAttributesSlider>
+                    <ProductAttributes data={data.attributes} />
+                </ProductThumbAttributesSlider>
             </ProductImage>
             <ProductCaption>
                 <p>SKU: {data.sku}</p>
