@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
 import ProductAttributes from "./ProductAttributes";
+import { getHeightAttribute } from "../../services/attributes";
+import ProductAttribute from "./ProductAttribute";
 
 const StyledProductThumb = styled.div`
     height: 280px;
@@ -35,10 +37,10 @@ const ProductCaption = styled.div`
     font-family: 'Amatic SC';
     font-size: 20px;
     height: 100%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     p {
         margin: 0;
     }
@@ -71,22 +73,27 @@ const ProductThumb = (props: ProductProps) => {
 
     const [isMouseOver, setMouseOver] = useState(false);
 
+    const height = getHeightAttribute(data.attributes);
+
     return (
         <StyledProductThumb>
             <ProductImage onMouseOver={() => setMouseOver(true)} onMouseLeave={() => setMouseOver(false)}>
                 <Link to={`${data.categories[0].slug}-${data.sku}`}>
                     <img src={data.images[0].src} alt={data.images[0].alt} />
+                    {
+                        data.attributes.length && isMouseOver &&
+                        <ProductThumbAttributesSlider>
+                            <ProductAttributes data={data.attributes} />
+                        </ProductThumbAttributesSlider>
+                    }
                 </Link>
-                {
-                    isMouseOver &&
-                    <ProductThumbAttributesSlider>
-                        <ProductAttributes data={data.attributes} />
-                    </ProductThumbAttributesSlider>
-                }
             </ProductImage>
             <ProductCaption>
-                <p>SKU: {data.sku}</p>
-                <p>Price: <b>{data.price}</b>$</p>
+                <div>
+                    <p>SKU: {data.sku}</p>
+                    <p>Price: <b>{data.price}</b>$</p>
+                </div>
+                {height != undefined && <p><ProductAttribute svgPath='/svg/height.svg' />{height.options[0]}</p>}
             </ProductCaption>
         </StyledProductThumb>
     )
