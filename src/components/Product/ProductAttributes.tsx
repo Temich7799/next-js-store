@@ -27,14 +27,13 @@ const ProductAttributes = (props: ProductAttributesProps) => {
 
     const { data } = props;
 
-
     return (
         <StyledProductAttributes>
             <>
                 {
                     data.map((attribute) =>
                         (checkName(attribute.name) && getName(attribute.name) != "height") &&
-                        <ProductAttribute svgPath={makePath(attribute.name)} />
+                        <ProductAttribute svgPath={makePath(attribute.name)} height="25px" width="45px" />
                     )
                 }
             </>
