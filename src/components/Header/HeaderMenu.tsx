@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useState } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import { StaticImage } from "gatsby-plugin-image"
@@ -47,6 +47,8 @@ const Menu = () => {
 
   const links = data.wpMenu.menuItems.nodes;
 
+  const [isMouseOver, setMouseOver] = useState(false);
+
   return (
     <StyledMenu>
       <ul>
@@ -65,7 +67,13 @@ const Menu = () => {
                   <li>
                     {
                       (link.childItems.nodes.length)
-                        ? <Link to={link.url}>{link.label}< HeaderSubMenu childItems={link.childItems.nodes} /></Link>
+                        ? <Link
+                          to={link.url}
+                          onMouseOver={() => setMouseOver(true)}
+                          onMouseLeave={() => setMouseOver(false)}>
+                          {link.label}
+                          {isMouseOver && < HeaderSubMenu childItems={link.childItems.nodes} />}
+                        </Link>
                         : <Link to={link.url}>{link.label}</Link>
                     }
                   </li>
