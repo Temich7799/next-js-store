@@ -52,7 +52,7 @@ const ProductAbout = (props: ProductAboutProps) => {
                         <h1>{data.name}</h1>
                         <p>SKU: {data.sku}</p>
                     </div>
-                    {height != undefined && <div><ProductAttribute svgPath='/svg/height.svg' height="100%" />{height.options[0]}</div>}
+                    {height != undefined && <p><ProductAttribute svgPath='/svg/height.svg' height="100%" />{height.options[0]}</p>}
                 </>
             </ProductName>
             {
