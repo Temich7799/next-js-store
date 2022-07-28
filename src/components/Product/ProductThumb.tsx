@@ -93,7 +93,7 @@ const ProductThumb = (props: ProductProps) => {
                     <p>SKU: {data.sku}</p>
                     <p>Price: <b>{data.price}</b>$</p>
                 </div>
-                {height != undefined && <p><ProductAttribute svgPath='/svg/height.svg' />{height.options[0]}</p>}
+                {height != undefined && <p><ProductAttribute svgPath='/svg/height.svg' height="100%" />{height.options[0]}</p>}
             </ProductCaption>
         </StyledProductThumb>
     )
