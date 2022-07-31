@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 import { getHeightAttribute } from "../../services/attributes";
 import Button from "../Button";
-import ProductAttribute from "./ProductAttribute";
+import ImageSVG from "../ImageSVG";
 import ProductAttributes from "./ProductAttributes";
 
 const StyledProductAbout = styled.div`
@@ -52,7 +52,7 @@ const ProductAbout = (props: ProductAboutProps) => {
                         <h1>{data.name}</h1>
                         <p>SKU: {data.sku}</p>
                     </div>
-                    {height != undefined && <p><ProductAttribute svgPath='/svg/height.svg' height="100%" />{height.options[0]}</p>}
+                    {height != undefined && <p><ImageSVG path='/svg/height.svg' height="100%" />{height.options[0]}</p>}
                 </>
             </ProductName>
             {

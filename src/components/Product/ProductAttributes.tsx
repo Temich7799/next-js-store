@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
 import { checkName, getName, makePath } from "../../services/attributes";
-import ProductAttribute from "./ProductAttribute";
+import ImageSVG from "../ImageSVG";
 
 const StyledProductAttributes = styled.div`
     width: 100%;
@@ -33,7 +33,7 @@ const ProductAttributes = (props: ProductAttributesProps) => {
                 {
                     data.map((attribute) =>
                         (checkName(attribute.name) && getName(attribute.name) != "height") &&
-                        <ProductAttribute svgPath={makePath(attribute.name)} height="25px" width="45px" />
+                        <ImageSVG path={makePath(attribute.name)} height="25px" width="45px" />
                     )
                 }
             </>

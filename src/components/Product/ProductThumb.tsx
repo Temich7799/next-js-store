@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
-import ProductAttributes from "./ProductAttributes";
 import { getHeightAttribute } from "../../services/attributes";
-import ProductAttribute from "./ProductAttribute";
+import ImageSVG from "../ImageSVG";
+import ProductAttributes from "./ProductAttributes";
 
 const StyledProductThumb = styled.div`
     height: 280px;
@@ -93,7 +93,7 @@ const ProductThumb = (props: ProductProps) => {
                     <p>SKU: {data.sku}</p>
                     <p>Price: <b>{data.price}</b>$</p>
                 </div>
-                {height != undefined && <p><ProductAttribute svgPath='/svg/height.svg' height="100%" />{height.options[0]}</p>}
+                {height != undefined && <p><ImageSVG path='/svg/height.svg' height="100%" />{height.options[0]}</p>}
             </ProductCaption>
         </StyledProductThumb>
     )
