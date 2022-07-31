@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
-import Button from "../Button";
-import getRandomColor from "../../services/randomColors/colors";
+import Button from "../../Button";
+import getRandomColor from "../../../services/randomColors/colors";
 
 const StyledCategoryThumb = styled.div`
     height: 490px;
@@ -14,8 +14,13 @@ const ImageFigure = styled.figure`
     position: relative;
     max-width: 335px;
     margin: 0;
+    overflow: hidden;
     img {
         width: 100%;
+        :hover{
+            transition: 100ms;
+            transform: scale(1.2);
+        }
     }
 `;
 
@@ -73,15 +78,15 @@ const CategoryThumb = (props: CategoryProps) => {
     return (
         <StyledCategoryThumb>
             <ImageFigure>
-                <img src={data.image.src} alt={data.image.alt} />
+                <Link to={data.slug}><img src={data.image.src} alt={data.image.alt} /></Link>
                 <ImageCaption captionColor={getRandomColor()}>
                     <Line />
-                    <p>{data.name}</p>
+                    <p dangerouslySetInnerHTML={{ __html: data.name }} />
                     <Line />
                 </ImageCaption>
             </ImageFigure>
             <Caption>
-                <p>{data.description}</p>
+            <p dangerouslySetInnerHTML={{ __html: data.description }} />
                 <Link to={data.slug}>
                     <Button>Know more</Button>
                 </Link>

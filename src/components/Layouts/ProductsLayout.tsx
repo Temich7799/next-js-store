@@ -1,7 +1,7 @@
 import * as React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
-import ProductThumb from "../Product/ProductThumb";
+import ProductThumb from "../Product/Thumbs/ProductThumb";
 import styled from "styled-components";
 
 const Main = styled.main`

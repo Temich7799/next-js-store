@@ -2,7 +2,7 @@ import { graphql } from "gatsby";
 import * as React from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
-import CategoryThumb from "../components/Product/CategoryThumb";
+import CategoryThumb from "../components/Product/Thumbs/CategoryThumb";
 import TitleH1 from "../components/PageTitle";
 
 

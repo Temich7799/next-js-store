@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
-import { getHeightAttribute } from "../../services/attributes";
-import ImageSVG from "../ImageSVG";
-import ProductAttributes from "./ProductAttributes";
+import { getHeightAttribute } from "../../../services/attributes";
+import ImageSVG from "../../ImageSVG";
+import ProductAttributes from "../ProductAbout/ProductAttributes";
 
 const StyledProductThumb = styled.div`
     height: 280px;
@@ -21,6 +21,7 @@ const StyledProductThumb = styled.div`
 
 const ProductImage = styled.div`
     position: relative;
+
 `;
 
 const ProductThumbAttributesSlider = styled.div`
@@ -36,7 +37,7 @@ const ProductThumbAttributesSlider = styled.div`
 const ProductCaption = styled.div`
     font-family: 'Amatic SC';
     font-size: 20px;
-    height: 100%;
+    height: 55px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -44,6 +45,13 @@ const ProductCaption = styled.div`
     p {
         margin: 0;
     }
+`;
+
+const HeightAttributeContainer = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 type ProductAttribute = {
@@ -75,6 +83,7 @@ const ProductThumb = (props: ProductProps) => {
 
     const height = getHeightAttribute(data.attributes);
 
+
     return (
         <StyledProductThumb>
             <ProductImage onMouseOver={() => setMouseOver(true)} onMouseLeave={() => setMouseOver(false)}>
@@ -93,7 +102,7 @@ const ProductThumb = (props: ProductProps) => {
                     <p>SKU: {data.sku}</p>
                     <p>Price: <b>{data.price}</b>$</p>
                 </div>
-                {height != undefined && <p><ImageSVG path='/svg/height.svg' height="100%" />{height.options[0]}</p>}
+                {height != undefined && <HeightAttributeContainer><ImageSVG path='/svg/height.svg' height="100%" width="25px" /><p>{height.options[0]}</p></HeightAttributeContainer>}
             </ProductCaption>
         </StyledProductThumb>
     )

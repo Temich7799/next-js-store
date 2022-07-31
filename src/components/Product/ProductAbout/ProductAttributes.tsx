@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
-import { checkName, getName, makePath } from "../../services/attributes";
-import ImageSVG from "../ImageSVG";
+import { checkName, getName, makePath } from "../../../services/attributes";
+import ImageSVG from "../../ImageSVG";
 
 const StyledProductAttributes = styled.div`
     width: 100%;
@@ -10,7 +10,7 @@ const StyledProductAttributes = styled.div`
     flex-wrap: wrap;
     align-items: center;
     gap: 15px;
-    margin: 2.5% 0;
+    margin: 15px 0;
     overflow-y: scroll;
 `;
 
@@ -29,14 +29,12 @@ const ProductAttributes = (props: ProductAttributesProps) => {
 
     return (
         <StyledProductAttributes>
-            <>
-                {
-                    data.map((attribute) =>
-                        (checkName(attribute.name) && getName(attribute.name) != "height") &&
-                        <ImageSVG path={makePath(attribute.name)} height="25px" width="45px" />
-                    )
-                }
-            </>
+            {
+                data.map((attribute) =>
+                    (checkName(attribute.name) && getName(attribute.name) != "height") &&
+                    <ImageSVG path={makePath(attribute.name)} height="25px" width="45px" />
+                )
+            }
         </StyledProductAttributes >
     )
 
