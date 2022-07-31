@@ -17,7 +17,7 @@ const IndexPage = (props: IndexProps) => {
   return (
     <>
       <Layout>
-        {(data.wpPage.content) ? <main dangerouslySetInnerHTML={{ __html: data.wpPage.content }} /> : '404'}
+        {(data.wpPage.content) && <main dangerouslySetInnerHTML={{ __html: data.wpPage.content }} />}
       </Layout>
     </>
   )
