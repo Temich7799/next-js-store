@@ -1,11 +1,13 @@
 import * as React from "react"
 import styled from "styled-components"
 
-type StyledButtonProps = {
+type ButtonProps = {
+    children: JSX.Element | string
     size?: string
+    id?: string
 }
 
-const StyledButton = styled.button<StyledButtonProps>`
+const StyledButton = styled.button<any>`
     font-family: 'Amatic SC';
     border:none;
     background-color: #F7F7F7;
@@ -33,17 +35,12 @@ const StyledButton = styled.button<StyledButtonProps>`
     }
     `;
 
-type ButtonProps = {
-    children: JSX.Element | string
-    size?: string
-}
+const Button = (props: any) => {
 
-const Button = (props: ButtonProps) => {
-
-    const { children, size } = props;
+    const { children, size, ...rest } = props;
 
     return (
-        <StyledButton size={size}>
+        <StyledButton size={size} {...rest}>
             {children}
         </StyledButton>
     )

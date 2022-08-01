@@ -1,5 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
+import { addToCart } from "../../../services/addToCart";
 import Button from "../../Button";
 
 const StyledProductBuy = styled.div`
@@ -11,17 +12,18 @@ const StyledProductBuy = styled.div`
 
 type ProductBuyProps = {
     price: string
+    productId: number
 }
 
 const ProductBuy = (props: ProductBuyProps) => {
 
-    const { price } = props;
+    const { price, productId } = props;
 
     return (
         <StyledProductBuy>
             <p>Price: <b>{price}</b></p>
-            <Button>Buy</Button>
-        </StyledProductBuy>
+            <Button onClick={() => addToCart(productId)}>Buy</Button>
+        </StyledProductBuy >
     )
 }
 
