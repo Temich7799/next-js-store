@@ -7,6 +7,9 @@ const StyledProductName = styled.div`
     display: flex;
     gap: 15px;
     justify-content: space-between;
+    h1, p {
+        margin: 2.5% 0;
+    }
 `;
 
 type ProductAttribute = {
