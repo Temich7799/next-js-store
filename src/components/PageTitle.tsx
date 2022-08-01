@@ -1,7 +1,7 @@
 import { StaticImage } from "gatsby-plugin-image";
 import * as React from "react"
 import styled from "styled-components"
-import getRandomColor from "../services/randomColors/colors";
+import getRandomColor from "../services/getRandomColor";
 
 type StyledTitleProps = { backgroundColor: string }
 

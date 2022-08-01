@@ -2,7 +2,7 @@ import * as React from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
 import Button from "../../Button";
-import getRandomColor from "../../../services/randomColors/colors";
+import getRandomColor from "../../../services/getRandomColor";
 
 const StyledCategoryThumb = styled.div`
     height: 490px;
