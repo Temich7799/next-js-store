@@ -1,9 +1,8 @@
-import React, { useState } from "react"
+import React from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
 import { getHeightAttribute } from "../../../services/attributes";
 import ImageSVG from "../../ImageSVG";
-import ProductAttributes from "../ProductAbout/ProductAttributes";
 
 const StyledProductThumb = styled.div`
     height: 280px;
@@ -22,16 +21,6 @@ const StyledProductThumb = styled.div`
 const ProductImage = styled.div`
     position: relative;
 
-`;
-
-const ProductThumbAttributesSlider = styled.div`
-    position: absolute; 
-    top: 0;
-    right: 0;
-    width: 50px;
-    height: 92%;
-    padding: 5px 0;
-    overflow: scroll;
 `;
 
 const ProductCaption = styled.div`
@@ -79,22 +68,13 @@ const ProductThumb = (props: ProductProps) => {
 
     const { data } = props;
 
-    const [isMouseOver, setMouseOver] = useState(false);
-
     const height = getHeightAttribute(data.attributes);
-
 
     return (
         <StyledProductThumb>
-            <ProductImage onMouseOver={() => setMouseOver(true)} onMouseLeave={() => setMouseOver(false)}>
+            <ProductImage>
                 <Link to={`${data.categories[0].slug}-${data.sku}`}>
                     <img src={data.images[0].src} alt={data.images[0].alt} />
-                    {
-                        data.attributes.length && isMouseOver &&
-                        <ProductThumbAttributesSlider>
-                            <ProductAttributes data={data.attributes} />
-                        </ProductThumbAttributesSlider>
-                    }
                 </Link>
             </ProductImage>
             <ProductCaption>
