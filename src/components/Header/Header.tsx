@@ -6,10 +6,11 @@ import styled from "styled-components"
 const StyledHeader = styled.header`
 font-family: 'Amatic SC';
 font-size: 24px;
+font-weight: 100;
 line-height: 27px;
-color: #4b4b4b;
+color: #585858;
 a {
-    color: #4b4b4b; 
+    color: #585858; 
     text-decoration: none;
 }
 height: 140px;
