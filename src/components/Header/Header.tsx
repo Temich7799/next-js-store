@@ -1,5 +1,5 @@
 import * as React from "react"
-import SocialsList from "../SocialsList/SocialsList"
+import SocialsList from "../SocialsList"
 import Menu from "./HeaderMenu"
 import styled from "styled-components"
 
