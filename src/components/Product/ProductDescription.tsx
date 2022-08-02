@@ -1,5 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
+import NotCopyArea from "../NotCopyArea";
 
 const StyledProductDescription = styled.div`
     max-width: 55%;
@@ -15,8 +16,10 @@ const ProductDescription = (props: ProductDescriptionProps) => {
 
     return (
         <StyledProductDescription>
-            <h3>Description</h3>
-            <div dangerouslySetInnerHTML={{ __html: data }} />
+            <NotCopyArea>
+                <h3>Description</h3>
+                <p dangerouslySetInnerHTML={{ __html: data }} />
+            </NotCopyArea>
         </StyledProductDescription>
     )
 }
