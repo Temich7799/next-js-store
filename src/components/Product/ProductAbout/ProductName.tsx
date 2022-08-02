@@ -2,12 +2,14 @@ import * as React from "react"
 import styled from "styled-components"
 import { getHeightAttribute } from "../../../services/attributes";
 import ImageSVG from "../../ImageSVG";
+import CopyArea from "../../CopyArea";
 
 const StyledProductName = styled.div`
     display: flex;
     gap: 15px;
     justify-content: space-between;
     h1, p {
+        display: inline-block;
         margin: 2.5% 0;
     }
 `;
@@ -32,8 +34,8 @@ const ProductName = (props: ProductNameProps) => {
     return (
         <StyledProductName>
             <div>
-                <h1>{name}</h1>
-                <p>SKU: {sku}</p>
+                <CopyArea><h1>{name}</h1></CopyArea>
+                <CopyArea><p>SKU: {sku}</p></CopyArea>
             </div>
             {height != undefined && <p><ImageSVG path='/svg/height.svg' height="100%" />{height.options[0]}</p>}
         </StyledProductName>
