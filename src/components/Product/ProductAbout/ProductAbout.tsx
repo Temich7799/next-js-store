@@ -20,6 +20,7 @@ type ProductAttribute = {
 type ProductAboutProps = {
     data: {
         price: string
+        sale_price: string
         name: string
         sku: string
         attributes: [ProductAttribute]
@@ -35,7 +36,7 @@ const ProductAbout = (props: ProductAboutProps) => {
         <StyledProductAbout>
             <ProductName name={data.name} sku={data.sku} attributes={data.attributes} />
             {data.attributes.length && <ProductAttributes data={data.attributes} />}
-            <ProductBuy price={data.price} productId={data.wordpress_id} />
+            <ProductBuy price={data.price} salePrice={data.sale_price} productId={data.wordpress_id} />
             <ProductDelivery />
         </StyledProductAbout>
     )

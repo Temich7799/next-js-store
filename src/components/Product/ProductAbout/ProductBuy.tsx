@@ -2,6 +2,8 @@ import * as React from "react"
 import styled from "styled-components"
 import { addToCart } from "../../../services/addToCart";
 import Button from "../../Button";
+import ImageSVG from "../../ImageSVG";
+import ProductPrice from "../ProductPrice";
 
 const StyledProductBuy = styled.div`
     display: flex;
@@ -12,17 +14,23 @@ const StyledProductBuy = styled.div`
 
 type ProductBuyProps = {
     price: string
+    salePrice: string
     productId: number
 }
 
 const ProductBuy = (props: ProductBuyProps) => {
 
-    const { price, productId } = props;
+    const { price, salePrice, productId } = props;
 
     return (
         <StyledProductBuy>
-            <p>Price: <b>{price}</b></p>
-            <Button onClick={() => addToCart(productId)}>Buy</Button>
+            <ProductPrice price={price} salePrice={salePrice} />
+            <Button onClick={() => addToCart(productId)}>
+                <>
+                    Buy
+                    <ImageSVG path="/svg/add_to_cart.svg" height="25px" width="25px" />
+                </>
+            </Button>
         </StyledProductBuy >
     )
 }
