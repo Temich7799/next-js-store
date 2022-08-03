@@ -1,20 +1,20 @@
-type OrderedProduct = {
+type Product = {
     product_id: string
     quantity: number
 }
 
 export function addToCart(productId: number) {
 
-    const orderedProducts = localStorage.getItem('ordered_products');
+    const getProducts = localStorage.getItem('ordered_products');
     const newProduct = { 'product_id': productId, 'quantity': 1 };
 
     let isIdMatched = false;
 
-    function uptadeOrderedProducts(orderedProducts: string): Array<object> {
+    function uptadeOrderedProducts(getProducts: string): Array<object> {
 
-        const products = JSON.parse(orderedProducts);
+        const products = JSON.parse(getProducts);
 
-        products.forEach((product: OrderedProduct) => {
+        products.forEach((product: Product) => {
             if (product.product_id == productId.toString()) {
                 product.quantity++;
                 isIdMatched = true;
@@ -22,12 +22,12 @@ export function addToCart(productId: number) {
         });
 
         !isIdMatched && products.push(newProduct);
-        
+
         return products;
 
     }
-    orderedProducts
-        ? localStorage.setItem('ordered_products', JSON.stringify(uptadeOrderedProducts(orderedProducts)))
+    getProducts
+        ? localStorage.setItem('ordered_products', JSON.stringify(uptadeOrderedProducts(getProducts)))
         : localStorage.setItem('ordered_products', JSON.stringify([newProduct]))
 
     console.log(localStorage.getItem('ordered_products'));
