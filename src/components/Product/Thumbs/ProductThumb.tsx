@@ -3,17 +3,22 @@ import { Link } from "gatsby";
 import styled from "styled-components"
 import { getHeightAttribute } from "../../../services/attributes";
 import ImageSVG from "../../ImageSVG";
+import ProductBuy from "../ProductAbout/ProductBuy";
+import Button from "../../Button";
+import { addToCart } from "../../../services/addToCart";
+import ProductPrice from "../ProductPrice";
 
 const StyledProductThumb = styled.div`
-    height: 280px;
-    width: 165px;
+    height: 320px;
+    width: 225px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
     img {
         width:100%;
-        height: 220px;
+        height: 240px;
         object-fit: cover;
     }
 `;
@@ -53,6 +58,7 @@ type ProductProps = {
         slug: string
         sku: string
         price: string
+        sale_price: string
         images: [{
             src: string
             alt: string
@@ -61,6 +67,7 @@ type ProductProps = {
             { slug: string }
         ]
         attributes: [ProductAttribute]
+        wordpress_id: number
     }
 }
 
@@ -80,9 +87,13 @@ const ProductThumb = (props: ProductProps) => {
             <ProductCaption>
                 <div>
                     <p>SKU: {data.sku}</p>
-                    <p>Price: <b>{data.price}</b>$</p>
+                    <ProductPrice price={data.price} salePrice={data.sale_price} />
                 </div>
-                {height != undefined && <HeightAttributeContainer><ImageSVG path='/svg/height.svg' height="100%" width="25px" /><p>{height.options[0]}</p></HeightAttributeContainer>}
+                <div>
+                    <Button buttonSize="shrink" buttonStyle="transparent" onClick={() => addToCart(data.wordpress_id)}>
+                        <ImageSVG path="/svg/add_to_cart.svg" height="25px" width="25px" />
+                    </Button>
+                </div>
             </ProductCaption>
         </StyledProductThumb>
     )

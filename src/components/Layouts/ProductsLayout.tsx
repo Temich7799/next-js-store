@@ -57,6 +57,7 @@ export const query = graphql`
             options
             name
         }
+        wordpress_id
         }
       }
     }
