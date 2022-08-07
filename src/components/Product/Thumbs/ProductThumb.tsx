@@ -1,9 +1,7 @@
 import React from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
-import { getHeightAttribute } from "../../../services/attributes";
 import ImageSVG from "../../ImageSVG";
-import ProductBuy from "../ProductAbout/ProductBuy";
 import Button from "../../Button";
 import { addToCart } from "../../../services/addToCart";
 import ProductPrice from "../ProductPrice";
@@ -41,13 +39,6 @@ const ProductCaption = styled.div`
     }
 `;
 
-const HeightAttributeContainer = styled.div`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-
 type ProductAttribute = {
     options: [string]
     name: string
@@ -75,8 +66,6 @@ const ProductThumb = (props: ProductProps) => {
 
     const { data } = props;
 
-    const height = getHeightAttribute(data.attributes);
-
     return (
         <StyledProductThumb>
             <ProductImage>
@@ -91,7 +80,7 @@ const ProductThumb = (props: ProductProps) => {
                 </div>
                 <div>
                     <Button buttonSize="shrink" buttonStyle="transparent" onClick={() => addToCart(data.wordpress_id)}>
-                        <ImageSVG path="/svg/add_to_cart.svg" height="25px" width="25px" />
+                        <ImageSVG path='/svg/add_to_cart.svg' height="25px" width="25px" />
                     </Button>
                 </div>
             </ProductCaption>
