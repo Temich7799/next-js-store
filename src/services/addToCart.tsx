@@ -1,12 +1,16 @@
 type Product = {
-    product_id: string
+    name: string
+    sku: string
+    price: string
+    sale_price: string
+    image: { src: string, alt: string },
+    product_id: number
     quantity: number
 }
 
-export function addToCart(productId: number) {
+export function addToCart(newProduct: Product) {
 
     const getProducts = localStorage.getItem('ordered_products');
-    const newProduct = { 'product_id': productId, 'quantity': 1 };
 
     let isIdMatched = false;
 
@@ -15,8 +19,8 @@ export function addToCart(productId: number) {
         const products = JSON.parse(getProducts);
 
         products.forEach((product: Product) => {
-            if (product.product_id == productId.toString()) {
-                product.quantity++;
+            if (product.product_id == newProduct.product_id) {
+                newProduct.quantity++;
                 isIdMatched = true;
             }
         });

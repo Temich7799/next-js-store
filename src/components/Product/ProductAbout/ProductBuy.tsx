@@ -13,19 +13,38 @@ const StyledProductBuy = styled.div`
 `;
 
 type ProductBuyProps = {
-    price: string
-    salePrice: string
-    productId: number
+    data: {
+        name: string
+        slug: string
+        sku: string
+        price: string
+        sale_price: string
+        images: [{
+            src: string
+            alt: string
+        }]
+        wordpress_id: number
+    }
 }
 
 const ProductBuy = (props: ProductBuyProps) => {
 
-    const { price, salePrice, productId } = props;
+    const { data } = props;
+
+    const product = {
+        "name": data.name,
+        "sku": data.sku,
+        "price": data.price,
+        "sale_price": data.sale_price,
+        "image": { src: data.images[0].src, alt: data.images[0].alt },
+        "product_id": data.wordpress_id,
+        "quantity": 1
+    };
 
     return (
         <StyledProductBuy>
-            <ProductPrice price={price} salePrice={salePrice} />
-            <Button onClick={() => addToCart(productId)}>
+            <ProductPrice price={data.price} salePrice={data.sale_price} />
+            <Button onClick={() => addToCart(product)}>
                 <>
                     Buy
                     <ImageSVG path="/svg/add_to_cart.svg" height="25px" width="25px" />

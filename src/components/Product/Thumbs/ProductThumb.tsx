@@ -46,6 +46,7 @@ type ProductAttribute = {
 
 type ProductProps = {
     data: {
+        name: string
         slug: string
         sku: string
         price: string
@@ -66,6 +67,16 @@ const ProductThumb = (props: ProductProps) => {
 
     const { data } = props;
 
+    const product = {
+        "name": data.name,
+        "sku": data.sku,
+        "price": data.price,
+        "sale_price": data.sale_price,
+        "image": { src: data.images[0].src, alt: data.images[0].alt },
+        "product_id": data.wordpress_id,
+        "quantity": 1
+    };
+
     return (
         <StyledProductThumb>
             <ProductImage>
@@ -79,7 +90,7 @@ const ProductThumb = (props: ProductProps) => {
                     <ProductPrice price={data.price} salePrice={data.sale_price} />
                 </div>
                 <div>
-                    <Button buttonSize="shrink" buttonStyle="transparent" onClick={() => addToCart(data.wordpress_id)}>
+                    <Button buttonSize="shrink" buttonStyle="transparent" onClick={() => addToCart(product)}>
                         <ImageSVG path='/svg/add_to_cart.svg' height="25px" width="25px" />
                     </Button>
                 </div>

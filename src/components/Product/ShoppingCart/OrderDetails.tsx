@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
 import Button from "../../Button";
@@ -28,24 +28,52 @@ const OrderFinal = styled.div`
         text-align: center;
         font-size: 20px;
     }
-    div{
+    div{  
         display: flex;
         gap: 15px;
     }
 `;
 
+type Product = {
+    name: string
+    sku: string
+    price: string
+    sale_price: string
+    image: { src: string, alt: string },
+    product_id: number
+    quantity: number
+}
+
+type Products = [Product];
+
 const OrderDetails = () => {
 
+    const [products, setProducts] = useState<Products | undefined>();
     const [totalPrice, setTotalPrice] = useState(0);
 
-    function calcTotalPrice(price: number) {
-        setTotalPrice(price + totalPrice);
+    useEffect(() => setTotalPrice(calcTotalPrice(products)), [products]);
+    useEffect(() => setProductsHook(), [totalPrice]);
+
+    function setProductsHook(): void { setProducts(getProducts()) }
+
+    function getProducts(): Products {
+        let products;
+        const getProducts = localStorage.getItem('ordered_products');
+        if (getProducts) products = JSON.parse(getProducts);
+        return products;
     }
 
-    return ( 
+    function calcTotalPrice(products: Products | undefined): number {
+        let price = 0;
+        products && products.forEach((product: Product) =>
+            price = (parseInt(product.sale_price ? product.sale_price : product.price) + price) * product.quantity);
+        return price;
+    }
+
+    return (
         <StyledOrderDetails id="order_details">
             <h4>Your Order</h4>
-            <OrderedProducts calcTotalPrice={calcTotalPrice} />
+            <OrderedProducts setProductsHook={setProductsHook} data={products} />
             <OrderFinal>
                 <h4>Total </h4>
                 <p>{totalPrice} $</p>

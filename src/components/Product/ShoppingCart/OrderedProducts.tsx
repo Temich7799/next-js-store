@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import styled from "styled-components"
 import ProductName from "../ProductAbout/ProductName";
 import ProductPrice from "../ProductPrice";
@@ -28,58 +28,38 @@ const OrderedProductThumb = styled.img`
     object-fit: cover;
 `;
 
-type FetchedProduct = {
-    price: string
-    sale_price: string
+type Product = {
     name: string
     sku: string
-    id: number
-    images: [{
-        src: string
-        alt: string
-    }]
+    price: string
+    sale_price: string
+    image: { src: string, alt: string }
+    product_id: number
 }
 
 type OrderedProductsProps = {
-    calcTotalPrice?: Function
+    data: [Product] | undefined
+    setProductsHook: Function
 }
 
 const OrderedProducts = (props: OrderedProductsProps) => {
 
-    const { calcTotalPrice } = props;
-
-    const [fetchData, setFetchData] = useState([]);
-
-    useEffect(() => {
-        fetch('http://localhost:3000').then(async (response) => {
-            setFetchData(await response.json());
-        })
-    }, []);
-
-    useEffect(() => {
-
-        function calcTotalPriceFromFetch() {
-            let total = 0;
-            fetchData.forEach((product: any) => total = parseInt(product.price) + total);
-            return total;
-        }
-
-        calcTotalPrice && calcTotalPrice(calcTotalPriceFromFetch());
-
-    }, [fetchData]);
+    const { data, setProductsHook } = props;
 
     return (
         <StyledOrderedProducts id="ordered_products">
             <hr />
             {
-                fetchData.map((product: FetchedProduct) =>
-                    <OrderedProductDetails>
-                        <OrderedProductThumb src={product.images[0].src} alt={product.images[0].alt} />
-                        <ProductPrice price={product.price} salePrice={product.sale_price} />
-                        <ProductName name={product.name} sku={product.sku} attributes={[{ options: [""], name: "string" }]} />
-                        <OrderedProductQuantity calcTotalPrice={calcTotalPrice} price={product.price} salePrice={product.sale_price} productId={product.id} />
-                    </OrderedProductDetails>
-                )
+                data && data.length
+                    ? data.map((product: Product) =>
+                        <OrderedProductDetails>
+                            <OrderedProductThumb src={product.image.src} alt={product.image.alt} />
+                            <ProductPrice price={product.price} salePrice={product.sale_price} />
+                            <ProductName name={product.name} sku={product.sku} attributes={[{ options: [""], name: "string" }]} />
+                            <OrderedProductQuantity setProductsHook={setProductsHook} productId={product.product_id} />
+                        </OrderedProductDetails>
+                    )
+                    : <p>No products yet :/</p>
             }
             <hr />
         </StyledOrderedProducts>

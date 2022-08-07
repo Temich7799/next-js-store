@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import styled from "styled-components"
-import { addToCart } from "../../../services/addToCart";
 import Button from "../../Button";
 import ImageSVG from "../../ImageSVG";
 
@@ -14,30 +13,25 @@ const StyledOrderedProductQuantity = styled.div`
 
 type OrderedProductQuantityProps = {
     productId: number
-    price: string
-    salePrice: string
-    calcTotalPrice?: Function
+    setProductsHook: Function
 }
 type Product = {
-    product_id: string
+    product_id: number
     quantity: number
 }
 
 const OrderedProductQuantity = (props: OrderedProductQuantityProps) => {
 
-    const { productId, calcTotalPrice, price, salePrice } = props;
+    const { productId, setProductsHook } = props;
 
-    function increaseProductQuantity(productId: number): void { addToCart(productId) }
-
-    function decreaseProductQuantity(productId: number): void {
-
+    function changeProductQuantity(productId: number, direction: string) {
         const getProducts = localStorage.getItem('ordered_products');
         let products;
         if (getProducts) {
             products = JSON.parse(getProducts);
             products.forEach((product: Product) => {
-                if (product.product_id == productId.toString()) {
-                    product.quantity--;
+                if (product.product_id == productId) {
+                    direction == "decrease" ? product.quantity-- : product.quantity++;
                 }
             });
         }
@@ -53,7 +47,7 @@ const OrderedProductQuantity = (props: OrderedProductQuantityProps) => {
 
             const products = JSON.parse(getProducts);
             products.forEach((product: Product) => {
-                if (product.product_id == productId.toString()) {
+                if (product.product_id == productId) {
                     products.splice(products.indexOf(product), 1);
                 }
             });
@@ -65,11 +59,11 @@ const OrderedProductQuantity = (props: OrderedProductQuantityProps) => {
     function getProductQuantity(productId: number): number {
 
         const products = localStorage.getItem('ordered_products');
-        let quantity = 0;
+        let quantity = 1;
 
         if (products) {
             JSON.parse(products).forEach((product: Product) => {
-                if (product.product_id == productId.toString()) {
+                if (product.product_id == productId) {
                     quantity = product.quantity;
                 }
             });
@@ -78,33 +72,35 @@ const OrderedProductQuantity = (props: OrderedProductQuantityProps) => {
         return quantity;
     }
 
-    const [productQuantity, setProductQuantity] = useState(0);
-    useEffect(() => setProductQuantity(getProductQuantity(productId)), []);
-
     return (
         <StyledOrderedProductQuantity>
-            <p>x {productQuantity}</p>
+            <p>x {getProductQuantity(productId)}</p>
             <div>
                 <Button buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
-                        e.preventDefault(); increaseProductQuantity(productId);
-                        setProductQuantity(getProductQuantity(productId));
-                        calcTotalPrice && calcTotalPrice(parseInt(price));
+                        e.preventDefault();
+                        changeProductQuantity(productId, "increase");
+                        setProductsHook();
                     }}>
                     <ImageSVG path='/svg/increase.svg' height="25px" width="25px" />
                 </Button>
                 <Button buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
-                        e.preventDefault(); if (productQuantity > 1) {
-                            decreaseProductQuantity(productId);
-                            setProductQuantity(getProductQuantity(productId));
-                            calcTotalPrice && calcTotalPrice(-parseInt(price));
+                        e.preventDefault();
+                        if (getProductQuantity(productId) > 1) {
+                            changeProductQuantity(productId, "decrease");
+                            setProductsHook();
                         }
                     }}>
                     <ImageSVG path='/svg/decrease.svg' height="25px" width="25px" />
                 </Button>
             </div>
-            <Button buttonSize="shrink" buttonStyle="transparent" onClick={(e: any) => { e.preventDefault(); removeProduct(productId) }}>
+            <Button buttonSize="shrink" buttonStyle="transparent"
+                onClick={(e: any) => {
+                    e.preventDefault();
+                    removeProduct(productId);
+                    setProductsHook();
+                }}>
                 <ImageSVG path='/svg/clear_cart.svg' height="25px" width="25px" />
             </Button>
         </StyledOrderedProductQuantity>
