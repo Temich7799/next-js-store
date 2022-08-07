@@ -1,6 +1,11 @@
 import * as React from "react"
 import styled from "styled-components"
 
+const StyledProductPrice = styled.p`
+    display: flex;
+    flex-wrap: wrap;
+`;
+
 const OldPrice = styled.s`
     color: #8a8a8a;
     font-size: smaller;
@@ -20,10 +25,10 @@ type PriceProps = {
 
 const ProductPrice = (props: PriceProps) => {
 
-    const { price, salePrice } = props;
+    let { price, salePrice } = props;
 
     return (
-        <p>
+        <StyledProductPrice>
             <>
                 Price:{" "}
                 {
@@ -32,7 +37,7 @@ const ProductPrice = (props: PriceProps) => {
                         : price
                 }
             </>
-        </p>
+        </StyledProductPrice>
     )
 }
 
