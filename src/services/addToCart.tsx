@@ -29,7 +29,4 @@ export function addToCart(productId: number) {
     getProducts
         ? localStorage.setItem('ordered_products', JSON.stringify(uptadeOrderedProducts(getProducts)))
         : localStorage.setItem('ordered_products', JSON.stringify([newProduct]))
-
-    console.log(localStorage.getItem('ordered_products'));
-
 }
