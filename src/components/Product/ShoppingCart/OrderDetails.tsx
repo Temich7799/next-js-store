@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react"
 import { Link } from "gatsby";
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
+import sendOrder from "../../../services/sendOrder";
 import Button from "../../Button";
 import OrderedProducts from "./OrderedProducts";
 
@@ -50,9 +51,16 @@ const OrderDetails = () => {
 
     const [products, setProducts] = useState<Products | undefined>();
     const [totalPrice, setTotalPrice] = useState(0);
+    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
-    useEffect(() => setTotalPrice(calcTotalPrice(products)), [products]);
+    useEffect(() => {
+        setTotalPrice(calcTotalPrice(products));
+        products && setIsButtonDisabled(products.length ? false : true);
+    }, [products]);
     useEffect(() => setProductsHook(), [totalPrice]);
+
+    const [isFinalStep, setIsFinalStep] = useState<boolean>(false);
+    useEffect(() => setIsFinalStep(document.getElementById("shopping_cart_form") ? true : false));
 
     function setProductsHook(): void { setProducts(getProducts()) }
 
@@ -79,10 +87,16 @@ const OrderDetails = () => {
                 <p>{totalPrice} $</p>
                 <div>
                     <Button onClick={(e: any) => e.preventDefault()}>Back to Shop</Button>
-                    <Link to="/shopping_cart"><Button buttonStyle="accent">Make an Order</Button></Link>
+                    {
+                        isFinalStep
+                            ? <Button type="submit" form="shopping_cart_form" disabled={isButtonDisabled} buttonStyle="accent">{isButtonDisabled ? "No Products" : "Make an Order"}</Button>
+                            : isButtonDisabled
+                                ? <Button buttonStyle="accent" disabled={isButtonDisabled} >No selected Products</Button>
+                                : <Link to="/shopping_cart"><Button buttonStyle="accent" disabled={isButtonDisabled} >Go to Shopping cart</Button></Link>
+                    }
                 </div>
             </OrderFinal>
-        </StyledOrderDetails>
+        </StyledOrderDetails >
     )
 }
 
