@@ -59,7 +59,7 @@ const OrderDetails = () => {
         setProducts(getProducts());
 
         function onClickHandler(target: any) {
-            target.closest('#orderedProductQuantityButton') && setProducts(getProducts());
+            target.closest('#shoppingCartButton') && setProducts(getProducts());
         }
 
         window.addEventListener('click', (e: MouseEvent) => onClickHandler(e.target))

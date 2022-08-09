@@ -75,14 +75,14 @@ const OrderedProductQuantity = (props: OrderedProductQuantityProps) => {
         <StyledOrderedProductQuantity>
             <p>x {getProductQuantity(productId)}</p>
             <div>
-                <Button id="orderedProductQuantityButton" buttonSize="shrink" buttonStyle="transparent"
+                <Button id="shoppingCartButton" buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
                         e.preventDefault();
                         changeProductQuantity(productId, "increase");
                     }}>
                     <ImageSVG path='/svg/increase.svg' height="25px" width="25px" />
                 </Button>
-                <Button id="orderedProductQuantityButton" buttonSize="shrink" buttonStyle="transparent"
+                <Button id="shoppingCartButton" buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
                         e.preventDefault();
                         if (getProductQuantity(productId) > 1) {
@@ -92,7 +92,7 @@ const OrderedProductQuantity = (props: OrderedProductQuantityProps) => {
                     <ImageSVG path='/svg/decrease.svg' height="25px" width="25px" />
                 </Button>
             </div>
-            <Button id="orderedProductQuantityButton" buttonSize="shrink" buttonStyle="transparent"
+            <Button id="shoppingCartButton" buttonSize="shrink" buttonStyle="transparent"
                 onClick={(e: any) => {
                     e.preventDefault();
                     removeProduct(productId);
