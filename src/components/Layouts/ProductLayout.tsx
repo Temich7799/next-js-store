@@ -43,6 +43,7 @@ type ProductProps = {
             related_products: [{}]
             sale_price: string
             sku: string
+            slug: string
             wordpress_id: number
         }
         wcProductsReviews: {
