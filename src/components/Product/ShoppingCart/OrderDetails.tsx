@@ -58,9 +58,7 @@ const OrderDetails = () => {
         setIsFinalStep(document.getElementById("shopping_cart_form") ? true : false);
         setProducts(getProducts());
 
-        function onClickHandler(target: any) {
-            target.closest('#shoppingCartButton') && setProducts(getProducts());
-        }
+        function onClickHandler(target: any) { target.closest('#shoppingCartButton') && setProducts(getProducts()) }
 
         window.addEventListener('click', (e: MouseEvent) => onClickHandler(e.target))
     }, []);
