@@ -2,6 +2,7 @@ import * as React from "react"
 import SocialsList from "../SocialsList"
 import Menu from "./HeaderMenu"
 import styled from "styled-components"
+import HeaderShoppingCart from "./HeaderShoppingCart";
 
 const StyledHeader = styled.header`
     font-family: 'Amatic SC';
@@ -28,6 +29,7 @@ const Header = () => {
         <StyledHeader>
             <SocialsList />
             <Menu />
+            <HeaderShoppingCart />
         </StyledHeader >
     )
 }

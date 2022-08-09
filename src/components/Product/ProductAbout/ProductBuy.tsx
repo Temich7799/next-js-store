@@ -44,7 +44,7 @@ const ProductBuy = (props: ProductBuyProps) => {
     return (
         <StyledProductBuy>
             <ProductPrice price={data.price} salePrice={data.sale_price} />
-            <Button onClick={() => addToCart(product)}>
+            <Button id="shoppingCartButton" onClick={() => addToCart(product)}>
                 <>
                     Buy
                     <ImageSVG path="/svg/add_to_cart.svg" height="25px" width="25px" />
