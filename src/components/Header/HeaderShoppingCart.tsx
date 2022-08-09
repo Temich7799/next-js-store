@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
+import toogle from "../../services/toogle";
 import Button from "../Button";
 import ImageSVG from "../ImageSVG";
+import PopUp from "../PopUp";
+import OrderDetails from "../Product/ShoppingCart/OrderDetails";
 
 const StyledHeaderShoppingCart = styled.div`
     position: relative;
@@ -25,6 +28,7 @@ const PurchasesCount = styled.div`
 const HeaderShoppingCart = () => {
 
     const [purchasesCount, setPurchasesCount] = useState<string>("0");
+    const [isPopUpVisible, setIsPopUpVisible] = useState<boolean>(false);
 
     useEffect(() => {
         setPurchasesCount(calcPurchasesCount());
@@ -41,12 +45,13 @@ const HeaderShoppingCart = () => {
 
     return (
         <StyledHeaderShoppingCart>
-            <Button buttonSize="shrink" buttonStyle="transparent">
+            <Button buttonSize="shrink" buttonStyle="transparent" onClick={() => setIsPopUpVisible(toogle(isPopUpVisible))}>
                 <ImageSVG path="/svg/shopping_cart.svg" height="35px" width="35px" />
                 <PurchasesCount>
                     <p>{purchasesCount}</p>
                 </PurchasesCount>
             </Button>
+            <PopUp visible={isPopUpVisible}><OrderDetails /></PopUp>
         </StyledHeaderShoppingCart>
     )
 }
