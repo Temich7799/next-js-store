@@ -39,12 +39,11 @@ type Product = {
 
 type OrderedProductsProps = {
     data: [Product] | undefined
-    setProductsHook: Function
 }
 
 const OrderedProducts = (props: OrderedProductsProps) => {
 
-    const { data, setProductsHook } = props;
+    const { data } = props;
 
     return (
         <StyledOrderedProducts id="ordered_products">
@@ -56,7 +55,7 @@ const OrderedProducts = (props: OrderedProductsProps) => {
                             <OrderedProductThumb src={product.image.src} alt={product.image.alt} />
                             <ProductPrice price={product.price} salePrice={product.sale_price} />
                             <ProductName name={product.name} sku={product.sku} attributes={[{ options: [""], name: "string" }]} />
-                            <OrderedProductQuantity setProductsHook={setProductsHook} productId={product.product_id} />
+                            <OrderedProductQuantity productId={product.product_id} />
                         </OrderedProductDetails>
                     )
                     : <p>No products yet :/</p>

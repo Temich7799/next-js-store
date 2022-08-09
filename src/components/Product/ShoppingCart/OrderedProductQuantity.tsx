@@ -13,7 +13,6 @@ const StyledOrderedProductQuantity = styled.div`
 
 type OrderedProductQuantityProps = {
     productId: number
-    setProductsHook: Function
 }
 type Product = {
     product_id: number
@@ -22,7 +21,7 @@ type Product = {
 
 const OrderedProductQuantity = (props: OrderedProductQuantityProps) => {
 
-    const { productId, setProductsHook } = props;
+    const { productId } = props;
 
     function changeProductQuantity(productId: number, direction: string) {
         const getProducts = localStorage.getItem('ordered_products');
@@ -76,30 +75,27 @@ const OrderedProductQuantity = (props: OrderedProductQuantityProps) => {
         <StyledOrderedProductQuantity>
             <p>x {getProductQuantity(productId)}</p>
             <div>
-                <Button buttonSize="shrink" buttonStyle="transparent"
+                <Button id="orderedProductQuantityButton" buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
                         e.preventDefault();
                         changeProductQuantity(productId, "increase");
-                        setProductsHook();
                     }}>
                     <ImageSVG path='/svg/increase.svg' height="25px" width="25px" />
                 </Button>
-                <Button buttonSize="shrink" buttonStyle="transparent"
+                <Button id="orderedProductQuantityButton" buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
                         e.preventDefault();
                         if (getProductQuantity(productId) > 1) {
                             changeProductQuantity(productId, "decrease");
-                            setProductsHook();
                         }
                     }}>
                     <ImageSVG path='/svg/decrease.svg' height="25px" width="25px" />
                 </Button>
             </div>
-            <Button buttonSize="shrink" buttonStyle="transparent"
+            <Button id="orderedProductQuantityButton" buttonSize="shrink" buttonStyle="transparent"
                 onClick={(e: any) => {
                     e.preventDefault();
                     removeProduct(productId);
-                    setProductsHook();
                 }}>
                 <ImageSVG path='/svg/clear_cart.svg' height="25px" width="25px" />
             </Button>

@@ -50,19 +50,22 @@ type Products = [Product];
 const OrderDetails = () => {
 
     const [products, setProducts] = useState<Products | undefined>();
-    const [totalPrice, setTotalPrice] = useState(0);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
-    useEffect(() => {
-        setTotalPrice(calcTotalPrice(products));
-        products && setIsButtonDisabled(products.length ? false : true);
-    }, [products]);
-    useEffect(() => setProductsHook(), [totalPrice]);
-
     const [isFinalStep, setIsFinalStep] = useState<boolean>(false);
-    useEffect(() => setIsFinalStep(document.getElementById("shopping_cart_form") ? true : false));
 
-    function setProductsHook(): void { setProducts(getProducts()) }
+    useEffect(() => {
+        setIsFinalStep(document.getElementById("shopping_cart_form") ? true : false);
+        setProducts(getProducts());
+
+        function onClickHandler(target: any) {
+            target.closest('#orderedProductQuantityButton') && setProducts(getProducts());
+        }
+
+        window.addEventListener('click', (e: MouseEvent) => onClickHandler(e.target))
+    }, []);
+
+    useEffect(() => products && setIsButtonDisabled(products.length ? false : true), [products]);
 
     function getProducts(): Products {
         let products;
@@ -81,10 +84,10 @@ const OrderDetails = () => {
     return (
         <StyledOrderDetails id="order_details">
             <h4>Your Order</h4>
-            <OrderedProducts setProductsHook={setProductsHook} data={products} />
+            <OrderedProducts data={products} />
             <OrderFinal>
                 <h4>Total </h4>
-                <p>{totalPrice} $</p>
+                <p>{calcTotalPrice(products)} $</p>
                 <div>
                     <Button onClick={(e: any) => e.preventDefault()}>Back to Shop</Button>
                     {
