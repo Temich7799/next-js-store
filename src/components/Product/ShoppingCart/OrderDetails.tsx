@@ -7,7 +7,7 @@ import OrderedProducts from "./OrderedProducts";
 
 const StyledOrderDetails = styled.form`
     /* other form styles are in <src/styles/wp.css> */
-    width: 100%;
+    width: 95vw;
     display: flex;
     align-items: center;
     justify-content: space-around;
