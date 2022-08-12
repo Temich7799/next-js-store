@@ -7,7 +7,7 @@ import OrderedProducts from "./OrderedProducts";
 
 const StyledOrderDetails = styled.form`
     /* other form styles are in <src/styles/wp.css> */
-    width: 95vw;
+    width: 90vw;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -31,6 +31,8 @@ const OrderFinal = styled.div`
     }
     div{  
         display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
         gap: 15px;
     }
 `;
