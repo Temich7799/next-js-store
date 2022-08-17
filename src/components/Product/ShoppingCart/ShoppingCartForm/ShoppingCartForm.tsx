@@ -13,6 +13,7 @@ const StyledShoppingCartForm = styled.form`
         height: 24px;
         padding: 5px 15px;
         border: 1px solid #818a91;
+        border-radius: 3.5px;
         vertical-align: middle;
     }
     select {
