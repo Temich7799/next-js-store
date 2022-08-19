@@ -1,10 +1,13 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
 import OrderDetails from "../components/Product/ShoppingCart/OrderDetails";
 import ShoppingCartForm from "../components/Product/ShoppingCart/ShoppingCartForm/ShoppingCartForm";
+import useWindowDimensions from "../services/hooks/useWindowDimensions";
 
-const StyledShoppingCartPage = styled.main`
+const StyledShoppingCartPage = styled.div<any>`
+  margin-top: ${props => props.isMobile ? "164px" : "0"};
+  max-width: 1900px;
   display: flex;
   align-items: stretch;
   flex-wrap: wrap;
@@ -16,13 +19,20 @@ const StyledShoppingCartPage = styled.main`
 
 const ShoppingCartPage = () => {
 
+  const { deviceHeight, deviceWidth } = useWindowDimensions();
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
+
   return (
     <>
       <Layout>
-        <StyledShoppingCartPage>
-          <ShoppingCartForm />
-          <OrderDetails />
-        </StyledShoppingCartPage>
+        <main>
+          <StyledShoppingCartPage isMobile={isMobile}>
+            <ShoppingCartForm />
+            <OrderDetails />
+          </StyledShoppingCartPage>
+        </main>
       </Layout>
     </>
   )

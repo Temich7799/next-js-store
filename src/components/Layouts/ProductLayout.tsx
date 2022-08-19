@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import styled from "styled-components";
@@ -6,13 +6,23 @@ import ProductGallery from "../Product/ProductGallery/ProductGallery";
 import ProductAbout from "../Product/ProductAbout/ProductAbout";
 import ProductDescription from "../Product/ProductDescription";
 import ProductReviews from "../Product/ProductReviews";
+import useWindowDimensions from "../../services/hooks/useWindowDimensions";
 
-const Main = styled.main`
+const Main = styled.main<any>`
+    margin-top: ${props => props.isMobile ? "125px" : "0"};
+`;
+
+const Content = styled.div`
+    max-width: 1900px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 25px;
     padding: 5%;
+    hr {
+        width: fit-content;
+        margin: 0;
+    }
 `;
 
 type ProductAttribute = {
@@ -61,14 +71,27 @@ const ProductLayout = (props: ProductProps) => {
 
     const { data } = props;
 
+    const { deviceHeight, deviceWidth } = useWindowDimensions();
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+    const [showLine, setShowLine] = useState<boolean>(true);
+
+    useEffect(() => {
+        setIsMobile(deviceWidth < 820 ? true : false);
+        setShowLine(deviceWidth < 1175 ? false : true);
+    }, [deviceWidth]);
+
     return (
         <Layout>
-            <Main>
-                <ProductGallery data={data.wcProducts.images}></ProductGallery>
-                <ProductAbout data={data.wcProducts}></ProductAbout>
-                <ProductDescription data={data.wcProducts.description}></ProductDescription>
-                <hr />
-                <ProductReviews data={data.wcProductsReviews}></ProductReviews>
+            <Main isMobile={isMobile}>
+                <Content>
+                    <ProductGallery data={data.wcProducts.images}></ProductGallery>
+                    <ProductAbout data={data.wcProducts}></ProductAbout>
+                    <ProductDescription data={data.wcProducts.description}></ProductDescription>
+                    {
+                        showLine && <hr />
+                    }
+                    <ProductReviews data={data.wcProductsReviews}></ProductReviews>
+                </Content>
             </Main>
         </Layout>
     )

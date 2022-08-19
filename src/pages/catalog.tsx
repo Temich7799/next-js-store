@@ -1,12 +1,18 @@
 import { graphql } from "gatsby";
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
 import CategoryThumb from "../components/Product/Thumbs/CategoryThumb";
-import TitleH1 from "../components/PageTitle";
+import PageTitle from "../components/PageTitle";
+import useWindowDimensions from "../services/hooks/useWindowDimensions";
 
+const Main = styled.main<any>`
+  margin-top: ${props => props.isMobile ? "125px" : "0"};
+`;
 
-const Main = styled.main`
+const Content = styled.div`
+  max-width: 1900px;
+  padding: 2.5%;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -26,13 +32,22 @@ const CatalogPage = (props: CatalogProps) => {
 
   const { data } = props;
 
+  const { deviceHeight, deviceWidth } = useWindowDimensions();
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
+
   return (
     <>
       <Layout>
-        <Main>
-          <TitleH1>Catalog</TitleH1>
-          {data.allWcProductsCategories.edges.map((edge: any) => <CategoryThumb data={edge.node} />)}
-        </Main>
+        <>
+          <Main isMobile={isMobile}>
+            <PageTitle>Catalog</PageTitle>
+            <Content>
+              {data.allWcProductsCategories.edges.map((edge: any) => <CategoryThumb data={edge.node} />)}
+            </Content>
+          </Main>
+        </>
       </Layout>
     </>
   )
