@@ -1,10 +1,11 @@
 import React, { useState } from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
+import { Link} from "gatsby"
 import styled from "styled-components"
 import { StaticImage } from "gatsby-plugin-image"
 import HeaderSubMenu from "./HeaderSubMenu";
+import SocialsList from "../SocialsList";
 
-const StyledMenu = styled.nav`
+const StyledHeaderMenu = styled.nav`
   ul {
     display: flex;
     flex-wrap: wrap;
@@ -23,67 +24,68 @@ const StyledMenu = styled.nav`
   }
 `;
 
-const Menu = () => {
-
-  const data = useStaticQuery(graphql`
-    query HeaderMenu {
-      wpMenu(id: {eq: "dGVybTozMQ=="}) {
-        menuItems {
-          nodes {
-            label
-            url
-            parentId
-            childItems {
-              nodes {
-                url
-                label
-              }
-            }
+type HeaderMenuProps = {
+  data: [
+    {
+      label: string
+      url: string
+      parentId: number
+      childItems: {
+        nodes: [
+          {
+            url: string
+            label: string
           }
-        }
+        ]
       }
     }
-  `);
+  ]
+}
 
-  const links = data.wpMenu.menuItems.nodes;
+const HeaderMenu = (props: HeaderMenuProps) => {
+
+  const { data } = props;
 
   const [isMouseOver, setMouseOver] = useState(false);
 
   return (
-    <StyledMenu>
-      <ul>
-        {
-          links.map(
-            (link: any) =>
-              <>
-                {
-                  links.indexOf(link) == Math.floor(links.length / 2) &&
-                  < Link to="/">
-                    <StaticImage src="../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
-                  </Link>
-                }
-                {
-                  link.parentId === null &&
-                  <li>
-                    {
-                      (link.childItems.nodes.length)
-                        ? <Link
-                          to={link.url}
-                          onMouseOver={() => setMouseOver(true)}
-                          onMouseLeave={() => setMouseOver(false)}>
-                          {link.label}
-                          {isMouseOver && < HeaderSubMenu childItems={link.childItems.nodes} />}
-                        </Link>
-                        : <Link to={link.url}>{link.label}</Link>
-                    }
-                  </li>
-                }
-              </>
-          )
-        }
-      </ul>
-    </StyledMenu >
+    <>
+      <SocialsList />
+      <StyledHeaderMenu>
+        <ul>
+          {
+            data.map(
+              (link: any) =>
+                <>
+                  {
+                    data.indexOf(link) == Math.floor(data.length / 2) &&
+                    < Link to="/">
+                      <StaticImage src="../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
+                    </Link>
+                  }
+                  {
+                    link.parentId === null &&
+                    <li>
+                      {
+                        (link.childItems.nodes.length)
+                          ? <Link
+                            to={link.url}
+                            onMouseOver={() => setMouseOver(true)}
+                            onMouseLeave={() => setMouseOver(false)}>
+                            {link.label}
+                            {isMouseOver && < HeaderSubMenu childItems={link.childItems.nodes} />}
+                          </Link>
+                          : <Link to={link.url}>{link.label}</Link>
+                      }
+                    </li>
+                  }
+                </>
+            )
+          }
+        </ul>
+      </StyledHeaderMenu >
+    </>
   )
 }
 
-export default Menu
+export default HeaderMenu
