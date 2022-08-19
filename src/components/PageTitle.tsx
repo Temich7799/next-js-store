@@ -6,7 +6,6 @@ import getRandomColor from "../services/getRandomColor";
 type StyledTitleProps = { backgroundColor: string }
 
 const StyledTitle = styled.div<StyledTitleProps>`
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
