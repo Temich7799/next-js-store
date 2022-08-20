@@ -3,7 +3,7 @@ import HeaderMenu from "./HeaderMenu"
 import styled from "styled-components"
 import HeaderShoppingCart from "./HeaderShoppingCart";
 import useWindowDimensions from "../../services/hooks/useWindowDimensions";
-import MobileHeaderMenu from "./MobileHeaderMenu";
+import MobileHeaderMenu from "./MobileHeaderMenu/MobileHeaderMenu";
 import { graphql, useStaticQuery } from "gatsby";
 
 const StyledHeader = styled.header<any>`

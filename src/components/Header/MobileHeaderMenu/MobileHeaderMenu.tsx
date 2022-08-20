@@ -2,11 +2,12 @@ import React, { useState } from "react"
 import styled, { keyframes } from "styled-components"
 import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
-import toogle from "../../services/toogle";
-import Button from "../Button";
-import ImageSVG from "../ImageSVG";
-import SocialsList from "../SocialsList";
+import toogle from "../../../services/toogle";
+import Button from "../../Button";
+import ImageSVG from "../../ImageSVG";
+import SocialsList from "../../SocialsList";
 import MobileHeaderSubMenu from "./MobileHeaderSubMenu";
+import MobileHeaderSubMenuTitle from "./MobileHeaderSubMenuTitle";
 
 const slideFromTopAnimation = keyframes`
     from {top: -322px}
@@ -37,17 +38,17 @@ const MobileHeaderMenuItems = styled.nav`
 const MobileHeaderMenuLinksWrapper = styled.div`
     max-height: 100%;
     overflow: scroll;
+    scrollbar-width: none;
+    ::-webkit-scrollbar { display: none }
 `;
 
 const MobileHeaderMenuLinks = styled.ul`
-    min-width: 124px;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 25px;
-    justify-content: center;
     list-style: none;
 `;
 
@@ -90,7 +91,7 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
         setShowMobileMenu(toogle(showMobileMenu));
     }
 
-    function aOnClickHandler(): void {
+    function MobileHeaderSubMenuTitleOnClickHandler(): void {
         setShowSubMenu(toogle(showSubMenu));
     }
 
@@ -114,7 +115,7 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
                                                 link.childItems.nodes.length
                                                     ?
                                                     <li>
-                                                        <a onClick={aOnClickHandler}>{link.label}</a>
+                                                        <MobileHeaderSubMenuTitle title={link.label} isSubMenuOpened={showSubMenu} onClickHandler={MobileHeaderSubMenuTitleOnClickHandler} />
                                                         {showSubMenu && <MobileHeaderSubMenu data={link} />}
                                                     </li>
                                                     : !link.parentId && <li><Link to={link.url}>{link.label}</Link></li>
