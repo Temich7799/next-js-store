@@ -1,6 +1,6 @@
-import { Link } from "gatsby";
 import * as React from "react"
 import styled from "styled-components"
+import { formatCatalogChildItemUrl } from "../../services/formatCatalogChildItemUrl";
 
 const StyledHeaderSubMenu = styled.nav`
     font-size: 16px;
@@ -36,9 +36,9 @@ const HeaderSubMenu = (props: SubMenuProps) => {
     return (
         <StyledHeaderSubMenu>
             <ul>
-                {childItems.map((links: any) => <li><Link to={links.url}>{links.label}</Link></li>)}
+                {childItems.map((childItem: any) => <li><a href={formatCatalogChildItemUrl(childItem.url)}>{childItem.label}</a></li>)}
             </ul>
-        </StyledHeaderSubMenu>
+        </StyledHeaderSubMenu >
     )
 }
 
