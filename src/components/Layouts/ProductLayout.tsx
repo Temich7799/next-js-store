@@ -5,7 +5,6 @@ import styled from "styled-components";
 import ProductGallery from "../Product/ProductGallery/ProductGallery";
 import ProductAbout from "../Product/ProductAbout/ProductAbout";
 import ProductDescription from "../Product/ProductDescription";
-import ProductReviews from "../Product/ProductReviews";
 import useWindowDimensions from "../../services/hooks/useWindowDimensions";
 
 const Main = styled.main<any>`
@@ -73,12 +72,8 @@ const ProductLayout = (props: ProductProps) => {
 
     const { deviceHeight, deviceWidth } = useWindowDimensions();
     const [isMobile, setIsMobile] = useState<boolean>(false);
-    const [showLine, setShowLine] = useState<boolean>(true);
 
-    useEffect(() => {
-        setIsMobile(deviceWidth < 820 ? true : false);
-        setShowLine(deviceWidth < 1175 ? false : true);
-    }, [deviceWidth]);
+    useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
 
     return (
         <Layout>
@@ -87,10 +82,6 @@ const ProductLayout = (props: ProductProps) => {
                     <ProductGallery data={data.wcProducts.images}></ProductGallery>
                     <ProductAbout data={data.wcProducts}></ProductAbout>
                     <ProductDescription data={data.wcProducts.description}></ProductDescription>
-                    {
-                        showLine && <hr />
-                    }
-                    <ProductReviews data={data.wcProductsReviews}></ProductReviews>
                 </Content>
             </Main>
         </Layout>
