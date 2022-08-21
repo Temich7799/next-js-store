@@ -1,18 +1,14 @@
 import React from "react"
-import styled, { keyframes } from "styled-components"
+import styled from "styled-components"
 import ImageSVG from "../ImageSVG";
 
 type SubMenuIconProps = {
     isOpened: boolean
 }
 
-const arrowRotate = keyframes`
-    from {transform: rotate(0)}
-    to {transform: rotate(180)}
-`;
-
 const StyledSubMenuIcon = styled.div<SubMenuIconProps>`
-    animation: ${arrowRotate} 250ms ${props => props.isOpened ? 'normal' : 'reverse'};
+    transition: 250ms;
+    transform: rotate(${props => props.isOpened ? '180deg' : '0deg'});
 `;
 
 const SubMenuIcon = (props: SubMenuIconProps) => {
