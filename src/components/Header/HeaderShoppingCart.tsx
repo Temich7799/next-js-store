@@ -51,7 +51,7 @@ const HeaderShoppingCart = () => {
                     <p>{purchasesCount}</p>
                 </PurchasesCount>
             </Button>
-            <PopUp visible={isPopUpVisible}><OrderDetails /></PopUp>
+            <PopUp visible={isPopUpVisible} setVisible={setIsPopUpVisible}><OrderDetails /></PopUp>
         </StyledHeaderShoppingCart>
     )
 }
