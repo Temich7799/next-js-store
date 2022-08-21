@@ -1,9 +1,10 @@
 import React, { useState } from "react"
-import { Link} from "gatsby"
+import { Link } from "gatsby"
 import styled from "styled-components"
 import { StaticImage } from "gatsby-plugin-image"
 import HeaderSubMenu from "./HeaderSubMenu";
 import SocialsList from "../SocialsList";
+import SubMenuIcon from "./SubMenuIcon";
 
 const StyledHeaderMenu = styled.nav`
   ul {
@@ -15,13 +16,19 @@ const StyledHeaderMenu = styled.nav`
     list-style: none;
     width: fit-content;
     padding: 0;
-    li{
+    li {
       padding: 3px 15px 1px;
       &:hover {
           font-weight: 700;
       }
+    }
   }
-  }
+`;
+
+const SubMenuTitle = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
 `;
 
 type HeaderMenuProps = {
@@ -48,6 +55,11 @@ const HeaderMenu = (props: HeaderMenuProps) => {
 
   const [isMouseOver, setMouseOver] = useState(false);
 
+  function onMouseOverHandler(mouseOverEvent: React.MouseEvent<MouseEvent>): void {
+    setMouseOver(true);
+    mouseOverEvent.target.addEventListener('mouseleave', () => setMouseOver(false));
+  }
+
   return (
     <>
       <SocialsList />
@@ -64,16 +76,17 @@ const HeaderMenu = (props: HeaderMenuProps) => {
                     </Link>
                   }
                   {
-                    link.parentId === null &&
+                    !link.parentId &&
                     <li>
                       {
                         (link.childItems.nodes.length)
-                          ? <Link
-                            to={link.url}
-                            onMouseOver={() => setMouseOver(true)}
-                            onMouseLeave={() => setMouseOver(false)}>
-                            {link.label}
-                            {isMouseOver && < HeaderSubMenu childItems={link.childItems.nodes} />}
+                          ?
+                          <Link to={link.url} onMouseOver={(e: any) => onMouseOverHandler(e)}>
+                            <SubMenuTitle>
+                              {link.label}
+                              <SubMenuIcon isOpened={isMouseOver} />
+                            </SubMenuTitle>
+                            {isMouseOver && <HeaderSubMenu childItems={link.childItems.nodes} />}
                           </Link>
                           : <Link to={link.url}>{link.label}</Link>
                       }

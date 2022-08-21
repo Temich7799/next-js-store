@@ -6,6 +6,7 @@ const StyledHeaderSubMenu = styled.nav`
     font-size: 16px;
     font-weight: normal !important;
     position: absolute;
+    top: 100px;
     width: fit-content;
     min-height: 50px;
     background-color: #fefefe;
