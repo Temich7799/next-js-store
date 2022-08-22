@@ -129,13 +129,5 @@ export const query = graphql`
         sku
         wordpress_id
     }
-    wcProductsReviews(product_id: {eq: $productId}) {
-        date_created
-        product_name
-        review
-        reviewer
-        verified
-        product_id
-    }
 }`;
 
