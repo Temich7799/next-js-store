@@ -8,11 +8,12 @@ import ProductPrice from "../ProductPrice";
 
 const StyledProductThumb = styled.div`
     height: 320px;
-    width: 225px;
+    min-width: 225px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: white;
     box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
     img {
         width:100%;
