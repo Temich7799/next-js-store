@@ -4,9 +4,11 @@ import ProductGalleryCarousel from "./ProductGalleryCarousel";
 import ProductGallerySelectedImage from "./ProductGallerySelectedImage";
 
 const StyledProductGallery = styled.div`
-    width: 400px;
+    width: 405px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
 `;
 
 type ProductGalleryProps = {
