@@ -10,6 +10,7 @@ const Main = styled.main<any>`
 
 const Content = styled.div`
     max-width: 1900px;
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;

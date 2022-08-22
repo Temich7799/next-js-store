@@ -11,6 +11,7 @@ const Main = styled.main<any>`
 
 const Content = styled.div`
   max-width: 1900;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(auto, 200px));
   justify-content: center;

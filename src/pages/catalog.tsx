@@ -12,6 +12,7 @@ const Main = styled.main<any>`
 
 const Content = styled.div`
   max-width: 1900px;
+  margin: 0 auto;
   padding: 2.5%;
   display: flex;
   justify-content: space-around;
