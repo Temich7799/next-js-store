@@ -6,6 +6,8 @@ import ProductGallery from "../Product/ProductGallery/ProductGallery";
 import ProductAbout from "../Product/ProductAbout/ProductAbout";
 import ProductDescription from "../Product/ProductDescription";
 import useWindowDimensions from "../../services/hooks/useWindowDimensions";
+import Carousel from "../Carousel";
+import ProductThumb from "../Product/Thumbs/ProductThumb";
 
 const Main = styled.main<any>`
     margin-top: ${props => props.isMobile ? "125px" : "0"};
@@ -79,6 +81,7 @@ const ProductLayout = (props: ProductProps) => {
                     <ProductGallery data={data.wcProducts.images}></ProductGallery>
                     <ProductAbout data={data.wcProducts}></ProductAbout>
                     <ProductDescription data={data.wcProducts.description}></ProductDescription>
+                    <Carousel title="Related Products" carouselItemComponent={ProductThumb} dataForItem={data.wcProducts.related_products} />
                 </Content>
             </Main>
         </Layout>
@@ -105,6 +108,9 @@ export const query = graphql`
             alt
             src
         }
+        categories {
+            slug
+        }
         purchasable
         on_sale
         }
@@ -113,7 +119,7 @@ export const query = graphql`
             height
             length
             width
-        }
+        } 
         images {
             alt
             src
