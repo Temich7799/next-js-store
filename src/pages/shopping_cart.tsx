@@ -6,8 +6,8 @@ import ShoppingCartForm from "../components/Product/ShoppingCart/ShoppingCartFor
 import useWindowDimensions from "../services/hooks/useWindowDimensions";
 
 const StyledShoppingCartPage = styled.div<any>`
-  margin-top: ${props => props.isMobile ? "164px" : "0"};
   margin: 0 auto;
+  margin-top: ${props => props.isMobile ? "164px" : "0"};
   max-width: 1900px;
   display: flex;
   align-items: stretch;
