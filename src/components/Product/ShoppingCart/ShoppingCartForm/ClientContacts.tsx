@@ -6,7 +6,7 @@ const ClientContacts = () => {
         <>
             <InputField name="first_name" isRequired>Name</InputField>
             <InputField name="last_name" isRequired>Last Name</InputField>
-            <InputField name="phone" isRequired>Phone</InputField>
+            <InputField type="tel" name="phone" isRequired>Phone</InputField>
         </>
     )
 }
