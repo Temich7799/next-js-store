@@ -39,7 +39,11 @@ const ProductsLayout = (props: ProductsProps) => {
     <Layout>
       <Main isMobile={isMobile}>
         <Content>
-          {data.allWcProducts.edges.map((edge: any) => <ProductThumb data={edge.node} />)}
+          {
+            data.allWcProducts.edges.map((edge: any) =>
+              document.location.href.split('/catalog/')[1] == edge.node.categories[0].slug &&
+              <ProductThumb data={edge.node} />)
+          }
         </Content>
       </Main>
     </Layout>
