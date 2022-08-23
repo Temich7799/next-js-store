@@ -26,11 +26,12 @@ type InputFieldProps = {
     valueFromPropsSelect?: string
     required?: boolean
     isInputBlocked?: boolean
+    prettifyFunction?: Function
 }
 
 const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
 
-    const { name, children, type = "text", onErrorMessage, valueFromPropsSelect, isInputBlocked = false, required = true, regExp, ...rest } = props;
+    const { name, children, type = "text", onErrorMessage, prettifyFunction, valueFromPropsSelect, isInputBlocked = false, required = true, regExp, ...rest } = props;
 
     const [inputValue, setInputValue] = useState<string>('');
     const [onInvalidMessage, setOnInvalidMessage] = useState<string>('');
@@ -40,17 +41,17 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
     const onInvalidEvent = new Event('invalid');
 
     function onChangeHandler(onChangeEvent: any) {
-        if (inputValueRegExMatch(onChangeEvent.target.value)) {
-            onChangeEvent.target.dispatchEvent(onInvalidEvent);
-        }
+        if (inputValueRegExMatch(onChangeEvent.target.value)) onChangeEvent.target.dispatchEvent(onInvalidEvent);
         else {
+            prettifyFunction && setInputValue(prettifyFunction(onChangeEvent.target.value));
             onInvalidEvent.preventDefault();
             setOnInvalidMessage('');
         }
     }
 
     function onFocusHandler(onFocusOutEvent: any) {
-        onFocusOutEvent.target.addEventListener('focusout', () => !inputValueRegExMatch(onFocusOutEvent.target.value) && setOnInvalidMessage(''));
+        onFocusOutEvent.target.addEventListener('focusout', () =>
+            !inputValueRegExMatch(onFocusOutEvent.target.value) && setOnInvalidMessage(''));
     }
 
     function onInvalidHandler() {
