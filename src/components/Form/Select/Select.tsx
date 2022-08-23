@@ -1,6 +1,6 @@
-import React, { forwardRef } from "react"
-import { useRef } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react"
 import styled from "styled-components";
+import InputField from "../InputField";
 
 const StyledSelectWrapper = styled.div`
     position: relative;
@@ -17,12 +17,21 @@ const StyledSelect = styled.select<any>`
     z-index: 100;
 `;
 
-const Select = forwardRef((props: any, selectRef: any) => {
+type SelectProps = {
+    name: string
+    children: any
+    selectLabel: string
+    onErrorMessage?: string
+}
 
-    const { children, placeHolder } = props;
+const Select = forwardRef((props: SelectProps, selectRef: any) => {
 
+    const { name, children, selectLabel, onErrorMessage, ...rest } = props;
+
+    const [inputValue, setInputValue] = useState<string>('');
+
+    const onInvalidEvent = new Event('invalid');
     const inputRef = useRef<any>();
-    //const selectRef = useRef<any>();
 
     function inputOnFocusHandler(onFocusEvent: React.FocusEvent<HTMLInputElement>) {
         selectRef.current.style.display = "block";
@@ -37,26 +46,32 @@ const Select = forwardRef((props: any, selectRef: any) => {
 
     function selectOnChangeHandler(onChangeEvent: React.ChangeEvent<HTMLSelectElement>) {
         onChangeEvent.target.style.display = "none";
+        onInvalidEvent.preventDefault();
     }
 
     function selectOnClickHandler(onClickEvent: any) {
         const option = onClickEvent.target.closest('option');
-        if (option) inputRef.current.value = option.innerText;
+        if (option) setInputValue(option.innerText);
     }
 
     return (
         <StyledSelectWrapper>
-            <input ref={inputRef} autoComplete="off" placeholder={placeHolder} required
+            <InputField ref={inputRef} name={name} valueFromPropsSelect={inputValue} required
                 onFocus={(e: React.FocusEvent<HTMLInputElement>) => inputOnFocusHandler(e)}
-            />
-            <StyledSelect ref={selectRef} size={10} required {...props}
+                placeholder="Click To Select"
+                onErrorMessage={onErrorMessage}
+                isInputBlocked={true}
+            >
+                {selectLabel}
+            </InputField>
+            <StyledSelect ref={selectRef} size={10} required {...rest}
                 onFocus={(e: React.FocusEvent<HTMLSelectElement>) => selectOnFocusHandler(e)}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => selectOnChangeHandler(e)}
                 onClick={(e: React.MouseEvent<HTMLSelectElement>) => selectOnClickHandler(e)}
             >
                 {children}
             </StyledSelect>
-        </StyledSelectWrapper>
+        </StyledSelectWrapper >
     )
 })
 

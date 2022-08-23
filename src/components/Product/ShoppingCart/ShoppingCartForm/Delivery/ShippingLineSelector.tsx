@@ -37,15 +37,12 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
     );
 
     return (
-        <>
-            <label htmlFor="shipping_lines">Delivery</label>
-            <Select ref={shippingLineSelector} name="shipping_lines">
-                {
-                    shippingZonesMethods.allWcShippingZones3Methods.edges.map((method: any) =>
-                        <SelectOption value={method.node.method_id}>{method.node.method_title}</SelectOption>)
-                }
-            </Select>
-        </>
+        <Select ref={shippingLineSelector} name="shipping_lines" selectLabel="Delivery" onErrorMessage="Delivery service is not selected">
+            {
+                shippingZonesMethods.allWcShippingZones3Methods.edges.map((method: any) =>
+                    <SelectOption value={method.node.method_id}>{method.node.method_title}</SelectOption>)
+            }
+        </Select>
     )
 }
 

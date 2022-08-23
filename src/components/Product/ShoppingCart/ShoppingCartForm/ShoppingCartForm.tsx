@@ -15,6 +15,8 @@ const StyledShoppingCartForm = styled.form`
         border: 1px solid #818a91;
         border-radius: 3.5px;
         vertical-align: middle;
+        :invalid { border:#de8b8b 1px solid; outline: none}
+        :valid { border:#8bde8e 1px solid; outline: none}
     }
     select {
         height: 36px;
