@@ -18,7 +18,7 @@ const StyledTitle = styled.div<StyledTitleProps>`
         font-weight: 700;
         font-size: 60px;
         margin: 0;
-        z-index: 100;
+        z-index: 10;
     }
     img {
         position: absolute;
