@@ -1,5 +1,4 @@
 import React from "react"
-import sendOrder from "../../../../services/sendOrder";
 import styled from "styled-components"
 import Delivery from "./Delivery/Delivery";
 import ClientContacts from "./ClientContacts";
@@ -37,8 +36,8 @@ const StyledShoppingCartForm = styled.form`
 const ShoppingCartForm = () => {
 
     return (
-        <StyledShoppingCartForm id="shopping_cart_form" onSubmit={(e: any) => { e.preventDefault(); sendOrder() }}>
-            <ClientContacts />
+        <StyledShoppingCartForm id="shopping_cart_form">
+            < ClientContacts />
             <Delivery />
         </StyledShoppingCartForm >
     )

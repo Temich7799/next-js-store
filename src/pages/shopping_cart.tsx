@@ -4,6 +4,7 @@ import Layout from "../components/Layouts/MainLayout";
 import OrderDetails from "../components/Product/ShoppingCart/OrderDetails";
 import ShoppingCartForm from "../components/Product/ShoppingCart/ShoppingCartForm/ShoppingCartForm";
 import useWindowDimensions from "../services/hooks/useWindowDimensions";
+import sendOrder from "../services/sendOrder";
 
 const StyledShoppingCartPage = styled.div<any>`
   margin: 0 auto;
@@ -22,7 +23,6 @@ const ShoppingCartPage = () => {
 
   const { deviceHeight, deviceWidth } = useWindowDimensions();
   const [isMobile, setIsMobile] = useState<boolean>(false);
-
   useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
 
   return (

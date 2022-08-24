@@ -51,21 +51,24 @@ type Products = [Product];
 
 const OrderDetails = () => {
 
-    const [products, setProducts] = useState<Products | undefined>();
-    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
-
     const [isFinalStep, setIsFinalStep] = useState<boolean>(false);
-
+    const [products, setProducts] = useState<Products | undefined>();
     useEffect(() => {
-        setIsFinalStep(document.getElementById("shopping_cart_form") ? true : false);
+        const form = document.getElementById("shopping_cart_form");
+
+        if (form) {
+            setIsFinalStep(true);
+            form.addEventListener('submit', (e: any) => formOnSubmitHandler(e))
+        }
+
         setProducts(getProducts());
-
-        function onClickHandler(target: any) { target.closest('#shoppingCartButton') && setProducts(getProducts()) }
-
-        window.addEventListener('click', (e: MouseEvent) => onClickHandler(e.target))
+        window.addEventListener('click', (e: MouseEvent) => buttonOnClickHandler(e))
     }, []);
 
+    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     useEffect(() => products && setIsButtonDisabled(products.length ? false : true), [products]);
+
+    function buttonOnClickHandler(onClickEvent: any) { onClickEvent.target.closest('#shoppingCartButton') && setProducts(getProducts()) }
 
     function getProducts(): Products {
         let products;
@@ -79,6 +82,11 @@ const OrderDetails = () => {
         products && products.forEach((product: Product) =>
             price = (parseInt(product.sale_price ? product.sale_price : product.price) + price) * product.quantity);
         return price;
+    }
+
+    function formOnSubmitHandler(onSubmitEvent: any) {
+        onSubmitEvent.preventDefault();
+        sendOrder();
     }
 
     return (
