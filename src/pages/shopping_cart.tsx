@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
 import OrderDetails from "../components/Product/ShoppingCart/OrderDetails";
@@ -25,13 +25,21 @@ const ShoppingCartPage = () => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
 
+  const form = useRef<any>();
+  useEffect(() => form.current.addEventListener('submit', (e: any) => formOnSubmitHandler(e)), []);
+
+  function formOnSubmitHandler(onSubmitEvent: any) {
+    onSubmitEvent.preventDefault();
+    sendOrder(form);
+  }
+
   return (
     <>
       <Layout>
         <main>
           <StyledShoppingCartPage isMobile={isMobile}>
-            <ShoppingCartForm />
-            <OrderDetails />
+            <ShoppingCartForm ref={form} />
+            <OrderDetails ref={form} />
           </StyledShoppingCartPage>
         </main>
       </Layout>

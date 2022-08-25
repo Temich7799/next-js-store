@@ -1,7 +1,6 @@
 import { Link } from "gatsby";
-import React, { useEffect, useState } from "react"
+import React, { forwardRef, useEffect, useState } from "react"
 import styled from "styled-components"
-import sendOrder from "../../../services/sendOrder";
 import Button from "../../Button";
 import OrderedProducts from "./OrderedProducts";
 
@@ -49,18 +48,10 @@ type Product = {
 
 type Products = [Product];
 
-const OrderDetails = () => {
+const OrderDetails = forwardRef((props: any, formRef: any) => {
 
-    const [isFinalStep, setIsFinalStep] = useState<boolean>(false);
     const [products, setProducts] = useState<Products | undefined>();
     useEffect(() => {
-        const form = document.getElementById("shopping_cart_form");
-
-        if (form) {
-            setIsFinalStep(true);
-            form.addEventListener('submit', (e: any) => formOnSubmitHandler(e))
-        }
-
         setProducts(getProducts());
         window.addEventListener('click', (e: MouseEvent) => buttonOnClickHandler(e))
     }, []);
@@ -84,11 +75,6 @@ const OrderDetails = () => {
         return price;
     }
 
-    function formOnSubmitHandler(onSubmitEvent: any) {
-        onSubmitEvent.preventDefault();
-        sendOrder();
-    }
-
     return (
         <StyledOrderDetails id="order_details">
             <h4>Your Order</h4>
@@ -99,7 +85,7 @@ const OrderDetails = () => {
                 <div>
                     <Button onClick={(e: any) => e.preventDefault()}>Back to Shop</Button>
                     {
-                        isFinalStep
+                        formRef
                             ? <Button type="submit" form="shopping_cart_form" disabled={isButtonDisabled} buttonStyle="accent">{isButtonDisabled ? "No Products" : "Make an Order"}</Button>
                             : isButtonDisabled
                                 ? <Button buttonStyle="accent" disabled={isButtonDisabled} >No selected Products</Button>
@@ -109,6 +95,6 @@ const OrderDetails = () => {
             </OrderFinal>
         </StyledOrderDetails >
     )
-}
+})
 
 export default OrderDetails;

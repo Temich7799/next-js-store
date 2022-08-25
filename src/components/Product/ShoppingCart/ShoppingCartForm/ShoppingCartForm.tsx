@@ -1,4 +1,4 @@
-import React from "react"
+import React, { forwardRef } from "react"
 import styled from "styled-components"
 import Delivery from "./Delivery/Delivery";
 import ClientContacts from "./ClientContacts";
@@ -33,14 +33,14 @@ const StyledShoppingCartForm = styled.form`
     /* other form styles are in <src/styles/wp.css> */
 `;
 
-const ShoppingCartForm = () => {
+const ShoppingCartForm = forwardRef((props: any, ref: any) => {
 
     return (
-        <StyledShoppingCartForm id="shopping_cart_form">
+        <StyledShoppingCartForm ref={ref}>
             < ClientContacts />
             <Delivery />
         </StyledShoppingCartForm >
     )
-}
+})
 
 export default ShoppingCartForm;

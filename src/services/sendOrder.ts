@@ -8,7 +8,7 @@ type Product = {
     quantity: number
 }
 
-export default function sendOrder(): boolean | void {
+export default function sendOrder(formElement: any): boolean | void {
 
     function getLineItems(): string {
 
@@ -27,7 +27,7 @@ export default function sendOrder(): boolean | void {
     }
 
     function getShippingData(): string {
-        const formData = new FormData(document.getElementById("shopping_cart_form"));
+        const formData = new FormData(formElement);
         const shippingData: any = {};
         for (let key of formData.keys()) {
             shippingData[key] = formData.get(key);
