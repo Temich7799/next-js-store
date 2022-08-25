@@ -50,6 +50,8 @@ type Products = [Product];
 
 const OrderDetails = forwardRef((props: any, formRef: any) => {
 
+    const { isFetchPending } = props;
+
     const [products, setProducts] = useState<Products | undefined>();
     useEffect(() => {
         setProducts(getProducts());
@@ -86,7 +88,7 @@ const OrderDetails = forwardRef((props: any, formRef: any) => {
                     <Button onClick={(e: any) => e.preventDefault()}>Back to Shop</Button>
                     {
                         formRef
-                            ? <Button type="submit" form="shopping_cart_form" disabled={isButtonDisabled} buttonStyle="accent">{isButtonDisabled ? "No Products" : "Make an Order"}</Button>
+                            ? <Button type="submit" form="order_form" disabled={isButtonDisabled} buttonStyle="accent">{!isFetchPending ? isButtonDisabled ? "No Products" : "Make an Order" : 'Loading'}</Button>
                             : isButtonDisabled
                                 ? <Button buttonStyle="accent" disabled={isButtonDisabled} >No selected Products</Button>
                                 : <Link to="/shopping_cart"><Button buttonStyle="accent" disabled={isButtonDisabled} >Go to Shopping cart</Button></Link>

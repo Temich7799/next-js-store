@@ -36,8 +36,8 @@ const StyledShoppingCartForm = styled.form`
 const ShoppingCartForm = forwardRef((props: any, ref: any) => {
 
     return (
-        <StyledShoppingCartForm ref={ref}>
-            < ClientContacts />
+        <StyledShoppingCartForm ref={ref} id="order_form">
+            <ClientContacts />
             <Delivery />
         </StyledShoppingCartForm >
     )

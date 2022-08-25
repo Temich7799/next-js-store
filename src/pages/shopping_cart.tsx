@@ -25,12 +25,18 @@ const ShoppingCartPage = () => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
 
+  const [isFetchPending, setIsFetchPending] = useState<boolean>(false);
+
   const form = useRef<any>();
   useEffect(() => form.current.addEventListener('submit', (e: any) => formOnSubmitHandler(e)), []);
 
   function formOnSubmitHandler(onSubmitEvent: any) {
     onSubmitEvent.preventDefault();
-    sendOrder(form);
+    setIsFetchPending(true);
+    sendOrder(form.current)
+      .then((result) => console.log(result))
+      .catch((error) => console.log(error))
+      .finally(() => setIsFetchPending(false))
   }
 
   return (
@@ -39,7 +45,7 @@ const ShoppingCartPage = () => {
         <main>
           <StyledShoppingCartPage isMobile={isMobile}>
             <ShoppingCartForm ref={form} />
-            <OrderDetails ref={form} />
+            <OrderDetails ref={form} isFetchPending={isFetchPending} />
           </StyledShoppingCartPage>
         </main>
       </Layout>

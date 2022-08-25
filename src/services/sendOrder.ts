@@ -8,7 +8,7 @@ type Product = {
     quantity: number
 }
 
-export default function sendOrder(formElement: any): boolean | void {
+export default async function sendOrder(formElement: any): Promise<number> {
 
     function getLineItems(): string {
 
@@ -39,12 +39,13 @@ export default function sendOrder(formElement: any): boolean | void {
     formData.append("shipping", getShippingData());
     formData.append("line_items", getLineItems());
 
-    fetch('http://localhost:3000/orders', {
+    const response = await fetch('http://localhost:3000/orders', {
         method: 'POST',
         mode: 'cors',
         body: formData
-    })
+    });
 
+    return await response.status;
 }
 
 const data = {
