@@ -40,6 +40,7 @@ const CitySelector = (props: CitySelectorProps) => {
             name="city"
             label="City"
             onErrorMessage="Please, choose a City from list"
+            placeHolder={!citiesData.length && 'Начинайте вводить название города'}
             onChangeHandlerProps={onChangeHandler}
             onInputHandler={selectOnInputHandler}
             isInputBlocked={false}
@@ -48,7 +49,7 @@ const CitySelector = (props: CitySelectorProps) => {
             resetOptionsData={resetOptionsData}
         >
             {
-                citiesData.map((city) => <SelectOption>{city}</SelectOption>)
+                citiesData.length && citiesData.map((city: string) => <SelectOption>{city}</SelectOption>)
             }
         </Select >
     )

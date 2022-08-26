@@ -19,9 +19,10 @@ const StyledSelect = styled.select<any>`
 
 type SelectProps = {
     name: string
-    children: any
+    children: any | undefined
     label: string
     onErrorMessage?: string
+    placeHolder?: any
     onChangeHandlerProps?: Function
     onInputHandler?: Function
     isInputBlocked?: boolean
@@ -39,6 +40,7 @@ const Select = (props: SelectProps) => {
         onErrorMessage,
         onChangeHandlerProps,
         onInputHandler,
+        placeHolder,
         isInputDisabled = false,
         isInputBlocked = true,
         dependencies,
@@ -61,10 +63,17 @@ const Select = (props: SelectProps) => {
         inputRef.current.addEventListener('focus', (e: React.FocusEvent<HTMLInputElement>) => inputOnFocusHandler(e)), []);
 
     function inputOnFocusHandler(onFocusEvent: React.FocusEvent<HTMLInputElement>) {
-        selectRef.current.style.display = "block";
+
+        hideSelectIfNoChildren();
+        onFocusEvent.target.addEventListener('input', hideSelectIfNoChildren);
+
         onFocusEvent.target.addEventListener('focusout', (focusOutEvent: any) => {
             if (focusOutEvent.relatedTarget != selectRef.current) selectRef.current.style.display = "none";
         });
+    }
+
+    function hideSelectIfNoChildren() {
+        selectRef.current.style.display = selectRef.current.children.length > 0 ? "block" : "none";
     }
 
     function onFocusHandler(onFocusEvent: React.FocusEvent<HTMLSelectElement>) {
@@ -87,7 +96,7 @@ const Select = (props: SelectProps) => {
             <InputField
                 ref={inputRef}
                 name={name}
-                placeholder={!isInputDisabled ? "Click To Select" : ""}
+                placeholder={placeHolder ? placeHolder : "Click to select"}
                 valueFromSelect={inputValue}
                 onErrorMessage={onErrorMessage}
                 isInputBlocked={isInputBlocked}

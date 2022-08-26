@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 
@@ -11,17 +11,22 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
 
     const { warhousesData, selectedShippingLine } = props;
 
+    const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
+
+    useEffect(() => setIsInputDisabled(warhousesData.length > 0 ? false : true), [warhousesData])
+
     return (
         <>
             <Select
                 name="address_1"
                 label="Address"
                 onErrorMessage="Warehouse is not selected"
+                placeHolder={!warhousesData.length && 'В указаном пункте нет доступных отделений'}
                 dependencies={[selectedShippingLine, warhousesData]}
-                isInputDisabled={!selectedShippingLine || selectedShippingLine == 'local_pickup'}
+                isInputDisabled={(!selectedShippingLine || selectedShippingLine == 'local_pickup') || isInputDisabled}
             >
                 {
-                    warhousesData.map((city: string) => <SelectOption>{city}</SelectOption>)
+                    warhousesData.length && warhousesData.map((city: string) => <SelectOption>{city}</SelectOption>)
                 }
             </Select>
         </>
