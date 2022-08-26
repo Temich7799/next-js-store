@@ -17,7 +17,8 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
                 name="address_1"
                 label="Address"
                 onErrorMessage="Warehouse is not selected"
-                resetInputOnDep={[selectedShippingLine, warhousesData]}
+                dependencies={[selectedShippingLine, warhousesData]}
+                isInputDisabled={!selectedShippingLine || selectedShippingLine == 'local_pickup'}
             >
                 {
                     warhousesData.map((city: string) => <SelectOption>{city}</SelectOption>)

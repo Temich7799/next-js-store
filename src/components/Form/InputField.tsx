@@ -27,6 +27,7 @@ type InputFieldProps = {
     onErrorMessage?: string
     valueFromSelect?: string
     required?: boolean
+    isInputDisabled?: boolean
     isInputBlocked?: boolean
     prettifyFunction?: Function
 }
@@ -44,6 +45,7 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
         onInputHandler,
         valueFromSelect,
         isInputBlocked = false,
+        isInputDisabled = false,
         required = true,
     } = props;
 
@@ -117,6 +119,7 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
                 type={type}
                 required={required}
                 placeholder={placeholder}
+                disabled={isInputDisabled}
                 autoComplete="off"
                 onChange={(e: any) => onChangeHandler(e)}
                 onFocus={(e: any) => onFocusHandler(e)}

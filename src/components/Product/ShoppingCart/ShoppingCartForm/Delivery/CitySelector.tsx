@@ -43,13 +43,14 @@ const CitySelector = (props: CitySelectorProps) => {
             onChangeHandlerProps={onChangeHandler}
             onInputHandler={selectOnInputHandler}
             isInputBlocked={false}
-            resetInputOnDep={[selectedShippingLine]}
+            isInputDisabled={!selectedShippingLine || selectedShippingLine == 'local_pickup'}
+            dependencies={[selectedShippingLine]}
             resetOptionsData={resetOptionsData}
         >
             {
                 citiesData.map((city) => <SelectOption>{city}</SelectOption>)
             }
-        </Select>
+        </Select >
     )
 }
 

@@ -25,7 +25,8 @@ type SelectProps = {
     onChangeHandlerProps?: Function
     onInputHandler?: Function
     isInputBlocked?: boolean
-    resetInputOnDep?: Array<any>
+    isInputDisabled?: boolean
+    dependencies?: Array<any>
     resetOptionsData?: Function
 }
 
@@ -38,8 +39,9 @@ const Select = (props: SelectProps) => {
         onErrorMessage,
         onChangeHandlerProps,
         onInputHandler,
+        isInputDisabled = false,
         isInputBlocked = true,
-        resetInputOnDep,
+        dependencies,
         resetOptionsData
     } = props;
 
@@ -50,10 +52,10 @@ const Select = (props: SelectProps) => {
     const selectRef = useRef<any>();
     const inputRef = useRef<any>();
 
-    resetInputOnDep && useEffect(() => {
+    dependencies && useEffect(() => {
         setInputValue('');
         resetOptionsData && resetOptionsData();
-    }, resetInputOnDep)
+    }, dependencies)
 
     useEffect(() =>
         inputRef.current.addEventListener('focus', (e: React.FocusEvent<HTMLInputElement>) => inputOnFocusHandler(e)), []);
@@ -85,10 +87,11 @@ const Select = (props: SelectProps) => {
             <InputField
                 ref={inputRef}
                 name={name}
-                placeholder="Click To Select"
+                placeholder={!isInputDisabled ? "Click To Select" : ""}
                 valueFromSelect={inputValue}
                 onErrorMessage={onErrorMessage}
                 isInputBlocked={isInputBlocked}
+                isInputDisabled={isInputDisabled}
                 onInputHandler={onInputHandler}
                 required
             >
