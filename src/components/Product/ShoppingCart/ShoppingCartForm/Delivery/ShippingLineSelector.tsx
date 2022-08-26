@@ -11,12 +11,8 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
 
     const { setSelectedShippingLine } = props;
 
-    const shippingLineSelector = useRef<any>();
-
-    useEffect(() => shippingLineSelector.current.addEventListener('change', selectOnChangeHandler), []);
-
     function selectOnChangeHandler(onChangeEvent: any) {
-        setSelectedShippingLine(shippingLineSelector.current.value);
+        setSelectedShippingLine(onChangeEvent.target.value);
     }
 
     const shippingZonesMethods = useStaticQuery(
@@ -37,12 +33,17 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
     );
 
     return (
-        <Select ref={shippingLineSelector} name="shipping_lines" selectLabel="Delivery" onErrorMessage="Delivery service is not selected">
+        <Select
+            name="shipping_lines"
+            selectLabel="Delivery"
+            onErrorMessage="Delivery service is not selected"
+            onChangeHandler={selectOnChangeHandler}
+        >
             {
                 shippingZonesMethods.allWcShippingZones3Methods.edges.map((method: any) =>
                     <SelectOption value={method.node.method_id}>{method.node.method_title}</SelectOption>)
             }
-        </Select>
+        </Select >
     )
 }
 

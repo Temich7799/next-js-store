@@ -20,18 +20,19 @@ const StyledSelect = styled.select<any>`
 type SelectProps = {
     name: string
     children: any
-    selectLabel: string
+    label: string
     onErrorMessage?: string
+    onChangeHandler?: Function
 }
 
-const Select = forwardRef((props: SelectProps, selectRef: any) => {
+const Select = forwardRef((props: SelectProps, inputRef: any) => {
 
-    const { name, children, selectLabel, onErrorMessage, ...rest } = props;
+    const { name, children, label, onErrorMessage, onChangeHandler, ...rest } = props;
 
     const [inputValue, setInputValue] = useState<string>('');
 
     const onInvalidEvent = new Event('invalid');
-    const inputRef = useRef<any>();
+    const selectRef = useRef<any>();
 
     function inputOnFocusHandler(onFocusEvent: React.FocusEvent<HTMLInputElement>) {
         selectRef.current.style.display = "block";
@@ -45,6 +46,7 @@ const Select = forwardRef((props: SelectProps, selectRef: any) => {
     }
 
     function selectOnChangeHandler(onChangeEvent: React.ChangeEvent<HTMLSelectElement>) {
+        onChangeHandler && onChangeHandler(onChangeEvent);
         onChangeEvent.target.style.display = "none";
         onInvalidEvent.preventDefault();
     }
@@ -62,7 +64,7 @@ const Select = forwardRef((props: SelectProps, selectRef: any) => {
                 onErrorMessage={onErrorMessage}
                 isInputBlocked={true}
             >
-                {selectLabel}
+                {label}
             </InputField>
             <StyledSelect ref={selectRef} size={10} required {...rest}
                 onFocus={(e: React.FocusEvent<HTMLSelectElement>) => selectOnFocusHandler(e)}
