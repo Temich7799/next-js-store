@@ -1,5 +1,6 @@
 import React, { forwardRef, useEffect, useState } from "react"
 import styled from "styled-components"
+import LoadingBar from "../LoadingBar";
 
 const StyledLabel = styled.div`
     display: flex;
@@ -19,34 +20,36 @@ const ValidMessage = styled(ErrorMessage)`
 
 type InputFieldProps = {
     name: string
-    children: string
     type?: string
-    regExp?: RegExp
-    onInputHandler?: Function
     placeholder?: string
     onErrorMessage?: string
+    regExp?: RegExp
     valueFromSelect?: string
-    required?: boolean
     isInputDisabled?: boolean
     isInputBlocked?: boolean
+    isFetchPending?: boolean
+    onInputHandler?: Function
     prettifyFunction?: Function
+    required?: boolean
+    children: string
 }
 
 const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
 
     const {
         name,
-        children,
         type = "text",
-        regExp,
-        onErrorMessage,
-        prettifyFunction,
         placeholder,
-        onInputHandler,
+        onErrorMessage,
+        regExp,
         valueFromSelect,
-        isInputBlocked = false,
         isInputDisabled = false,
+        isInputBlocked = false,
+        isFetchPending = false,
+        onInputHandler,
+        prettifyFunction,
         required = true,
+        children
     } = props;
 
     const [inputValue, setInputValue] = useState<string>('');
@@ -104,12 +107,14 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
                 <label htmlFor={name}>{children}</label>
                 <ErrorMessage>{onInvalidMessage}</ErrorMessage>
                 {
-                    !onInvalidMessage &&
-                        valueFromSelect
-                        ? <ValidMessage>✓</ValidMessage>
-                        : inputValue && inputValue.length > 2 && <ValidMessage>✓</ValidMessage>
-
-
+                    isFetchPending
+                        ? <span><LoadingBar /></span>
+                        : !onInvalidMessage &&
+                            valueFromSelect
+                            ? <ValidMessage>
+                                ✓
+                            </ValidMessage>
+                            : inputValue && inputValue.length > 2 && <ValidMessage>✓</ValidMessage>
                 }
             </StyledLabel>
             <input

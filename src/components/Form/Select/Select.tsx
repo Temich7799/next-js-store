@@ -19,32 +19,34 @@ const StyledSelect = styled.select<any>`
 
 type SelectProps = {
     name: string
-    children: any | undefined
     label: string
     onErrorMessage?: string
     placeHolder?: any
-    onChangeHandlerProps?: Function
-    onInputHandler?: Function
     isInputBlocked?: boolean
     isInputDisabled?: boolean
-    dependencies?: Array<any>
+    isFetchPending?: boolean
+    onChangeHandlerProps?: Function
+    onInputHandler?: Function
     resetOptionsData?: Function
+    dependencies?: Array<any>
+    children: any | undefined
 }
 
 const Select = (props: SelectProps) => {
 
     const {
         name,
-        children,
         label,
         onErrorMessage,
+        placeHolder,
+        isInputBlocked = true,
+        isInputDisabled = false,
+        isFetchPending = false,
+        resetOptionsData,
         onChangeHandlerProps,
         onInputHandler,
-        placeHolder,
-        isInputDisabled = false,
-        isInputBlocked = true,
         dependencies,
-        resetOptionsData
+        children
     } = props;
 
     const [inputValue, setInputValue] = useState<string>('');
@@ -101,6 +103,7 @@ const Select = (props: SelectProps) => {
                 onErrorMessage={onErrorMessage}
                 isInputBlocked={isInputBlocked}
                 isInputDisabled={isInputDisabled}
+                isFetchPending={isFetchPending}
                 onInputHandler={onInputHandler}
                 required
             >

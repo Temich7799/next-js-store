@@ -12,11 +12,15 @@ const CitySelector = (props: CitySelectorProps) => {
     const { setWarhousesData, selectedShippingLine } = props;
     const [citiesData, setCitiesData] = useState<Array<string>>([]);
 
+    const [isFetchPending, setIsFetchPending] = useState<boolean>(false);
+
     function selectOnInputHandler(onInputEvent: any) {
         if (onInputEvent.target.value.length > 1) {
+            setIsFetchPending(true);
             fetch(`http://localhost:3000/cities?shippingZoneMethod=${selectedShippingLine}&city=${onInputEvent.target.value}`, { mode: 'cors', })
                 .then(responce => responce && responce.json())
-                .then(responceData => setCitiesData(responceData));
+                .then(responceData => setCitiesData(responceData))
+                .finally(() => setIsFetchPending(false))
         }
         else {
             setCitiesData([]);
@@ -41,12 +45,13 @@ const CitySelector = (props: CitySelectorProps) => {
             label="City"
             onErrorMessage="Please, choose a City from list"
             placeHolder={!citiesData.length && 'Начинайте вводить название города'}
-            onChangeHandlerProps={onChangeHandler}
-            onInputHandler={selectOnInputHandler}
             isInputBlocked={false}
             isInputDisabled={!selectedShippingLine || selectedShippingLine == 'local_pickup'}
-            dependencies={[selectedShippingLine]}
+            isFetchPending={isFetchPending}
             resetOptionsData={resetOptionsData}
+            onChangeHandlerProps={onChangeHandler}
+            onInputHandler={selectOnInputHandler}
+            dependencies={[selectedShippingLine]}
         >
             {
                 citiesData.length && citiesData.map((city: string) => <SelectOption>{city}</SelectOption>)
