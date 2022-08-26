@@ -2,6 +2,7 @@ import { Link } from "gatsby";
 import React, { forwardRef, useEffect, useState } from "react"
 import styled from "styled-components"
 import Button from "../../Button";
+import LoadingBar from "../../LoadingBar";
 import OrderedProducts from "./OrderedProducts";
 
 const StyledOrderDetails = styled.form`
@@ -88,7 +89,7 @@ const OrderDetails = forwardRef((props: any, formRef: any) => {
                     <Button onClick={(e: any) => e.preventDefault()}>Back to Shop</Button>
                     {
                         formRef
-                            ? <Button type="submit" form="order_form" disabled={isButtonDisabled} buttonStyle="accent">{!isFetchPending ? isButtonDisabled ? "No Products" : "Make an Order" : 'Loading'}</Button>
+                            ? <Button type="submit" form="order_form" disabled={isButtonDisabled || isFetchPending} buttonStyle="accent">{!isFetchPending ? isButtonDisabled ? "No Products" : "Make an Order" : <LoadingBar />}</Button>
                             : isButtonDisabled
                                 ? <Button buttonStyle="accent" disabled={isButtonDisabled} >No selected Products</Button>
                                 : <Link to="/shopping_cart"><Button buttonStyle="accent" disabled={isButtonDisabled} >Go to Shopping cart</Button></Link>
