@@ -35,9 +35,9 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
     return (
         <Select
             name="shipping_lines"
-            selectLabel="Delivery"
+            label="Delivery"
             onErrorMessage="Delivery service is not selected"
-            onChangeHandler={selectOnChangeHandler}
+            onChangeHandlerProps={selectOnChangeHandler}
         >
             {
                 shippingZonesMethods.allWcShippingZones3Methods.edges.map((method: any) =>

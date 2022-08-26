@@ -19,9 +19,11 @@ const ValidMessage = styled(ErrorMessage)`
 
 type InputFieldProps = {
     name: string
+    children: string
     type?: string
     regExp?: RegExp
-    children: string
+    onInputHandler?: Function
+    placeholder?: string
     onErrorMessage?: string
     valueFromPropsSelect?: string
     required?: boolean
@@ -31,7 +33,19 @@ type InputFieldProps = {
 
 const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
 
-    const { name, children, type = "text", onErrorMessage, prettifyFunction, valueFromPropsSelect, isInputBlocked = false, required = true, regExp, ...rest } = props;
+    const {
+        name,
+        children,
+        type = "text",
+        regExp,
+        onErrorMessage,
+        prettifyFunction,
+        placeholder,
+        onInputHandler,
+        valueFromPropsSelect,
+        isInputBlocked = false,
+        required = true,
+    } = props;
 
     const [inputValue, setInputValue] = useState<string>('');
     const [onInvalidMessage, setOnInvalidMessage] = useState<string>('');
@@ -41,6 +55,7 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
     const onInvalidEvent = new Event('invalid');
 
     function onChangeHandler(onChangeEvent: any) {
+        onInputHandler && onInputHandler(onChangeEvent);
         if (inputValueRegExMatch(onChangeEvent.target.value)) onChangeEvent.target.dispatchEvent(onInvalidEvent);
         else {
             prettifyFunction && setInputValue(prettifyFunction(onChangeEvent.target.value));
@@ -98,11 +113,11 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
                 name={name}
                 type={type}
                 required={required}
+                placeholder={placeholder}
                 autoComplete="off"
                 onChange={(e: any) => onChangeHandler(e)}
                 onFocus={(e: any) => onFocusHandler(e)}
                 onInvalid={onInvalidHandler}
-                {...rest}
             />
         </>
     )

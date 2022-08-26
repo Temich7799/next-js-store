@@ -18,7 +18,7 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
 
     return (
         <>
-            <Select selectLabel="Address" name="address_1" ref={warhouseSelectorInput} onErrorMessage="Warehouse is not selected">
+            <Select ref={warhouseSelectorInput} name="address_1" label="Address" onErrorMessage="Warehouse is not selected">
                 {
                     warhousesData.map((city: string) => <SelectOption>{city}</SelectOption>)
                 }

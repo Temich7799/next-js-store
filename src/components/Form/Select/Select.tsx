@@ -22,17 +22,24 @@ type SelectProps = {
     children: any
     label: string
     onErrorMessage?: string
-    onChangeHandler?: Function
+    onChangeHandlerProps?: Function
+    onInputHandler?: Function
+    isInputBlocked?: boolean
 }
 
 const Select = forwardRef((props: SelectProps, inputRef: any) => {
 
-    const { name, children, label, onErrorMessage, onChangeHandler, ...rest } = props;
+    const { name, children, label, onErrorMessage, onChangeHandlerProps, onInputHandler, isInputBlocked = true } = props;
 
     const [inputValue, setInputValue] = useState<string>('');
 
     const onInvalidEvent = new Event('invalid');
+
     const selectRef = useRef<any>();
+    const localInputRef = inputRef ? inputRef : useRef<any>();
+
+    useEffect(() =>
+        localInputRef.current.addEventListener('focus', (e: React.FocusEvent<HTMLInputElement>) => inputOnFocusHandler(e)), []);
 
     function inputOnFocusHandler(onFocusEvent: React.FocusEvent<HTMLInputElement>) {
         selectRef.current.style.display = "block";
@@ -41,35 +48,35 @@ const Select = forwardRef((props: SelectProps, inputRef: any) => {
         });
     }
 
-    function selectOnFocusHandler(onFocusEvent: React.FocusEvent<HTMLSelectElement>) {
+    function onFocusHandler(onFocusEvent: React.FocusEvent<HTMLSelectElement>) {
         onFocusEvent.target.addEventListener('focusout', (e: any) => e.target.style.display = "none");
     }
 
-    function selectOnChangeHandler(onChangeEvent: React.ChangeEvent<HTMLSelectElement>) {
-        onChangeHandler && onChangeHandler(onChangeEvent);
+    function onChangeHandler(onChangeEvent: React.ChangeEvent<HTMLSelectElement>) {
+        onChangeHandlerProps && onChangeHandlerProps(onChangeEvent);
         onChangeEvent.target.style.display = "none";
         onInvalidEvent.preventDefault();
     }
 
-    function selectOnClickHandler(onClickEvent: any) {
+    function onClickHandler(onClickEvent: any) {
         const option = onClickEvent.target.closest('option');
         if (option) setInputValue(option.innerText);
     }
 
     return (
         <StyledSelectWrapper>
-            <InputField ref={inputRef} name={name} valueFromPropsSelect={inputValue} required
-                onFocus={(e: React.FocusEvent<HTMLInputElement>) => inputOnFocusHandler(e)}
+            <InputField ref={localInputRef} name={name} valueFromPropsSelect={inputValue} required
                 placeholder="Click To Select"
                 onErrorMessage={onErrorMessage}
-                isInputBlocked={true}
+                isInputBlocked={isInputBlocked}
+                onInputHandler={onInputHandler}
             >
                 {label}
             </InputField>
-            <StyledSelect ref={selectRef} size={10} required {...rest}
-                onFocus={(e: React.FocusEvent<HTMLSelectElement>) => selectOnFocusHandler(e)}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => selectOnChangeHandler(e)}
-                onClick={(e: React.MouseEvent<HTMLSelectElement>) => selectOnClickHandler(e)}
+            <StyledSelect ref={selectRef} size={10} required
+                onFocus={(e: React.FocusEvent<HTMLSelectElement>) => onFocusHandler(e)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChangeHandler(e)}
+                onClick={(e: React.MouseEvent<HTMLSelectElement>) => onClickHandler(e)}
             >
                 {children}
             </StyledSelect>

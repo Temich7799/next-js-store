@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import AutocompleteInput from "../../../../AutocompleteInput";
+import Select from "../../../../Form/Select/Select";
+import SelectOption from "../../../../Form/Select/SelectOption";
 
 type CitySelectorProps = {
     setWarhousesData: React.Dispatch<React.SetStateAction<string[]>>
@@ -11,37 +13,41 @@ const CitySelector = (props: CitySelectorProps) => {
     const { setWarhousesData, selectedShippingLine } = props;
     const [citiesData, setCitiesData] = useState<Array<string>>([]);
 
-    const citySelectorInput = useRef<any>();
-
+    const selectInput = useRef<any>();
     useEffect(() => cleanInput(), [selectedShippingLine]);
 
     function cleanInput(): void {
-        citySelectorInput.current.value = "";
+        selectInput.current.value = "";
     }
 
-    function getCitiesData(inputValue: string) {
-        inputValue.length > 1
-            ? fetch(`http://localhost:3000/cities?shippingZoneMethod=${selectedShippingLine}&city=${inputValue}`, { mode: 'cors', })
+    function selectOnInputHandler(onInputEvent: any) {
+        onInputEvent.target.value.length > 1
+            ? fetch(`http://localhost:3000/cities?shippingZoneMethod=${selectedShippingLine}&city=${onInputEvent.target.value}`, { mode: 'cors', })
                 .then(responce => responce && responce.json())
                 .then(responceData => setCitiesData(responceData))
             : setCitiesData([]);
     }
 
-    function getWarhousesData(selectedCity: string) {
-        fetch(`http://localhost:3000/warehouses?shippingZoneMethod=${selectedShippingLine}&city=${selectedCity}`, { mode: 'cors', })
+    function onChangeHandler(onChangeEvent: any) {
+        fetch(`http://localhost:3000/warehouses?shippingZoneMethod=${selectedShippingLine}&city=${onChangeEvent.target.value}`, { mode: 'cors', })
             .then(responce => responce && responce.json())
             .then(responceData => setWarhousesData(responceData));
     }
 
     return (
-        <AutocompleteInput
-            ref={citySelectorInput}
+        <Select
+            ref={selectInput}
             name="city"
-            placeholder="Начинайте вводить название города"
-            data={citiesData}
-            onInputHandler={getCitiesData}
-            onChangeHandler={getWarhousesData}
-        />
+            label="City"
+            onErrorMessage="Please, choose a City from list"
+            onChangeHandlerProps={onChangeHandler}
+            onInputHandler={selectOnInputHandler}
+            isInputBlocked={false}
+        >
+            {
+                citiesData.map((city) => <SelectOption>{city}</SelectOption>)
+            }
+        </Select>
     )
 }
 
