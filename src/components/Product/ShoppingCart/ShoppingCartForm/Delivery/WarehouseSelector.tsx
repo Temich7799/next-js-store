@@ -1,24 +1,24 @@
-import React, { useEffect, useRef, useState } from "react"
+import React from "react"
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 
 type WarehouseSelectorProps = {
     warhousesData: Array<string>
+    selectedShippingLine: string
 }
 
 const WarehouseSelector = (props: WarehouseSelectorProps) => {
 
-    const { warhousesData } = props;
-
-    const warhouseSelectorInput = useRef<any>();
-
-    useEffect(() => cleanInput(), [warhousesData]);
-
-    function cleanInput(): void { warhouseSelectorInput.current.value = "" }
+    const { warhousesData, selectedShippingLine } = props;
 
     return (
         <>
-            <Select ref={warhouseSelectorInput} name="address_1" label="Address" onErrorMessage="Warehouse is not selected">
+            <Select
+                name="address_1"
+                label="Address"
+                onErrorMessage="Warehouse is not selected"
+                resetInputOnDep={[selectedShippingLine, warhousesData]}
+            >
                 {
                     warhousesData.map((city: string) => <SelectOption>{city}</SelectOption>)
                 }

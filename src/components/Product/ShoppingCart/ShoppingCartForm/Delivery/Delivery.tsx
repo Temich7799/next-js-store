@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import InputField from "../../../../Form/InputField"
 import CitySelector from "./CitySelector"
 import ShippingLineSelector from "./ShippingLineSelector"
 import WarehouseSelector from "./WarehouseSelector"
@@ -13,7 +12,7 @@ const Delivery = () => {
         <>
             <ShippingLineSelector setSelectedShippingLine={setSelectedShippingLine} />
             <CitySelector selectedShippingLine={selectedShippingLine} setWarhousesData={setWarhousesData} />
-            <WarehouseSelector warhousesData={warhousesData} />
+            <WarehouseSelector selectedShippingLine={selectedShippingLine} warhousesData={warhousesData} />
         </>
     )
 }

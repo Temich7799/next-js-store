@@ -1,5 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby";
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 

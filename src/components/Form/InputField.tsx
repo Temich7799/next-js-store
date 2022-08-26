@@ -25,7 +25,7 @@ type InputFieldProps = {
     onInputHandler?: Function
     placeholder?: string
     onErrorMessage?: string
-    valueFromPropsSelect?: string
+    valueFromSelect?: string
     required?: boolean
     isInputBlocked?: boolean
     prettifyFunction?: Function
@@ -42,7 +42,7 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
         prettifyFunction,
         placeholder,
         onInputHandler,
-        valueFromPropsSelect,
+        valueFromSelect,
         isInputBlocked = false,
         required = true,
     } = props;
@@ -50,7 +50,10 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
     const [inputValue, setInputValue] = useState<string>('');
     const [onInvalidMessage, setOnInvalidMessage] = useState<string>('');
 
-    useEffect(() => setOnInvalidMessage(''), [valueFromPropsSelect]);
+    useEffect(() => {
+        setOnInvalidMessage('');
+        setInputValue(valueFromSelect);
+    }, [valueFromSelect]);
 
     const onInvalidEvent = new Event('invalid');
 
@@ -100,7 +103,7 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
                 <ErrorMessage>{onInvalidMessage}</ErrorMessage>
                 {
                     !onInvalidMessage &&
-                        valueFromPropsSelect
+                        valueFromSelect
                         ? <ValidMessage>✓</ValidMessage>
                         : inputValue && inputValue.length > 2 && <ValidMessage>✓</ValidMessage>
 
@@ -109,7 +112,7 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
             </StyledLabel>
             <input
                 ref={inputRef}
-                value={isInputBlocked ? valueFromPropsSelect : inputValue}
+                value={isInputBlocked ? valueFromSelect : inputValue}
                 name={name}
                 type={type}
                 required={required}
