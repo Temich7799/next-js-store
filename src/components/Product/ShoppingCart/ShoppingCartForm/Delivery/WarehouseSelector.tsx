@@ -24,6 +24,7 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
                 onErrorMessage="Warehouse is not selected"
                 placeHolder={!isWarhousesDataFetching && !warhousesData.length && 'В указаном пункте нет доступных отделений'}
                 isInputDisabled={(!selectedShippingLine || selectedShippingLine == 'local_pickup') || isInputDisabled || isWarhousesDataFetching}
+                isSelectClosed={isWarhousesDataFetching}
                 isFetchPending={isWarhousesDataFetching}
                 dependencies={[selectedShippingLine, warhousesData]}
             >
