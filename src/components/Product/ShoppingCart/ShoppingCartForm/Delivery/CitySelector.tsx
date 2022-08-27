@@ -25,6 +25,7 @@ const CitySelector = (props: CitySelectorProps) => {
         }
         else {
             setCitiesData([]);
+            setIsFetchPending(false);
             setWarhousesData([]);
         }
     }
@@ -50,6 +51,7 @@ const CitySelector = (props: CitySelectorProps) => {
             placeHolder={!citiesData.length && 'Начинайте вводить название города'}
             isInputBlocked={false}
             isInputDisabled={!selectedShippingLine || selectedShippingLine == 'local_pickup'}
+            isSelectClosed={citiesData.length > 0}
             isFetchPending={isFetchPending}
             resetOptionsData={resetOptionsData}
             onChangeHandlerProps={onChangeHandler}

@@ -24,6 +24,7 @@ type SelectProps = {
     placeHolder?: any
     isInputBlocked?: boolean
     isInputDisabled?: boolean
+    isSelectClosed?: boolean
     isFetchPending?: boolean
     onChangeHandlerProps?: Function
     onInputHandler?: Function
@@ -41,6 +42,7 @@ const Select = (props: SelectProps) => {
         placeHolder,
         isInputBlocked = true,
         isInputDisabled = false,
+        isSelectClosed = false,
         isFetchPending = false,
         resetOptionsData,
         onChangeHandlerProps,
@@ -61,18 +63,19 @@ const Select = (props: SelectProps) => {
         resetOptionsData && resetOptionsData();
     }, dependencies)
 
-    useEffect(() => { inputRef.current.addEventListener('focus', (e: React.FocusEvent<HTMLInputElement>) => inputOnFocusHandler(e)) }, []);
-    useEffect(() => { !isFetchPending && inputRef.current.dispatchEvent(new Event('focus')) }, [isFetchPending]);
+    useEffect(() => {
+        inputRef.current.addEventListener('focus', (e: React.FocusEvent<HTMLInputElement>) => inputOnFocusHandler(e));
+        inputRef.current.addEventListener('focusout', (e: any) => inputOnFocusOutHandler(e));
+    }, []);
+
+    useEffect(() => { inputRef.current.dispatchEvent(new Event('focus')) }, [isSelectClosed]);
 
     function inputOnFocusHandler(onFocusEvent: React.FocusEvent<HTMLInputElement>) {
-        showSelectIfHasChildren();
-        onFocusEvent.target.addEventListener('focusout', (focusOutEvent: any) => {
-            if (focusOutEvent.relatedTarget != selectRef.current) selectRef.current.style.display = "none";
-        });
+        selectRef.current.style.display = selectRef.current.children.length > 0 ? "block" : "none"
     }
 
-    function showSelectIfHasChildren() {
-        selectRef.current.style.display = selectRef.current.children.length > 0 ? "block" : "none";
+    function inputOnFocusOutHandler(onFocusOutEvent: any) {
+        if (onFocusOutEvent.relatedTarget != selectRef.current) selectRef.current.style.display = "none";
     }
 
     function onFocusHandler(onFocusEvent: React.FocusEvent<HTMLSelectElement>) {
