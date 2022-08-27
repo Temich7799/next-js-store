@@ -42,7 +42,7 @@ const Select = (props: SelectProps) => {
         placeHolder,
         isInputBlocked = true,
         isInputDisabled = false,
-        isSelectClosed = false,
+        isSelectClosed = true,
         isFetchPending = false,
         resetOptionsData,
         onChangeHandlerProps,
@@ -64,13 +64,17 @@ const Select = (props: SelectProps) => {
     }, dependencies)
 
     useEffect(() => {
-        inputRef.current.addEventListener('focus', (e: React.FocusEvent<HTMLInputElement>) => inputOnFocusHandler(e));
+        inputRef.current.addEventListener('focus', inputOnFocusHandler);
         inputRef.current.addEventListener('focusout', (e: any) => inputOnFocusOutHandler(e));
     }, []);
 
-    useEffect(() => { inputRef.current.dispatchEvent(new Event('focus')) }, [isSelectClosed]);
+    const [isSelectShown, setIsSelectShown] = useState<boolean>(false);
+    useEffect(() => {
+        if (isSelectShown) inputRef.current.dispatchEvent(new Event('focus'));
+        else setIsSelectShown(true);
+    }, [isSelectClosed]);
 
-    function inputOnFocusHandler(onFocusEvent: React.FocusEvent<HTMLInputElement>) {
+    function inputOnFocusHandler() {
         selectRef.current.style.display = selectRef.current.children.length > 0 ? "block" : "none"
     }
 
