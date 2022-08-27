@@ -50,12 +50,12 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
         children
     } = props;
 
-    const [inputValue, setInputValue] = useState<string>('');
+    const [inputValue, setInputValue] = useState<string | undefined>('');
     const [onInvalidMessage, setOnInvalidMessage] = useState<string>('');
 
     useEffect(() => {
         setOnInvalidMessage('');
-        valueFromProps && setInputValue(valueFromProps);
+        setInputValue(valueFromProps);
     }, [valueFromProps]);
 
     const onInvalidEvent = new Event('invalid');
