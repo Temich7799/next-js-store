@@ -7,8 +7,9 @@ const spinnerAnimation = keyframes`
 `;
 
 const StyledLoadingBar = styled.div`
-    height: 5vh;
-    width: 5vh;
+    height: 50%;
+    min-height: 10px;
+    aspect-ratio: 1/1;
     border: 2.5px solid #2deb6c;
     border-bottom-color: transparent;
     border-radius: 50%;
