@@ -103,12 +103,12 @@ const Select = (props: SelectProps) => {
                 ref={inputRef}
                 name={name}
                 placeholder={placeHolder ? placeHolder : "Click to select"}
-                valueFromSelect={inputValue}
+                valueFromProps={inputValue}
                 onErrorMessage={onErrorMessage}
                 isInputBlocked={isInputBlocked}
                 isInputDisabled={isInputDisabled}
                 isFetchPending={isFetchPending}
-                onInputHandler={onInputHandler}
+                onInputHandlerProps={onInputHandler}
                 required
             >
                 {label}
