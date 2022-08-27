@@ -34,7 +34,7 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
 
     return (
         <Select
-            name="shipping_lines"
+            name="method_title"
             label="Delivery"
             onErrorMessage="Delivery service is not selected"
             onChangeHandlerProps={selectOnChangeHandler}

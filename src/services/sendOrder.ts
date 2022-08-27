@@ -35,9 +35,19 @@ export default async function sendOrder(formElement: any): Promise<number> {
         return JSON.stringify(shippingData);
     }
 
+    function getShippingLines(): string {
+        const shippingLine = {
+            method_title: formElement.elements[3].value,
+            method_id: formElement.elements[4].value,
+        }
+        const shippingLines: Array<object> = [shippingLine];
+        return JSON.stringify(shippingLines);
+    }
+
     const formData = new FormData();
     formData.append("shipping", getShippingData());
     formData.append("line_items", getLineItems());
+    formData.append("shipping_lines", getShippingLines());
 
     const response = await fetch('http://localhost:3000/orders', {
         method: 'POST',
