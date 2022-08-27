@@ -55,7 +55,7 @@ export default async function sendOrder(formElement: any): Promise<number> {
         body: formData
     });
 
-    return await response.status;
+    return await response.json();
 }
 
 const data = {
