@@ -3,19 +3,20 @@ import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 
 type CitySelectorProps = {
-    setWarhousesData: React.Dispatch<React.SetStateAction<string[]>>
     selectedShippingLine: string
+    setWarhousesData: React.Dispatch<React.SetStateAction<string[]>>
+    setIsWarhousesDataFetching: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const CitySelector = (props: CitySelectorProps) => {
 
-    const { setWarhousesData, selectedShippingLine } = props;
+    const { selectedShippingLine, setWarhousesData, setIsWarhousesDataFetching } = props;
     const [citiesData, setCitiesData] = useState<Array<string>>([]);
 
     const [isFetchPending, setIsFetchPending] = useState<boolean>(false);
 
     function selectOnInputHandler(onInputEvent: any) {
-        if (onInputEvent.target.value.length > 1) {
+        if (onInputEvent.target.value.length > 2) {
             setIsFetchPending(true);
             fetch(`http://localhost:3000/cities?shippingZoneMethod=${selectedShippingLine}&city=${onInputEvent.target.value}`, { mode: 'cors', })
                 .then(responce => responce && responce.json())
@@ -34,9 +35,11 @@ const CitySelector = (props: CitySelectorProps) => {
     }
 
     function onChangeHandler(onChangeEvent: any) {
+        setIsWarhousesDataFetching(true);
         fetch(`http://localhost:3000/warehouses?shippingZoneMethod=${selectedShippingLine}&city=${onChangeEvent.target.value}`, { mode: 'cors', })
             .then(responce => responce && responce.json())
-            .then(responceData => setWarhousesData(responceData));
+            .then(responceData => setWarhousesData(responceData))
+            .finally(() => setIsWarhousesDataFetching(false));
     }
 
     return (

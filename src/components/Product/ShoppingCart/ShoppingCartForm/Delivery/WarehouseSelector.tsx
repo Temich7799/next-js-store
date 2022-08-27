@@ -3,13 +3,14 @@ import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 
 type WarehouseSelectorProps = {
-    warhousesData: Array<string>
     selectedShippingLine: string
+    warhousesData: Array<string>
+    isWarhousesDataFetching: boolean
 }
 
 const WarehouseSelector = (props: WarehouseSelectorProps) => {
 
-    const { warhousesData, selectedShippingLine } = props;
+    const { selectedShippingLine, warhousesData, isWarhousesDataFetching } = props;
 
     const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
 
@@ -21,8 +22,9 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
                 name="address_1"
                 label="Address"
                 onErrorMessage="Warehouse is not selected"
-                placeHolder={!warhousesData.length && 'В указаном пункте нет доступных отделений'}
-                isInputDisabled={(!selectedShippingLine || selectedShippingLine == 'local_pickup') || isInputDisabled}
+                placeHolder={!isWarhousesDataFetching && !warhousesData.length && 'В указаном пункте нет доступных отделений'}
+                isInputDisabled={(!selectedShippingLine || selectedShippingLine == 'local_pickup') || isInputDisabled || isWarhousesDataFetching}
+                isFetchPending={isWarhousesDataFetching}
                 dependencies={[selectedShippingLine, warhousesData]}
             >
                 {

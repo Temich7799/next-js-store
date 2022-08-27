@@ -61,20 +61,17 @@ const Select = (props: SelectProps) => {
         resetOptionsData && resetOptionsData();
     }, dependencies)
 
-    useEffect(() =>
-        inputRef.current.addEventListener('focus', (e: React.FocusEvent<HTMLInputElement>) => inputOnFocusHandler(e)), []);
+    useEffect(() => { inputRef.current.addEventListener('focus', (e: React.FocusEvent<HTMLInputElement>) => inputOnFocusHandler(e)) }, []);
+    useEffect(() => { !isFetchPending && inputRef.current.dispatchEvent(new Event('focus')) }, [isFetchPending]);
 
     function inputOnFocusHandler(onFocusEvent: React.FocusEvent<HTMLInputElement>) {
-
-        hideSelectIfNoChildren();
-        onFocusEvent.target.addEventListener('input', hideSelectIfNoChildren);
-
+        showSelectIfHasChildren();
         onFocusEvent.target.addEventListener('focusout', (focusOutEvent: any) => {
             if (focusOutEvent.relatedTarget != selectRef.current) selectRef.current.style.display = "none";
         });
     }
 
-    function hideSelectIfNoChildren() {
+    function showSelectIfHasChildren() {
         selectRef.current.style.display = selectRef.current.children.length > 0 ? "block" : "none";
     }
 
