@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useRef } from "react"
 import styled from "styled-components";
 import ImageSVG from "./ImageSVG";
 
@@ -45,8 +45,6 @@ const CopyArea = (props: CopyAreaProps) => {
     const { children } = props;
 
     const textToCopy = useRef<any>(null);
-
-    const [isMouseOver, setIsMouseOver] = useState(false);
 
     return (
         <StyledCopyArea onClick={() => navigator.clipboard.writeText(textToCopy.current.textContent)}>

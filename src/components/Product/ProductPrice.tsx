@@ -22,7 +22,6 @@ type PriceProps = {
     salePrice: string
 }
 
-
 const ProductPrice = (props: PriceProps) => {
 
     let { price, salePrice } = props;

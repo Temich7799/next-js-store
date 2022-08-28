@@ -15,8 +15,6 @@ const NotCopyArea = (props: any) => {
         notCopyArea.current.addEventListener('copy', (e: any) => { e.preventDefault(); return false });
     }, []);
 
-
-
     return (
         <StyledNotCopyArea ref={notCopyArea}>
             {children}
