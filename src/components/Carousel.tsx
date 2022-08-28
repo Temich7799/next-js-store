@@ -1,69 +1,110 @@
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
-import ImageSVG from "./ImageSVG";
+import Button from "./Button"
 
-const StyledCarousel = styled.div`
-    position: relative;
-    width: 70%;
-    min-width: 300px;
-    height: min-content;
-    position: relative;
+const StyledCarousel = styled.div<any>`
+    max-width: ${props => props.maxWidth};
     text-align: center;
 `;
 
-const CarouselContent = styled.div`
-    display:grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
+const CarouselContent = styled.div<any>`
+    ${props => props.showButtons && `
+        display: grid;
+        grid-template-columns: 0.5fr 4fr 0.5fr;
+        justify-items:center;
+        align-items: center;
+    `}
 `;
 
-const CarouselItems = styled.div`
+const CarouselSliderWrapper = styled.div`
     width: 100%;
-    padding: 10px;
-    height: fit-content;
+    overflow: hidden;
+`;
+
+const CarouselSlider = styled.div<any>`
+    position: relative;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 15px;
-    overflow: auto;
-`;
-
-const ArrowLeft = styled.div`
-    width: fit-content;
-    height: fit-content;
-    transform: rotate(-90deg);
-    border: red solid 1px;
-`;
-
-const ArrowRight = styled(ArrowLeft)`
-    transform: rotate(90deg);
+    column-gap: ${props => props.gap}px;
+    transition: 1s;
 `;
 
 type CarouselProps = {
-    title: string
-    carouselItemComponent: Function
-    dataForItem: Array<object>
+    title?: string
+    maxWidth?: string
+    carouselItemMax?: number
+    showButtons?: boolean
+    children: any
 }
 
 const Carousel = (props: CarouselProps) => {
 
-    const { title, carouselItemComponent, dataForItem } = props;
+    const {
+        title,
+        maxWidth = '100%',
+        carouselItemMax = 1,
+        showButtons = true,
+        children,
+    } = props;
+
+    const [carouselSliderWidth, setcarouselSliderWidth] = useState<number>(0);
+    const [carouselSliderClientWidth, setCarouselClientWidth] = useState<number>(0);
+    const [carouselSliderPosition, setcarouselSliderPosition] = useState<number>(0);
+    const [carouselItemWidth, setCarouselItemWidth] = useState<number>(0);
+    const [carouselItemsGap, setCarouselItemsGap] = useState<number>(0);
+
+
+    const carouselSlider = useRef<any>();
+
+    useEffect(() => {
+        setCarouselItemWidth(carouselSlider.current.firstChild.clientWidth);
+        setCarouselClientWidth(carouselSlider.current.clientWidth);
+    }, []);
+
+    useEffect(() => {
+        (carouselSliderWidth && carouselItemWidth)
+            && setCarouselItemsGap(calcItemsGap(carouselSliderClientWidth, carouselItemWidth, carouselItemMax));
+    }, [carouselSliderWidth]);
+
+    useEffect(() => {
+        setcarouselSliderWidth(carouselSlider.current.scrollWidth);
+        setcarouselSliderPosition(carouselItemsGap / 2);
+        carouselSlider.current.style.left = `${carouselItemsGap / 2}px`;
+    }, [carouselItemsGap]);
+
+    function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
+        let gap = 0;
+        do {
+            gap = (sliderWidth - itemWidth * itemsCount) / 2;
+            if (gap < 24) {
+                gap = 0;
+                itemsCount--;
+            }
+            else break;
+        } while (gap < 24);
+        return gap;
+    }
+
+    function buttonOnClickHandler(direction: string) {
+        let newPosition: number;
+
+        if (direction == 'right') newPosition = carouselSliderPosition - carouselSliderClientWidth;
+        else newPosition = carouselSliderPosition + carouselSliderClientWidth;
+
+        setcarouselSliderPosition(newPosition);
+        carouselSlider.current.style.left = `${newPosition}px`;
+    }
 
     return (
-        <StyledCarousel>
-            <h3>{title}</h3>
-            <CarouselContent>
-                <ArrowLeft><ImageSVG path="svg/arrow_more.svg/" height="25px" width="25px" /></ArrowLeft>
-                <CarouselItems>
-                    {
-                        dataForItem.map((carouselItem) =>
-                            carouselItemComponent({ data: carouselItem })
-                        )
-                    }
-                </CarouselItems>
-                <ArrowRight><ImageSVG path="svg/arrow_more.svg/" height="25px" width="25px" /></ArrowRight>
+        <StyledCarousel maxWidth={maxWidth}>
+            {title ? <h3>{title}</h3> : <></>}
+            <CarouselContent showButtons={showButtons}>
+                {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => buttonOnClickHandler('left')}><b>{'<'}</b></Button>}
+                <CarouselSliderWrapper>
+                    <CarouselSlider ref={carouselSlider} gap={carouselItemsGap}>
+                        {children}
+                    </CarouselSlider>
+                </CarouselSliderWrapper>
+                {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => buttonOnClickHandler('right')}><b>{'>'}</b></Button>}
             </CarouselContent>
         </StyledCarousel>
     )
