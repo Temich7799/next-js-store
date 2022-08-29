@@ -54,9 +54,16 @@ const Carousel = (props: CarouselProps) => {
     const carouselSlider = useRef<any>();
 
     const sliderClientWidthObserver = new ResizeObserver(entries => {
+
+        for (let entry of entries) {
+            setSliderClientWidth(entry.borderBoxSize[0].inlineSize);
+        }
+
+        /*
         carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
             ? setSliderClientWidth(carouselSlider.current.clientWidth)
             : carouselSlider.current.style.left = '0px';
+        */
     });
 
     useEffect(() => {
