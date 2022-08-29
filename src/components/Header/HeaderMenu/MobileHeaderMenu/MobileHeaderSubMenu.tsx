@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
 import React from "react"
 import styled, { keyframes } from "styled-components"
-import { formatCatalogChildItemUrl } from "../../../services/formatCatalogChildItemUrl";
+import { formatCatalogChildItemUrl } from "../../../../services/formatCatalogChildItemUrl";
 
 const subMenuPopUpAnimation = keyframes`
     from {opacity: 0%}

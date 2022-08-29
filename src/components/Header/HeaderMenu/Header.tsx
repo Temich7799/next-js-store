@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react"
 import HeaderMenu from "./HeaderMenu"
 import styled from "styled-components"
-import HeaderShoppingCart from "./HeaderShoppingCart";
-import useWindowDimensions from "../../services/hooks/useWindowDimensions";
-import MobileHeaderMenu from "./MobileHeaderMenu/MobileHeaderMenu";
-import { graphql, useStaticQuery } from "gatsby";
+import HeaderShoppingCart from "../HeaderShoppingCart";
+import useWindowDimensions from "../../../services/hooks/useWindowDimensions";
 
 const StyledHeader = styled.header<any>`
     position: ${props => props.isMobile ? "fixed" : "static"};
@@ -38,33 +36,9 @@ const Header = () => {
 
   useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
 
-  const data = useStaticQuery(graphql`
-    query HeaderMenuItems {
-      wpMenu(id: {eq: "dGVybTozMQ=="}) {
-        menuItems {
-          nodes {
-            label
-            url
-            parentId
-            childItems {
-              nodes {
-                url
-                label
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
-
   return (
     <StyledHeader isMobile={isMobile}>
-      {
-        isMobile
-          ? <MobileHeaderMenu data={data.wpMenu.menuItems.nodes} />
-          : <HeaderMenu data={data.wpMenu.menuItems.nodes} />
-      }
+      <HeaderMenu isMobile={isMobile} />
       <HeaderShoppingCart />
     </StyledHeader >
   )

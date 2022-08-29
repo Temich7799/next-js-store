@@ -1,8 +1,8 @@
-import * as React from "react"
+import React from "react"
 import styled from "styled-components"
-import { formatCatalogChildItemUrl } from "../../services/formatCatalogChildItemUrl";
+import { formatCatalogChildItemUrl } from "../../../../services/formatCatalogChildItemUrl";
 
-const StyledHeaderSubMenu = styled.nav`
+const StyledHeaderSubMenu = styled.div`
     font-size: 16px;
     font-weight: normal !important;
     position: absolute;
@@ -36,7 +36,10 @@ const HeaderSubMenu = (props: SubMenuProps) => {
     return (
         <StyledHeaderSubMenu>
             <ul>
-                {childItems.map((childItem: any) => <li><a href={formatCatalogChildItemUrl(childItem.url)}>{childItem.label}</a></li>)}
+                {
+                    childItems.map((childItem: any) =>
+                        <li><a href={formatCatalogChildItemUrl(childItem.url)}>{childItem.label}</a></li>)
+                }
             </ul>
         </StyledHeaderSubMenu >
     )

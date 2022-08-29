@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import ImageSVG from "../ImageSVG";
+import ImageSVG from "../../ImageSVG";
 
 type SubMenuIconProps = {
     isOpened: boolean

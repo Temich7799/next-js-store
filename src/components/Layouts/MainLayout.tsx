@@ -1,5 +1,5 @@
 import * as React from "react";
-import Header from "../Header/Header";
+import Header from "../Header/HeaderMenu/Header";
 import Footer from "../Footer/Footer";
 require('typeface-amatic-sc');
 require('typeface-comfortaa');
