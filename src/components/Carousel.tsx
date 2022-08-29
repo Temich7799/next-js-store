@@ -41,40 +41,39 @@ const Carousel = (props: CarouselProps) => {
     const {
         title,
         maxWidth = '100%',
-        carouselItemMax = 1,
+        carouselItemMax = 10,
         showButtons = true,
         children,
     } = props;
 
-    const [carouselSliderWidth, setcarouselSliderWidth] = useState<number>(0);
-    const [carouselSliderClientWidth, setCarouselClientWidth] = useState<number>(0);
-    const [carouselSliderPosition, setcarouselSliderPosition] = useState<number>(0);
-    const [carouselItemWidth, setCarouselItemWidth] = useState<number>(0);
-    const [carouselItemsGap, setCarouselItemsGap] = useState<number>(0);
-
+    const [sliderWidth, setSliderWidth] = useState<number>(0);
+    const [sliderClientWidth, setSliderClientWidth] = useState<number>(0);
+    const [sliderPosition, setSliderPosition] = useState<number>(0);
+    const [itemWidth, setItemWidth] = useState<number>(0);
+    const [itemsGap, setItemsGap] = useState<number>(0);
 
     const carouselSlider = useRef<any>();
 
     useEffect(() => {
-        setCarouselItemWidth(carouselSlider.current.firstChild.clientWidth);
-        setCarouselClientWidth(carouselSlider.current.clientWidth);
+        setItemWidth(carouselSlider.current.firstChild.clientWidth);
+        setSliderClientWidth(carouselSlider.current.clientWidth);
     }, []);
 
     useEffect(() => {
-        (carouselSliderWidth && carouselItemWidth)
-            && setCarouselItemsGap(calcItemsGap(carouselSliderClientWidth, carouselItemWidth, carouselItemMax));
-    }, [carouselSliderWidth]);
+        (sliderWidth && itemWidth)
+            && setItemsGap(calcItemsGap(sliderClientWidth, itemWidth, carouselItemMax));
+    }, [sliderWidth]);
 
     useEffect(() => {
-        setcarouselSliderWidth(carouselSlider.current.scrollWidth);
-        setcarouselSliderPosition(carouselItemsGap / 2);
-        carouselSlider.current.style.left = `${carouselItemsGap / 2}px`;
-    }, [carouselItemsGap]);
+        setSliderWidth(carouselSlider.current.scrollWidth);
+        setSliderPosition(itemsGap / 2);
+        carouselSlider.current.style.left = `${itemsGap / 2}px`;
+    }, [itemsGap]);
 
     function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
         let gap = 0;
         do {
-            gap = (sliderWidth - itemWidth * itemsCount) / 2;
+            gap = (sliderWidth - itemWidth * itemsCount) / itemsCount;
             if (gap < 24) {
                 gap = 0;
                 itemsCount--;
@@ -87,10 +86,10 @@ const Carousel = (props: CarouselProps) => {
     function buttonOnClickHandler(direction: string) {
         let newPosition: number;
 
-        if (direction == 'right') newPosition = carouselSliderPosition - carouselSliderClientWidth;
-        else newPosition = carouselSliderPosition + carouselSliderClientWidth;
+        if (direction == 'right') newPosition = sliderPosition - sliderClientWidth;
+        else newPosition = sliderPosition + sliderClientWidth;
 
-        setcarouselSliderPosition(newPosition);
+        setSliderPosition(newPosition);
         carouselSlider.current.style.left = `${newPosition}px`;
     }
 
@@ -100,7 +99,7 @@ const Carousel = (props: CarouselProps) => {
             <CarouselContent showButtons={showButtons}>
                 {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => buttonOnClickHandler('left')}><b>{'<'}</b></Button>}
                 <CarouselSliderWrapper>
-                    <CarouselSlider ref={carouselSlider} gap={carouselItemsGap}>
+                    <CarouselSlider ref={carouselSlider} gap={itemsGap}>
                         {children}
                     </CarouselSlider>
                 </CarouselSliderWrapper>
