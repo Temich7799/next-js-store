@@ -47,7 +47,6 @@ const Carousel = (props: CarouselProps) => {
     } = props;
 
     const [sliderWidth, setSliderWidth] = useState<number>(0);
-    const [sliderClientWidth, setSliderClientWidth] = useState<number>(0);
     const [sliderPosition, setSliderPosition] = useState<number>(0);
     const [itemWidth, setItemWidth] = useState<number>(0);
     const [itemsGap, setItemsGap] = useState<number>(0);
@@ -56,12 +55,11 @@ const Carousel = (props: CarouselProps) => {
 
     useEffect(() => {
         setItemWidth(carouselSlider.current.firstChild.clientWidth);
-        setSliderClientWidth(carouselSlider.current.clientWidth);
     }, []);
 
     useEffect(() => {
         (sliderWidth && itemWidth)
-            && setItemsGap(calcItemsGap(sliderClientWidth, itemWidth, carouselItemMax));
+            && setItemsGap(calcItemsGap(carouselSlider.current.clientWidth, itemWidth, carouselItemMax));
     }, [sliderWidth]);
 
     useEffect(() => {
@@ -86,8 +84,8 @@ const Carousel = (props: CarouselProps) => {
     function buttonOnClickHandler(direction: string) {
         let newPosition: number;
 
-        if (direction == 'right') newPosition = sliderPosition - sliderClientWidth;
-        else newPosition = sliderPosition + sliderClientWidth;
+        if (direction == 'right') newPosition = sliderPosition - carouselSlider.current.clientWidth;
+        else newPosition = sliderPosition + carouselSlider.current.clientWidth;
 
         setSliderPosition(newPosition);
         carouselSlider.current.style.left = `${newPosition}px`;
