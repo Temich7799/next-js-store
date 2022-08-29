@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import styled from "styled-components"
-import useWindowDimensions from "../../../services/hooks/useWindowDimensions";
+import useMobile from "../../../services/hooks/useMobile";
 
 const StyledProductGalleryCarousel = styled.div<any>`
     width: ${props => props.isMobile ? "300px" : "100px"};
@@ -48,10 +48,7 @@ const ProductGalleryCarousel = (props: ProductGalleryCarouselProps) => {
 
     const { images, setSelectedImage, selectedImage } = props;
 
-    const { deviceHeight, deviceWidth } = useWindowDimensions();
-    const [isMobile, setIsMobile] = useState<boolean>(false);
-
-    useEffect(() => setIsMobile(deviceWidth < 450 ? true : false), [deviceWidth]);
+    const isMobile = useMobile(450);
 
     return (
         <StyledProductGalleryCarousel isMobile={isMobile}>

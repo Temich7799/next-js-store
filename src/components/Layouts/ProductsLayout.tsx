@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import ProductThumb from "../Product/Thumbs/ProductThumb";
 import styled from "styled-components";
-import useWindowDimensions from "../../services/hooks/useWindowDimensions";
+import useMobile from "../../services/hooks/useMobile";
 
 const Main = styled.main<any>`
     margin-top: ${props => props.isMobile ? "125px" : "0"};
@@ -31,10 +31,7 @@ const ProductsLayout = (props: ProductsProps) => {
 
   const { data } = props;
 
-  const { deviceHeight, deviceWidth } = useWindowDimensions();
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-
-  useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
+  const isMobile = useMobile();
 
   return (
     <Layout>

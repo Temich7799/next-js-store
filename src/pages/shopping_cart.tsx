@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
 import OrderDetails from "../components/Product/ShoppingCart/OrderDetails";
 import ShoppingCartForm from "../components/Product/ShoppingCart/ShoppingCartForm/ShoppingCartForm";
-import useWindowDimensions from "../services/hooks/useWindowDimensions";
+import useMobile from "../services/hooks/useMobile";
 import sendOrder from "../services/sendOrder";
 
 const StyledShoppingCartPage = styled.div<any>`
@@ -21,9 +21,7 @@ const StyledShoppingCartPage = styled.div<any>`
 
 const ShoppingCartPage = () => {
 
-  const { deviceHeight, deviceWidth } = useWindowDimensions();
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
+  const isMobile = useMobile();
 
   const [isFetchPending, setIsFetchPending] = useState<boolean>(false);
 

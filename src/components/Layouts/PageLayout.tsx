@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import PageTitle from "../PageTitle";
 import styled from "styled-components";
-import useWindowDimensions from "../../services/hooks/useWindowDimensions";
+import useMobile from "../../services/hooks/useMobile";
 require('../../styles/wp.css');
 
 const Main = styled.main<any>`
@@ -33,10 +33,7 @@ const PageLayout = (props: PageProps) => {
 
   const { data } = props;
 
-  const { deviceHeight, deviceWidth } = useWindowDimensions();
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-
-  useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
+  const isMobile = useMobile();
 
   return (
     <>

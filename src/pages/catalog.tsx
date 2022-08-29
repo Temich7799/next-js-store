@@ -1,10 +1,10 @@
 import { graphql } from "gatsby";
-import React, { useEffect, useState } from "react"
+import React from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
 import CategoryThumb from "../components/Product/Thumbs/CategoryThumb";
 import PageTitle from "../components/PageTitle";
-import useWindowDimensions from "../services/hooks/useWindowDimensions";
+import useMobile from "../services/hooks/useMobile";
 
 const Main = styled.main<any>`
   margin-top: ${props => props.isMobile ? "125px" : "0"};
@@ -33,10 +33,7 @@ const CatalogPage = (props: CatalogProps) => {
 
   const { data } = props;
 
-  const { deviceHeight, deviceWidth } = useWindowDimensions();
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-
-  useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
+  const isMobile = useMobile();
 
   return (
     <>

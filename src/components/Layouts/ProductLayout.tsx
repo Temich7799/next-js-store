@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import styled from "styled-components";
 import ProductGallery from "../Product/ProductGallery/ProductGallery";
 import ProductAbout from "../Product/ProductAbout/ProductAbout";
 import ProductDescription from "../Product/ProductDescription";
-import useWindowDimensions from "../../services/hooks/useWindowDimensions";
 import Carousel from "../Carousel";
 import ProductThumb from "../Product/Thumbs/ProductThumb";
+import useMobile from "../../services/hooks/useMobile";
 
 const Main = styled.main<any>`
     margin-top: ${props => props.isMobile ? "125px" : "0"};
@@ -69,10 +69,7 @@ const ProductLayout = (props: ProductProps) => {
 
     const { data } = props;
 
-    const { deviceHeight, deviceWidth } = useWindowDimensions();
-    const [isMobile, setIsMobile] = useState<boolean>(false);
-
-    useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
+    const isMobile = useMobile();
 
     return (
         <Layout>
@@ -81,7 +78,12 @@ const ProductLayout = (props: ProductProps) => {
                     <ProductGallery data={data.wcProducts.images}></ProductGallery>
                     <ProductAbout data={data.wcProducts}></ProductAbout>
                     <ProductDescription data={data.wcProducts.description}></ProductDescription>
-                    <Carousel title="Related Products" carouselItemComponent={ProductThumb} dataForItem={data.wcProducts.related_products} />
+                    <Carousel title="Related Products" carouselItemMax={3}>
+                        <ProductThumb data={data.wcProducts.related_products[0]} />
+                        <ProductThumb data={data.wcProducts.related_products[0]} />
+                        <ProductThumb data={data.wcProducts.related_products[0]} />
+                        <ProductThumb data={data.wcProducts.related_products[0]} />
+                    </Carousel>
                 </Content>
             </Main>
         </Layout>

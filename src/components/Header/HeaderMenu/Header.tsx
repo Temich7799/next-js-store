@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import HeaderMenu from "./HeaderMenu"
 import styled from "styled-components"
 import HeaderShoppingCart from "../HeaderShoppingCart";
-import useWindowDimensions from "../../../services/hooks/useWindowDimensions";
+import useMobile from "../../../services/hooks/useMobile";
 
 const StyledHeader = styled.header<any>`
     position: ${props => props.isMobile ? "fixed" : "static"};
@@ -31,10 +31,7 @@ const StyledHeader = styled.header<any>`
 
 const Header = () => {
 
-  const { deviceHeight, deviceWidth } = useWindowDimensions();
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-
-  useEffect(() => setIsMobile(deviceWidth < 820 ? true : false), [deviceWidth]);
+  const isMobile = useMobile();
 
   return (
     <StyledHeader isMobile={isMobile}>
