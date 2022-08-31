@@ -56,7 +56,7 @@ const Carousel = (props: CarouselProps) => {
     const sliderClientWidthObserver = new ResizeObserver(entries => {
 
         for (let entry of entries) {
-            setSliderClientWidth(entry.borderBoxSize[0].inlineSize);
+            setSliderClientWidth(entry.borderBoxSize[0].inlineSize)
         }
 
         /*
@@ -72,12 +72,16 @@ const Carousel = (props: CarouselProps) => {
     }, []);
 
     useEffect(() => {
-        itemWidth && setItemsGap(calcItemsGap(carouselSlider.current.clientWidth, itemWidth, carouselItemMax));
+        itemWidth && setItemsGap(
+            carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
+                ? calcItemsGap(carouselSlider.current.clientWidth, itemWidth, carouselItemMax)
+                : 24
+        );
     }, [itemWidth, sliderClientWidth]);
 
     useEffect(() => {
-        setSliderPosition(itemsGap / 2);
-        carouselSlider.current.style.left = `${itemsGap / 2}px`;
+        setSliderPosition(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0);
+        carouselSlider.current.style.left = `${sliderPosition}px`;
     }, [itemsGap]);
 
     function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
