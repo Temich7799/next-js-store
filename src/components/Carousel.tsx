@@ -25,7 +25,6 @@ const CarouselSlider = styled.div<any>`
     position: relative;
     display: flex;
     column-gap: ${props => props.gap}px;
-    transition: 1s;
 `;
 
 type CarouselProps = {
@@ -47,28 +46,35 @@ const Carousel = (props: CarouselProps) => {
     } = props;
 
     const [sliderClientWidth, setSliderClientWidth] = useState<number>(0);
-    const [sliderPosition, setSliderPosition] = useState<number>(0);
     const [itemWidth, setItemWidth] = useState<number>(0);
     const [itemsGap, setItemsGap] = useState<number>(0);
 
     const carouselSlider = useRef<any>();
+    const carouselWrapper = useRef<any>();
+    const slider = useRef<any>();
+    slider.current = {
+        isMoving: false,
+        position: 0,
+    };
 
     const sliderClientWidthObserver = new ResizeObserver(entries => {
-
         for (let entry of entries) {
             setSliderClientWidth(entry.borderBoxSize[0].inlineSize)
         }
-
-        /*
-        carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
-            ? setSliderClientWidth(carouselSlider.current.clientWidth)
-            : carouselSlider.current.style.left = '0px';
-        */
     });
 
     useEffect(() => {
         setItemWidth(carouselSlider.current.firstChild.clientWidth);
+
         sliderClientWidthObserver.observe(carouselSlider.current);
+
+        carouselWrapper.current.addEventListener('mousemove', (onMouseMoveEvent: any) => sliderOnMouseMoveHandler(onMouseMoveEvent));
+        carouselWrapper.current.addEventListener('mousedown', sliderOnMouseDownHandler);
+        window.addEventListener('mouseup', windowOnMouseUpHandler);
+
+        carouselWrapper.current.addEventListener('touchmove', (onMouseMoveEvent: any) => sliderOnMouseMoveHandler(onMouseMoveEvent));
+        carouselWrapper.current.addEventListener('touchstart', sliderOnMouseDownHandler);
+        window.addEventListener('touchend', windowOnMouseUpHandler);
     }, []);
 
     useEffect(() => {
@@ -80,8 +86,8 @@ const Carousel = (props: CarouselProps) => {
     }, [itemWidth, sliderClientWidth]);
 
     useEffect(() => {
-        setSliderPosition(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0);
-        carouselSlider.current.style.left = `${sliderPosition}px`;
+        slider.current.position = carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0;
+        carouselSlider.current.style.left = `${slider.current.position}px`;
     }, [itemsGap]);
 
     function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
@@ -97,14 +103,30 @@ const Carousel = (props: CarouselProps) => {
         return gap;
     }
 
-    function buttonOnClickHandler(direction: string) {
-        let newPosition: number;
+    function buttonOnClickHandler(direction: string | number) {
 
-        if (direction == 'right') newPosition = sliderPosition - carouselSlider.current.clientWidth;
-        else newPosition = sliderPosition + carouselSlider.current.clientWidth;
+        if (direction == 'right') slider.current.position = slider.current.position - carouselSlider.current.clientWidth;
+        else slider.current.position = slider.current.position + carouselSlider.current.clientWidth;
 
-        setSliderPosition(newPosition);
-        carouselSlider.current.style.left = `${newPosition}px`;
+        carouselSlider.current.style.left = `${slider.current.position}px`;
+        carouselSlider.current.style.transition = `750ms`;
+    }
+
+    function sliderOnMouseMoveHandler(onMouseMoveEvent: any) {
+        onMouseMoveEvent.preventDefault();
+        if (slider.current.isMoving == true) {
+            slider.current.position = slider.current.position + onMouseMoveEvent.movementX;
+            carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
+        }
+    }
+
+    function sliderOnMouseDownHandler() {
+        slider.current.isMoving = true;
+    }
+
+    function windowOnMouseUpHandler() {
+        if (slider.current.isMoving == true) carouselSlider.current.style.transition = `750ms`;
+        slider.current.isMoving = false;
     }
 
     return (
@@ -112,14 +134,14 @@ const Carousel = (props: CarouselProps) => {
             {title ? <h3>{title}</h3> : <></>}
             <CarouselContent showButtons={showButtons}>
                 {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => buttonOnClickHandler('left')}><b>{'<'}</b></Button>}
-                <CarouselSliderWrapper>
+                <CarouselSliderWrapper ref={carouselWrapper}>
                     <CarouselSlider ref={carouselSlider} gap={itemsGap}>
                         {children}
                     </CarouselSlider>
                 </CarouselSliderWrapper>
                 {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => buttonOnClickHandler('right')}><b>{'>'}</b></Button>}
             </CarouselContent>
-        </StyledCarousel>
+        </StyledCarousel >
     )
 }
 
