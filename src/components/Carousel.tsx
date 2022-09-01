@@ -54,8 +54,8 @@ const Carousel = (props: CarouselProps) => {
 
     const slider = useRef<any>();
     slider.current = {
-        isMoving: false,
-        positionMap: [],
+        isMouseDown: false,
+        positionsMap: [],
         positionIndex: 0,
         position: 0,
     };
@@ -133,19 +133,19 @@ const Carousel = (props: CarouselProps) => {
 
     function sliderOnMouseMoveHandler(onMouseMoveEvent: any) {
         onMouseMoveEvent.preventDefault();
-        if (slider.current.isMoving == true) {
-            slider.current.position = slider.current.position + onMouseMoveEvent.movementX;
+        if (slider.current.isMouseDown == true) {
+            slider.current.position += onMouseMoveEvent.movementX;
             carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
         }
     }
 
     function sliderOnMouseDownHandler() {
-        slider.current.isMoving = true;
+        slider.current.isMouseDown = true;
     }
 
     function windowOnMouseUpHandler() {
-        if (slider.current.isMoving == true) carouselSlider.current.style.transition = `750ms`;
-        slider.current.isMoving = false;
+        if (slider.current.isMouseDown == true) carouselSlider.current.style.transition = `750ms`;
+        slider.current.isMouseDown = false;
     }
 
     return (
