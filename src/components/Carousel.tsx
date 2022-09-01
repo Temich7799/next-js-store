@@ -58,6 +58,7 @@ const Carousel = (props: CarouselProps) => {
         positionsMap: [],
         positionIndex: 0,
         position: 0,
+        startMargin: 0
     };
 
     const sliderClientWidthObserver = new ResizeObserver(entries => {
@@ -68,7 +69,7 @@ const Carousel = (props: CarouselProps) => {
 
     useEffect(() => {
         setItemWidth(carouselSlider.current.firstChild.clientWidth);
-        sliderClientWidthObserver.observe(carouselSlider.current);
+        //sliderClientWidthObserver.observe(carouselSlider.current);
 
         carouselWrapper.current.addEventListener('mousemove', (onMouseMoveEvent: any) => sliderOnMouseMoveHandler(onMouseMoveEvent));
         carouselWrapper.current.addEventListener('mousedown', sliderOnMouseDownHandler);
@@ -88,8 +89,9 @@ const Carousel = (props: CarouselProps) => {
     }, [itemWidth, sliderClientWidth]);
 
     useEffect(() => {
-        slider.current.position = carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0;
-        carouselSlider.current.style.left = `${slider.current.position}px`;
+        slider.current.startMargin = carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0;
+        slider.current.position = slider.current.startMargin;
+        carouselSlider.current.style.left = `${slider.current.startMargin}px`;
         slider.current.positionsMap = makePositionsMap();
     }, [itemsGap]);
 
@@ -108,11 +110,12 @@ const Carousel = (props: CarouselProps) => {
 
     function makePositionsMap(): Array<number> {
         const array = [];
-        let frame = 0 - carouselSlider.current.scrollWidth - slider.current.position + carouselSlider.current.clientWidth;
+        let frame = 0 - carouselSlider.current.scrollWidth - slider.current.startMargin + carouselSlider.current.clientWidth;
         do {
             array.push(frame);
-            frame += carouselSlider.current.clientWidth;
-        } while (frame <= slider.current.position)
+            if (frame <= 0) frame += carouselSlider.current.clientWidth;
+        } while (frame <= 0);
+        array.push(slider.current.startMargin);
         slider.current.positionIndex = array.length - 1;
         return array;
     }
