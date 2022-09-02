@@ -56,7 +56,8 @@ const Carousel = (props: CarouselProps) => {
     slider.current = {
         isSliding: false,
         position: 0,
-        step: 0,
+        positionsMap: [],
+        positionIndex: 0,
     };
 
     const sliderClientWidthObserver = new ResizeObserver(entries => {
@@ -81,21 +82,30 @@ const Carousel = (props: CarouselProps) => {
 
     useEffect(() => {
         itemWidth && setItemsGap(
-            sliderClientWidth < carouselSlider.current.scrollWidth
-                ? calcItemsGap(sliderClientWidth, itemWidth, carouselItemMax)
+            carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
+                ? calcItemsGap(carouselSlider.current.clientWidth, itemWidth, carouselItemMax)
                 : 24
         );
     }, [itemWidth, sliderClientWidth]);
 
     useEffect(() => {
-        slider.current.position = sliderClientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0;
-        slider.current.step = sliderClientWidth;
+        slider.current.positionsMap = makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0);
+        slider.current.position = slider.current.positionsMap[0];
 
         carouselSlider.current.style.left = `${slider.current.position}px`;
     }, [itemsGap]);
 
     function buttonOnClickHandler(direction: string | number) {
-        slider.current.position += direction == 'left' ? + slider.current.step : - slider.current.step;
+
+        slider.current.position = slider.current.positionsMap[
+            direction == 'left'
+                ? slider.current.positionsMap[--slider.current.positionIndex] == undefined
+                    ? ++slider.current.positionIndex
+                    : slider.current.positionIndex
+                : slider.current.positionsMap[++slider.current.positionIndex] == undefined
+                    ? --slider.current.positionIndex
+                    : slider.current.positionIndex];
+
         carouselSlider.current.style = `left: ${slider.current.position}px; transition: 750ms;`;
     }
 
@@ -114,7 +124,6 @@ const Carousel = (props: CarouselProps) => {
     function windowOnMouseUpHandler() {
         if (slider.current.isSliding == true) carouselSlider.current.style.transition = `750ms`;
         slider.current.isSliding = false;
-        console.log(makePositionsMap());
     }
 
     function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
@@ -130,13 +139,14 @@ const Carousel = (props: CarouselProps) => {
         return gap;
     }
 
-    function makePositionsMap(): Array<number> {
+    function makePositionsMap(startFrom: number): Array<number> {
         let array = [];
-        let position = parseInt(carouselSlider.current.style.left);
+        console.log(carouselSlider.current.clientWidth)
         do {
-            array.push(position);
-            position -= slider.current.step;
-        } while (slider.current.step && position > 0 - carouselSlider.current.scrollWidth)
+            array.push(startFrom);
+            startFrom -= carouselSlider.current.clientWidth;
+        } while (carouselSlider.current.clientWidth && startFrom > 0 - carouselSlider.current.scrollWidth);
+        console.log(array)
         return array;
     }
 
