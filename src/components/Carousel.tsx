@@ -43,7 +43,7 @@ const Carousel = (props: CarouselProps) => {
     const {
         title,
         speed = '750ms',
-        maxWidth = '100%',
+        maxWidth = '76%',
         carouselItemMax = 10,
         minGap = 24,
         showButtons = true,
@@ -61,6 +61,7 @@ const Carousel = (props: CarouselProps) => {
     const slider = useRef<any>();
     slider.current = {
         isSliding: false,
+        slideStartPos: 0,
         position: 0,
         positionsMap: [],
         positionIndex: 0,
@@ -106,22 +107,7 @@ const Carousel = (props: CarouselProps) => {
 
         carouselSlider.current.style.left = `${slider.current.position}px`;
 
-        console.log(`array: ${slider.current.positionsMap}`)
     }, [itemsGap, sliderClientWidth]);
-
-    function buttonOnClickHandler(direction: string | number) {
-
-        slider.current.position = slider.current.positionsMap[
-            direction == 'left'
-                ? slider.current.positionsMap[--slider.current.positionIndex] == undefined
-                    ? ++slider.current.positionIndex
-                    : slider.current.positionIndex
-                : slider.current.positionsMap[++slider.current.positionIndex] == undefined
-                    ? --slider.current.positionIndex
-                    : slider.current.positionIndex];
-
-        carouselSlider.current.style = `left: ${slider.current.position}px; transition: ${speed};`;
-    }
 
     function sliderOnMouseMoveHandler(onMouseMoveEvent: any) {
         onMouseMoveEvent.preventDefault();
@@ -133,10 +119,17 @@ const Carousel = (props: CarouselProps) => {
 
     function sliderOnMouseDownHandler() {
         slider.current.isSliding = true;
+        slider.current.slideStartPos = slider.current.position;
     }
 
     function windowOnMouseUpHandler() {
-        if (slider.current.isSliding == true) carouselSlider.current.style.transition = `${speed}`;
+        if (slider.current.isSliding == true) {
+
+            makeSwipe(slider.current.position > slider.current.slideStartPos ? 'left' : 'right');
+            slider.current.slideStartPos = 0;
+
+            carouselSlider.current.style.transition = `${speed}`;
+        }
         slider.current.isSliding = false;
     }
 
@@ -153,14 +146,26 @@ const Carousel = (props: CarouselProps) => {
         return gap;
     }
 
+    function makeSwipe(direction: string) {
+
+        slider.current.position = slider.current.positionsMap[
+            direction == 'left'
+                ? slider.current.positionsMap[--slider.current.positionIndex] == undefined
+                    ? ++slider.current.positionIndex
+                    : slider.current.positionIndex
+                : slider.current.positionsMap[++slider.current.positionIndex] == undefined
+                    ? --slider.current.positionIndex
+                    : slider.current.positionIndex];
+
+        carouselSlider.current.style = `left: ${slider.current.position}px; transition: ${speed};`;
+    }
+
     function makePositionsMap(startFrom: number): Array<number> {
         let array = [];
-        console.log(carouselSlider.current.clientWidth)
         do {
             array.push(startFrom);
             startFrom -= carouselSlider.current.clientWidth;
         } while (carouselSlider.current.clientWidth && startFrom > 0 - carouselSlider.current.scrollWidth);
-        console.log(array)
         return array;
     }
 
@@ -168,13 +173,13 @@ const Carousel = (props: CarouselProps) => {
         <StyledCarousel maxWidth={maxWidth}>
             {title ? <h3>{title}</h3> : <></>}
             <CarouselContent showButtons={showButtons}>
-                {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => buttonOnClickHandler('left')}><b>{'<'}</b></Button>}
+                {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('left')}><b>{'<'}</b></Button>}
                 <CarouselSliderWrapper ref={carouselWrapper}>
                     <CarouselSlider ref={carouselSlider} gap={itemsGap}>
                         {children}
                     </CarouselSlider>
                 </CarouselSliderWrapper>
-                {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => buttonOnClickHandler('right')}><b>{'>'}</b></Button>}
+                {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('right')}><b>{'>'}</b></Button>}
             </CarouselContent>
         </StyledCarousel >
     )
