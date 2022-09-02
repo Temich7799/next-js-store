@@ -43,7 +43,7 @@ const Carousel = (props: CarouselProps) => {
     const {
         title,
         speed = '750ms',
-        maxWidth = '76%',
+        maxWidth = '75%',
         carouselItemMax = 10,
         minGap = 24,
         showButtons = true,
@@ -61,7 +61,7 @@ const Carousel = (props: CarouselProps) => {
 
     const slider = useRef<any>();
     slider.current = {
-        isSliding: false,
+        isMouseDown: false,
         slideStartPos: 0,
         position: 0,
         positionIndex: 0,
@@ -109,28 +109,29 @@ const Carousel = (props: CarouselProps) => {
 
     }, [itemsGap, sliderClientWidth]);
 
-    function sliderOnMouseMoveHandler(onMouseMoveEvent: any) {
+    function sliderOnMouseMoveHandler(onMouseMoveEvent: any): void {
         onMouseMoveEvent.preventDefault();
-        if (slider.current.isSliding == true) {
+        if (slider.current.isMouseDown == true) {
             slider.current.position += onMouseMoveEvent.movementX;
             carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
         }
     }
 
-    function sliderOnMouseDownHandler() {
-        slider.current.isSliding = true;
+    function sliderOnMouseDownHandler(): void {
+        slider.current.isMouseDown = true;
         slider.current.slideStartPos = slider.current.position;
     }
 
-    function windowOnMouseUpHandler() {
-        if (slider.current.isSliding == true) {
-
+    function windowOnMouseUpHandler(): void {
+        console.log(positionsMap)
+        if (slider.current.isMouseDown == true) {
+            
             makeSwipe(slider.current.position > slider.current.slideStartPos ? 'left' : 'right');
             slider.current.slideStartPos = 0;
 
             carouselSlider.current.style.transition = `${speed}`;
         }
-        slider.current.isSliding = false;
+        slider.current.isMouseDown = false;
     }
 
     function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
@@ -146,7 +147,7 @@ const Carousel = (props: CarouselProps) => {
         return gap;
     }
 
-    function makeSwipe(direction: string) {
+    function makeSwipe(direction: string): void {
 
         slider.current.position = positionsMap[
             direction == 'left'
