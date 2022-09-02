@@ -78,14 +78,14 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
                                         {
                                             (link.childItems.nodes.length)
                                                 ?
-                                                <Link to={link.url} onMouseOver={(e: any) => onMouseOverHandler(e)}>
+                                                <Link to={link.url != '/home/' ? link.url : '/'} onMouseOver={(e: any) => onMouseOverHandler(e)}>
                                                     <SubMenuTitle>
                                                         {link.label}
                                                         <SubMenuIcon isOpened={isMouseOver} />
                                                     </SubMenuTitle>
                                                     {isMouseOver && <HeaderSubMenu childItems={link.childItems.nodes} />}
                                                 </Link>
-                                                : <Link to={link.url}>{link.label}</Link>
+                                                : <Link to={link.url != '/home/' ? link.url : '/'}>{link.label}</Link>
                                         }
                                     </li>
                                 }

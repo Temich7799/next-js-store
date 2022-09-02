@@ -17,7 +17,7 @@ exports.createPages = async function ({ actions, graphql }) {
     `);
 
     data.allWpPage.edges.forEach((edge) => {
-      if (edge.node.slug !== 'catalog') {
+      if (edge.node.slug !== 'catalog' || edge.node.slug !== 'home') {
         actions.createPage({
           path: edge.node.slug,
           component: path.resolve(`./src/components/Layouts/PageLayout.tsx`),

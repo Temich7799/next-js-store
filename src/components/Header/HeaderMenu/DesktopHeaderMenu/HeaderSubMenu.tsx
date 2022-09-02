@@ -38,7 +38,7 @@ const HeaderSubMenu = (props: SubMenuProps) => {
             <ul>
                 {
                     childItems.map((childItem: any) =>
-                        <li><a href={formatCatalogChildItemUrl(childItem.url)}>{childItem.label}</a></li>)
+                        <li><a href={formatCatalogChildItemUrl(childItem.url != '/home/' ? childItem.url : '/')}>{childItem.label}</a></li>)
                 }
             </ul>
         </StyledHeaderSubMenu >

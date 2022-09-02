@@ -118,7 +118,7 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
                                                         <MobileHeaderSubMenuTitle title={link.label} isSubMenuOpened={showSubMenu} onClickHandler={MobileHeaderSubMenuTitleOnClickHandler} />
                                                         {showSubMenu && <MobileHeaderSubMenu data={link} />}
                                                     </li>
-                                                    : !link.parentId && <li><Link to={link.url}>{link.label}</Link></li>
+                                                    : !link.parentId && <li><Link to={link.url != '/home/' ? link.url : '/'}>{link.label}</Link></li>
                                             }
                                         </>)
                                 }

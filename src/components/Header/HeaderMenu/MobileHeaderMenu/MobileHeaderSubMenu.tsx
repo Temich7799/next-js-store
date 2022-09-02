@@ -42,7 +42,7 @@ const MobileHeaderSubMenu = (props: MobileHeaderSubMenuProps) => {
 
     return (
         <MobileHeaderSubMenuLinks>
-            <li><Link to={data.url}>See All</Link></li>
+            <li><Link to={data.url != '/home/' ? data.url : '/'}>See All</Link></li>
             {
                 data.childItems.nodes.length && data.childItems.nodes.map((childItem: MobileHeaderMenuSubLink) =>
                     <li><a href={formatCatalogChildItemUrl(childItem.url)}>{childItem.label}</a></li>)
