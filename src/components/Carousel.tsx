@@ -51,17 +51,17 @@ const Carousel = (props: CarouselProps) => {
 
     const carouselSlider = useRef<any>();
     const carouselWrapper = useRef<any>();
-    
+
     const slider = useRef<any>();
     slider.current = {
-        isMoving: false,
+        isSliding: false,
         position: 0,
-        startMargin: 0
+        step: 0,
     };
 
     const sliderClientWidthObserver = new ResizeObserver(entries => {
         for (let entry of entries) {
-            setSliderClientWidth(entry.borderBoxSize[0].inlineSize)
+            setSliderClientWidth(entry.borderBoxSize[0].inlineSize);
         }
     });
 
@@ -81,17 +81,41 @@ const Carousel = (props: CarouselProps) => {
 
     useEffect(() => {
         itemWidth && setItemsGap(
-            carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
-                ? calcItemsGap(carouselSlider.current.clientWidth, itemWidth, carouselItemMax)
+            sliderClientWidth < carouselSlider.current.scrollWidth
+                ? calcItemsGap(sliderClientWidth, itemWidth, carouselItemMax)
                 : 24
         );
     }, [itemWidth, sliderClientWidth]);
 
     useEffect(() => {
-        slider.current.startMargin = carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0;
-        carouselSlider.current.style.left = `${slider.current.startMargin}px`;
-        slider.current.position = slider.current.startMargin;
+        slider.current.position = sliderClientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0;
+        slider.current.step = sliderClientWidth;
+
+        carouselSlider.current.style.left = `${slider.current.position}px`;
     }, [itemsGap]);
+
+    function buttonOnClickHandler(direction: string | number) {
+        slider.current.position += direction == 'left' ? + slider.current.step : - slider.current.step;
+        carouselSlider.current.style = `left: ${slider.current.position}px; transition: 750ms;`;
+    }
+
+    function sliderOnMouseMoveHandler(onMouseMoveEvent: any) {
+        onMouseMoveEvent.preventDefault();
+        if (slider.current.isSliding == true) {
+            slider.current.position += onMouseMoveEvent.movementX;
+            carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
+        }
+    }
+
+    function sliderOnMouseDownHandler() {
+        slider.current.isSliding = true;
+    }
+
+    function windowOnMouseUpHandler() {
+        if (slider.current.isSliding == true) carouselSlider.current.style.transition = `750ms`;
+        slider.current.isSliding = false;
+        console.log(makePositionsMap());
+    }
 
     function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
         let gap = 0;
@@ -106,26 +130,14 @@ const Carousel = (props: CarouselProps) => {
         return gap;
     }
 
-    function buttonOnClickHandler(direction: string | number) {
-        slider.current.position += direction == 'left' ? + carouselSlider.current.clientWidth : - carouselSlider.current.clientWidth;
-        carouselSlider.current.style = `left: ${slider.current.position}px; transition: 750ms;`;
-    }
-
-    function sliderOnMouseMoveHandler(onMouseMoveEvent: any) {
-        onMouseMoveEvent.preventDefault();
-        if (slider.current.isMouseDown == true) {
-            slider.current.position += onMouseMoveEvent.movementX;
-            carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
-        }
-    }
-
-    function sliderOnMouseDownHandler() {
-        slider.current.isMouseDown = true;
-    }
-
-    function windowOnMouseUpHandler() {
-        if (slider.current.isMouseDown == true) carouselSlider.current.style.transition = `750ms`;
-        slider.current.isMouseDown = false;
+    function makePositionsMap(): Array<number> {
+        let array = [];
+        let position = parseInt(carouselSlider.current.style.left);
+        do {
+            array.push(position);
+            position -= slider.current.step;
+        } while (slider.current.step && position > 0 - carouselSlider.current.scrollWidth)
+        return array;
     }
 
     return (
