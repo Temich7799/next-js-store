@@ -29,9 +29,12 @@ const CarouselSlider = styled.div<any>`
 
 type CarouselProps = {
     title?: string
+    speed?: string
     maxWidth?: string
     carouselItemMax?: number
+    minGap?: number
     showButtons?: boolean
+    showGap?: boolean
     children: any
 }
 
@@ -39,9 +42,12 @@ const Carousel = (props: CarouselProps) => {
 
     const {
         title,
+        speed = '750ms',
         maxWidth = '100%',
         carouselItemMax = 10,
+        minGap = 24,
         showButtons = true,
+        showGap = true,
         children,
     } = props;
 
@@ -81,19 +87,27 @@ const Carousel = (props: CarouselProps) => {
     }, []);
 
     useEffect(() => {
-        itemWidth && setItemsGap(
-            carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
-                ? calcItemsGap(carouselSlider.current.clientWidth, itemWidth, carouselItemMax)
-                : 24
-        );
+
+        showGap == true
+            ? itemWidth && setItemsGap(
+                carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
+                    ? calcItemsGap(carouselSlider.current.clientWidth, itemWidth, carouselItemMax)
+                    : minGap
+            )
+            : itemsGap;
+
     }, [itemWidth, sliderClientWidth]);
 
     useEffect(() => {
+
         slider.current.positionsMap = makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0);
+        slider.current.positionIndex = 0;
         slider.current.position = slider.current.positionsMap[0];
 
         carouselSlider.current.style.left = `${slider.current.position}px`;
-    }, [itemsGap]);
+
+        console.log(`array: ${slider.current.positionsMap}`)
+    }, [itemsGap, sliderClientWidth]);
 
     function buttonOnClickHandler(direction: string | number) {
 
@@ -106,7 +120,7 @@ const Carousel = (props: CarouselProps) => {
                     ? --slider.current.positionIndex
                     : slider.current.positionIndex];
 
-        carouselSlider.current.style = `left: ${slider.current.position}px; transition: 750ms;`;
+        carouselSlider.current.style = `left: ${slider.current.position}px; transition: ${speed};`;
     }
 
     function sliderOnMouseMoveHandler(onMouseMoveEvent: any) {
@@ -122,7 +136,7 @@ const Carousel = (props: CarouselProps) => {
     }
 
     function windowOnMouseUpHandler() {
-        if (slider.current.isSliding == true) carouselSlider.current.style.transition = `750ms`;
+        if (slider.current.isSliding == true) carouselSlider.current.style.transition = `${speed}`;
         slider.current.isSliding = false;
     }
 
@@ -130,12 +144,12 @@ const Carousel = (props: CarouselProps) => {
         let gap = 0;
         do {
             gap = (sliderWidth - itemWidth * itemsCount) / itemsCount;
-            if (gap < 24) {
+            if (gap < minGap) {
                 gap = 0;
                 itemsCount--;
             }
             else break;
-        } while (gap < 24);
+        } while (gap < minGap);
         return gap;
     }
 
