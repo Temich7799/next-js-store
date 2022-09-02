@@ -54,6 +54,7 @@ const Carousel = (props: CarouselProps) => {
     const [sliderClientWidth, setSliderClientWidth] = useState<number>(0);
     const [itemWidth, setItemWidth] = useState<number>(0);
     const [itemsGap, setItemsGap] = useState<number>(0);
+    const [positionsMap, setPositionsMap] = useState<Array<number>>([]);
 
     const carouselSlider = useRef<any>();
     const carouselWrapper = useRef<any>();
@@ -63,7 +64,6 @@ const Carousel = (props: CarouselProps) => {
         isSliding: false,
         slideStartPos: 0,
         position: 0,
-        positionsMap: [],
         positionIndex: 0,
     };
 
@@ -101,9 +101,9 @@ const Carousel = (props: CarouselProps) => {
 
     useEffect(() => {
 
-        slider.current.positionsMap = makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0);
+        setPositionsMap(makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0));
         slider.current.positionIndex = 0;
-        slider.current.position = slider.current.positionsMap[0];
+        slider.current.position = positionsMap[0];
 
         carouselSlider.current.style.left = `${slider.current.position}px`;
 
@@ -148,12 +148,12 @@ const Carousel = (props: CarouselProps) => {
 
     function makeSwipe(direction: string) {
 
-        slider.current.position = slider.current.positionsMap[
+        slider.current.position = positionsMap[
             direction == 'left'
-                ? slider.current.positionsMap[--slider.current.positionIndex] == undefined
+                ? positionsMap[--slider.current.positionIndex] == undefined
                     ? ++slider.current.positionIndex
                     : slider.current.positionIndex
-                : slider.current.positionsMap[++slider.current.positionIndex] == undefined
+                : positionsMap[++slider.current.positionIndex] == undefined
                     ? --slider.current.positionIndex
                     : slider.current.positionIndex];
 
