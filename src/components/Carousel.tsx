@@ -83,7 +83,7 @@ const Carousel = (props: CarouselProps) => {
         carouselWrapper.current.addEventListener('mousedown', sliderOnMouseDownHandler);
         window.addEventListener('mouseup', windowOnMouseUpHandler);
 
-        carouselWrapper.current.addEventListener('touchmove', (onMouseMoveEvent: any) => sliderOnMouseMoveHandler(onMouseMoveEvent));
+        carouselWrapper.current.addEventListener('touchmove', (onTouchMoveEvent: any) => sliderOnMouseMoveHandler(onTouchMoveEvent));
         carouselWrapper.current.addEventListener('touchstart', sliderOnMouseDownHandler);
         window.addEventListener('touchend', windowOnMouseUpHandler);
     }, []);
