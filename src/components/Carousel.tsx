@@ -51,12 +51,9 @@ const Carousel = (props: CarouselProps) => {
 
     const carouselSlider = useRef<any>();
     const carouselWrapper = useRef<any>();
-
     const slider = useRef<any>();
     slider.current = {
-        isMouseDown: false,
-        positionsMap: [],
-        positionIndex: 0,
+        isMoving: false,
         position: 0,
         startMargin: 0
     };
@@ -69,7 +66,8 @@ const Carousel = (props: CarouselProps) => {
 
     useEffect(() => {
         setItemWidth(carouselSlider.current.firstChild.clientWidth);
-        //sliderClientWidthObserver.observe(carouselSlider.current);
+
+        sliderClientWidthObserver.observe(carouselSlider.current);
 
         carouselWrapper.current.addEventListener('mousemove', (onMouseMoveEvent: any) => sliderOnMouseMoveHandler(onMouseMoveEvent));
         carouselWrapper.current.addEventListener('mousedown', sliderOnMouseDownHandler);
@@ -89,10 +87,8 @@ const Carousel = (props: CarouselProps) => {
     }, [itemWidth, sliderClientWidth]);
 
     useEffect(() => {
-        slider.current.startMargin = carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0;
-        slider.current.position = slider.current.startMargin;
-        carouselSlider.current.style.left = `${slider.current.startMargin}px`;
-        slider.current.positionsMap = makePositionsMap();
+        slider.current.position = carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0;
+        carouselSlider.current.style.left = `${slider.current.position}px`;
     }, [itemsGap]);
 
     function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
@@ -108,30 +104,13 @@ const Carousel = (props: CarouselProps) => {
         return gap;
     }
 
-    function makePositionsMap(): Array<number> {
-        const array = [];
-        let frame = 0 - carouselSlider.current.scrollWidth - slider.current.startMargin + carouselSlider.current.clientWidth;
-        do {
-            array.push(frame);
-            if (frame <= 0) frame += carouselSlider.current.clientWidth;
-        } while (frame <= 0);
-        array.push(slider.current.startMargin);
-        slider.current.positionIndex = array.length - 1;
-        return array;
-    }
-
     function buttonOnClickHandler(direction: string | number) {
 
-        slider.current.position = slider.current.positionsMap[
-            direction == 'left'
-                ? slider.current.positionsMap[++slider.current.positionIndex] == undefined
-                    ? --slider.current.positionIndex
-                    : slider.current.positionIndex
-                : slider.current.positionsMap[--slider.current.positionIndex] == undefined
-                    ? ++slider.current.positionIndex
-                    : slider.current.positionIndex];
+        if (direction == 'right') slider.current.position = slider.current.position - carouselSlider.current.clientWidth;
+        else slider.current.position = slider.current.position + carouselSlider.current.clientWidth;
 
-        carouselSlider.current.style = `left: ${slider.current.position}px; transition: 750ms`;
+        carouselSlider.current.style.left = `${slider.current.position}px`;
+        carouselSlider.current.style.transition = `750ms`;
     }
 
     function sliderOnMouseMoveHandler(onMouseMoveEvent: any) {
