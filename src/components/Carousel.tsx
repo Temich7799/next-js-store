@@ -43,7 +43,7 @@ const Carousel = (props: CarouselProps) => {
     const {
         title,
         speed = '750ms',
-        maxWidth = '75%',
+        maxWidth = '100%',
         carouselItemMax = 10,
         minGap = 24,
         showButtons = true,
@@ -54,7 +54,7 @@ const Carousel = (props: CarouselProps) => {
     const [sliderClientWidth, setSliderClientWidth] = useState<number>(0);
     const [itemWidth, setItemWidth] = useState<number>(0);
     const [itemsGap, setItemsGap] = useState<number>(0);
-    const [positionsMap, setPositionsMap] = useState<Array<number>>([]);
+    const [positions, setPositions] = useState<Array<number>>([]);
 
     const carouselSlider = useRef<any>();
     const carouselWrapper = useRef<any>();
@@ -64,6 +64,7 @@ const Carousel = (props: CarouselProps) => {
         isMouseDown: false,
         slideStartPos: 0,
         position: 0,
+        positionsMap: positions ? positions : [],
         positionIndex: 0,
     };
 
@@ -101,16 +102,16 @@ const Carousel = (props: CarouselProps) => {
 
     useEffect(() => {
 
-        setPositionsMap(makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0));
+        setPositions(makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0));
         slider.current.positionIndex = 0;
-        slider.current.position = positionsMap[0];
+        slider.current.position = slider.current.positionsMap[0];
 
         carouselSlider.current.style.left = `${slider.current.position}px`;
 
     }, [itemsGap, sliderClientWidth]);
 
     function sliderOnMouseMoveHandler(onMouseMoveEvent: any): void {
-        onMouseMoveEvent.preventDefault();
+        onMouseMoveEvent.cancelable && onMouseMoveEvent.preventDefault();
         if (slider.current.isMouseDown == true) {
             slider.current.position += onMouseMoveEvent.movementX;
             carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
@@ -123,9 +124,9 @@ const Carousel = (props: CarouselProps) => {
     }
 
     function windowOnMouseUpHandler(): void {
-        console.log(positionsMap)
+
         if (slider.current.isMouseDown == true) {
-            
+
             makeSwipe(slider.current.position > slider.current.slideStartPos ? 'left' : 'right');
             slider.current.slideStartPos = 0;
 
@@ -149,12 +150,12 @@ const Carousel = (props: CarouselProps) => {
 
     function makeSwipe(direction: string): void {
 
-        slider.current.position = positionsMap[
+        slider.current.position = slider.current.positionsMap[
             direction == 'left'
-                ? positionsMap[--slider.current.positionIndex] == undefined
+                ? slider.current.positionsMap[--slider.current.positionIndex] == undefined
                     ? ++slider.current.positionIndex
                     : slider.current.positionIndex
-                : positionsMap[++slider.current.positionIndex] == undefined
+                : slider.current.positionsMap[++slider.current.positionIndex] == undefined
                     ? --slider.current.positionIndex
                     : slider.current.positionIndex];
 
