@@ -102,9 +102,10 @@ const Carousel = (props: CarouselProps) => {
 
     useEffect(() => {
 
-        setPositions(makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0));
+        slider.current.positionsMap = makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0);
+        setPositions(slider.current.positionsMap);
         slider.current.positionIndex = 0;
-        slider.current.position = slider.current.positionsMap[0];
+        slider.current.position = slider.current.positionsMap[slider.current.positionIndex];
 
         carouselSlider.current.style.left = `${slider.current.position}px`;
 
