@@ -5,6 +5,7 @@ import ImageSVG from "../../ImageSVG";
 import Button from "../../Button";
 import { addToCart } from "../../../services/addToCart";
 import ProductPrice from "../ProductPrice";
+import { PRODUCT_SKU } from "../../../languages/ru/languages";
 
 const StyledProductThumb = styled.div`
     height: 320px;
@@ -87,7 +88,7 @@ const ProductThumb = (props: ProductProps) => {
             </ProductImage>
             <ProductCaption>
                 <div>
-                    <p>SKU: {data.sku}</p>
+                    <p>{PRODUCT_SKU}: {data.sku}</p>
                     <ProductPrice price={data.price} salePrice={data.sale_price} />
                 </div>
                 <div>

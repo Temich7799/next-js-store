@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import React from "react"
 import styled, { keyframes } from "styled-components"
+import { MOBILE_HEADER_SUBMENU_SEE_ALL } from "../../../../languages/ru/languages";
 import { formatCatalogChildItemUrl } from "../../../../services/formatCatalogChildItemUrl";
 
 const subMenuPopUpAnimation = keyframes`
@@ -42,7 +43,7 @@ const MobileHeaderSubMenu = (props: MobileHeaderSubMenuProps) => {
 
     return (
         <MobileHeaderSubMenuLinks>
-            <li><Link to={data.url != '/home/' ? data.url : '/'}>See All</Link></li>
+            <li><Link to={data.url}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link></li>
             {
                 data.childItems.nodes.length && data.childItems.nodes.map((childItem: MobileHeaderMenuSubLink) =>
                     <li><a href={formatCatalogChildItemUrl(childItem.url)}>{childItem.label}</a></li>)

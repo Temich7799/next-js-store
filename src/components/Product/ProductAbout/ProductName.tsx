@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { getHeightAttribute } from "../../../services/attributes";
 import ImageSVG from "../../ImageSVG";
 import CopyArea from "../../CopyArea";
+import { PRODUCT_SKU } from "../../../languages/ru/languages";
 
 const StyledProductName = styled.div`
     display: flex;
@@ -35,7 +36,7 @@ const ProductName = (props: ProductNameProps) => {
         <StyledProductName>
             <div>
                 <CopyArea><h1>{name}</h1></CopyArea>
-                <CopyArea><p>SKU: {sku}</p></CopyArea>
+                <CopyArea><p>{PRODUCT_SKU}: {sku}</p></CopyArea>
             </div>
             {height != undefined && <p><ImageSVG path='/svg/height.svg' height="100%" />{height.options[0]}</p>}
         </StyledProductName>

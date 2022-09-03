@@ -3,6 +3,7 @@ import { Link } from "gatsby";
 import styled from "styled-components"
 import Button from "../../Button";
 import getRandomColor from "../../../services/getRandomColor";
+import { CATEGORY_THUMB_BUTTON } from "../../../languages/ru/languages";
 
 const StyledCategoryThumb = styled.div`
     height: 490px;
@@ -86,9 +87,9 @@ const CategoryThumb = (props: CategoryProps) => {
                 </ImageCaption>
             </ImageFigure>
             <Caption>
-            <p dangerouslySetInnerHTML={{ __html: data.description }} />
+                <p dangerouslySetInnerHTML={{ __html: data.description }} />
                 <Link to={data.slug}>
-                    <Button>Know more</Button>
+                    <Button>{CATEGORY_THUMB_BUTTON}</Button>
                 </Link>
             </Caption>
         </StyledCategoryThumb >

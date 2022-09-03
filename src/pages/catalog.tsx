@@ -5,6 +5,7 @@ import Layout from "../components/Layouts/MainLayout";
 import CategoryThumb from "../components/Product/Thumbs/CategoryThumb";
 import PageTitle from "../components/PageTitle";
 import useMobile from "../services/hooks/useMobile";
+import { CATALOG_PAGE_TITLE } from "../languages/ru/languages";
 
 const Main = styled.main<any>`
   margin-top: ${props => props.isMobile ? "125px" : "0"};
@@ -40,7 +41,7 @@ const CatalogPage = (props: CatalogProps) => {
       <Layout>
         <>
           <Main isMobile={isMobile}>
-            <PageTitle>Catalog</PageTitle>
+            <PageTitle>{CATALOG_PAGE_TITLE}</PageTitle>
             <Content>
               {data.allWcProductsCategories.edges.map((edge: any) => <CategoryThumb data={edge.node} />)}
             </Content>

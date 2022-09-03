@@ -8,6 +8,7 @@ import ProductDescription from "../Product/ProductDescription";
 import Carousel from "../Carousel";
 import ProductThumb from "../Product/Thumbs/ProductThumb";
 import useMobile from "../../services/hooks/useMobile";
+import { CAROUSEL_RELATED_PRODUCTS_TITLE } from "../../languages/ru/languages";
 
 const Main = styled.main<any>`
     margin-top: ${props => props.isMobile ? "125px" : "0"};
@@ -78,7 +79,7 @@ const ProductLayout = (props: ProductProps) => {
                     <ProductGallery data={data.wcProducts.images}></ProductGallery>
                     <ProductAbout data={data.wcProducts}></ProductAbout>
                     <ProductDescription data={data.wcProducts.description}></ProductDescription>
-                    <Carousel title="Related Products" carouselItemMax={3}>
+                    <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} carouselItemMax={3}>
                         <ProductThumb data={data.wcProducts.related_products[0]} />
                         <ProductThumb data={data.wcProducts.related_products[0]} />
                         <ProductThumb data={data.wcProducts.related_products[0]} />

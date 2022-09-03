@@ -1,5 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
+import { PRODUCT_PRICE_TITLE } from "../../languages/ru/languages";
 
 const StyledProductPrice = styled.p`
     display: flex;
@@ -29,7 +30,7 @@ const ProductPrice = (props: PriceProps) => {
     return (
         <StyledProductPrice>
             <>
-                Price:{" "}
+                {PRODUCT_PRICE_TITLE}:{" "}
                 {
                     salePrice.length
                         ? <><OldPrice>{price}{" "}</OldPrice><SalePrice>{" "}{salePrice}</SalePrice> грн</>

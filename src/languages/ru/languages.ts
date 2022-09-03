@@ -1,0 +1,10 @@
+export const MOBILE_HEADER_SUBMENU_SEE_ALL = 'Смотреть Всё';
+export const CAROUSEL_RELATED_PRODUCTS_TITLE = 'Похожие товары';
+export const DELIVERY_ABOUT_DELIVERY_INFO = 'Условия доставки';
+export const DELIVERY_ABOUT_AFTERPAY_INFO = 'Наложенный платёж';
+export const PRODUCT_SKU = 'Артикул';
+export const PRODUCT_DESCRIPTION_TITLE = 'Описание';
+export const PRODUCT_PRICE_TITLE = 'Цена';
+export const PRODUCT_BUY_BUTTON_TITLE = 'Купить';
+export const CATEGORY_THUMB_BUTTON = 'Смотреть всех';
+export const CATALOG_PAGE_TITLE = 'Каталог';

@@ -1,5 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
+import { DELIVERY_ABOUT_AFTERPAY_INFO, DELIVERY_ABOUT_DELIVERY_INFO } from "../../../languages/ru/languages";
 import ImageSVG from "../../ImageSVG";
 
 const StyledProductDelivery = styled.div`
@@ -27,8 +28,8 @@ const ProductDelivery = () => {
     return (
         <StyledProductDelivery>
             <DeliveryAbout>
-                <a>условия доставки</a>
-                <a>наложенный платеж</a>
+                <a>{DELIVERY_ABOUT_DELIVERY_INFO}</a>
+                <a>{DELIVERY_ABOUT_AFTERPAY_INFO}</a>
             </DeliveryAbout>
             <DeliveryIcons>
                 <ImageSVG path='/svg/nova_poshta.svg' height="35px" width="35px" />

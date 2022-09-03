@@ -1,0 +1,10 @@
+export const MOBILE_HEADER_SUBMENU_SEE_ALL = 'Дивитись Все';
+export const CAROUSEL_RELATED_PRODUCTS_TITLE = 'Схожі товари';
+export const DELIVERY_ABOUT_DELIVERY_INFO = 'Умови доставки';
+export const DELIVERY_ABOUT_AFTERPAY_INFO = 'Наложений платіж';
+export const PRODUCT_SKU = 'Артикул';
+export const PRODUCT_DESCRIPTION_TITLE = 'Опис';
+export const PRODUCT_PRICE_TITLE = 'Ціна';
+export const PRODUCT_BUY_BUTTON_TITLE = 'Купити';
+export const CATEGORY_THUMB_BUTTON = 'Дивитись усіх';
+export const CATALOG_PAGE_TITLE = 'Каталог';

@@ -1,5 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
+import { PRODUCT_BUY_BUTTON_TITLE } from "../../../languages/ru/languages";
 import { addToCart } from "../../../services/addToCart";
 import Button from "../../Button";
 import ImageSVG from "../../ImageSVG";
@@ -46,7 +47,7 @@ const ProductBuy = (props: ProductBuyProps) => {
             <ProductPrice price={data.price} salePrice={data.sale_price} />
             <Button id="shoppingCartButton" onClick={() => addToCart(product)}>
                 <>
-                    Buy
+                    {PRODUCT_BUY_BUTTON_TITLE}
                     <ImageSVG path="/svg/add_to_cart.svg" height="25px" width="25px" />
                 </>
             </Button>
