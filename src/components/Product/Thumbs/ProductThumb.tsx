@@ -3,9 +3,10 @@ import { Link } from "gatsby";
 import styled from "styled-components"
 import ImageSVG from "../../ImageSVG";
 import Button from "../../Button";
-import { addToCart } from "../../../services/addToCart";
+import { useDispatch } from 'react-redux'
 import ProductPrice from "../ProductPrice";
 import { PRODUCT_SKU } from "../../../languages/ru/languages";
+import { addToShoppingCart } from "../../../store/shoppingCartSlice";
 
 const StyledProductThumb = styled.div`
     height: 320px;
@@ -79,6 +80,12 @@ const ProductThumb = (props: ProductProps) => {
         "quantity": 1
     };
 
+    const dispath = useDispatch();
+
+    function buttonOnClickHandler() {
+        dispath(addToShoppingCart(product));
+    }
+
     return (
         <StyledProductThumb>
             <ProductImage>
@@ -92,7 +99,7 @@ const ProductThumb = (props: ProductProps) => {
                     <ProductPrice price={data.price} salePrice={data.sale_price} />
                 </div>
                 <div>
-                    <Button id="shoppingCartButton" buttonSize="shrink" buttonStyle="transparent" onClick={() => addToCart(product)}>
+                    <Button id="shoppingCartButton" buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
                         <ImageSVG path='/svg/add_to_cart.svg' height="25px" width="25px" />
                     </Button>
                 </div>

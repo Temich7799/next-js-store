@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import React, { forwardRef, useEffect, useState } from "react"
 import styled from "styled-components"
+import { useSelector } from 'react-redux'
 import { ORDER_DETAILS_TITLE, ORDER_FINAL_BUTTON_BACK, ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_TITLE, ORDER_FINAL_BUTTON_SUBMIT, ORDER_FINAL_BUTTON_DISABLED } from "../../../languages/ru/languages";
 import Button from "../../Button";
 import LoadingBar from "../../LoadingBar";
@@ -48,44 +49,34 @@ type Product = {
     quantity: number
 }
 
-type Products = [Product];
-
 const OrderDetails = forwardRef((props: any, formRef: any) => {
 
     const { isFetchPending } = props;
 
-    const [products, setProducts] = useState<Products | undefined>();
-    useEffect(() => {
-        setProducts(getProducts());
-        window.addEventListener('click', (e: MouseEvent) => buttonOnClickHandler(e))
-    }, []);
-
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
-    useEffect(() => products && setIsButtonDisabled(products.length ? false : true), [products]);
+    const [totalPrice, setTotalPrice] = useState<number>(0);
 
-    function buttonOnClickHandler(onClickEvent: any) { onClickEvent.target.closest('#shoppingCartButton') && setProducts(getProducts()) }
+    const shoppingCartProducts: Array<Product> = Object.values(useSelector((state: { shoppingCart: object }) => state.shoppingCart));
 
-    function getProducts(): Products {
-        let products;
-        const getProducts = localStorage.getItem('ordered_products');
-        if (getProducts) products = JSON.parse(getProducts);
-        return products;
-    }
+    useEffect(() => {
+        shoppingCartProducts && setIsButtonDisabled(shoppingCartProducts.length ? false : true);
+        setTotalPrice(calcTotalPrice(shoppingCartProducts));
+    }, [shoppingCartProducts]);
 
-    function calcTotalPrice(products: Products | undefined): number {
+    function calcTotalPrice(shoppingCartProducts: any): number {
         let price = 0;
-        products && products.forEach((product: Product) =>
-            price = (parseInt(product.sale_price ? product.sale_price : product.price) + price) * product.quantity);
+        shoppingCartProducts && shoppingCartProducts.forEach((product: Product) =>
+            price += (parseInt(product.sale_price ? product.sale_price : product.price)) * product.quantity);
         return price;
     }
 
     return (
         <StyledOrderDetails id="order_details">
             <h4>{ORDER_DETAILS_TITLE}</h4>
-            <OrderedProducts data={products} />
+            <OrderedProducts data={shoppingCartProducts} />
             <OrderFinal>
                 <h4>{ORDER_FINAL_TITLE} </h4>
-                <p>{calcTotalPrice(products)} $</p>
+                <p>{totalPrice} $</p>
                 <div>
                     <Button onClick={(e: any) => e.preventDefault()}>{ORDER_FINAL_BUTTON_BACK}</Button>
                     {

@@ -36,13 +36,10 @@ type Product = {
     sale_price: string
     image: { src: string, alt: string }
     product_id: number
+    quantity: number
 }
 
-type OrderedProductsProps = {
-    data: [Product] | undefined
-}
-
-const OrderedProducts = (props: OrderedProductsProps) => {
+const OrderedProducts = (props: any) => {
 
     const { data } = props;
 
@@ -56,7 +53,7 @@ const OrderedProducts = (props: OrderedProductsProps) => {
                             <OrderedProductThumb src={product.image.src} alt={product.image.alt} />
                             <ProductPrice price={product.price} salePrice={product.sale_price} />
                             <ProductName name={product.name} sku={product.sku} attributes={[{ options: [""], name: "string" }]} />
-                            <OrderedProductQuantity productId={product.product_id} />
+                            <OrderedProductQuantity data={product} />
                         </OrderedProductDetails>
                     )
                     : <p>{ORDER_FINAL_BUTTON_DISABLED}</p>

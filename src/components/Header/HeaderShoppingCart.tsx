@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useSelector } from 'react-redux'
 import styled from "styled-components"
 import toogle from "../../services/toogle";
 import Button from "../Button";
@@ -21,37 +22,39 @@ const PurchasesCount = styled.div`
     align-items: center;
     border-radius: 50%;
     background-color: yellow;
-
 `;
 
+type Product = {
+    name: string
+    sku: string
+    price: string
+    sale_price: string
+    image: { src: string, alt: string },
+    product_id: number
+    quantity: number
+}
 
 const HeaderShoppingCart = () => {
 
-    const [purchasesCount, setPurchasesCount] = useState<string>("0");
-    const [isPopUpVisible, setIsPopUpVisible] = useState<boolean>(false);
+    const [showPopUp, setShowPopUp] = useState<boolean>(false);
 
-    useEffect(() => {
-        setPurchasesCount(calcPurchasesCount());
-        function onClickHandler(target: any) { target.closest('#shoppingCartButton') && setPurchasesCount(calcPurchasesCount()) }
-        window.addEventListener('click', (e: MouseEvent) => onClickHandler(e.target))
-    }, []);
+    const shoppingCartProducts = useSelector((state: { shoppingCart: [Product] }) => state.shoppingCart);
 
-    function calcPurchasesCount(): string {
-        let purchasesCount = 0;
-        const getProducts = localStorage.getItem('ordered_products');
-        getProducts && JSON.parse(getProducts).forEach(() => purchasesCount++);
-        return purchasesCount.toString();
+    const purchasesCount = Object.values(shoppingCartProducts).length;
+
+    function buttonOnClickHandler() {
+        setShowPopUp(toogle(showPopUp));
     }
 
     return (
         <StyledHeaderShoppingCart>
-            <Button buttonSize="shrink" buttonStyle="transparent" onClick={() => setIsPopUpVisible(toogle(isPopUpVisible))}>
+            <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
                 <ImageSVG path="/svg/shopping_cart.svg" height="35px" width="35px" />
                 <PurchasesCount>
                     <p>{purchasesCount}</p>
                 </PurchasesCount>
             </Button>
-            <PopUp visible={isPopUpVisible} setVisible={setIsPopUpVisible}><OrderDetails /></PopUp>
+            <PopUp visible={showPopUp} setVisible={setShowPopUp}><OrderDetails /></PopUp>
         </StyledHeaderShoppingCart>
     )
 }
