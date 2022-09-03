@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import React, { forwardRef, useEffect, useState } from "react"
 import styled from "styled-components"
+import { ORDER_DETAILS_TITLE, ORDER_FINAL_BUTTON_BACK, ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_TITLE, ORDER_FINAL_BUTTON_SUBMIT, ORDER_FINAL_BUTTON_DISABLED } from "../../../languages/ru/languages";
 import Button from "../../Button";
 import LoadingBar from "../../LoadingBar";
 import OrderedProducts from "./OrderedProducts";
@@ -80,19 +81,19 @@ const OrderDetails = forwardRef((props: any, formRef: any) => {
 
     return (
         <StyledOrderDetails id="order_details">
-            <h4>Your Order</h4>
+            <h4>{ORDER_DETAILS_TITLE}</h4>
             <OrderedProducts data={products} />
             <OrderFinal>
-                <h4>Total </h4>
+                <h4>{ORDER_FINAL_TITLE} </h4>
                 <p>{calcTotalPrice(products)} $</p>
                 <div>
-                    <Button onClick={(e: any) => e.preventDefault()}>Back to Shop</Button>
+                    <Button onClick={(e: any) => e.preventDefault()}>{ORDER_FINAL_BUTTON_BACK}</Button>
                     {
                         formRef
-                            ? <Button type="submit" form="order_form" disabled={isButtonDisabled || isFetchPending} buttonStyle="accent">{!isFetchPending ? isButtonDisabled ? "No Products" : "Make an Order" : <LoadingBar />}</Button>
+                            ? <Button type="submit" form="order_form" disabled={isButtonDisabled || isFetchPending} buttonStyle="accent">{!isFetchPending ? isButtonDisabled ? ORDER_FINAL_BUTTON_DISABLED : ORDER_FINAL_BUTTON_SUBMIT : <LoadingBar />}</Button>
                             : isButtonDisabled
-                                ? <Button buttonStyle="accent" disabled={isButtonDisabled} >No selected Products</Button>
-                                : <Link to="/shopping_cart"><Button buttonStyle="accent" disabled={isButtonDisabled} >Go to Shopping cart</Button></Link>
+                                ? <Button buttonStyle="accent" disabled={isButtonDisabled}>{ORDER_FINAL_BUTTON_DISABLED}</Button>
+                                : <Link to="/shopping_cart"><Button buttonStyle="accent" disabled={isButtonDisabled}>{ORDER_FINAL_BUTTON_CONTINUE}</Button></Link>
                     }
                 </div>
             </OrderFinal>

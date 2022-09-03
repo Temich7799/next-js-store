@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { ORDER_FINAL_BUTTON_DISABLED } from "../../../languages/ru/languages";
 import ProductName from "../ProductAbout/ProductName";
 import ProductPrice from "../ProductPrice";
 import OrderedProductQuantity from "./OrderedProductQuantity";
@@ -58,7 +59,7 @@ const OrderedProducts = (props: OrderedProductsProps) => {
                             <OrderedProductQuantity productId={product.product_id} />
                         </OrderedProductDetails>
                     )
-                    : <p>No products yet :/</p>
+                    : <p>{ORDER_FINAL_BUTTON_DISABLED}</p>
             }
             <hr />
         </StyledOrderedProducts>

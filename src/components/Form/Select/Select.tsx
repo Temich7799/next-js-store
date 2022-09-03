@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components";
+import { SELECT_PLACEHOLDER } from "../../../languages/ru/languages";
 import InputField from "../InputField";
 
 const StyledSelectWrapper = styled.div`
@@ -102,7 +103,7 @@ const Select = (props: SelectProps) => {
             <InputField
                 ref={inputRef}
                 name={name}
-                placeholder={placeHolder ? placeHolder : "Click to select"}
+                placeholder={placeHolder ? placeHolder : SELECT_PLACEHOLDER}
                 valueFromProps={inputValue}
                 onErrorMessage={onErrorMessage}
                 isInputBlocked={isInputBlocked}

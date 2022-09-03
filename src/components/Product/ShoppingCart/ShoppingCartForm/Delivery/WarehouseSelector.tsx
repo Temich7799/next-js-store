@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { WAREHOUSE_SELECTOR_ERROR_MESSAGE, WAREHOUSE_SELECTOR_PLACEHOLDER, WAREHOUSE_SELECTOR_TITLE } from "../../../../../languages/ru/languages";
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 
@@ -20,9 +21,9 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
         <>
             <Select
                 name="address_1"
-                label="Address"
-                onErrorMessage="Warehouse is not selected"
-                placeHolder={!isWarhousesDataFetching && !warhousesData.length && 'В указаном пункте нет доступных отделений'}
+                label={WAREHOUSE_SELECTOR_TITLE}
+                onErrorMessage={WAREHOUSE_SELECTOR_ERROR_MESSAGE}
+                placeHolder={!isWarhousesDataFetching && !warhousesData.length && WAREHOUSE_SELECTOR_PLACEHOLDER}
                 isInputDisabled={(!selectedShippingLine || selectedShippingLine == 'local_pickup') || isInputDisabled || isWarhousesDataFetching}
                 isSelectClosed={isWarhousesDataFetching}
                 isFetchPending={isWarhousesDataFetching}

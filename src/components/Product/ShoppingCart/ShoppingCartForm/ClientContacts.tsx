@@ -1,13 +1,12 @@
 import React from "react"
+import { CLIENT_CONTACTS_LAST_NAME_TITLE, CLIENT_CONTACTS_NAME_ERROR_MESSAGE, CLIENT_CONTACTS_NAME_TITLE, CLIENT_CONTACTS_PHONE_ERROR_MESSAGE, CLIENT_CONTACTS_PHONE_TITLE } from "../../../../languages/ru/languages";
 import InputField from "../../../Form/InputField";
 
 const ClientContacts = () => {
 
     const validName = /[А-я]/;
-    const onInvalidNameMessage = 'The field must contain only Cyrillic characters';
 
     const validPhone = /[0-9]/;
-    const onInvalidPhoneMessage = 'Please, enter a phone number in the correct format';
 
     /*
         function prettifyPhoneNumber(setInputValue: React.Dispatch<React.SetStateAction<string>>): void {
@@ -26,9 +25,9 @@ const ClientContacts = () => {
             */
     return (
         <>
-            <InputField name="first_name" regExp={validName} onErrorMessage={onInvalidNameMessage} required>Name</InputField>
-            <InputField name="last_name" regExp={validName} onErrorMessage={onInvalidNameMessage} required>Last Name</InputField>
-            <InputField inputType="tel" name="phone" regExp={validPhone} onErrorMessage={onInvalidPhoneMessage} required>Phone</InputField>
+            <InputField name="first_name" regExp={validName} onErrorMessage={CLIENT_CONTACTS_NAME_ERROR_MESSAGE} required>{CLIENT_CONTACTS_NAME_TITLE}</InputField>
+            <InputField name="last_name" regExp={validName} onErrorMessage={CLIENT_CONTACTS_NAME_ERROR_MESSAGE} required>{CLIENT_CONTACTS_LAST_NAME_TITLE}</InputField>
+            <InputField inputType="tel" name="phone" regExp={validPhone} onErrorMessage={CLIENT_CONTACTS_PHONE_ERROR_MESSAGE} required>{CLIENT_CONTACTS_PHONE_TITLE}</InputField>
         </>
     )
 }

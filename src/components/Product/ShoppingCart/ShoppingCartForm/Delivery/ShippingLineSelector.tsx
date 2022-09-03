@@ -1,5 +1,6 @@
 import { graphql, useStaticQuery } from "gatsby";
 import React from "react"
+import { SHIPPING_LINE_SELECTOR_ERROR_MESSAGE, SHIPPING_LINE_SELECTOR_TITLE } from "../../../../../languages/ru/languages";
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 
@@ -35,8 +36,8 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
     return (
         <Select
             name="method_title"
-            label="Delivery"
-            onErrorMessage="Delivery service is not selected"
+            label={SHIPPING_LINE_SELECTOR_TITLE}
+            onErrorMessage={SHIPPING_LINE_SELECTOR_ERROR_MESSAGE}
             onChangeHandlerProps={selectOnChangeHandler}
         >
             {

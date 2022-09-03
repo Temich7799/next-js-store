@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { CITY_SELECTOR_ERROR_MESSAGE, CITY_SELECTOR__PLACEHOLDER } from "../../../../../languages/ru/languages";
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 
@@ -47,8 +48,8 @@ const CitySelector = (props: CitySelectorProps) => {
         <Select
             name="city"
             label="City"
-            onErrorMessage="Please, choose a City from list"
-            placeHolder={!citiesData.length && 'Начинайте вводить название города'}
+            onErrorMessage={CITY_SELECTOR_ERROR_MESSAGE}
+            placeHolder={!citiesData.length && CITY_SELECTOR__PLACEHOLDER}
             isInputBlocked={false}
             isInputDisabled={!selectedShippingLine || selectedShippingLine == 'local_pickup'}
             isSelectClosed={citiesData.length > 0}
