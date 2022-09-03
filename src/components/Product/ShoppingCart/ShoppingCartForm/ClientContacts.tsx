@@ -9,23 +9,26 @@ const ClientContacts = () => {
     const validPhone = /[0-9]/;
     const onInvalidPhoneMessage = 'Please, enter a phone number in the correct format';
 
-    function prettifyPhoneNumber(value: string): string {
-
-        const shift = (value[0] == "3") ? 0 : 3;
-
-        switch (value.length) {
-            case 2 - shift: return `${value} `; break;
-            case 6 - shift: return `${value} `; break;
-            case 10 - shift: return `${value} `; break;
-            case 13 - shift: return `${value} `; break;
-        }
-    }
-
+    /*
+        function prettifyPhoneNumber(setInputValue: React.Dispatch<React.SetStateAction<string>>): void {
+    
+            const inputValue = phoneNumberInput.current.value;
+            const shift = (inputValue[0] == "3") ? 0 : 3;
+            
+                    switch (inputValue.length) {
+                        case 2 - shift: setInputValue(`${inputValue} `);
+                        case 6 - shift: setInputValue(`${inputValue} `);
+                        case 10 - shift: setInputValue(`${inputValue} `);
+                        case 13 - shift: setInputValue(`${inputValue} `);
+                        default: setInputValue(inputValue);
+                    }
+                }
+            */
     return (
         <>
             <InputField name="first_name" regExp={validName} onErrorMessage={onInvalidNameMessage} required>Name</InputField>
             <InputField name="last_name" regExp={validName} onErrorMessage={onInvalidNameMessage} required>Last Name</InputField>
-            <InputField type="tel" name="phone" regExp={validPhone} onErrorMessage={onInvalidPhoneMessage} prettifyFunction={prettifyPhoneNumber} required>Phone</InputField>
+            <InputField inputType="tel" name="phone" regExp={validPhone} onErrorMessage={onInvalidPhoneMessage} required>Phone</InputField>
         </>
     )
 }

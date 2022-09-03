@@ -7,9 +7,10 @@ const spinnerAnimation = keyframes`
 `;
 
 const StyledLoadingBar = styled.div`
-    width: 25px;
-    height: 25px;
-    border: 2.5px solid #FFF;
+    height: 50%;
+    min-height: 10px;
+    aspect-ratio: 1/1;
+    border: 2.5px solid #2deb6c;
     border-bottom-color: transparent;
     border-radius: 50%;
     display: inline-block;

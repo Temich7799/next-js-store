@@ -18,12 +18,13 @@ const StyledShoppingCartPage = styled.div<any>`
   padding: 2.5% 2.5%;
 `;
 
-
 const ShoppingCartPage = () => {
 
   const isMobile = useMobile();
 
   const [isFetchPending, setIsFetchPending] = useState<boolean>(false);
+  const [isOrderSuccess, setIsOrderSuccess] = useState<boolean>(false);
+  const [orderDetails, setOrderDetails] = useState<any>();
 
   const form = useRef<any>();
   useEffect(() => form.current.addEventListener('submit', (e: any) => formOnSubmitHandler(e)), []);
@@ -32,22 +33,33 @@ const ShoppingCartPage = () => {
     onSubmitEvent.preventDefault();
     setIsFetchPending(true);
     sendOrder(form.current)
-      .then((result) => console.log(result))
+      .then((response) => {
+        setIsOrderSuccess(true);
+        setOrderDetails(response);
+      })
       .catch((error) => console.log(error))
       .finally(() => setIsFetchPending(false))
   }
 
   return (
-    <>
-      <Layout>
-        <main>
-          <StyledShoppingCartPage isMobile={isMobile}>
-            <ShoppingCartForm ref={form} />
-            <OrderDetails ref={form} isFetchPending={isFetchPending} />
-          </StyledShoppingCartPage>
-        </main>
-      </Layout>
-    </>
+    <Layout>
+      <main>
+        <StyledShoppingCartPage isMobile={isMobile}>
+          {
+            isOrderSuccess
+              ?
+              <>
+                <p>The order has been sent!</p>
+              </>
+              :
+              <>
+                <ShoppingCartForm ref={form} />
+                <OrderDetails ref={form} isFetchPending={isFetchPending} />
+              </>
+          }
+        </StyledShoppingCartPage>
+      </main>
+    </Layout >
   )
 }
 

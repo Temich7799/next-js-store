@@ -1,47 +1,67 @@
-import React, { useEffect, useRef, useState } from "react"
-import AutocompleteInput from "../../../../AutocompleteInput";
+import React, { useState } from "react"
+import Select from "../../../../Form/Select/Select";
+import SelectOption from "../../../../Form/Select/SelectOption";
 
 type CitySelectorProps = {
-    setWarhousesData: React.Dispatch<React.SetStateAction<string[]>>
     selectedShippingLine: string
+    setWarhousesData: React.Dispatch<React.SetStateAction<string[]>>
+    setIsWarhousesDataFetching: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const CitySelector = (props: CitySelectorProps) => {
 
-    const { setWarhousesData, selectedShippingLine } = props;
+    const { selectedShippingLine, setWarhousesData, setIsWarhousesDataFetching } = props;
     const [citiesData, setCitiesData] = useState<Array<string>>([]);
 
-    const citySelectorInput = useRef<any>();
+    const [isFetchPending, setIsFetchPending] = useState<boolean>(false);
 
-    useEffect(() => cleanInput(), [selectedShippingLine]);
-
-    function cleanInput(): void {
-        citySelectorInput.current.value = "";
-    }
-
-    function getCitiesData(inputValue: string) {
-        inputValue.length > 1
-            ? fetch(`http://localhost:3000/cities?shippingZoneMethod=${selectedShippingLine}&city=${inputValue}`, { mode: 'cors', })
+    function selectOnInputHandler(onInputEvent: any) {
+        if (onInputEvent.target.value.length > 2) {
+            setIsFetchPending(true);
+            fetch(`http://localhost:3000/cities?shippingZoneMethod=${selectedShippingLine}&city=${onInputEvent.target.value}`, { mode: 'cors', })
                 .then(responce => responce && responce.json())
                 .then(responceData => setCitiesData(responceData))
-            : setCitiesData([]);
+                .finally(() => setIsFetchPending(false))
+        }
+        else {
+            setCitiesData([]);
+            setIsFetchPending(false);
+            setWarhousesData([]);
+        }
     }
 
-    function getWarhousesData(selectedCity: string) {
-        fetch(`http://localhost:3000/warehouses?shippingZoneMethod=${selectedShippingLine}&city=${selectedCity}`, { mode: 'cors', })
+    function resetOptionsData() {
+        setCitiesData([]);
+        setWarhousesData([])
+    }
+
+    function onChangeHandler(onChangeEvent: any) {
+        setIsWarhousesDataFetching(true);
+        fetch(`http://localhost:3000/warehouses?shippingZoneMethod=${selectedShippingLine}&city=${onChangeEvent.target.value}`, { mode: 'cors', })
             .then(responce => responce && responce.json())
-            .then(responceData => setWarhousesData(responceData));
+            .then(responceData => setWarhousesData(responceData))
+            .finally(() => setIsWarhousesDataFetching(false));
     }
 
     return (
-        <AutocompleteInput
-            ref={citySelectorInput}
+        <Select
             name="city"
-            placeholder="Начинайте вводить название города"
-            data={citiesData}
-            onInputHandler={getCitiesData}
-            onChangeHandler={getWarhousesData}
-        />
+            label="City"
+            onErrorMessage="Please, choose a City from list"
+            placeHolder={!citiesData.length && 'Начинайте вводить название города'}
+            isInputBlocked={false}
+            isInputDisabled={!selectedShippingLine || selectedShippingLine == 'local_pickup'}
+            isSelectClosed={citiesData.length > 0}
+            isFetchPending={isFetchPending}
+            resetOptionsData={resetOptionsData}
+            onChangeHandlerProps={onChangeHandler}
+            onInputHandler={selectOnInputHandler}
+            dependencies={[selectedShippingLine]}
+        >
+            {
+                citiesData.length && citiesData.map((city: string) => <SelectOption>{city}</SelectOption>)
+            }
+        </Select >
     )
 }
 
