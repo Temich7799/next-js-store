@@ -3,9 +3,7 @@ import Header from "../Header/HeaderMenu/Header";
 import Footer from "../Footer/Footer";
 import { Provider } from 'react-redux'
 import store from "../../store/store";
-require('typeface-amatic-sc');
-require('typeface-comfortaa');
-require('../../styles/global.css')
+require('../../styles/global.css');
 
 type LayoutProps = {
     children: JSX.Element | string

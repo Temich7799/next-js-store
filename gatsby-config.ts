@@ -10,6 +10,12 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
+    "gatsby-plugin-image",
+    "gatsby-plugin-react-helmet",
+    "gatsby-plugin-sharp",
+    "gatsby-transformer-sharp",
+    "gatsby-plugin-styled-components",
+    "gatsby-plugin-breadcrumb",
     {
       resolve: 'gatsby-source-wordpress',
       options: {
@@ -24,7 +30,7 @@ const config: GatsbyConfig = {
       options: {
         "trackingId": "none"
       }
-    }, "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-styled-components", "gatsby-plugin-breadcrumb",
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -43,6 +49,14 @@ const config: GatsbyConfig = {
           consumer_secret: 'cs_601709c4babde4702e285a2f972dad154f2021c7',
         },
         fields: ['products', 'products/categories', 'products/attributes', 'products/reviews', 'shipping/zones/3/methods']
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Amatic SC', 'Comfortaa', 'Laila']
+        }
       }
     }
   ]
