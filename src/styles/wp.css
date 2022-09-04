@@ -93,6 +93,7 @@ button:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 50px;
     align-items: center;
     margin: 0 auto;
 }
