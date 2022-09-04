@@ -16,7 +16,7 @@ type Product = {
 export const shoppingCartSlice = createSlice(
     {
         name: 'shoppingCart',
-        initialState: <any>localStorage.getItem('ordered_products') ? JSON.parse(localStorage.getItem('ordered_products')) : {},
+        initialState: <any>typeof window !== `undefined` && window.localStorage.getItem('ordered_products') ? JSON.parse(window.localStorage.getItem('ordered_products')) : {},
         reducers: {
             addToShoppingCart: (state, action: PayloadAction<Product>) => {
                 state.hasOwnProperty(action.payload.wordpress_id)
@@ -47,7 +47,7 @@ export const shoppingCartSlice = createSlice(
 );
 
 function saveCart(data: any) {
-    localStorage.setItem('ordered_products', JSON.stringify(data));
+    typeof window !== `undefined` && window.localStorage.setItem('ordered_products', JSON.stringify(data));
 }
 
 export const { addToShoppingCart, removeFromShoopingCart, decreaseProductQuantity } = shoppingCartSlice.actions;

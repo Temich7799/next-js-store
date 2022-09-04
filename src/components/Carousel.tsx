@@ -68,11 +68,13 @@ const Carousel = (props: CarouselProps) => {
         positionIndex: 0,
     };
 
-    const sliderClientWidthObserver = new ResizeObserver(entries => {
-        for (let entry of entries) {
-            setSliderClientWidth(entry.borderBoxSize[0].inlineSize);
-        }
-    });
+    const sliderClientWidthObserver = typeof ResizeObserver !== `undefined`
+        ? new ResizeObserver(entries => {
+            for (let entry of entries) {
+                setSliderClientWidth(entry.borderBoxSize[0].inlineSize);
+            }
+        })
+        : {};
 
     useEffect(() => {
         setItemWidth(carouselSlider.current.firstChild.clientWidth);

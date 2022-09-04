@@ -98,7 +98,7 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
     return (
         <>
             <Button buttonStyle="transparent" buttonSize="shrink" onClick={buttonOnClickHandler}>
-                <ImageSVG path={showMobileMenu ? "svg/close.svg" : "svg/open_mobile_menu.svg"} height="30px" width="30px" />
+                <ImageSVG path={showMobileMenu ? "/svg/close.svg" : "/svg/open_mobile_menu.svg"} height="30px" width="30px" />
             </Button>
             <StaticImage src="../../../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
             {

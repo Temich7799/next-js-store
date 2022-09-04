@@ -110,6 +110,14 @@ export const query = graphql`
         images {
             alt
             src
+            localFile {
+                childImageSharp {
+                    gatsbyImageData(
+                        webpOptions: {quality: 85}
+                        height: 240
+                    )
+                }
+            }
         }
         categories {
             slug

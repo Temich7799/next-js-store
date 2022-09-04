@@ -17,7 +17,7 @@ const SubMenuIcon = (props: SubMenuIconProps) => {
 
     return (
         <StyledSubMenuIcon isOpened={isOpened}>
-            <ImageSVG path="svg/arrow_more.svg" width="20px" height="20px" />
+            <ImageSVG path="/svg/arrow_more.svg" width="20px" height="20px" />
         </StyledSubMenuIcon>
     )
 }
