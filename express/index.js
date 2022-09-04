@@ -21,17 +21,26 @@ const connection = mysql.createConnection({
     password: 'root'
 });
 
+const schema = buildSchema(`
+    type WpCity {
+        ref: String
+        description: String
+        description_ru: String
+    }
+    type Query {
+        allCities: [WpCity]
+    }
+`);
+
 const root = {
-    hello: () => {
-        return 'Hello world!';
+    allCities: () => {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT `ref`,`description`,`description_ru` FROM `wp_nova_poshta_city` WHERE 1", (err, rows) =>
+                (rows !== undefined) && resolve(rows)
+            );
+        });
     },
 };
-
-const schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
 
 app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.json());
@@ -72,7 +81,7 @@ function makeQuery(sql, res, callback) {
     //connection.connect();
     connection.query(sql, (err, responce) => {
         if (err) throw err;
-        res.send(formatResponce(responce));
+        res.send(responce);
         callback && callback(responce);
     });
     //connection.end();
@@ -81,6 +90,10 @@ function makeQuery(sql, res, callback) {
 function formatResponce(data) {
     return data.map((dataKey) => Object.values(dataKey)[0]);
 }
+
+app.get('/', (req, res) => {
+    makeQuery('SELECT `ref`,`description`,`description_ru` FROM `wp_nova_poshta_city` WHERE 1', res, console.log)
+});
 
 app.get('/cities', (req, res) => {
 
