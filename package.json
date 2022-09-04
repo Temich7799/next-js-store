@@ -32,7 +32,7 @@
     "gatsby-source-filesystem": "^4.19.0",
     "gatsby-source-graphql": "^4.19.0",
     "gatsby-source-wordpress": "^6.19.0",
-    "gatsby-transformer-sharp": "^4.19.0",
+    "gatsby-transformer-sharp": "^4.22.0",
     "mysql2": "^2.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -126,6 +126,16 @@ export const query = graphql`
         images {
             alt
             src
+            localFile {
+                childImageSharp {
+                    gatsbyImageData(
+                        webpOptions: {quality: 85}
+                        height: 100
+                        width: 100
+                        transformOptions: {cropFocus: CENTER}
+                    )
+                }
+            }
         }
         categories {
             slug

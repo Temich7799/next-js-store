@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import ProductPrice from "../ProductPrice";
 import { PRODUCT_SKU } from "../../../languages/ru/languages";
 import { addToShoppingCart } from "../../../store/shoppingCartSlice";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 const StyledProductThumb = styled.div`
     height: 320px;
@@ -42,61 +43,55 @@ const ProductCaption = styled.div`
     }
 `;
 
-type ProductAttribute = {
-    options: [string]
+type Product = {
     name: string
+    price: string
+    sku: string
+    sale_price: string
+    slug: string
+    images: [
+        {
+            alt: string
+            localFile: any
+        }
+    ]
+    categories: [
+        {
+            slug: string
+        }
+    ]
+    wordpress_id: number
+    image: { alt: string }
 }
 
 type ProductProps = {
-    data: {
-        name: string
-        slug: string
-        sku: string
-        price: string
-        sale_price: string
-        images: [{
-            src: string
-            alt: string
-        }]
-        categories: [
-            { slug: string }
-        ]
-        attributes: [ProductAttribute]
-        wordpress_id: number
-    }
+    data: Product
 }
 
 const ProductThumb = (props: ProductProps) => {
 
     const { data } = props;
+    const { sku, price, categories, sale_price, images } = data;
 
-    const product = {
-        "name": data.name,
-        "sku": data.sku,
-        "price": data.price,
-        "sale_price": data.sale_price,
-        "image": { src: data.images[0].src, alt: data.images[0].alt },
-        "product_id": data.wordpress_id,
-        "quantity": 1
-    };
+    const image = getImage(images[0].localFile)
 
     const dispath = useDispatch();
 
     function buttonOnClickHandler() {
-        dispath(addToShoppingCart(product));
+        dispath(addToShoppingCart({ ...data, quantity: 1, image: { src: images[0].localFile.childImageSharp.gatsbyImageData.images.fallback.src, alt: images[0].alt } }));
     }
 
     return (
         <StyledProductThumb>
             <ProductImage>
-                <Link to={`${data.categories[0].slug}-${data.sku}`}>
-                    <img src={data.images[0].src} alt={data.images[0].alt} />
+                <Link to={`${categories[0].slug}-${sku}`}>
+                    <GatsbyImage image={image} alt={images[0].alt} />
                 </Link>
             </ProductImage>
             <ProductCaption>
                 <div>
-                    <p>{PRODUCT_SKU}: {data.sku}</p>
-                    <ProductPrice price={data.price} salePrice={data.sale_price} />
+                    <p>{PRODUCT_SKU}: {sku}</p>
+                    <ProductPrice price={price} salePrice={sale_price} />
                 </div>
                 <div>
                     <Button id="shoppingCartButton" buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>

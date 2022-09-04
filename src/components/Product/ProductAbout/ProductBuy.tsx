@@ -22,8 +22,8 @@ type ProductBuyProps = {
         price: string
         sale_price: string
         images: [{
-            src: string
             alt: string
+            localFile: any
         }]
         wordpress_id: number
     }
@@ -32,26 +32,17 @@ type ProductBuyProps = {
 const ProductBuy = (props: ProductBuyProps) => {
 
     const { data } = props;
-
-    const product = {
-        "name": data.name,
-        "sku": data.sku,
-        "price": data.price,
-        "sale_price": data.sale_price,
-        "image": { src: data.images[0].src, alt: data.images[0].alt },
-        "product_id": data.wordpress_id,
-        "quantity": 1
-    };
+    const { price, sale_price, images } = data;
 
     const dispath = useDispatch();
 
     function buttonOnClickHandler() {
-        dispath(addToShoppingCart(product));
+        dispath(addToShoppingCart({ ...data, quantity: 1, image: { src: images[0].localFile.childImageSharp.gatsbyImageData.images.fallback.src, alt: images[0].alt } }));
     }
 
     return (
         <StyledProductBuy>
-            <ProductPrice price={data.price} salePrice={data.sale_price} />
+            <ProductPrice price={price} salePrice={sale_price} />
             <Button id="shoppingCartButton" onClick={buttonOnClickHandler}>
                 <>
                     {PRODUCT_BUY_BUTTON_TITLE}

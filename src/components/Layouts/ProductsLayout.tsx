@@ -19,10 +19,33 @@ const Content = styled.div`
   padding: 2.5%;
 `
 
+type Product = {
+  node: {
+    name: string
+    price: string
+    sku: string
+    purchasable: boolean
+    sale_price: string
+    slug: string
+    images: [
+      {
+        alt: string
+        localFile: object
+      }
+    ]
+    categories: [
+      {
+        slug: string
+      }
+    ]
+    wordpress_id: number
+  }
+}
+
 type ProductsProps = {
   data: {
     allWcProducts: {
-      edges: Array<object>
+      edges: [Product]
     }
   }
 }
@@ -38,7 +61,7 @@ const ProductsLayout = (props: ProductsProps) => {
       <Main isMobile={isMobile}>
         <Content>
           {
-            data.allWcProducts.edges.map((edge: any) =>
+            data.allWcProducts.edges.map((edge: Product) =>
               document.location.href.split('/catalog/')[1] == edge.node.categories[0].slug &&
               <ProductThumb data={edge.node} />)
           }
@@ -62,17 +85,17 @@ export const query = graphql`
           sale_price
           slug
           images {
-            src
             alt
+            localFile {
+              childImageSharp {
+                gatsbyImageData(webpOptions: {quality: 85}, height: 240)
+              }
+            }
           }
           categories {
             slug
           }
-          attributes {
-            options
-            name
-        }
-        wordpress_id
+          wordpress_id
         }
       }
     }

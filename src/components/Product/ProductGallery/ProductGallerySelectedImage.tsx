@@ -8,7 +8,7 @@ const StyledProductGallerySelectedImage = styled.div`
 `;
 
 type ProductGallerySelectedImageProps = {
-    images: [
+    data: [
         {
             alt: string
             src: string
@@ -19,20 +19,21 @@ type ProductGallerySelectedImageProps = {
 
 const ProductGallerySelectedImage = (props: ProductGallerySelectedImageProps) => {
 
-    const { selectedImage, images } = props;
+    const { selectedImage, data } = props;
 
     return (
         <StyledProductGallerySelectedImage>
             <ReactImageMagnify {...{
                 smallImage: {
-                    alt: images[selectedImage].alt,
-                    src: images[selectedImage].src,
+                    alt: data[selectedImage].alt,
+                    src: data[selectedImage].src,
                     isFluidWidth: true,
                     width: 200,
                     height: 200
                 },
                 largeImage: {
-                    src: images[selectedImage].src,
+                    src: data[selectedImage].src,
+                    alt: data[selectedImage].alt,
                     width: 900,
                     height: 1200
                 },

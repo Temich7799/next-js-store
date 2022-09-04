@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import useMobile from "../../../services/hooks/useMobile";
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const StyledProductGalleryCarousel = styled.div<any>`
     width: ${props => props.isMobile ? "300px" : "100px"};
@@ -14,10 +15,10 @@ const StyledProductGalleryCarousel = styled.div<any>`
     
 `;
 
-const ProductGalleryCarouselImage = styled.img<any>`
+const ProductGalleryCarouselImage = styled.div<any>`
     width: 100px;
     height: 100px;
-    object-fit: cover;
+    //object-fit: cover;
     ${(props) => {
         switch (props.isSelected) {
             case true:
@@ -34,10 +35,10 @@ const ProductGalleryCarouselImage = styled.img<any>`
 `;
 
 type ProductGalleryCarouselProps = {
-    images: [
+    data: [
         {
             alt: string
-            src: string
+            localFile: any
         }
     ]
     selectedImage: number
@@ -46,20 +47,21 @@ type ProductGalleryCarouselProps = {
 
 const ProductGalleryCarousel = (props: ProductGalleryCarouselProps) => {
 
-    const { images, setSelectedImage, selectedImage } = props;
+    const { data, setSelectedImage, selectedImage } = props;
 
     const isMobile = useMobile(450);
 
     return (
         <StyledProductGalleryCarousel isMobile={isMobile}>
             {
-                images.map((img) =>
-                    < ProductGalleryCarouselImage
-                        isSelected={images.indexOf(img) == selectedImage && true}
-                        src={img.src}
-                        alt={img.alt}
-                        onClick={(e: any) => setSelectedImage(images.indexOf(img))}
-                    />)
+                data.map((image) =>
+                    <ProductGalleryCarouselImage
+                        isSelected={data.indexOf(image) == selectedImage && true}
+                        onClick={(e: any) => setSelectedImage(data.indexOf(image))}
+                    >
+                        <GatsbyImage image={getImage(image.localFile)} alt={image.alt} />
+                    </ProductGalleryCarouselImage>
+                )
             }
         </StyledProductGalleryCarousel>
     )

@@ -45,7 +45,7 @@ type Product = {
     price: string
     sale_price: string
     image: { src: string, alt: string },
-    product_id: number
+    wordpress_id: number
     quantity: number
 }
 

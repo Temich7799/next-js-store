@@ -16,6 +16,7 @@ type ProductGalleryProps = {
         {
             alt: string
             src: string
+            localFile: object
         }
     ]
 }
@@ -28,8 +29,8 @@ const ProductGallery = (props: ProductGalleryProps) => {
 
     return (
         <StyledProductGallery>
-            <ProductGallerySelectedImage images={data} selectedImage={selectedImage} />
-            <ProductGalleryCarousel images={data} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
+            <ProductGallerySelectedImage data={data} selectedImage={selectedImage} />
+            <ProductGalleryCarousel data={data} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
         </StyledProductGallery>
     )
 }

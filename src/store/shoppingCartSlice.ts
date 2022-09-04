@@ -5,8 +5,11 @@ type Product = {
     sku: string
     price: string
     sale_price: string
-    image: { src: string, alt: string },
-    product_id: number
+    image: {
+        src: any
+        alt: string
+    },
+    wordpress_id: number
     quantity: number
 }
 
@@ -16,9 +19,9 @@ export const shoppingCartSlice = createSlice(
         initialState: <any>localStorage.getItem('ordered_products') ? JSON.parse(localStorage.getItem('ordered_products')) : {},
         reducers: {
             addToShoppingCart: (state, action: PayloadAction<Product>) => {
-                state.hasOwnProperty(action.payload.product_id)
-                    ? state[action.payload.product_id].quantity += 1
-                    : state[action.payload.product_id] = action.payload;
+                state.hasOwnProperty(action.payload.wordpress_id)
+                    ? state[action.payload.wordpress_id].quantity += 1
+                    : state[action.payload.wordpress_id] = action.payload;
 
                 saveCart(state);
             },
