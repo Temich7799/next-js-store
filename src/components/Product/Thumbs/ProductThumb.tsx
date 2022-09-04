@@ -61,7 +61,6 @@ type Product = {
         }
     ]
     wordpress_id: number
-    image: { alt: string }
 }
 
 type ProductProps = {

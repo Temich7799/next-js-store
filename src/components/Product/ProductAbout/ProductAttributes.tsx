@@ -30,9 +30,9 @@ const ProductAttributes = (props: ProductAttributesProps) => {
     return (
         <StyledProductAttributes>
             {
-                data.map((attribute) =>
+                data.map((attribute, index) =>
                     (checkName(attribute.name) && getName(attribute.name) != "height") &&
-                    <ImageSVG path={makePath(attribute.name)} height="25px" width="45px" />
+                    <ImageSVG path={makePath(attribute.name)} height="25px" width="45px" key={index} />
                 )
             }
         </StyledProductAttributes >

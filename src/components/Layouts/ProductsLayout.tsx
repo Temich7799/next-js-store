@@ -62,8 +62,8 @@ const ProductsLayout = (props: ProductsProps) => {
         <Content>
           {
             data.allWcProducts.edges.map((edge: Product) =>
-              typeof document !== `undefined` && document.location.href.split('/catalog/')[1] == edge.node.categories[0].slug &&
-              <ProductThumb data={edge.node} />)
+              typeof document !== `undefined` && document.location.href.split('/catalog/')[1] == edge.node.categories[0].slug
+              && <ProductThumb data={edge.node} key={edge.node.wordpress_id} />)
           }
         </Content>
       </Main>

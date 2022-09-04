@@ -54,10 +54,11 @@ const ProductGalleryCarousel = (props: ProductGalleryCarouselProps) => {
     return (
         <StyledProductGalleryCarousel isMobile={isMobile}>
             {
-                data.map((image) =>
+                data.map((image, index) =>
                     <ProductGalleryCarouselImage
                         isSelected={data.indexOf(image) == selectedImage && true}
                         onClick={(e: any) => setSelectedImage(data.indexOf(image))}
+                        key={index}
                     >
                         <GatsbyImage image={getImage(image.localFile)} alt={image.alt} />
                     </ProductGalleryCarouselImage>

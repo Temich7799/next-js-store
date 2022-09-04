@@ -30,7 +30,10 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
                 dependencies={[selectedShippingLine, warhousesData]}
             >
                 {
-                    warhousesData.length && warhousesData.map((city: string) => <SelectOption>{city}</SelectOption>)
+                    warhousesData.length && warhousesData.map((city: string, index: number) =>
+                        <SelectOption key={index}>
+                            {city}
+                        </SelectOption>)
                 }
             </Select>
         </>

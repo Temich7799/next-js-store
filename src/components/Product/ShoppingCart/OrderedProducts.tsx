@@ -60,7 +60,7 @@ const OrderedProducts = (props: any) => {
             {
                 data && data.length
                     ? data.map((product: Product) =>
-                        <OrderedProductDetails>
+                        <OrderedProductDetails key={product.wordpress_id}>
                             <OrderedProductThumb src={product.image.src} alt={product.image.alt} />
                             <ProductPrice price={product.price} salePrice={product.sale_price} />
                             <OrderedProductName>

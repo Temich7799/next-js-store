@@ -29,9 +29,9 @@ const FooterMenu = () => {
 
     return (
         <StyledFooterMenu>
-            {links.map((link: any) => (links.indexOf(link) == links.length - 1)
-                ? < Link to={link.url} > {link.label}</Link>
-                : <> < Link to={link.url} > {link.label}</Link> / </>
+            {links.map((link: any, index: number) => index == links.length - 1
+                ? <Link to={link.url} key={index}> {link.label}</Link>
+                : <> <Link to={link.url} key={index}> {link.label}</Link> / </>
             )
             }
         </StyledFooterMenu >

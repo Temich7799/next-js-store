@@ -60,7 +60,10 @@ const CitySelector = (props: CitySelectorProps) => {
             dependencies={[selectedShippingLine]}
         >
             {
-                citiesData.length && citiesData.map((city: string) => <SelectOption>{city}</SelectOption>)
+                citiesData.length && citiesData.map((city: string, index: number) =>
+                    <SelectOption key={index}>
+                        {city}
+                    </SelectOption>)
             }
         </Select >
     )

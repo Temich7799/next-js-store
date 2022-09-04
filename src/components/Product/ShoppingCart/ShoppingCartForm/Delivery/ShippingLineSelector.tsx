@@ -41,8 +41,10 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
             onChangeHandlerProps={selectOnChangeHandler}
         >
             {
-                shippingZonesMethods.allWcShippingZones3Methods.edges.map((method: any) =>
-                    <SelectOption value={method.node.method_id}>{method.node.method_title}</SelectOption>)
+                shippingZonesMethods.allWcShippingZones3Methods.edges.map((method: any, index: number) =>
+                    <SelectOption value={method.node.method_id} key={index}>
+                        {method.node.method_title}
+                    </SelectOption>)
             }
         </Select >
     )

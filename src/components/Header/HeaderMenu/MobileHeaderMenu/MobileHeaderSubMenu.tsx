@@ -43,10 +43,16 @@ const MobileHeaderSubMenu = (props: MobileHeaderSubMenuProps) => {
 
     return (
         <MobileHeaderSubMenuLinks>
-            <li><Link to={data.url}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link></li>
+            <li>
+                <Link to={data.url}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
+            </li>
             {
-                data.childItems.nodes.length && data.childItems.nodes.map((childItem: MobileHeaderMenuSubLink) =>
-                    <li><a href={formatCatalogChildItemUrl(childItem.url)}>{childItem.label}</a></li>)
+                data.childItems.nodes.length && data.childItems.nodes.map((childItem: MobileHeaderMenuSubLink, index: number) =>
+                    <li key={index}>
+                        <a href={formatCatalogChildItemUrl(childItem.url)}>
+                            {childItem.label}
+                        </a>
+                    </li>)
             }
         </MobileHeaderSubMenuLinks>
     )

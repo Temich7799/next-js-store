@@ -109,16 +109,21 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
                         <MobileHeaderMenuLinksWrapper>
                             <MobileHeaderMenuLinks>
                                 {
-                                    data.map((link: MobileHeaderMenuItem) =>
+                                    data.map((link: MobileHeaderMenuItem, index: number) =>
                                         <>
                                             {
                                                 link.childItems.nodes.length
                                                     ?
-                                                    <li>
+                                                    <li key={index}>
                                                         <MobileHeaderSubMenuTitle title={link.label} isSubMenuOpened={showSubMenu} onClickHandler={MobileHeaderSubMenuTitleOnClickHandler} />
                                                         {showSubMenu && <MobileHeaderSubMenu data={link} />}
                                                     </li>
-                                                    : !link.parentId && <li><Link to={link.url != '/home/' ? link.url : '/'}>{link.label}</Link></li>
+                                                    : !link.parentId &&
+                                                    <li key={index}>
+                                                        <Link to={link.url != '/home/' ? link.url : '/'}>
+                                                            {link.label}
+                                                        </Link>
+                                                    </li>
                                             }
                                         </>)
                                 }

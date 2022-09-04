@@ -64,17 +64,17 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
             <ul>
                 {
                     data.map(
-                        (link: any) =>
+                        (link: any, index: number) =>
                             <>
                                 {
-                                    data.indexOf(link) == Math.floor(data.length / 2) &&
-                                    < Link to="/">
+                                    index == Math.floor(data.length / 2) &&
+                                    <Link to="/" key={index}>
                                         <StaticImage src="../../../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
                                     </Link>
                                 }
                                 {
                                     !link.parentId &&
-                                    <li>
+                                    <li key={index}>
                                         {
                                             (link.childItems.nodes.length)
                                                 ?
