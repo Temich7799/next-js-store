@@ -16,6 +16,7 @@ export const CATALOG_PAGE_TITLE = 'Каталог';
 
 export const SELECT_PLACEHOLDER = 'Вибрати зі списку';
 
+export const CITY_SELECTOR_TITLE = 'Місто';
 export const CITY_SELECTOR__PLACEHOLDER = 'Починайте вводити назву міста';
 export const CITY_SELECTOR_ERROR_MESSAGE = 'Виберіть місто зі списку';
 

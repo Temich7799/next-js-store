@@ -16,6 +16,7 @@ export const CATALOG_PAGE_TITLE = 'Catalog';
 
 export const SELECT_PLACEHOLDER = 'Select from list';
 
+export const CITY_SELECTOR_TITLE = 'City';
 export const CITY_SELECTOR__PLACEHOLDER = 'Start typing city name';
 export const CITY_SELECTOR_ERROR_MESSAGE = 'Select a city from the list';
 

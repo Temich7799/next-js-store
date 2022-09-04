@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { CITY_SELECTOR_ERROR_MESSAGE, CITY_SELECTOR__PLACEHOLDER } from "../../../../../languages/ru/languages";
+import { CITY_SELECTOR_ERROR_MESSAGE, CITY_SELECTOR_TITLE, CITY_SELECTOR__PLACEHOLDER } from "../../../../../languages/ru/languages";
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 
@@ -47,7 +47,7 @@ const CitySelector = (props: CitySelectorProps) => {
     return (
         <Select
             name="city"
-            label="City"
+            label={CITY_SELECTOR_TITLE}
             onErrorMessage={CITY_SELECTOR_ERROR_MESSAGE}
             placeHolder={!citiesData.length && CITY_SELECTOR__PLACEHOLDER}
             isInputBlocked={false}
