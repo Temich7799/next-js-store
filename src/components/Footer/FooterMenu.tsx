@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { Fragment } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 
@@ -31,7 +31,7 @@ const FooterMenu = () => {
         <StyledFooterMenu>
             {links.map((link: any, index: number) => index == links.length - 1
                 ? <Link to={link.url} key={index}> {link.label}</Link>
-                : <> <Link to={link.url} key={index}> {link.label}</Link> / </>
+                : <Fragment key={index}> <Link to={link.url} > {link.label}</Link> / </Fragment>
             )
             }
         </StyledFooterMenu >

@@ -25,7 +25,21 @@ const Content = styled.div`
 type CatalogProps = {
   data: {
     allWcProductsCategories: {
-      edges: Array<object>
+      edges: [
+        {
+          node: {
+            image: [
+              {
+                alt: string
+                src: string
+              }
+            ]
+            slug: string
+            name: string
+            description: string
+          }
+        }
+      ]
     }
   }
 }
@@ -43,7 +57,9 @@ const CatalogPage = (props: CatalogProps) => {
           <Main isMobile={isMobile}>
             <PageTitle>{CATALOG_PAGE_TITLE}</PageTitle>
             <Content>
-              {data.allWcProductsCategories.edges.map((edge: any) => <CategoryThumb data={edge.node} />)}
+              {
+                data.allWcProductsCategories.edges.map((edge: any, index: number) => <CategoryThumb data={edge.node} key={index} />)
+              }
             </Content>
           </Main>
         </>

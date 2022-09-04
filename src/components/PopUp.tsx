@@ -6,7 +6,7 @@ import ImageSVG from "./ImageSVG";
 
 const StyledPopUp = styled.div<any>`
     position:fixed;
-    display: ${props => props.display == true ? "block" : "none"};
+    display: ${props => props.isVisible == true ? "block" : "none"};
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
@@ -35,7 +35,7 @@ const PopUp = (props: PopUpProps) => {
     }
 
     return (
-        <StyledPopUp display={visible}>
+        <StyledPopUp isVisible={visible}>
             <CloseButton buttonStyle="transparent" buttonSize="shrink" onClick={buttonOnClickHandler}>
                 <ImageSVG path="/svg/close.svg" height="15px" width="15px" />
             </CloseButton>

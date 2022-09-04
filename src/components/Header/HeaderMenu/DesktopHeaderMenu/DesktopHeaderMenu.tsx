@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, Fragment } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 import { StaticImage } from "gatsby-plugin-image"
@@ -65,16 +65,16 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
                 {
                     data.map(
                         (link: any, index: number) =>
-                            <>
+                            <Fragment key={index}>
                                 {
                                     index == Math.floor(data.length / 2) &&
-                                    <Link to="/" key={index}>
+                                    <Link to="/">
                                         <StaticImage src="../../../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
                                     </Link>
                                 }
                                 {
                                     !link.parentId &&
-                                    <li key={index}>
+                                    <li>
                                         {
                                             (link.childItems.nodes.length)
                                                 ?
@@ -89,7 +89,7 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
                                         }
                                     </li>
                                 }
-                            </>
+                            </Fragment>
                     )
                 }
             </ul>
