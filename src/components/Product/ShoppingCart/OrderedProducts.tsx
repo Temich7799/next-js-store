@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { ORDER_FINAL_BUTTON_DISABLED } from "../../../languages/ru/languages";
-import ProductName from "../ProductAbout/ProductName";
+import { ORDER_FINAL_BUTTON_DISABLED, PRODUCT_SKU } from "../../../languages/ru/languages";
 import ProductPrice from "../ProductPrice";
 import OrderedProductQuantity from "./OrderedProductQuantity";
 
@@ -17,7 +16,7 @@ const OrderedProductDetails = styled.div`
     max-width: 430px;
     margin: 5px 0;
     display: grid;
-    grid-template-columns: 65px 1fr 1fr 1fr; 
+    grid-template-columns: 65px 0.5fr 1fr 0.8fr;
     justify-content: space-around;
     align-items: center;
     gap: 10px;
@@ -27,6 +26,18 @@ const OrderedProductThumb = styled.img`
     width: 65px;
     height: 65px;
     object-fit: cover;
+`;
+
+const OrderedProductName = styled.div`
+    p {
+        display: inline-block;
+        margin: 2.5% 0;
+        font-weight: 700;
+        :nth-child(2n) {
+            font-weight: 400;
+            font-size: 12px;
+        }
+    } 
 `;
 
 type Product = {
@@ -52,7 +63,10 @@ const OrderedProducts = (props: any) => {
                         <OrderedProductDetails>
                             <OrderedProductThumb src={product.image.src} alt={product.image.alt} />
                             <ProductPrice price={product.price} salePrice={product.sale_price} />
-                            <ProductName name={product.name} sku={product.sku} attributes={[{ options: [""], name: "string" }]} />
+                            <OrderedProductName>
+                                <p>{product.name}</p>
+                                <p>{PRODUCT_SKU}: {product.sku}</p>
+                            </OrderedProductName>
                             <OrderedProductQuantity data={product} />
                         </OrderedProductDetails>
                     )

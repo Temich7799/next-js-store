@@ -55,7 +55,7 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         google: {
-          families: ['Amatic SC', 'Comfortaa', 'Laila']
+          families: ['Amatic SC:400,700', 'Comfortaa:400,700', 'Laila']
         }
       }
     }
