@@ -17,10 +17,7 @@
   },
   "dependencies": {
     "@pasdo501/gatsby-source-woocommerce": "0.15.1",
-    "@reduxjs/toolkit": "^1.8.5",
-    "@woocommerce/woocommerce-rest-api": "^1.0.1",
     "babel-plugin-styled-components": "^2.0.7",
-    "express": "^4.18.1",
     "gatsby": "^4.19.2",
     "gatsby-plugin-breadcrumb": "^12.3.1",
     "gatsby-plugin-google-analytics": "^4.19.0",
@@ -33,14 +30,11 @@
     "gatsby-source-graphql": "^4.19.0",
     "gatsby-source-wordpress": "^6.19.0",
     "gatsby-transformer-sharp": "^4.22.0",
-    "mysql2": "^2.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-image-magnify": "^2.7.4",
-    "react-redux": "^8.0.2",
-    "styled-components": "^5.3.5",
-    "woocommerce-api": "^1.5.0"
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@types/node": "^18.0.6",
