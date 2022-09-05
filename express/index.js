@@ -2,54 +2,18 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const router = express.Router();
-const bodyParser = require('body-parser');
-const multer = require('multer');
-const forms = multer();
-const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
-const mysql = require('mysql');
 const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
+
+const schema = require('./graphql/schema');
+const resolvers = require('./graphql/resolvers');
 
 const port = 3000;
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    port: 8889,
-    database: 'nines_dolls',
-    user: 'root',
-    password: 'root'
-});
-
-const schema = buildSchema(`
-    type WpCity {
-        ref: String
-        description: String
-        description_ru: String
-    }
-    type Query {
-        allCities: [WpCity]
-    }
-`);
-
-const root = {
-    allCities: () => {
-        return new Promise((resolve, reject) => {
-            connection.query("SELECT `ref`,`description`,`description_ru` FROM `wp_nova_poshta_city` WHERE 1", (err, rows) =>
-                (rows !== undefined) && resolve(rows)
-            );
-        });
-    },
-};
-
 app.use(cors({ origin: true, credentials: true }));
-app.use(bodyParser.json());
-app.use(forms.array());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', router);
+
 app.use('/graphql', graphqlHTTP({
     schema: schema,
-    rootValue: root,
+    rootValue: resolvers,
     graphiql: true,
 }));
 
@@ -57,44 +21,7 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 })
 
-const WooCommerce = new WooCommerceRestApi({
-    url: 'http://localhost:8888/wordpress',
-    consumerKey: 'ck_0db198da88b1a81b2e7766af5126771190b31b96',
-    consumerSecret: 'cs_601709c4babde4702e285a2f972dad154f2021c7',
-    version: 'wc/v3'
-});
-
-router.post('/orders', (request, res) => {
-
-    request.body.shipping = JSON.parse(request.body.shipping);
-    request.body.billing = request.body.shipping;
-    request.body.line_items = JSON.parse(request.body.line_items);
-    request.body.shipping_lines = JSON.parse(request.body.shipping_lines);
-
-    WooCommerce.post('orders', request.body)
-        .then((response) => {
-            res.json(response.data);
-        })
-});
-
-function makeQuery(sql, res, callback) {
-    //connection.connect();
-    connection.query(sql, (err, responce) => {
-        if (err) throw err;
-        res.send(responce);
-        callback && callback(responce);
-    });
-    //connection.end();
-}
-
-function formatResponce(data) {
-    return data.map((dataKey) => Object.values(dataKey)[0]);
-}
-
-app.get('/', (req, res) => {
-    makeQuery('SELECT `ref`,`description`,`description_ru` FROM `wp_nova_poshta_city` WHERE 1', res, console.log)
-});
-
+/*
 app.get('/cities', (req, res) => {
 
     const getCitiesQuery = (rowName, tableName) => 'SELECT ' + rowName + ' FROM ' + tableName + ' WHERE LOWER(' + rowName + `) REGEXP '` + req.query.city.toLowerCase() + `'` + ' ORDER BY CHAR_LENGTH(' + rowName + ') ASC';
@@ -116,3 +43,5 @@ app.get('/warehouses', (req, res) => {
         cityRefQuery(req.query.city, 'description_ru', 'wp_nova_poshta_city', 'ref'), 'parent_ref', 'description_ru', 'wp_nova_poshta_warehouse'), res);
 
 });
+
+*/
