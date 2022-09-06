@@ -10,10 +10,13 @@ const WpWcProduct = require('./types/WpWcProduct');
 const schema = buildSchema(`
 
     type Query {
-        allWpWcOrders: [WpWcOrder]
-        allWpNovaPoshtaCities: [WpNovaPoshtaCity]
-        allWpNovaPoshtaWarehouses: [WpNovaPoshtaWarehouse]
-        allWpWcProducts: [WpWcProduct]
+        allWpWcOrders: [WpWcOrder!]!
+        allWpNovaPoshtaCities: [WpNovaPoshtaCity!]!
+        allWpNovaPoshtaWarehouses: [WpNovaPoshtaWarehouse!]!
+        allWpWcProducts: [WpWcProduct!]!
+
+        wpWcOrder(id: Int!): WpWcOrder!
+        wpWcProduct(id: Int!): WpWcProduct!
     }
 
     ${WpWcProduct}

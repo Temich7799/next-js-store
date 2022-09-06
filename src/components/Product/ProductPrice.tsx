@@ -1,9 +1,12 @@
 import * as React from "react"
 import styled from "styled-components"
 import { PRODUCT_PRICE_TITLE } from "../../languages/ru/languages";
+import LoadingBar from "../LoadingBar";
 
-const StyledProductPrice = styled.p`
+const StyledProductPrice = styled.div`
     display: flex;
+    align-items: center;
+    gap: 5px;
     flex-wrap: wrap;
 `;
 
@@ -29,14 +32,19 @@ const ProductPrice = (props: PriceProps) => {
 
     return (
         <StyledProductPrice>
-            <>
-                {PRODUCT_PRICE_TITLE}:{" "}
-                {
-                    salePrice.length
-                        ? <><OldPrice>{price}{" "}</OldPrice><SalePrice>{" "}{salePrice}</SalePrice> грн</>
-                        : price
-                }
-            </>
+            <p>{`${PRODUCT_PRICE_TITLE}:`}</p>
+            {
+                (price === undefined && salePrice === undefined)
+                    ? <LoadingBar size="15%" />
+                    :
+                    <>
+                        {
+                            salePrice.length > 0
+                                ? <p><OldPrice>{price}{" "}</OldPrice><SalePrice>{" "}{salePrice}</SalePrice> грн</p>
+                                : <p>{price}</p>
+                        }
+                    </>
+            }
         </StyledProductPrice>
     )
 }

@@ -1,6 +1,12 @@
 import * as React from "react"
 import styled from "styled-components"
 
+type ButtonProps = {
+    buttonSize?: string
+    buttonStyle: string
+    children: any
+}
+
 function buttonSizePropsHandler(size: string | undefined) {
     switch (size) {
         case "small":
@@ -68,7 +74,7 @@ const StyledButton = styled.button<any>`
     ${(props) => buttonStylePropsHandler(props.buttonStyle)}
 `;
 
-const Button = (props: any) => {
+const Button = (props: ButtonProps) => {
 
     const { children, ...rest } = props;
 

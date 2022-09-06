@@ -19,10 +19,11 @@ type ProductAttribute = {
 
 type ProductAboutProps = {
     data: {
-        price: string
-        sale_price: string
         name: string
         sku: string
+        price: string
+        sale_price: string
+        purchasable: boolean
         attributes: [ProductAttribute]
         slug: string
         images: [{
@@ -31,7 +32,6 @@ type ProductAboutProps = {
             localFile: object
         }]
         wordpress_id: number
-
     }
 }
 

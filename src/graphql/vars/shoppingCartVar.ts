@@ -26,7 +26,11 @@ export const addToCartResolver = (productId: number, product: PurchasedProduct):
     const currentVar = { ...shoppingCartVar() };
 
     if (currentVar.hasOwnProperty(productId)) {
+
         currentVar[productId].quantity++;
+        currentVar[productId].price = product.price;
+        currentVar[productId].sale_price = product.sale_price;
+
         shoppingCartVar(currentVar);
     }
     else {

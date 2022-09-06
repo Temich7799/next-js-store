@@ -86,36 +86,39 @@ export default ProductLayout
 export const query = graphql`
   query getProduct($productId: Int!){
     wcProducts(wordpress_id: {eq: $productId}) {
+        name
+        sku
+        price
+        sale_price
+        purchasable
+        description
+        wordpress_id
         attributes {
             options
             name
-      }
-        price
-        sale_price
+        }
         related_products {
             name
             price
             sale_price
             sku
-        images {
-            alt
-            src
-            localFile {
-                childImageSharp {
-                    gatsbyImageData(
-                        webpOptions: {quality: 85}
-                        height: 240
-                    )
+            purchasable
+            images {
+                alt
+                src
+                localFile {
+                    childImageSharp {
+                        gatsbyImageData(
+                            webpOptions: {quality: 85}
+                            height: 240
+                        )
+                    }
                 }
             }
+            categories {
+                slug
+            }
         }
-        categories {
-            slug
-        }
-        purchasable
-        on_sale
-        }
-        description
         images {
             alt
             src
@@ -133,10 +136,6 @@ export const query = graphql`
         categories {
             slug
         }
-        name
-        purchasable
-        sku
-        wordpress_id
     }
 }`;
 

@@ -21,7 +21,9 @@ const resolvers = {
     allWpNovaPoshtaCities: () => makeSqlQuery('SELECT `ref`,`description`,`description_ru` FROM `wp_nova_poshta_city` WHERE 1'),
     allWpNovaPoshtaWarehouses: () => makeSqlQuery('SELECT `parent_ref`,`description`,`description_ru` FROM `wp_nova_poshta_warehouse` WHERE 1'),
     allWpWcOrders: () => WooCommerce.get('orders').then((response) => response.data),
-    allWpWcProducts: () => WooCommerce.get("products").then((response) => response.data),
+    allWpWcProducts: () => WooCommerce.get('products').then((response) => response.data),
+
+    wpWcProduct: ({ id }) => WooCommerce.get(`products/${id}`).then((response) => response.data)
 
 };
 

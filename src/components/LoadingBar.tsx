@@ -6,8 +6,12 @@ const spinnerAnimation = keyframes`
     100% {transform: rotate(360deg)}
 `;
 
-const StyledLoadingBar = styled.div`
-    height: 50%;
+type LoadingBarProps = {
+    size?: string
+}
+
+const StyledLoadingBar = styled.div<LoadingBarProps>`
+    height: ${props => props.size};
     min-height: 10px;
     aspect-ratio: 1/1;
     border: 2.5px solid #2deb6c;
@@ -18,10 +22,13 @@ const StyledLoadingBar = styled.div`
     animation: ${spinnerAnimation} 1.1s infinite linear;
 `;
 
-const LoadingBar = () => {
+const LoadingBar = (props: LoadingBarProps) => {
+
+    const { size = '50%' } = props;
+
     return (
         <>
-            <StyledLoadingBar />
+            <StyledLoadingBar size={size} />
         </>
     )
 }
