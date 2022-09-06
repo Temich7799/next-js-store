@@ -28,6 +28,7 @@ type ProductAboutProps = {
         images: [{
             src: string
             alt: string
+            localFile: object
         }]
         wordpress_id: number
 

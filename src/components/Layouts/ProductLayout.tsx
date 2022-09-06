@@ -24,45 +24,35 @@ const Content = styled.div`
     padding: 5%;
 `;
 
-type ProductAttribute = {
-    options: [string]
+type Product = {
+    categories: [{}]
+    description: string
+    attributes: [
+        {
+            options: [string]
+            name: string
+        }
+    ]
+    images: [
+        {
+            alt: string
+            src: string
+            localFile: object
+        }
+    ]
     name: string
+    price: string
+    purchasable: boolean
+    related_products: [Product]
+    sale_price: string
+    sku: string
+    slug: string
+    wordpress_id: number
 }
 
 type ProductProps = {
     data: {
-        wcProducts: {
-            categories: [{}]
-            description: string
-            dimensions: {
-                height: string
-                length: string
-                width: string
-            }
-            attributes: [ProductAttribute]
-            images: [
-                {
-                    alt: string
-                    src: string
-                }
-            ]
-            name: string
-            price: string
-            purchasable: boolean
-            related_products: [{}]
-            sale_price: string
-            sku: string
-            slug: string
-            wordpress_id: number
-        }
-        wcProductsReviews: {
-            date_created: string
-            product_id: number
-            product_name: string
-            review: string
-            reviewer: string
-            verified: boolean
-        }
+        wcProducts: Product
     }
 }
 
@@ -126,11 +116,6 @@ export const query = graphql`
         on_sale
         }
         description
-        dimensions {
-            height
-            length
-            width
-        } 
         images {
             alt
             src
