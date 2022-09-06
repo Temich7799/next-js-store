@@ -1,11 +1,10 @@
 import * as React from "react"
 import styled from "styled-components"
 import { PRODUCT_BUY_BUTTON_TITLE } from "../../../languages/ru/languages";
-import { useDispatch } from 'react-redux'
-import { addToShoppingCart } from "../../../store/shoppingCartSlice";
 import Button from "../../Button";
 import ImageSVG from "../../ImageSVG";
 import ProductPrice from "../ProductPrice";
+import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
 
 const StyledProductBuy = styled.div`
     display: flex;
@@ -32,12 +31,10 @@ type ProductBuyProps = {
 const ProductBuy = (props: ProductBuyProps) => {
 
     const { data } = props;
-    const { price, sale_price, images } = data;
-
-    const dispath = useDispatch();
+    const { price, sale_price, wordpress_id } = data;
 
     function buttonOnClickHandler() {
-        dispath(addToShoppingCart({ ...data, quantity: 1, image: { src: images[0].localFile.childImageSharp.gatsbyImageData.images.fallback.src, alt: images[0].alt } }));
+        addToCartResolver(wordpress_id, data);
     }
 
     return (

@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@pasdo501/gatsby-source-woocommerce": "0.15.1",
+    "@apollo/client": "^3.6.9",
+    "@woocommerce/woocommerce-rest-api": "^1.0.1",
     "babel-plugin-styled-components": "^2.0.7",
     "gatsby": "^4.19.2",
     "gatsby-plugin-breadcrumb": "^12.3.1",
@@ -30,6 +32,7 @@
     "gatsby-source-graphql": "^4.19.0",
     "gatsby-source-wordpress": "^6.19.0",
     "gatsby-transformer-sharp": "^4.22.0",
+    "graphql": "^15.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
