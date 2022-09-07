@@ -11,7 +11,7 @@ const Main = styled.main<any>`
 `;
 
 const Content = styled.div`
-    max-width: 1900px;
+    max-width: 1700px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;

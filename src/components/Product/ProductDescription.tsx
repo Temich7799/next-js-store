@@ -6,6 +6,7 @@ import NotCopyArea from "../NotCopyArea";
 
 const StyledProductDescription = styled.div<any>`
     max-width: ${props => props.maxWidth};
+    min-width: 50%;
 `;
 
 type ProductDescriptionProps = {

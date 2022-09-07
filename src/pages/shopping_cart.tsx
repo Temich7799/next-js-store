@@ -9,7 +9,7 @@ import sendOrder from "../services/sendOrder";
 const StyledShoppingCartPage = styled.div<any>`
   margin: 0 auto;
   margin-top: ${props => props.isMobile ? "164px" : "0"};
-  max-width: 1900px;
+  max-width: 1700px;
   display: flex;
   align-items: stretch;
   flex-wrap: wrap;
