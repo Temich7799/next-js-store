@@ -2,15 +2,15 @@ import React from "react"
 import styled from "styled-components"
 import { ORDER_FINAL_BUTTON_DISABLED, PRODUCT_SKU } from "../../../languages/ru/languages";
 import ProductPrice from "../ProductPrice";
-import OrderedProductQuantity from "./OrderedProductQuantity";
+import PurchasedProductQuantity from "./PurchasedProductQuantity";
 
-const StyledOrderedProducts = styled.div`
+const StyledPurchasedProducts = styled.div`
     max-height: 200px;
     width: 100%;
     overflow: scroll;
 `;
 
-const OrderedProductDetails = styled.div`
+const PurchasedProductDetails = styled.div`
     height: fit-content;
     width: 100%;
     max-width: 430px;
@@ -22,13 +22,13 @@ const OrderedProductDetails = styled.div`
     gap: 10px;
 `;
 
-const OrderedProductThumb = styled.img`
+const PurchasedProductThumb = styled.img`
     width: 65px;
     height: 65px;
     object-fit: cover;
 `;
 
-const OrderedProductName = styled.div`
+const PurchasedProductName = styled.div`
     p {
         display: inline-block;
         margin: 2.5% 0;
@@ -40,41 +40,45 @@ const OrderedProductName = styled.div`
     } 
 `;
 
-type Product = {
+type PurchasedProduct = {
     name: string
+    slug: string
     sku: string
     price: string
     sale_price: string
-    image: { src: string, alt: string }
+    images: [{
+        alt: string
+        localFile: any
+    }]
     wordpress_id: number
     quantity: number
 }
 
-const OrderedProducts = (props: any) => {
+const PurchasedProducts = (props: any) => {
 
     const { data } = props;
 
     return (
-        <StyledOrderedProducts id="ordered_products">
+        <StyledPurchasedProducts id="ordered_products">
             <hr />
             {
                 data && data.length
-                    ? data.map((product: Product) =>
-                        <OrderedProductDetails key={product.wordpress_id}>
-                            <OrderedProductThumb src={product.image.src} alt={product.image.alt} />
+                    ? data.map((product: PurchasedProduct) =>
+                        <PurchasedProductDetails>
+                            <PurchasedProductThumb src={product.images[0].localFile.childImageSharp.gatsbyImageData.images.fallback.src} alt={product.images[0].alt} />
                             <ProductPrice price={product.price} salePrice={product.sale_price} />
-                            <OrderedProductName>
+                            <PurchasedProductName>
                                 <p>{product.name}</p>
                                 <p>{PRODUCT_SKU}: {product.sku}</p>
-                            </OrderedProductName>
-                            <OrderedProductQuantity data={product} />
-                        </OrderedProductDetails>
+                            </PurchasedProductName>
+                            <PurchasedProductQuantity data={product} />
+                        </PurchasedProductDetails>
                     )
                     : <p>{ORDER_FINAL_BUTTON_DISABLED}</p>
             }
             <hr />
-        </StyledOrderedProducts>
+        </StyledPurchasedProducts>
     )
 }
 
-export default OrderedProducts;
+export default PurchasedProducts;

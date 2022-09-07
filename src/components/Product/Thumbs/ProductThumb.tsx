@@ -3,11 +3,10 @@ import { Link } from "gatsby";
 import styled from "styled-components"
 import ImageSVG from "../../ImageSVG";
 import Button from "../../Button";
-import { useDispatch } from 'react-redux'
 import ProductPrice from "../ProductPrice";
 import { PRODUCT_SKU } from "../../../languages/ru/languages";
-import { addToShoppingCart } from "../../../store/shoppingCartSlice";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
 
 const StyledProductThumb = styled.div`
     height: 320px;
@@ -27,7 +26,6 @@ const StyledProductThumb = styled.div`
 
 const ProductImage = styled.div`
     position: relative;
-
 `;
 
 const ProductCaption = styled.div`
@@ -70,14 +68,13 @@ type ProductProps = {
 const ProductThumb = (props: ProductProps) => {
 
     const { data } = props;
-    const { sku, price, categories, sale_price, images } = data;
+    const { sku, price, categories, sale_price, images, wordpress_id } = data;
 
     const image = getImage(images[0].localFile)
 
-    const dispath = useDispatch();
 
     function buttonOnClickHandler() {
-        dispath(addToShoppingCart({ ...data, quantity: 1, image: { src: images[0].localFile.childImageSharp.gatsbyImageData.images.fallback.src, alt: images[0].alt } }));
+        addToCartResolver(wordpress_id, data);
     }
 
     return (

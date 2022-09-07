@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react"
-import { useSelector } from 'react-redux'
+import React, { useState } from "react"
 import styled from "styled-components"
 import toogle from "../../services/toogle";
 import Button from "../Button";
 import ImageSVG from "../ImageSVG";
 import PopUp from "../PopUp";
 import OrderDetails from "../Product/ShoppingCart/OrderDetails";
+import { useReactiveVar } from "@apollo/client";
+import { shoppingCartVar } from "../../graphql/vars/shoppingCartVar";
 
 const StyledHeaderShoppingCart = styled.div`
     position: relative;
@@ -24,23 +25,11 @@ const PurchasesCount = styled.div`
     background-color: yellow;
 `;
 
-type Product = {
-    name: string
-    sku: string
-    price: string
-    sale_price: string
-    image: { src: string, alt: string },
-    product_id: number
-    quantity: number
-}
-
 const HeaderShoppingCart = () => {
 
     const [showPopUp, setShowPopUp] = useState<boolean>(false);
 
-    const shoppingCartProducts = useSelector((state: { shoppingCart: [Product] }) => state.shoppingCart);
-
-    const purchasesCount = Object.values(shoppingCartProducts).length;
+    const purchasesCount = Object.values(useReactiveVar(shoppingCartVar)).length;
 
     function buttonOnClickHandler() {
         setShowPopUp(toogle(showPopUp));

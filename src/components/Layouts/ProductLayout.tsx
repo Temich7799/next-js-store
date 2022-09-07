@@ -24,45 +24,35 @@ const Content = styled.div`
     padding: 5%;
 `;
 
-type ProductAttribute = {
-    options: [string]
+type Product = {
+    categories: [{}]
+    description: string
+    attributes: [
+        {
+            options: [string]
+            name: string
+        }
+    ]
+    images: [
+        {
+            alt: string
+            src: string
+            localFile: object
+        }
+    ]
     name: string
+    price: string
+    purchasable: boolean
+    related_products: [Product]
+    sale_price: string
+    sku: string
+    slug: string
+    wordpress_id: number
 }
 
 type ProductProps = {
     data: {
-        wcProducts: {
-            categories: [{}]
-            description: string
-            dimensions: {
-                height: string
-                length: string
-                width: string
-            }
-            attributes: [ProductAttribute]
-            images: [
-                {
-                    alt: string
-                    src: string
-                }
-            ]
-            name: string
-            price: string
-            purchasable: boolean
-            related_products: [{}]
-            sale_price: string
-            sku: string
-            slug: string
-            wordpress_id: number
-        }
-        wcProductsReviews: {
-            date_created: string
-            product_id: number
-            product_name: string
-            review: string
-            reviewer: string
-            verified: boolean
-        }
+        wcProducts: Product
     }
 }
 
@@ -96,41 +86,39 @@ export default ProductLayout
 export const query = graphql`
   query getProduct($productId: Int!){
     wcProducts(wordpress_id: {eq: $productId}) {
+        name
+        sku
+        price
+        sale_price
+        purchasable
+        description
+        wordpress_id
         attributes {
             options
             name
-      }
-        price
-        sale_price
+        }
         related_products {
             name
             price
             sale_price
             sku
-        images {
-            alt
-            src
-            localFile {
-                childImageSharp {
-                    gatsbyImageData(
-                        webpOptions: {quality: 85}
-                        height: 240
-                    )
+            purchasable
+            images {
+                alt
+                src
+                localFile {
+                    childImageSharp {
+                        gatsbyImageData(
+                            webpOptions: {quality: 85}
+                            height: 240
+                        )
+                    }
                 }
             }
+            categories {
+                slug
+            }
         }
-        categories {
-            slug
-        }
-        purchasable
-        on_sale
-        }
-        description
-        dimensions {
-            height
-            length
-            width
-        } 
         images {
             alt
             src
@@ -148,10 +136,6 @@ export const query = graphql`
         categories {
             slug
         }
-        name
-        purchasable
-        sku
-        wordpress_id
     }
 }`;
 

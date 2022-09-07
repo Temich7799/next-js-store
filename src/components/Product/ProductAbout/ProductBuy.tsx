@@ -1,11 +1,11 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
-import { PRODUCT_BUY_BUTTON_TITLE } from "../../../languages/ru/languages";
-import { useDispatch } from 'react-redux'
-import { addToShoppingCart } from "../../../store/shoppingCartSlice";
+import { PRODUCT_BUY_BUTTON_TITLE, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } from "../../../languages/ru/languages";
 import Button from "../../Button";
 import ImageSVG from "../../ImageSVG";
 import ProductPrice from "../ProductPrice";
+import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
+import { gql, useLazyQuery } from "@apollo/client";
 
 const StyledProductBuy = styled.div`
     display: flex;
@@ -18,9 +18,9 @@ type ProductBuyProps = {
     data: {
         name: string
         slug: string
+        price?: string
+        sale_price?: string
         sku: string
-        price: string
-        sale_price: string
         images: [{
             alt: string
             localFile: any
@@ -32,20 +32,53 @@ type ProductBuyProps = {
 const ProductBuy = (props: ProductBuyProps) => {
 
     const { data } = props;
-    const { price, sale_price, images } = data;
 
-    const dispath = useDispatch();
+    const [isOutOfStock, setIsOutOfStock] = useState<boolean>(false);
+
+    const [getProductFetchData, { loading: isDataLoading, error: dataFetchError, data: fetchedData }] = useLazyQuery(gql`
+        query getProductPrice($wpWcProductId: Int!) {
+            wpWcProduct(id: $wpWcProductId) {
+                price
+                sale_price
+                stock_status
+                stock_quantity
+                manage_stock
+            }
+    }
+    `);
+
+    useEffect(() => {
+        getProductFetchData({ variables: { wpWcProductId: data.wordpress_id } });
+    }, []);
+
+    useEffect(() => {
+        if (fetchedData) {
+
+            setIsOutOfStock(
+                fetchedData.wpWcProduct.stock_status == 'instock' || fetchedData.wpWcProduct.stock_quantity > 0
+                    ? false
+                    : true
+            );
+
+            data.price = fetchedData.wpWcProduct.price;
+            data.sale_price = fetchedData.wpWcProduct.sale_price;
+        }
+    }, [fetchedData]);
 
     function buttonOnClickHandler() {
-        dispath(addToShoppingCart({ ...data, quantity: 1, image: { src: images[0].localFile.childImageSharp.gatsbyImageData.images.fallback.src, alt: images[0].alt } }));
+        addToCartResolver(data.wordpress_id, data);
     }
 
     return (
         <StyledProductBuy>
-            <ProductPrice price={price} salePrice={sale_price} />
-            <Button id="shoppingCartButton" onClick={buttonOnClickHandler}>
+            <ProductPrice price={fetchedData && fetchedData.wpWcProduct.price} salePrice={fetchedData && fetchedData.wpWcProduct.sale_price} />
+            <Button id="shoppingCartButton" onClick={buttonOnClickHandler} disabled={isDataLoading || isOutOfStock}>
                 <>
-                    {PRODUCT_BUY_BUTTON_TITLE}
+                    {
+                        isOutOfStock
+                            ? PRODUCT_OUT_OF_STOCK_BUTTON_TITLE
+                            : PRODUCT_BUY_BUTTON_TITLE
+                    }
                     <ImageSVG path="/svg/add_to_cart.svg" height="25px" width="25px" />
                 </>
             </Button>

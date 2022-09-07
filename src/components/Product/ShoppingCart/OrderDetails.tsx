@@ -1,11 +1,12 @@
+import { useReactiveVar } from "@apollo/client";
 import { Link } from "gatsby";
 import React, { forwardRef, useEffect, useState } from "react"
 import styled from "styled-components"
-import { useSelector } from 'react-redux'
+import { shoppingCartVar } from "../../../graphql/vars/shoppingCartVar";
 import { ORDER_DETAILS_TITLE, ORDER_FINAL_BUTTON_BACK, ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_TITLE, ORDER_FINAL_BUTTON_SUBMIT, ORDER_FINAL_BUTTON_DISABLED } from "../../../languages/ru/languages";
 import Button from "../../Button";
 import LoadingBar from "../../LoadingBar";
-import OrderedProducts from "./OrderedProducts";
+import PurchasedProducts from "./PurchasedProducts";
 
 const StyledOrderDetails = styled.form`
     /* other form styles are in <src/styles/wp.css> */
@@ -39,12 +40,16 @@ const OrderFinal = styled.div`
     }
 `;
 
-type Product = {
+type PurchasedProduct = {
     name: string
+    slug: string
     sku: string
     price: string
     sale_price: string
-    image: { src: string, alt: string },
+    images: [{
+        alt: string
+        localFile: any
+    }]
     wordpress_id: number
     quantity: number
 }
@@ -56,7 +61,7 @@ const OrderDetails = forwardRef((props: any, formRef: any) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [totalPrice, setTotalPrice] = useState<number>(0);
 
-    const shoppingCartProducts: Array<Product> = Object.values(useSelector((state: { shoppingCart: object }) => state.shoppingCart));
+    const shoppingCartProducts: Array<PurchasedProduct> = Object.values(useReactiveVar(shoppingCartVar));
 
     useEffect(() => {
         shoppingCartProducts && setIsButtonDisabled(shoppingCartProducts.length ? false : true);
@@ -65,7 +70,7 @@ const OrderDetails = forwardRef((props: any, formRef: any) => {
 
     function calcTotalPrice(shoppingCartProducts: any): number {
         let price = 0;
-        shoppingCartProducts && shoppingCartProducts.forEach((product: Product) =>
+        shoppingCartProducts && shoppingCartProducts.forEach((product: PurchasedProduct) =>
             price += (parseInt(product.sale_price ? product.sale_price : product.price)) * product.quantity);
         return price;
     }
@@ -73,7 +78,7 @@ const OrderDetails = forwardRef((props: any, formRef: any) => {
     return (
         <StyledOrderDetails id="order_details">
             <h4>{ORDER_DETAILS_TITLE}</h4>
-            <OrderedProducts data={shoppingCartProducts} />
+            <PurchasedProducts data={shoppingCartProducts} />
             <OrderFinal>
                 <h4>{ORDER_FINAL_TITLE} </h4>
                 <p>{totalPrice} $</p>

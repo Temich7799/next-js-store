@@ -9,6 +9,7 @@ export const PRODUCT_SKU = 'SKU';
 export const PRODUCT_DESCRIPTION_TITLE = 'Description';
 export const PRODUCT_PRICE_TITLE = 'Price';
 export const PRODUCT_BUY_BUTTON_TITLE = 'Buy';
+export const PRODUCT_OUT_OF_STOCK_BUTTON_TITLE = 'Out of stock';
 
 export const CATEGORY_THUMB_BUTTON = 'View All';
 
