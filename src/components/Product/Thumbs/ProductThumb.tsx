@@ -68,10 +68,10 @@ type ProductProps = {
 const ProductThumb = (props: ProductProps) => {
 
     const { data } = props;
-    const { sku, price, categories, sale_price, images, wordpress_id } = data;
+    const { price, categories, sale_price, images, wordpress_id } = data;
+    if (data.sku == '') data.sku = wordpress_id.toString();
 
     const image = getImage(images[0].localFile)
-
 
     function buttonOnClickHandler() {
         addToCartResolver(wordpress_id, data);
@@ -80,13 +80,13 @@ const ProductThumb = (props: ProductProps) => {
     return (
         <StyledProductThumb>
             <ProductImage>
-                <Link to={`${categories[0].slug}-${sku}`}>
+                <Link to={`${categories[0].slug}-${data.sku}`}>
                     <GatsbyImage image={image} alt={images[0].alt} />
                 </Link>
             </ProductImage>
             <ProductCaption>
                 <div>
-                    <p>{PRODUCT_SKU}: {sku}</p>
+                    <p>{PRODUCT_SKU}: {data.sku}</p>
                     <ProductPrice price={price} salePrice={sale_price} />
                 </div>
                 <div>

@@ -70,6 +70,9 @@ exports.createPages = async function ({ actions, graphql }) {
   `);
 
     data.allWcProducts.edges.forEach((edge) => {
+
+      if (edge.node.sku == '') edge.node.sku = edge.node.wordpress_id;
+      
       actions.createPage({
         path: `catalog/${edge.node.categories[0].slug}/${edge.node.categories[0].slug}-${edge.node.sku}`,
         component: path.resolve(`./src/components/Layouts/ProductLayout.tsx`),
