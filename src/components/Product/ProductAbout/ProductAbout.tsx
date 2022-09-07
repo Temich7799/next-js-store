@@ -32,6 +32,7 @@ type ProductAboutProps = {
             localFile: object
         }]
         wordpress_id: number
+        quantity: number
     }
 }
 

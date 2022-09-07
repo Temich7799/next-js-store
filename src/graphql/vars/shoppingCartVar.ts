@@ -66,11 +66,13 @@ export const updatePurchasedProductPriceResolver = (productId: number, product: 
 
     const newVar: any = { ...shoppingCartVar() };
 
-    newVar[productId].price = product.price;
-    newVar[productId].sale_price = product.sale_price;
-    shoppingCartVar(newVar)
+    if (newVar[productId]) {
+        newVar[productId].price = product.price;
+        newVar[productId].sale_price = product.sale_price;
+        shoppingCartVar(newVar)
 
-    saveToLocalStorage();
+        saveToLocalStorage();
+    }
 }
 
 function saveToLocalStorage(): void {

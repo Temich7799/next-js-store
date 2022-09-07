@@ -1,8 +1,8 @@
-import { gql, useLazyQuery } from "@apollo/client"
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import styled from "styled-components"
-import { deletePurchasedProductResolver, updatePurchasedProductPriceResolver } from "../../../graphql/vars/shoppingCartVar"
+import { deletePurchasedProductResolver } from "../../../graphql/vars/shoppingCartVar"
 import { PRODUCT_SKU } from "../../../languages/ru/languages"
+import useFetchedProducts from "../../../services/hooks/useFetchedProduct"
 import ProductPrice from "../ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
 
@@ -56,42 +56,7 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
 
     const { data } = props;
 
-    const [isOutOfStock, setIsOutOfStock] = useState<boolean>(false);
-
-    const [getProductFetchData, { loading: isDataLoading, error: dataFetchError, data: fetchedData }] = useLazyQuery(gql`
-        query getProductFetchData($wpWcProductId: Int!) {
-            wpWcProduct(id: $wpWcProductId) {
-                price
-                sale_price
-                stock_status
-                stock_quantity
-                manage_stock
-            }
-    }
-    `);
-
-    useEffect(() => {
-        getProductFetchData({ variables: { wpWcProductId: data.wordpress_id } });
-    }, []);
-
-    useEffect(() => {
-        if (fetchedData) {
-
-            setIsOutOfStock(
-                fetchedData.wpWcProduct.stock_status == 'instock' || fetchedData.wpWcProduct.stock_quantity > 0
-                    ? false
-                    : true
-            );
-
-            updatePrice();
-        }
-    }, [fetchedData]);
-
-    function updatePrice() {
-        updatePurchasedProductPriceResolver(data.wordpress_id, data);
-        data.price = fetchedData.wpWcProduct.price;
-        data.sale_price = fetchedData.wpWcProduct.sale_price;
-    }
+    const { data: fetchedData, isOutOfStock } = useFetchedProducts(data);
 
     useEffect(() => { isOutOfStock && deletePurchasedProductResolver(data.wordpress_id); }, [isOutOfStock]);
 
