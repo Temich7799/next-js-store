@@ -6,8 +6,6 @@ import ImageSVG from "../../ImageSVG";
 import ProductPrice from "../ProductPrice";
 import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
 import { gql, useLazyQuery } from "@apollo/client";
-import { GET_PRODUCT_PRICE } from "../../../graphql/queries/getProductPrice";
-import { GET_PRODUCT_STOCK } from "../../../graphql/queries/getProductStock";
 
 const StyledProductBuy = styled.div`
     display: flex;
@@ -55,7 +53,7 @@ const ProductBuy = (props: ProductBuyProps) => {
 
     useEffect(() => {
         if (fetchedData) {
-            console.log(fetchedData.wpWcProduct.status)
+
             setIsOutOfStock(
                 fetchedData.wpWcProduct.stock_status == 'instock' || fetchedData.wpWcProduct.stock_quantity > 0
                     ? false
