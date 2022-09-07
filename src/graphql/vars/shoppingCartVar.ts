@@ -4,8 +4,8 @@ type PurchasedProduct = {
     name: string
     slug: string
     sku: string
-    price: string
-    sale_price: string
+    price?: string
+    sale_price?: string
     images: [{
         alt: string
         localFile: any
