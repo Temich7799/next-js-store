@@ -47,7 +47,7 @@ const MobileHeaderMenuLinks = styled.ul`
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 25px;
     list-style: none;
 `;
@@ -114,10 +114,10 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
                                             {
                                                 link.childItems.nodes.length
                                                     ?
-                                                    <li key={index}>
+                                                    <MobileHeaderMenuLinks key={index}>
                                                         <MobileHeaderSubMenuTitle title={link.label} isSubMenuOpened={showSubMenu} onClickHandler={MobileHeaderSubMenuTitleOnClickHandler} />
                                                         {showSubMenu && <MobileHeaderSubMenu data={link} />}
-                                                    </li>
+                                                    </MobileHeaderMenuLinks>
                                                     : !link.parentId &&
                                                     <li key={index}>
                                                         <Link to={link.url != '/home/' ? link.url : '/'}>

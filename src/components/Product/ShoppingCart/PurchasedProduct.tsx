@@ -63,7 +63,7 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
     return (
         <StyledPurchasedProduct>
             <PurchasedProductThumb src={data.images[0].localFile.childImageSharp.gatsbyImageData.images.fallback.src} alt={data.images[0].alt} />
-            <ProductPrice price={fetchedData && fetchedData.wpWcProduct.price} salePrice={fetchedData && fetchedData.wpWcProduct.sale_price} />
+            <ProductPrice showTitle={false} price={fetchedData && fetchedData.wpWcProduct.price} salePrice={fetchedData && fetchedData.wpWcProduct.sale_price} />
             <PurchasedProductName>
                 <p>{data.name}</p>
                 <p>{PRODUCT_SKU}: {data.sku}</p>

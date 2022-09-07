@@ -5,6 +5,24 @@ import { StaticImage } from "gatsby-plugin-image"
 import HeaderSubMenu from "../DesktopHeaderMenu/HeaderSubMenu";
 import SubMenuIcon from "../SubMenuIcon";
 
+type DesktopHeaderMenuProps = {
+    data: [
+        {
+            label: string
+            url: string
+            parentId: number
+            childItems: {
+                nodes: [
+                    {
+                        url: string
+                        label: string
+                    }
+                ]
+            }
+        }
+    ]
+}
+
 const StyledDesktopHeaderMenu = styled.nav`
     ul {
         display: flex;
@@ -30,33 +48,15 @@ const SubMenuTitle = styled.div`
     gap: 10px;
 `;
 
-type DesktopHeaderMenuProps = {
-    data: [
-        {
-            label: string
-            url: string
-            parentId: number
-            childItems: {
-                nodes: [
-                    {
-                        url: string
-                        label: string
-                    }
-                ]
-            }
-        }
-    ]
-}
-
 const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
 
     const { data } = props;
 
-    const [isMouseOver, setMouseOver] = useState(false);
+    const [isMouseOver, setIsMouseOver] = useState(false);
 
     function onMouseOverHandler(mouseOverEvent: React.MouseEvent<MouseEvent>): void {
-        setMouseOver(true);
-        mouseOverEvent.target.addEventListener('mouseleave', () => setMouseOver(false));
+        setIsMouseOver(true);
+        mouseOverEvent.target.addEventListener('mouseleave', () => { setIsMouseOver(false) });
     }
 
     return (
@@ -78,13 +78,15 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
                                         {
                                             (link.childItems.nodes.length)
                                                 ?
-                                                <Link to={link.url != '/home/' ? link.url : '/'} onMouseOver={(e: any) => onMouseOverHandler(e)}>
-                                                    <SubMenuTitle>
-                                                        {link.label}
-                                                        <SubMenuIcon isOpened={isMouseOver} />
-                                                    </SubMenuTitle>
+                                                <div onMouseOver={(e: any) => onMouseOverHandler(e)}>
+                                                    <Link to={link.url != '/home/' ? link.url : '/'}>
+                                                        <SubMenuTitle>
+                                                            {link.label}
+                                                            <SubMenuIcon isOpened={isMouseOver} />
+                                                        </SubMenuTitle>
+                                                    </Link>
                                                     {isMouseOver && <HeaderSubMenu childItems={link.childItems.nodes} />}
-                                                </Link>
+                                                </div>
                                                 : <Link to={link.url != '/home/' ? link.url : '/'}>{link.label}</Link>
                                         }
                                     </li>

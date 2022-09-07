@@ -10,7 +10,7 @@ const subMenuPopUpAnimation = keyframes`
 `;
 
 const MobileHeaderSubMenuLinks = styled.ul`
-    margin: 30px 0;
+    margin: 5px 0;
     font-family: "Comfortaa";
     padding: 0;
     display: flex;

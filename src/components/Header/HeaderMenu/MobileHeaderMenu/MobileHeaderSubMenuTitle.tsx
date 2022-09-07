@@ -3,6 +3,7 @@ import styled from "styled-components"
 import SubMenuIcon from "../SubMenuIcon";
 
 const StyledMobileHeaderSubMenuTitle = styled.a<any>`
+    width: fit-content;
     display: flex;
     align-items: center;
     gap: 10px;

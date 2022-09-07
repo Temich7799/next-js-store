@@ -3,11 +3,19 @@ import styled from "styled-components"
 import { PRODUCT_PRICE_TITLE } from "../../languages/ru/languages";
 import LoadingBar from "../LoadingBar";
 
-const StyledProductPrice = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
+type ProductPriceProps = {
+    price: string
+    salePrice: string
+    showTitle?: boolean
+}
+
+const StyledProductPrice = styled.div<any>`
+    ${props => props.showTitle && `
+       display: flex;
+        align-items: center;
+        gap: 5px;
+        flex-wrap: wrap; 
+    `} 
 `;
 
 const OldPrice = styled.s`
@@ -21,18 +29,15 @@ const SalePrice = styled.span`
     font-weight: bolder;
 `;
 
-type PriceProps = {
-    price: string
-    salePrice: string
-}
+const ProductPrice = (props: ProductPriceProps) => {
 
-const ProductPrice = (props: PriceProps) => {
-
-    let { price, salePrice } = props;
+    let { price, salePrice, showTitle = true } = props;
 
     return (
-        <StyledProductPrice>
-            <p>{`${PRODUCT_PRICE_TITLE}:`}</p>
+        <StyledProductPrice showTitle={showTitle}>
+            {
+                showTitle && <p>{`${PRODUCT_PRICE_TITLE}:`}</p>
+            }
             {
                 (price === undefined && salePrice === undefined)
                     ? <LoadingBar size="15%" />
@@ -41,7 +46,7 @@ const ProductPrice = (props: PriceProps) => {
                         {
                             salePrice.length > 0
                                 ? <p><OldPrice>{price}{" "}</OldPrice><SalePrice>{" "}{salePrice}</SalePrice> грн</p>
-                                : <p>{price}</p>
+                                : <p>{price} грн</p>
                         }
                     </>
             }
