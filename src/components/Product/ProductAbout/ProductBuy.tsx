@@ -4,7 +4,7 @@ import { PRODUCT_BUY_BUTTON_TITLE, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } from "../
 import Button from "../../Button";
 import ImageSVG from "../../ImageSVG";
 import ProductPrice from "../ProductPrice";
-import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
+import { addToCartResolver, updatePurchasedProductPriceResolver } from "../../../graphql/vars/shoppingCartVar";
 import { gql, useLazyQuery } from "@apollo/client";
 
 const StyledProductBuy = styled.div`
@@ -36,7 +36,7 @@ const ProductBuy = (props: ProductBuyProps) => {
     const [isOutOfStock, setIsOutOfStock] = useState<boolean>(false);
 
     const [getProductFetchData, { loading: isDataLoading, error: dataFetchError, data: fetchedData }] = useLazyQuery(gql`
-        query getProductPrice($wpWcProductId: Int!) {
+        query getProductFetchData($wpWcProductId: Int!) {
             wpWcProduct(id: $wpWcProductId) {
                 price
                 sale_price
@@ -52,6 +52,7 @@ const ProductBuy = (props: ProductBuyProps) => {
     }, []);
 
     useEffect(() => {
+
         if (fetchedData) {
 
             setIsOutOfStock(
@@ -60,10 +61,15 @@ const ProductBuy = (props: ProductBuyProps) => {
                     : true
             );
 
-            data.price = fetchedData.wpWcProduct.price;
-            data.sale_price = fetchedData.wpWcProduct.sale_price;
+            updatePrice()
         }
     }, [fetchedData]);
+
+    function updatePrice() {
+        updatePurchasedProductPriceResolver(data.wordpress_id, data);
+        data.price = fetchedData.wpWcProduct.price;
+        data.sale_price = fetchedData.wpWcProduct.sale_price;
+    }
 
     function buttonOnClickHandler() {
         addToCartResolver(data.wordpress_id, data);

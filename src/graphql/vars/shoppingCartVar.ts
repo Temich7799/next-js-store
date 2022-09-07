@@ -62,6 +62,17 @@ export const deletePurchasedProductResolver = (productId: number): void => {
     saveToLocalStorage();
 }
 
+export const updatePurchasedProductPriceResolver = (productId: number, product: PurchasedProduct) => {
+
+    const newVar: any = { ...shoppingCartVar() };
+
+    newVar[productId].price = product.price;
+    newVar[productId].sale_price = product.sale_price;
+    shoppingCartVar(newVar)
+
+    saveToLocalStorage();
+}
+
 function saveToLocalStorage(): void {
     typeof window !== `undefined` && window.localStorage.setItem('purchased-products', JSON.stringify(shoppingCartVar()));
 }
