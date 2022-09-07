@@ -18,7 +18,9 @@ const WpWcProduct = `
         sku: String
         price: String
         sale_price: String
-        purchasable: Boolean
+        stock_status: String
+        stock_quantity: Int
+        manage_stock: Boolean
         related_ids: [ID]
         categories: [WpWcProductCategory]
         images: [WpWcProductImage]
