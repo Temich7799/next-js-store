@@ -17,6 +17,12 @@ const StyledHeaderSubMenu = styled.div`
         flex-direction: column;
         align-items: center;
         padding: 0;
+        li {
+            text-shadow: none;
+            :hover {
+                text-shadow: 0.25px 0 0 currentColor;
+            }
+        }
     }
 `;
 

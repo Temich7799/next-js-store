@@ -36,7 +36,7 @@ const StyledDesktopHeaderMenu = styled.nav`
         li {
             padding: 3px 15px 1px;
             &:hover {
-                font-weight: 700;
+                text-shadow: 0.25px 0 0 currentColor;
             }
         }
     }
