@@ -81,6 +81,8 @@ export const query = graphql`
           name
           price
           sku
+          stock_quantity
+        status
           purchasable
           sale_price
           slug

@@ -25,7 +25,6 @@ const Content = styled.div`
 `;
 
 type Product = {
-    categories: [{}]
     description: string
     attributes: [
         {
@@ -40,6 +39,11 @@ type Product = {
             localFile: object
         }
     ]
+    categories: [
+        {
+            slug: string
+        }
+    ]
     name: string
     price: string
     purchasable: boolean
@@ -48,6 +52,7 @@ type Product = {
     sku: string
     slug: string
     wordpress_id: number
+    quantity: number
 }
 
 type ProductProps = {
@@ -69,15 +74,25 @@ const ProductLayout = (props: ProductProps) => {
                     <ProductGallery data={data.wcProducts.images}></ProductGallery>
                     <ProductAbout data={data.wcProducts}></ProductAbout>
                     <ProductDescription data={data.wcProducts.description}></ProductDescription>
-                    <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} carouselItemMax={3}>
-                        <ProductThumb data={data.wcProducts.related_products[0]} />
-                        <ProductThumb data={data.wcProducts.related_products[0]} />
-                        <ProductThumb data={data.wcProducts.related_products[0]} />
-                        <ProductThumb data={data.wcProducts.related_products[0]} />
-                    </Carousel>
+                    {
+                        data.wcProducts.related_products.length
+                            ?
+                            <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} carouselItemMax={3}>
+                                {
+                                    data.wcProducts.related_products.map((relatedProduct: Product) =>
+                                        <ProductThumb
+                                            data={relatedProduct}
+                                            absolutePath={`${document.location.origin}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
+                                            key={relatedProduct.wordpress_id}
+                                        />
+                                    )
+                                }
+                            </Carousel>
+                            : <></>
+                    }
                 </Content>
             </Main>
-        </Layout>
+        </Layout >
     )
 }
 
@@ -102,6 +117,7 @@ export const query = graphql`
             price
             sale_price
             sku
+            wordpress_id
             purchasable
             images {
                 alt

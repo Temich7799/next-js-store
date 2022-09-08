@@ -63,11 +63,12 @@ type Product = {
 
 type ProductProps = {
     data: Product
+    absolutePath?: string
 }
 
 const ProductThumb = (props: ProductProps) => {
 
-    const { data } = props;
+    const { data, absolutePath } = props;
     const { price, categories, sale_price, images, wordpress_id } = data;
     if (data.sku == '') data.sku = wordpress_id.toString();
 
@@ -80,9 +81,11 @@ const ProductThumb = (props: ProductProps) => {
     return (
         <StyledProductThumb>
             <ProductImage>
-                <Link to={`${categories[0].slug}-${data.sku}`}>
-                    <GatsbyImage image={image} alt={images[0].alt} />
-                </Link>
+                {
+                    absolutePath
+                        ? <a href={absolutePath}><GatsbyImage image={image} alt={images[0].alt} /></a>
+                        : <Link to={`${categories[0].slug}-${data.sku}`}><GatsbyImage image={image} alt={images[0].alt} /></Link>
+                }
             </ProductImage>
             <ProductCaption>
                 <div>
@@ -95,7 +98,7 @@ const ProductThumb = (props: ProductProps) => {
                     </Button>
                 </div>
             </ProductCaption>
-        </StyledProductThumb>
+        </StyledProductThumb >
     )
 }
 
