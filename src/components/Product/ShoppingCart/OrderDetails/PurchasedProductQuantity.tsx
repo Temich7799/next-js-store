@@ -1,16 +1,8 @@
 import React from "react"
 import styled from "styled-components"
-import { addToCartResolver, decreasePurchasedProductQuantityResolver, deletePurchasedProductResolver } from "../../../graphql/vars/shoppingCartVar";
-import Button from "../../Button";
-import ImageSVG from "../../ImageSVG";
-
-const StyledPurchasedProductQuantity = styled.div`
-    margin-left: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;  
-    gap: 5px;
-`;
+import { addToCartResolver, decreasePurchasedProductQuantityResolver, deletePurchasedProductResolver } from "../../../../graphql/vars/shoppingCartVar"
+import Button from "../../../Button"
+import ImageSVG from "../../../ImageSVG"
 
 type PurchasedProduct = {
     name: string
@@ -29,6 +21,14 @@ type PurchasedProduct = {
 type PurchasedProductQuantityProps = {
     data: PurchasedProduct
 }
+
+const StyledPurchasedProductQuantity = styled.div`
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    gap: 5px;
+`;
 
 const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
 

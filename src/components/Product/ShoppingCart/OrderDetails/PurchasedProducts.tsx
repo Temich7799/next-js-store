@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import { ORDER_FINAL_BUTTON_DISABLED } from "../../../languages/ru/languages";
-import PurchasedProduct from "./PurchasedProduct";
+import { ORDER_FINAL_BUTTON_DISABLED } from "../../../../languages/ru/languages"
+import PurchasedProduct from "./PurchasedProduct"
 
 type PurchasedProductProps = {
     name: string
@@ -17,13 +17,17 @@ type PurchasedProductProps = {
     quantity: number
 }
 
+type PurchasedProductsProps = {
+    data: Array<PurchasedProductProps>
+}
+
 const StyledPurchasedProducts = styled.div`
     max-height: 200px;
     width: 100%;
     overflow: scroll;
 `;
 
-const PurchasedProducts = (props: any) => {
+const PurchasedProducts = (props: PurchasedProductsProps) => {
 
     const { data } = props;
 

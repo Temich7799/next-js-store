@@ -1,9 +1,9 @@
 import React, { useEffect } from "react"
 import styled from "styled-components"
-import { deletePurchasedProductResolver } from "../../../graphql/vars/shoppingCartVar"
-import { PRODUCT_SKU } from "../../../languages/ru/languages"
-import useFetchedProducts from "../../../services/hooks/useFetchedProduct"
-import ProductPrice from "../ProductPrice"
+import { deletePurchasedProductResolver } from "../../../../graphql/vars/shoppingCartVar"
+import { PRODUCT_SKU } from "../../../../languages/ru/languages"
+import useFetchedProducts from "../../../../services/hooks/useFetchedProduct"
+import ProductPrice from "../../ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
 
 type PurchasedProductProps = {
