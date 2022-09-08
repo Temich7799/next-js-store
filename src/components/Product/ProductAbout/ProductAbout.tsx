@@ -43,7 +43,7 @@ const ProductAbout = (props: ProductAboutProps) => {
     return (
         <StyledProductAbout>
             <ProductName name={data.name} sku={data.sku} attributes={data.attributes} />
-            {data.attributes.length && <ProductAttributes data={data.attributes} />}
+            {data.attributes.length ? <ProductAttributes data={data.attributes} /> : <></>}
             <ProductBuy data={data} />
             <ProductDelivery />
         </StyledProductAbout>
