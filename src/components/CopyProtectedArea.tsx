@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react"
 import styled from "styled-components";
 
-const StyledNotCopyArea = styled.div<any>`
+const StyledCopyProtectedArea = styled.div<any>`
     user-select: none;
 `;
-const NotCopyArea = (props: any) => {
+const CopyProtectedArea = (props: any) => {
 
     const { children } = props;
 
@@ -16,10 +16,10 @@ const NotCopyArea = (props: any) => {
     }, []);
 
     return (
-        <StyledNotCopyArea ref={notCopyArea}>
+        <StyledCopyProtectedArea ref={notCopyArea}>
             {children}
-        </StyledNotCopyArea >
+        </StyledCopyProtectedArea >
     )
 }
 
-export default NotCopyArea;
+export default CopyProtectedArea;

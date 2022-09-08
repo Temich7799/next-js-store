@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 import { PRODUCT_DESCRIPTION_TITLE } from "../../languages/ru/languages";
 import useMobile from "../../services/hooks/useMobile";
-import NotCopyArea from "../NotCopyArea";
+import CopyProtectedArea from "../CopyProtectedArea";
 
 const StyledProductDescription = styled.div<any>`
     max-width: ${props => props.maxWidth};
@@ -21,10 +21,10 @@ const ProductDescription = (props: ProductDescriptionProps) => {
 
     return (
         <StyledProductDescription maxWidth={isMobile ? '95%' : '55%'}>
-            <NotCopyArea>
+            <CopyProtectedArea>
                 <h3>{PRODUCT_DESCRIPTION_TITLE}</h3>
                 <p dangerouslySetInnerHTML={{ __html: data }} />
-            </NotCopyArea>
+            </CopyProtectedArea>
         </StyledProductDescription>
     )
 }
