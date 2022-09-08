@@ -2,6 +2,7 @@ import { StaticImage } from "gatsby-plugin-image";
 import * as React from "react"
 import styled from "styled-components"
 import getRandomColor from "../services/getRandomColor";
+import CopyProtectedArea from "./CopyProtectedArea";
 
 type StyledTitleProps = { backgroundColor: string }
 
@@ -32,10 +33,12 @@ const PageTitle = (props: TitleProps) => {
     const { children } = props;
 
     return (
-        <StyledTitle backgroundColor={getRandomColor()}>
-            <h1>{children}</h1>
-            <StaticImage src="../images/title-background.png" alt="Title" placeholder="blurred" />
-        </StyledTitle>
+        <CopyProtectedArea>
+            <StyledTitle backgroundColor={getRandomColor()}>
+                <h1>{children}</h1>
+                <StaticImage src="../images/title-background.png" alt="Title" placeholder="blurred" />
+            </StyledTitle>
+        </CopyProtectedArea>
     )
 }
 
