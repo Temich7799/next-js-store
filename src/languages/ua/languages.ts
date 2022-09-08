@@ -6,6 +6,7 @@ export const DELIVERY_ABOUT_DELIVERY_INFO = 'Умови доставки';
 export const DELIVERY_ABOUT_AFTERPAY_INFO = 'Накладений платіж';
 
 export const PRODUCT_SKU = 'Артикул';
+export const PRODUCT_SKU_EMPTY = 'Не вказаний';
 export const PRODUCT_DESCRIPTION_TITLE = 'Опис';
 export const PRODUCT_PRICE_TITLE = 'Ціна';
 export const PRODUCT_BUY_BUTTON_TITLE = 'Купити';

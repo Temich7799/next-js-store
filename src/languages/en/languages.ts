@@ -6,6 +6,7 @@ export const DELIVERY_ABOUT_DELIVERY_INFO = 'Delivery terms';
 export const DELIVERY_ABOUT_AFTERPAY_INFO = 'Cash on delivery';
 
 export const PRODUCT_SKU = 'SKU';
+export const PRODUCT_SKU_EMPTY = 'Not specified';
 export const PRODUCT_DESCRIPTION_TITLE = 'Description';
 export const PRODUCT_PRICE_TITLE = 'Price';
 export const PRODUCT_BUY_BUTTON_TITLE = 'Buy';
