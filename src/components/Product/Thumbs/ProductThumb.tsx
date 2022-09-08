@@ -71,7 +71,7 @@ type ProductProps = {
 const ProductThumb = (props: ProductProps) => {
 
     const { data, absolutePath } = props;
-    const { price, categories, sale_price, images, wordpress_id } = data;
+    const { categories, images, wordpress_id } = data;
     if (data.sku == '') data.sku = wordpress_id.toString();
 
     const image = getImage(images[0].localFile)

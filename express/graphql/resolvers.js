@@ -17,17 +17,29 @@ const WooCommerce = new WooCommerceRestApi({
 });
 
 const resolvers = {
+    allWpNovaPoshtaCities: ({ language, regExp }) => {
 
-    allWpNovaPoshtaCities: () => makeSqlQuery('SELECT `ref`,`description`,`description_ru` FROM `wp_nova_poshta_city` WHERE 1'),
-    allWpNovaPoshtaWarehouses: () => makeSqlQuery('SELECT `parent_ref`,`description`,`description_ru` FROM `wp_nova_poshta_warehouse` WHERE 1'),
+        const cityRow = language == 'UA' ? 'description' : 'description_ru';
+        return sqlQuery(regExp == undefined
+            ? 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE 1'
+            : 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE LOWER(' + cityRow + `) REGEXP '` + regExp.toLowerCase() + `'` + ' ORDER BY CHAR_LENGTH(' + cityRow + ') ASC');
+    },
+    allWpNovaPoshtaWarehouses: ({ language, cityRef }) => {
+
+        const warehouseRow = language == 'UA' ? 'description' : 'description_ru';
+        return sqlQuery(cityRef == undefined
+            ? 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE 1'
+            : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + cityRef + '\'');
+    },
     allWpWcOrders: () => WooCommerce.get('orders').then((response) => response.data),
     allWpWcProducts: () => WooCommerce.get('products').then((response) => response.data),
 
-    wpWcProduct: ({ id }) => WooCommerce.get(`products/${id}`).then((response) => response.data)
+    wpWcOrder: ({ id }) => WooCommerce.get(`orders/${id}`).then((response) => response.data),
+    wpWcProduct: ({ id }) => WooCommerce.get(`products/${id}`).then((response) => response.data),
 
 };
 
-function makeSqlQuery(sql) {
+function sqlQuery(sql) {
     return new Promise(resolve => {
         //connection.connect();
         connection.query(sql, (err, responce) => (responce !== undefined) && resolve(responce));

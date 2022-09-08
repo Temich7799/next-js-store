@@ -11,12 +11,17 @@ const schema = buildSchema(`
 
     type Query {
         allWpWcOrders: [WpWcOrder!]!
-        allWpNovaPoshtaCities: [WpNovaPoshtaCity!]!
-        allWpNovaPoshtaWarehouses: [WpNovaPoshtaWarehouse!]!
+        allWpNovaPoshtaCities(language: Languages, regExp: String): [WpNovaPoshtaCity!]!
+        allWpNovaPoshtaWarehouses(language: Languages, cityRef: String): [WpNovaPoshtaWarehouse!]!
         allWpWcProducts: [WpWcProduct!]!
 
         wpWcOrder(id: Int!): WpWcOrder!
         wpWcProduct(id: Int!): WpWcProduct!
+    }
+
+    enum Languages {
+        RU
+        UA
     }
 
     ${WpWcProduct}

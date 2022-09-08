@@ -1,6 +1,6 @@
 const WpNovaPoshtaCity = `
     type WpNovaPoshtaCity {
-        ref: String
+        ref: String!
         description: String
         description_ru: String
     }
