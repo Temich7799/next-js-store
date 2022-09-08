@@ -24,7 +24,8 @@ type Product = {
     name: string
     price: string
     sku: string
-    purchasable: boolean
+    stock_quantity: number
+    stock_status: string
     sale_price: string
     slug: string
     images: [
@@ -39,6 +40,7 @@ type Product = {
       }
     ]
     wordpress_id: number
+    quantity: number
   }
 }
 
@@ -61,9 +63,13 @@ const ProductsLayout = (props: ProductsProps) => {
       <Main isMobile={isMobile}>
         <Content>
           {
-            data.allWcProducts.edges.map((edge: Product) =>
-              typeof document !== `undefined` && document.location.href.split('/catalog/')[1] == edge.node.categories[0].slug
-              && <ProductThumb data={edge.node} key={edge.node.wordpress_id} />)
+            data.allWcProducts.edges.map((edge: Product) => {
+              console.log(edge.node.stock_status)
+              const isProductInStock = (edge.node.stock_quantity !== null && edge.node.stock_quantity > 0) || edge.node.stock_status == 'instock';
+              const isCategoryMatch = typeof document !== `undefined` && document.location.href.split('/catalog/')[1] == edge.node.categories[0].slug;
+              return (
+                isProductInStock && isCategoryMatch && <ProductThumb data={edge.node} key={edge.node.wordpress_id} />)
+            })
           }
         </Content>
       </Main>
@@ -82,7 +88,7 @@ export const query = graphql`
           price
           sku
           stock_quantity
-        status
+          stock_status
           purchasable
           sale_price
           slug
