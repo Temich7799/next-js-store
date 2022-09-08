@@ -7,6 +7,7 @@ import ProductPrice from "../ProductPrice";
 import { PRODUCT_SKU } from "../../../languages/ru/languages";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
+import useFetchedProducts from "../../../services/hooks/useFetchedProduct";
 
 const StyledProductThumb = styled.div`
     height: 320px;
@@ -59,6 +60,7 @@ type Product = {
         }
     ]
     wordpress_id: number
+    quantity: number
 }
 
 type ProductProps = {
@@ -73,6 +75,8 @@ const ProductThumb = (props: ProductProps) => {
     if (data.sku == '') data.sku = wordpress_id.toString();
 
     const image = getImage(images[0].localFile)
+
+    const { loading: isDataLoading, data: fetchedData, isOutOfStock } = useFetchedProducts(data);
 
     function buttonOnClickHandler() {
         addToCartResolver(wordpress_id, data);
@@ -90,7 +94,7 @@ const ProductThumb = (props: ProductProps) => {
             <ProductCaption>
                 <div>
                     <p>{PRODUCT_SKU}: {data.sku}</p>
-                    <ProductPrice price={price} salePrice={sale_price} />
+                    <ProductPrice price={fetchedData && fetchedData.wpWcProduct.price} salePrice={fetchedData && fetchedData.wpWcProduct.sale_price} />
                 </div>
                 <div>
                     <Button id="shoppingCartButton" buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
