@@ -22,7 +22,7 @@ const ShoppingCartPage = () => {
 
   const isMobile = useMobile();
 
-  const [isFetchPending, setIsFetchPending] = useState<boolean>(false);
+  const [isOrderFetching, setIsOrderFetching] = useState<boolean>(false);
   const [isOrderSuccess, setIsOrderSuccess] = useState<boolean>(false);
   const [orderDetails, setOrderDetails] = useState<any>();
 
@@ -31,14 +31,14 @@ const ShoppingCartPage = () => {
 
   function formOnSubmitHandler(onSubmitEvent: any) {
     onSubmitEvent.preventDefault();
-    setIsFetchPending(true);
+    setIsOrderFetching(true);
     sendOrder(form.current)
       .then((response) => {
         setIsOrderSuccess(true);
         setOrderDetails(response);
       })
       .catch((error) => console.log(error))
-      .finally(() => setIsFetchPending(false))
+      .finally(() => setIsOrderFetching(false))
   }
 
   return (
@@ -54,7 +54,7 @@ const ShoppingCartPage = () => {
               :
               <>
                 <ShoppingCartForm ref={form} />
-                <OrderDetails ref={form} isFetchPending={isFetchPending} />
+                <OrderDetails ref={form} isOrderFetching={isOrderFetching} />
               </>
           }
         </StyledShoppingCartPage>

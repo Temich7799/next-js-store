@@ -7,7 +7,7 @@ import OrderFinal from "./OrderFinal";
 import PurchasedProducts from "./PurchasedProducts";
 
 type OrderDetailsProps = {
-    isFetchPending?: boolean
+    isOrderFetching?: boolean
 }
 
 type PurchasedProduct = {
@@ -44,7 +44,7 @@ const StyledOrderDetails = styled.form`
 
 const OrderDetails = forwardRef((props: OrderDetailsProps, formRef: any) => {
 
-    const { isFetchPending } = props;
+    const { isOrderFetching } = props;
 
     const shoppingCartProducts: Array<PurchasedProduct> = Object.values(useReactiveVar(shoppingCartVar));
 
@@ -52,7 +52,7 @@ const OrderDetails = forwardRef((props: OrderDetailsProps, formRef: any) => {
         <StyledOrderDetails id="order_details">
             <h4>{ORDER_DETAILS_TITLE}</h4>
             <PurchasedProducts data={shoppingCartProducts} />
-            <OrderFinal ref={formRef} data={shoppingCartProducts} isFetchPending={isFetchPending} />
+            <OrderFinal ref={formRef} data={shoppingCartProducts} isOrderFetching={isOrderFetching} />
         </StyledOrderDetails >
     )
 })

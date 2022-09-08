@@ -7,7 +7,7 @@ import { Link } from "gatsby";
 
 type OrderFinalProps = {
     data: Array<PurchasedProduct>
-    isFetchPending?: boolean
+    isOrderFetching?: boolean
 }
 
 type PurchasedProduct = {
@@ -40,7 +40,7 @@ const StyledOrderFinal = styled.div`
 
 const OrderFinal = forwardRef((props: OrderFinalProps, formRef: any) => {
 
-    const { data, isFetchPending } = props;
+    const { data, isOrderFetching } = props;
 
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -65,7 +65,7 @@ const OrderFinal = forwardRef((props: OrderFinalProps, formRef: any) => {
                 <Button onClick={(e: any) => e.preventDefault()}>{ORDER_FINAL_BUTTON_BACK}</Button>
                 {
                     formRef
-                        ? <Button type="submit" form="order_form" disabled={isButtonDisabled || isFetchPending} buttonStyle="accent">{!isFetchPending ? isButtonDisabled ? ORDER_FINAL_BUTTON_DISABLED : ORDER_FINAL_BUTTON_SUBMIT : <LoadingBar />}</Button>
+                        ? <Button type="submit" form="order_form" disabled={isButtonDisabled || isOrderFetching} buttonStyle="accent">{!isOrderFetching ? isButtonDisabled ? ORDER_FINAL_BUTTON_DISABLED : ORDER_FINAL_BUTTON_SUBMIT : <LoadingBar />}</Button>
                         : isButtonDisabled
                             ? <Button buttonStyle="accent" disabled={isButtonDisabled}>{ORDER_FINAL_BUTTON_DISABLED}</Button>
                             : <Link to="/shopping_cart"><Button buttonStyle="accent" disabled={isButtonDisabled}>{ORDER_FINAL_BUTTON_CONTINUE}</Button></Link>
