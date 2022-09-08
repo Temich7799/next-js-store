@@ -19,6 +19,7 @@ type ProductBuyProps = {
         name: string
         slug: string
         price: string
+        stock_quantity: number | null
         sale_price: string
         sku: string
         images: [{

@@ -46,6 +46,7 @@ type Product = {
     name: string
     price: string
     sku: string
+    stock_quantity: number | null
     sale_price: string
     slug: string
     images: [

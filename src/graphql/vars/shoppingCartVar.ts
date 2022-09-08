@@ -5,6 +5,7 @@ type PurchasedProduct = {
     slug: string
     sku: string
     price?: string
+    stock_quantity: number | null
     sale_price?: string
     images: [{
         alt: string
@@ -27,7 +28,9 @@ export const addToCartResolver = (productId: number, product: PurchasedProduct):
 
     if (currentVar.hasOwnProperty(productId)) {
 
-        currentVar[productId].quantity++;
+        product.stock_quantity !== null
+            ? currentVar[productId].quantity < product.stock_quantity && currentVar[productId].quantity++
+            : currentVar[productId].quantity++;
         currentVar[productId].price = product.price;
         currentVar[productId].sale_price = product.sale_price;
 

@@ -46,7 +46,7 @@ type Product = {
     ]
     name: string
     price: string
-    purchasable: boolean
+    stock_quantity: number | null
     related_products: [Product]
     sale_price: string
     sku: string
@@ -105,7 +105,7 @@ export const query = graphql`
         sku
         price
         sale_price
-        purchasable
+        stock_quantity
         description
         wordpress_id
         attributes {

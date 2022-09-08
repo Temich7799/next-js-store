@@ -7,6 +7,8 @@ type PurchasedProductProps = {
     slug: string
     sku: string
     price: string
+    stock_status: string
+    stock_quantity: number | null
     sale_price: string
     images: [{
         alt: string
@@ -28,9 +30,8 @@ export default function useFetchedProducts(product: PurchasedProductProps) {
             sale_price
             stock_status
             stock_quantity
-            manage_stock
         }
-}
+    }
 `);
 
     useEffect(() => {
@@ -46,13 +47,18 @@ export default function useFetchedProducts(product: PurchasedProductProps) {
                     : true
             );
 
-            updatePrice();
+            updateProduct();
         }
     }, [data]);
 
-    function updatePrice() {
+    function updateProduct() {
+
         product.price = data.wpWcProduct.price;
         product.sale_price = data.wpWcProduct.sale_price;
+
+        product.stock_quantity = data.wpWcProduct.stock_quantity;
+        product.stock_status = data.wpWcProduct.stock_status;
+        
         updatePurchasedProductPriceResolver(product.wordpress_id, product);
     }
 

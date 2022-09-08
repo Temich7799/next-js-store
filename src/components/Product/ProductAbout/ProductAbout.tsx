@@ -23,7 +23,7 @@ type ProductAboutProps = {
         sku: string
         price: string
         sale_price: string
-        purchasable: boolean
+        stock_quantity: number | null
         attributes: [ProductAttribute]
         slug: string
         images: [{
