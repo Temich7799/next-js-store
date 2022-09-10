@@ -1,4 +1,4 @@
-const WpWcCustomer = `
+const WpWcCustomer = `#graphql
     type WpWcCustomer {
         first_name: String
         last_name: String

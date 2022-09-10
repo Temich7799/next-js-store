@@ -7,7 +7,7 @@ const WpNovaPoshtaWarehouse = require('./types/WpNovaPoshtaWarehouse');
 const WpNovaPoshtaCity = require('./types/WpNovaPoshtaCity');
 const WpWcProduct = require('./types/WpWcProduct');
 
-const schema = buildSchema(`
+const schema = buildSchema(`#graphql
 
     type Query {
         allWpWcOrders: [WpWcOrder!]!

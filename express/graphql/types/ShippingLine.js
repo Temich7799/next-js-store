@@ -1,4 +1,4 @@
-const ShippingLine = `
+const ShippingLine = `#graphql
     type ShippingLine {
         id: ID
         method_title: String

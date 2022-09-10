@@ -1,4 +1,4 @@
-const WpWcProduct = `
+const WpWcProduct = `#graphql
     type WpWcProductCategory {
         id: ID
         name: String
