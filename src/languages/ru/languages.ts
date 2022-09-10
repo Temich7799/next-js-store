@@ -26,7 +26,7 @@ export const SHIPPING_LINE_SELECTOR_TITLE = 'Служба доставки';
 export const SHIPPING_LINE_SELECTOR_ERROR_MESSAGE = 'Выберите службу доставки из списка';
 
 export const WAREHOUSE_SELECTOR_TITLE = 'Отделение';
-export const WAREHOUSE_SELECTOR_PLACEHOLDER = 'В указаном пункте нет доступных отделений';
+export const WAREHOUSE_SELECTOR_PLACEHOLDER = 'Начинайте вводить номер отделения или адрес';
 export const WAREHOUSE_SELECTOR_ERROR_MESSAGE = 'Выберите доступное отделение из списка';
 
 export const CLIENT_CONTACTS_NAME_TITLE = 'Имя';

@@ -22,14 +22,14 @@ const resolvers = {
         const cityRow = language == 'UA' ? 'description' : 'description_ru';
         return sqlQuery(regExp == undefined
             ? 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE 1'
-            : 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE LOWER(' + cityRow + `) REGEXP '` + regExp.toLowerCase() + `'` + ' ORDER BY CHAR_LENGTH(' + cityRow + ') ASC');
+            : 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE LOWER(' + cityRow + `) REGEXP '^` + regExp.toLowerCase() + `'` + ' ORDER BY CHAR_LENGTH(' + cityRow + ')');
     },
-    allWpNovaPoshtaWarehouses: ({ language, cityRef }) => {
+    allWpNovaPoshtaWarehouses: ({ language, cityRef, regExp }) => {
 
         const warehouseRow = language == 'UA' ? 'description' : 'description_ru';
         return sqlQuery(cityRef == undefined
             ? 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE 1'
-            : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + cityRef + '\'');
+            : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + cityRef + '\' AND LOWER(' + warehouseRow + `) REGEXP '` + regExp.toLowerCase() + `'` + ' ORDER BY CHAR_LENGTH(' + warehouseRow + ')');
     },
     allWpWcOrders: () => WooCommerce.get('orders').then((response) => response.data),
     allWpWcProducts: () => WooCommerce.get('products').then((response) => response.data),

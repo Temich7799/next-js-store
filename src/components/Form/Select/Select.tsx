@@ -27,7 +27,7 @@ type SelectProps = {
     isInputDisabled?: boolean
     isSelectClosed?: boolean
     isFetchPending?: boolean
-    onChangeHandlerProps?: Function
+    onChangeHandler?: Function
     onInputHandler?: Function
     resetOptionsData?: Function
     dependencies?: Array<any>
@@ -41,16 +41,18 @@ const Select = (props: SelectProps) => {
         label,
         onErrorMessage,
         placeHolder,
-        isInputBlocked = true,
         isInputDisabled = false,
         isSelectClosed = true,
         isFetchPending = false,
         resetOptionsData,
-        onChangeHandlerProps,
+        onChangeHandler,
         onInputHandler,
         dependencies,
         children
     } = props;
+
+    let { isInputBlocked = true } = props;
+    if (onInputHandler) isInputBlocked = false;
 
     const [inputValue, setInputValue] = useState<string>('');
 
@@ -83,12 +85,12 @@ const Select = (props: SelectProps) => {
         if (onFocusOutEvent.relatedTarget != selectRef.current) selectRef.current.style.display = "none";
     }
 
-    function onFocusHandler(onFocusEvent: React.FocusEvent<HTMLSelectElement>) {
+    function selectOnFocusHandler(onFocusEvent: React.FocusEvent<HTMLSelectElement>) {
         onFocusEvent.target.addEventListener('focusout', (e: any) => e.target.style.display = "none");
     }
 
-    function onChangeHandler(onChangeEvent: React.ChangeEvent<HTMLSelectElement>) {
-        onChangeHandlerProps && onChangeHandlerProps(onChangeEvent);
+    function selectOnChangeHandler(onChangeEvent: React.ChangeEvent<HTMLSelectElement>) {
+        onChangeHandler && onChangeHandler(onChangeEvent);
         onChangeEvent.target.style.display = "none";
         onInvalidEvent.preventDefault();
     }
@@ -117,8 +119,8 @@ const Select = (props: SelectProps) => {
             <StyledSelect
                 ref={selectRef}
                 size={10}
-                onFocus={(e: React.FocusEvent<HTMLSelectElement>) => onFocusHandler(e)}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChangeHandler(e)}
+                onFocus={(e: React.FocusEvent<HTMLSelectElement>) => selectOnFocusHandler(e)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => selectOnChangeHandler(e)}
                 onClick={(e: React.MouseEvent<HTMLSelectElement>) => onClickHandler(e)}
             >
                 {children}

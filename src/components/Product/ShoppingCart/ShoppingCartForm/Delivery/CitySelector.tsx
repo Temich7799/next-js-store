@@ -1,29 +1,26 @@
 import { useLazyQuery } from "@apollo/client";
 import React, { useState } from "react"
 import { GET_NOVA_POSHTA_CITIES } from "../../../../../graphql/queries/getNovaPoshtaCities";
-import { GET_NOVA_POSHTA_CITY_REF } from "../../../../../graphql/queries/getNovaPoshtaCityRef";
-import { GET_NOVA_POSHTA_WAREHOUSES } from "../../../../../graphql/queries/getNovaPoshtaWarehouses";
 import { CITY_SELECTOR_ERROR_MESSAGE, CITY_SELECTOR_TITLE, CITY_SELECTOR__PLACEHOLDER } from "../../../../../languages/ru/languages";
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 
 type CitySelectorProps = {
     selectedShippingLine: string
-    setWarhousesData: React.Dispatch<React.SetStateAction<string[]>>
-    setIsWarhousesDataFetching: React.Dispatch<React.SetStateAction<boolean>>
+    setSelectedCity: React.Dispatch<React.SetStateAction<string>>
+    setWarehousesData: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const CitySelector = (props: CitySelectorProps) => {
 
-    const { selectedShippingLine, setWarhousesData, setIsWarhousesDataFetching } = props;
+    const { selectedShippingLine, setSelectedCity, setWarehousesData } = props;
+
     const [citiesData, setCitiesData] = useState<Array<object>>([]);
 
     const [getNovaPoshtaCities, { loading: novaPoshtaCitiesLoading }] = useLazyQuery(GET_NOVA_POSHTA_CITIES);
-    const [getNovaPoshtaCityRef] = useLazyQuery(GET_NOVA_POSHTA_CITY_REF);
-    const [getNovaPoshtaWarehouses] = useLazyQuery(GET_NOVA_POSHTA_WAREHOUSES);
 
 
-    function selectOnInputHandler(onInputEvent: any) {
+    function selectOnInputHandler(onInputEvent: any): void {
 
         if (onInputEvent.target.value.length > 2) {
             getNovaPoshtaCities({ variables: { regExp: onInputEvent.target.value } })
@@ -31,28 +28,18 @@ const CitySelector = (props: CitySelectorProps) => {
         }
         else {
             setCitiesData([]);
-            setWarhousesData([]);
+            setWarehousesData([]);
         }
     }
 
-    function onChangeHandler(onChangeEvent: any) {
-
-        getNovaPoshtaCityRef({ variables: { regExp: onChangeEvent.target.value } })
-            .then((response) => {
-                setIsWarhousesDataFetching(true);
-                getNovaPoshtaWarehouses({ variables: { cityRef: response.data.allWpNovaPoshtaCities[0].ref } })
-                    .then((response) => {
-                        setWarhousesData(response.data.allWpNovaPoshtaWarehouses);
-                    })
-                    .finally(() => {
-                        setIsWarhousesDataFetching(false);
-                    });
-            });
+    function selectOnChangeHandler(onChangeEvent: any): void {
+        setWarehousesData([]);
+        setSelectedCity(onChangeEvent.target.value);
     }
 
     function resetOptionsData() {
         setCitiesData([]);
-        setWarhousesData([])
+        setWarehousesData([]);
     }
 
     return (
@@ -61,12 +48,11 @@ const CitySelector = (props: CitySelectorProps) => {
             label={CITY_SELECTOR_TITLE}
             onErrorMessage={CITY_SELECTOR_ERROR_MESSAGE}
             placeHolder={!citiesData.length && CITY_SELECTOR__PLACEHOLDER}
-            isInputBlocked={false}
             isInputDisabled={!selectedShippingLine || selectedShippingLine == 'local_pickup'}
             isSelectClosed={citiesData.length > 0}
             isFetchPending={novaPoshtaCitiesLoading}
             resetOptionsData={resetOptionsData}
-            onChangeHandlerProps={onChangeHandler}
+            onChangeHandler={selectOnChangeHandler}
             onInputHandler={selectOnInputHandler}
             dependencies={[selectedShippingLine]}
         >

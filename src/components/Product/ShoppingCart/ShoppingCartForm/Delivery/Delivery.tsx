@@ -6,14 +6,14 @@ import WarehouseSelector from "./WarehouseSelector"
 const Delivery = () => {
 
     const [selectedShippingLine, setSelectedShippingLine] = useState<string>("");
-    const [warhousesData, setWarhousesData] = useState<Array<string>>([]);
-    const [isWarhousesDataFetching, setIsWarhousesDataFetching] = useState<boolean>(false);
+    const [selectedCity, setSelectedCity] = useState<string>("");
+    const [warehousesData, setWarehousesData] = useState<Array<string>>([]);
 
     return (
         <>
             <ShippingLineSelector setSelectedShippingLine={setSelectedShippingLine} />
-            <CitySelector selectedShippingLine={selectedShippingLine} setWarhousesData={setWarhousesData} setIsWarhousesDataFetching={setIsWarhousesDataFetching} />
-            <WarehouseSelector selectedShippingLine={selectedShippingLine} warhousesData={warhousesData} isWarhousesDataFetching={isWarhousesDataFetching} />
+            <CitySelector selectedShippingLine={selectedShippingLine} setSelectedCity={setSelectedCity} setWarehousesData={setWarehousesData} />
+            <WarehouseSelector selectedShippingLine={selectedShippingLine} selectedCity={selectedCity} warehousesData={warehousesData} setWarehousesData={setWarehousesData} />
         </>
     )
 }

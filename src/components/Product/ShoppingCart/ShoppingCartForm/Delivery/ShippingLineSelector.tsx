@@ -38,7 +38,7 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
             name="method_title"
             label={SHIPPING_LINE_SELECTOR_TITLE}
             onErrorMessage={SHIPPING_LINE_SELECTOR_ERROR_MESSAGE}
-            onChangeHandlerProps={selectOnChangeHandler}
+            onChangeHandler={selectOnChangeHandler}
         >
             {
                 shippingZonesMethods.allWcShippingZones3Methods.edges.map((method: any, index: number) =>

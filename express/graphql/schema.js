@@ -12,7 +12,7 @@ const schema = buildSchema(`
     type Query {
         allWpWcOrders: [WpWcOrder!]!
         allWpNovaPoshtaCities(language: Languages, regExp: String): [WpNovaPoshtaCity!]!
-        allWpNovaPoshtaWarehouses(language: Languages, cityRef: String): [WpNovaPoshtaWarehouse!]!
+        allWpNovaPoshtaWarehouses(language: Languages, cityRef: String!, regExp: String): [WpNovaPoshtaWarehouse!]!
         allWpWcProducts: [WpWcProduct!]!
 
         wpWcOrder(id: Int!): WpWcOrder!

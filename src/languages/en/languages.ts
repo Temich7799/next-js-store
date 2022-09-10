@@ -26,7 +26,7 @@ export const SHIPPING_LINE_SELECTOR_TITLE = 'Shipping Service';
 export const SHIPPING_LINE_SELECTOR_ERROR_MESSAGE = 'Select a shipping service from the list';
 
 export const WAREHOUSE_SELECTOR_TITLE = 'Warehouse';
-export const WAREHOUSE_SELECTOR_PLACEHOLDER = 'There are no available branches in the specified location';
+export const WAREHOUSE_SELECTOR_PLACEHOLDER = 'Start typing the Warehouse number or address';
 export const WAREHOUSE_SELECTOR_ERROR_MESSAGE = 'Select an available branch from the list';
 
 export const CLIENT_CONTACTS_NAME_TITLE = 'Name';
