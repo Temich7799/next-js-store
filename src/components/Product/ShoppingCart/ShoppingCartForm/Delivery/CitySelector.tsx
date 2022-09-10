@@ -28,6 +28,7 @@ const CitySelector = (props: CitySelectorProps) => {
         }
         else {
             setCitiesData([]);
+            setSelectedCity("");
             setWarehousesData([]);
         }
     }
@@ -39,6 +40,7 @@ const CitySelector = (props: CitySelectorProps) => {
 
     function resetOptionsData() {
         setCitiesData([]);
+        setSelectedCity("");
         setWarehousesData([]);
     }
 
