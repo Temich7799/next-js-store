@@ -4,6 +4,7 @@ import styled from "styled-components"
 import Button from "../../Button";
 import getRandomColor from "../../../services/getRandomColor";
 import { CATEGORY_THUMB_BUTTON } from "../../../languages/ru/languages";
+import InteractiveImage from "../../InteractiveImage";
 
 const StyledCategoryThumb = styled.div`
     height: 490px;
@@ -18,10 +19,6 @@ const ImageFigure = styled.figure`
     overflow: hidden;
     img {
         width: 100%;
-        :hover{
-            transition: 100ms;
-            transform: scale(1.2);
-        }
     }
 `;
 
@@ -79,7 +76,11 @@ const CategoryThumb = (props: CategoryProps) => {
     return (
         <StyledCategoryThumb>
             <ImageFigure>
-                <Link to={data.slug}><img src={data.image.src} alt={data.image.alt} /></Link>
+                <Link to={data.slug}>
+                    <InteractiveImage>
+                        <img src={data.image.src} alt={data.image.alt} />
+                    </InteractiveImage>
+                </Link>
                 <ImageCaption captionColor={getRandomColor()}>
                     <Line />
                     <p dangerouslySetInnerHTML={{ __html: data.name }} />

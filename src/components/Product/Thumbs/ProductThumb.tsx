@@ -8,6 +8,7 @@ import { PRODUCT_SKU } from "../../../languages/ru/languages";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
 import useFetchedProducts from "../../../services/hooks/useFetchedProduct";
+import InteractiveImage from "../../InteractiveImage";
 
 const StyledProductThumb = styled.div`
     height: 320px;
@@ -88,7 +89,11 @@ const ProductThumb = (props: ProductProps) => {
             <ProductImage>
                 {
                     absolutePath
-                        ? <a href={absolutePath}><GatsbyImage image={image} alt={images[0].alt} /></a>
+                        ? <a href={absolutePath}>
+                            <InteractiveImage>
+                                <GatsbyImage image={image} alt={images[0].alt} />
+                            </InteractiveImage>
+                        </a>
                         : <Link to={`${categories[0].slug}-${data.sku}`}><GatsbyImage image={image} alt={images[0].alt} /></Link>
                 }
             </ProductImage>
