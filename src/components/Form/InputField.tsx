@@ -61,8 +61,11 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
     const onInvalidEvent = new Event('invalid');
 
     function onInputHandler(onInputEvent: any) {
+
         if (inputValueRegExMatch(onInputEvent.target.value)) onInputEvent.target.dispatchEvent(onInvalidEvent);
+
         else {
+            firstLetterToUppercase(onInputEvent.target.value)
             onInvalidEvent.preventDefault();
             setOnInvalidMessage('');
         }
@@ -82,7 +85,7 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
         if (regExp) {
             if (value.length) {
                 return value[value.length - 1].match(regExp)
-                    ? !prettifyInputValue(value) && setInputValue(value)
+                    ? setInputValue(value)
                     : true
             }
             else { setInputValue(""); }
@@ -90,7 +93,7 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
         else { setInputValue(value); }
     }
 
-    function prettifyInputValue(inputValue: string): boolean {
+    function firstLetterToUppercase(inputValue: string): boolean {
 
         if (inputType == 'text' && inputValue.length == 1) {
             setInputValue(inputValue[0].toUpperCase());
