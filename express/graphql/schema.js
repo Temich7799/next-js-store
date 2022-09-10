@@ -6,6 +6,7 @@ const WpWcOrder = require('./types/WpWcOrder');
 const WpNovaPoshtaWarehouse = require('./types/WpNovaPoshtaWarehouse');
 const WpNovaPoshtaCity = require('./types/WpNovaPoshtaCity');
 const WpWcProduct = require('./types/WpWcProduct');
+const PaymentMethod = require('./types/PaymentMethod');
 
 const schema = buildSchema(`#graphql
 
@@ -14,6 +15,7 @@ const schema = buildSchema(`#graphql
         allWpNovaPoshtaCities(language: Languages, regExp: String, limit: Int): [WpNovaPoshtaCity!]!
         allWpNovaPoshtaWarehouses(language: Languages, cityRef: String!, regExp: String, limit: Int): [WpNovaPoshtaWarehouse!]!
         allWpWcProducts: [WpWcProduct!]!
+        allWpWcPaymentMethods: [PaymentMethod]
 
         wpWcOrder(id: Int!): WpWcOrder!
         wpWcProduct(id: Int!): WpWcProduct!
@@ -31,6 +33,7 @@ const schema = buildSchema(`#graphql
     ${WpWcOrder}
     ${WpNovaPoshtaCity}
     ${WpNovaPoshtaWarehouse}
+    ${PaymentMethod}
 `);
 
 module.exports = schema;

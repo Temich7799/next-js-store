@@ -25,6 +25,9 @@ export const CITY_SELECTOR_ERROR_MESSAGE = 'Выберите город из с�
 export const SHIPPING_LINE_SELECTOR_TITLE = 'Служба доставки';
 export const SHIPPING_LINE_SELECTOR_ERROR_MESSAGE = 'Выберите службу доставки из списка';
 
+export const PAYMENT_METHOD_SELECTOR_TITLE = 'Способ оплаты';
+export const PAYMENT_METHOD_SELECTOR_ERROR_MESSAGE = 'Укажите способ оплаты';
+
 export const WAREHOUSE_SELECTOR_TITLE = 'Отделение';
 export const WAREHOUSE_SELECTOR_PLACEHOLDER = 'Начинайте вводить номер отделения или адрес';
 export const WAREHOUSE_SELECTOR_ERROR_MESSAGE = 'Выберите доступное отделение из списка';

@@ -16,13 +16,12 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
         setSelectedShippingLine(onChangeEvent.target.value);
     }
 
-    const shippingZonesMethods = useStaticQuery(
+    const data = useStaticQuery(
         graphql`
             query getAllShippingZonesMethods {
                 allWcShippingZones3Methods(filter: {enabled: {eq: true}}) {
                     edges {
                         node {
-                            instance_id
                             method_id
                             method_title
                             method_description
@@ -41,7 +40,7 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
             onChangeHandler={selectOnChangeHandler}
         >
             {
-                shippingZonesMethods.allWcShippingZones3Methods.edges.map((method: any, index: number) =>
+                data.allWcShippingZones3Methods.edges.map((method: any, index: number) =>
                     <SelectOption value={method.node.method_id} key={index}>
                         {method.node.method_title}
                     </SelectOption>)

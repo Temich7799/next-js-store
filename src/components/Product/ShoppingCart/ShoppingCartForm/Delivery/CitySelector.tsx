@@ -1,6 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
 import React, { useState } from "react"
-import { GET_NOVA_POSHTA_CITIES } from "../../../../../graphql/queries/getNovaPoshtaCities";
+import { GET_NOVA_POSHTA_CITIES } from "../../../../../graphql/queries/nova_poshta/getNovaPoshtaCities";
 import { CITY_SELECTOR_ERROR_MESSAGE, CITY_SELECTOR_TITLE, CITY_SELECTOR__PLACEHOLDER } from "../../../../../languages/ru/languages";
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";

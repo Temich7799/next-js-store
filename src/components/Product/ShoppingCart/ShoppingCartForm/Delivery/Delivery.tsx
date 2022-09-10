@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import CitySelector from "./CitySelector"
+import PaymentMethodSelector from "./PaymentMethodSelector"
 import ShippingLineSelector from "./ShippingLineSelector"
 import WarehouseSelector from "./WarehouseSelector"
 
@@ -12,6 +13,7 @@ const Delivery = () => {
     return (
         <>
             <ShippingLineSelector setSelectedShippingLine={setSelectedShippingLine} />
+            <PaymentMethodSelector selectedShippingLine={selectedShippingLine} />
             <CitySelector selectedShippingLine={selectedShippingLine} setSelectedCity={setSelectedCity} setWarehousesData={setWarehousesData} />
             <WarehouseSelector selectedShippingLine={selectedShippingLine} selectedCity={selectedCity} warehousesData={warehousesData} setWarehousesData={setWarehousesData} />
         </>

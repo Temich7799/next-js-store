@@ -25,6 +25,9 @@ export const CITY_SELECTOR_ERROR_MESSAGE = 'Select a city from the list';
 export const SHIPPING_LINE_SELECTOR_TITLE = 'Shipping Service';
 export const SHIPPING_LINE_SELECTOR_ERROR_MESSAGE = 'Select a shipping service from the list';
 
+export const PAYMENT_METHOD_SELECTOR_TITLE = 'Payment method';
+export const PAYMENT_METHOD_SELECTOR_ERROR_MESSAGE = 'Please select a payment method';
+
 export const WAREHOUSE_SELECTOR_TITLE = 'Warehouse';
 export const WAREHOUSE_SELECTOR_PLACEHOLDER = 'Start typing the Warehouse number or address';
 export const WAREHOUSE_SELECTOR_ERROR_MESSAGE = 'Select an available branch from the list';

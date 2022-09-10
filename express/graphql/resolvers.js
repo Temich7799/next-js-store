@@ -38,7 +38,32 @@ const resolvers = {
     },
     allWpWcOrders: () => WooCommerce.get('orders').then((response) => response.data),
     allWpWcProducts: () => WooCommerce.get('products').then((response) => response.data),
+    allWpWcPaymentMethods: () =>
 
+        WooCommerce.get('payment_gateways').then((response) => {
+            const result = [];
+
+            response.data.forEach((paymentMethod) => {
+                if (paymentMethod.settings.enable_for_methods) {
+                    paymentMethod.enable_for_methods = [];
+
+                    Object.entries(paymentMethod.settings.enable_for_methods.options).forEach(enableMethods => {
+
+                        Object.entries(enableMethods[1]).forEach(method => {
+                            method.forEach(name => { paymentMethod.enable_for_methods.push(name) })
+                        })
+                    }
+                    );
+                    result.push(paymentMethod);
+                }
+
+                else {
+                    result.push(paymentMethod);
+                }
+            })
+
+            return result;
+        }),
     wpWcOrder: ({ id }) => WooCommerce.get(`orders/${id}`).then((response) => response.data),
     wpWcProduct: ({ id }) => WooCommerce.get(`products/${id}`).then((response) => response.data),
 

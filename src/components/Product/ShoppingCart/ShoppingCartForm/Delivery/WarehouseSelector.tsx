@@ -1,7 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import React from "react"
-import { GET_NOVA_POSHTA_CITY_REF } from "../../../../../graphql/queries/getNovaPoshtaCityRef";
-import { GET_NOVA_POSHTA_WAREHOUSES } from "../../../../../graphql/queries/getNovaPoshtaWarehouses";
+import { GET_NOVA_POSHTA_CITY_REF } from "../../../../../graphql/queries/nova_poshta/getNovaPoshtaCityRef";
+import { GET_NOVA_POSHTA_WAREHOUSES } from "../../../../../graphql/queries/nova_poshta/getNovaPoshtaWarehouses";
 import { WAREHOUSE_SELECTOR_ERROR_MESSAGE, WAREHOUSE_SELECTOR_PLACEHOLDER, WAREHOUSE_SELECTOR_TITLE } from "../../../../../languages/ru/languages";
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
