@@ -26,7 +26,13 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
 
             getNovaPoshtaCityRef({ variables: { regExp: selectedCity } })
                 .then((response) => {
-                    getNovaPoshtaWarehouses({ variables: { cityRef: response.data.allWpNovaPoshtaCities[0].ref, regExp: onInputEvent.target.value } })
+                    getNovaPoshtaWarehouses({
+                        variables: {
+                            cityRef: response.data.allWpNovaPoshtaCities[0].ref,
+                            regExp: onInputEvent.target.value,
+                            limit: 4
+                        }
+                    })
                         .then((response) => {
                             setWarehousesData(response.data.allWpNovaPoshtaWarehouses);
                         });

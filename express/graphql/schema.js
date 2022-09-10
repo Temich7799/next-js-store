@@ -11,8 +11,8 @@ const schema = buildSchema(`#graphql
 
     type Query {
         allWpWcOrders: [WpWcOrder!]!
-        allWpNovaPoshtaCities(language: Languages, regExp: String): [WpNovaPoshtaCity!]!
-        allWpNovaPoshtaWarehouses(language: Languages, cityRef: String!, regExp: String): [WpNovaPoshtaWarehouse!]!
+        allWpNovaPoshtaCities(language: Languages, regExp: String, limit: Int): [WpNovaPoshtaCity!]!
+        allWpNovaPoshtaWarehouses(language: Languages, cityRef: String!, regExp: String, limit: Int): [WpNovaPoshtaWarehouse!]!
         allWpWcProducts: [WpWcProduct!]!
 
         wpWcOrder(id: Int!): WpWcOrder!

@@ -17,19 +17,24 @@ const WooCommerce = new WooCommerceRestApi({
 });
 
 const resolvers = {
-    allWpNovaPoshtaCities: ({ language, regExp }) => {
+    allWpNovaPoshtaCities: ({ language, regExp, limit }) => {
 
         const cityRow = language == 'UA' ? 'description' : 'description_ru';
+        const sqlLimit = limit == undefined ? '' : ` LIMIT ${limit}`;
+
         return sqlQuery(regExp == undefined
-            ? 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE 1'
-            : 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE LOWER(' + cityRow + `) REGEXP '^` + regExp.toLowerCase() + `'` + ' ORDER BY CHAR_LENGTH(' + cityRow + ')');
+            ? 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE 1' + sqlLimit
+            : 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE LOWER(' + cityRow + `) REGEXP '^` + regExp.toLowerCase() + `'` + ' ORDER BY CHAR_LENGTH(' + cityRow + ')' + sqlLimit);
     },
-    allWpNovaPoshtaWarehouses: ({ language, cityRef, regExp }) => {
+    allWpNovaPoshtaWarehouses: ({ language, cityRef, regExp, limit }) => {
 
         const warehouseRow = language == 'UA' ? 'description' : 'description_ru';
+        const sqlLimit = limit == undefined ? '' : ` LIMIT ${limit}`;
+        const regex = regExp == undefined ? '' : `) REGEXP '` + regExp.toLowerCase();
+
         return sqlQuery(cityRef == undefined
-            ? 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE 1'
-            : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + cityRef + '\' AND LOWER(' + warehouseRow + `) REGEXP '` + regExp.toLowerCase() + `'` + ' ORDER BY CHAR_LENGTH(' + warehouseRow + ')');
+            ? 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE 1' + sqlLimit
+            : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + cityRef + '\' AND LOWER(' + warehouseRow + regex + `'` + ' ORDER BY CHAR_LENGTH(' + warehouseRow + ')' + sqlLimit);
     },
     allWpWcOrders: () => WooCommerce.get('orders').then((response) => response.data),
     allWpWcProducts: () => WooCommerce.get('products').then((response) => response.data),
