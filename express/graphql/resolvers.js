@@ -37,7 +37,21 @@ const resolvers = {
             : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + cityRef + '\' AND LOWER(' + warehouseRow + regex + `'` + ' ORDER BY CHAR_LENGTH(' + warehouseRow + ')' + sqlLimit);
     },
     allWpWcOrders: () => WooCommerce.get('orders').then((response) => response.data),
-    allWpWcProducts: () => WooCommerce.get('products').then((response) => response.data),
+    allWpWcProducts: ({ filter }) => {
+
+        const options = {
+            offset: filter.offset ? filter.offset : 0,
+            per_page: filter.per_page ? filter.per_page : 10,
+            status: filter.status ? filter.status : 'any',
+        };
+
+        filter.orderby && (options.orderby = filter.orderby);
+        filter.stock_status && (options.stock_status = filter.stock_status);
+        filter.category && (options.category = filter.category);
+
+        return WooCommerce.get('products', options)
+            .then((response) => response.data)
+    },
     allWpWcPaymentMethods: () =>
 
         WooCommerce.get('payment_gateways').then((response) => {

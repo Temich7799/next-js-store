@@ -14,7 +14,7 @@ const schema = buildSchema(`#graphql
         allWpWcOrders: [WpWcOrder!]!
         allWpNovaPoshtaCities(language: Languages, regExp: String, limit: Int): [WpNovaPoshtaCity!]!
         allWpNovaPoshtaWarehouses(language: Languages, cityRef: String!, regExp: String, limit: Int): [WpNovaPoshtaWarehouse!]!
-        allWpWcProducts: [WpWcProduct!]!
+        allWpWcProducts(filter: ProductsFilter): [WpWcProduct!]!
         allWpWcPaymentMethods: [PaymentMethod]
 
         wpWcOrder(id: Int!): WpWcOrder!
@@ -24,6 +24,28 @@ const schema = buildSchema(`#graphql
     enum Languages {
         RU
         UA
+    }
+
+    input ProductsFilter {
+        orderby: String
+        offset: Int
+        per_page: Int
+        stock_status: StockStatus
+        status: PublishStatus
+        category: String
+    }
+
+    enum StockStatus {
+        instock
+        outofstock
+        onbackorder
+    }
+
+    enum PublishStatus {
+        publish
+        private
+        pending
+        draft
     }
 
     ${WpWcProduct}
