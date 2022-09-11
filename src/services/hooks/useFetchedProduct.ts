@@ -4,7 +4,6 @@ import { updatePurchasedProductPriceResolver } from "../../graphql/vars/shopping
 
 type PurchasedProductProps = {
     name: string
-    slug: string
     sku: string
     price: string
     stock_status: string

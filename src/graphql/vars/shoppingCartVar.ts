@@ -2,7 +2,6 @@ import { makeVar } from "@apollo/client";
 
 type PurchasedProduct = {
     name: string
-    slug: string
     sku: string
     price?: string
     stock_quantity: number | null
