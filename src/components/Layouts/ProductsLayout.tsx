@@ -10,7 +10,7 @@ type Product = {
     images: [
       {
         alt: string
-        localFile: object
+        localFile: object | any
       }
     ]
     wordpress_id: number
@@ -29,20 +29,12 @@ const ProductsLayout = (props: ProductsProps) => {
 
   const { data } = props;
 
-  const gatsbyImages = new Map<number, Array<string>>();
+  const gatsbyImages = new Map<number, string>();
 
   data.allWcProducts.edges.forEach((edge: Product) => {
-
-    const images: Array<string> = [];
-
     if (edge.node.stock_quantity > 0 || edge.node.stock_status == 'instock') {
-      edge.node.images.forEach((image: object | any) => {
-        images.push(image.localFile.childImageSharp.gatsbyImageData.images.fallback.src);
-      });
-
-      gatsbyImages.set(edge.node.wordpress_id, images);
+      gatsbyImages.set(edge.node.wordpress_id, edge.node.images[0].localFile.childImageSharp.gatsbyImageData.images.fallback.src);
     }
-
   });
 
   return (

@@ -9,10 +9,10 @@ type PurchasedProductProps = {
     stock_status: string
     stock_quantity: number | null
     sale_price: string
-    images: [{
+    image: {
         alt: string
-        localFile: any
-    }]
+        src: string
+    }
     wordpress_id: number
     quantity: number
 
@@ -57,7 +57,7 @@ export default function useFetchedProducts(product: PurchasedProductProps) {
 
         product.stock_quantity = data.wpWcProduct.stock_quantity;
         product.stock_status = data.wpWcProduct.stock_status;
-        
+
         updatePurchasedProductPriceResolver(product.wordpress_id, product);
     }
 

@@ -6,10 +6,10 @@ type PurchasedProduct = {
     price?: string
     stock_quantity: number | null
     sale_price?: string
-    images: [{
+    image: {
         alt: string
-        localFile: any
-    }]
+        src: string
+    }
     wordpress_id: number
     quantity?: number
 }

@@ -50,12 +50,10 @@ type Product = {
     stock_quantity: number | null
     stock_status: string
     sale_price: string
-    images: [
-        {
-            alt: string
-            localFile: any
-        }
-    ]
+    image: {
+        alt: string
+        src: string
+    }
     categories: [
         {
             slug: string
@@ -73,10 +71,8 @@ type ProductProps = {
 const ProductThumb = (props: ProductProps) => {
 
     const { data, absolutePath } = props;
-    const { categories, images, wordpress_id } = data;
+    const { categories, image, wordpress_id } = data;
     if (data.sku == '') data.sku = wordpress_id.toString();
-
-    const image = getImage(images[0].localFile)
 
     const { loading: isDataLoading, data: fetchedData, isOutOfStock } = useFetchedProducts(data);
 
@@ -91,10 +87,10 @@ const ProductThumb = (props: ProductProps) => {
                     absolutePath
                         ? <a href={absolutePath}>
                             <InteractiveImage>
-                                <GatsbyImage image={image} alt={images[0].alt} />
+                                <img src={image.src} alt={image.alt} />
                             </InteractiveImage>
                         </a>
-                        : <Link to={`${categories[0].slug}-${data.sku}`}><GatsbyImage image={image} alt={images[0].alt} /></Link>
+                        : <Link to={`${categories[0].slug}-${data.sku}`}><img src={image.src} alt={image.alt} /></Link>
                 }
             </ProductImage>
             <ProductCaption>
