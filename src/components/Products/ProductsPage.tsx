@@ -3,9 +3,40 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { GET_ALL_WP_PRODUCTS } from "../../graphql/queries/getAllWpProducts";
 import useMobile from "../../services/hooks/useMobile";
+import LoadingBar from "../LoadingBar";
+import ProductThumb from "./Thumbs/ProductThumb";
 
 type ProductsPageProps = {
-    data: Map<number, string[]>
+    data: Map<number, string>
+}
+
+type Product = {
+    name: string
+    slug: string
+    sku: string
+    price: string
+    sale_price: string
+    stock_status: string
+    stock_quantity: number
+    manage_stock: Boolean
+    categories: [
+        {
+            id: string
+            slug: string
+        }
+    ]
+    images?: [
+        {
+            alt: string
+            src: string
+        }
+    ]
+    image: {
+        alt: string
+        src: string
+    }
+    wordpress_id: number
+    quantity: number
 }
 
 const Main = styled.main<any>`
@@ -28,27 +59,29 @@ const ProductsPage = (props: ProductsPageProps) => {
 
     const isMobile = useMobile();
 
-    const [getAllWpProducts] = useLazyQuery(GET_ALL_WP_PRODUCTS);
+    const [getAllWpProducts, { loading: productsLoading, error: productsLoadingError, data: productsData }] = useLazyQuery(GET_ALL_WP_PRODUCTS);
 
     useEffect(() => {
-        console.log(getAllWpProducts());
+        getAllWpProducts().then((response) => {
+            console.log(response.data);
+        });
     }, []);
 
     return (
         <Main isMobile={isMobile}>
-            <Content>
-                {
-                    /*
-                    data.allWcProducts.edges.map((edge: Product) => {
-                      console.log(edge.node.stock_status)
-                      const isProductInStock = (edge.node.stock_quantity !== null && edge.node.stock_quantity > 0) || edge.node.stock_status == 'instock';
-                      const isCategoryMatch = typeof document !== `undefined` && document.location.href.split('/catalog/')[1] == edge.node.categories[0].slug;
-                      return (
-                        isProductInStock && isCategoryMatch && <ProductThumb data={edge.node} key={edge.node.wordpress_id} />)
-                    })
-                    */
-                }
-            </Content>
+            {
+                productsLoading
+                    ? <LoadingBar />
+                    :
+                    <Content>
+                        {
+                            /*
+                            productsData.allWpWcProducts.map((product: Product) =>
+                                <ProductThumb data={product} key={product.wordpress_id} />)
+                                */
+                        }
+                    </Content>
+            }
         </Main>
     )
 }
