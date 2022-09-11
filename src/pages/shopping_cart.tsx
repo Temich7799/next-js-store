@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
-import OrderDetails from "../components/Product/ShoppingCart/OrderDetails/OrderDetails";
-import ShoppingCartForm from "../components/Product/ShoppingCart/ShoppingCartForm/ShoppingCartForm";
+import OrderDetails from "../components/Products/ShoppingCart/OrderDetails/OrderDetails";
+import ShoppingCartForm from "../components/Products/ShoppingCart/ShoppingCartForm/ShoppingCartForm";
 import useMobile from "../services/hooks/useMobile";
 import sendOrder from "../services/sendOrder";
 

@@ -2,7 +2,7 @@ import { graphql } from "gatsby";
 import React from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
-import CategoryThumb from "../components/Product/Thumbs/CategoryThumb";
+import CategoryThumb from "../components/Products/Thumbs/CategoryThumb";
 import PageTitle from "../components/PageTitle";
 import useMobile from "../services/hooks/useMobile";
 import { CATALOG_PAGE_TITLE } from "../languages/ru/languages";
