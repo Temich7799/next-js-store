@@ -5,26 +5,15 @@ import ProductsPage from "../Products/ProductsPage";
 
 type Product = {
   node: {
-    name: string
-    price: string
-    sku: string
     stock_quantity: number
     stock_status: string
-    sale_price: string
-    slug: string
     images: [
       {
         alt: string
         localFile: object
       }
     ]
-    categories: [
-      {
-        slug: string
-      }
-    ]
     wordpress_id: number
-    quantity: number
   }
 }
 
@@ -83,7 +72,6 @@ export const query = graphql`
         }
       }
     }
-  }
-         
+  }    
 `;
 
