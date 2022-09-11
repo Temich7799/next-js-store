@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import ProductThumb from "../Product/Thumbs/ProductThumb";
@@ -56,6 +56,24 @@ const ProductsLayout = (props: ProductsProps) => {
 
   const { data } = props;
 
+  const gatsbyImages = new Map();
+
+  data.allWcProducts.edges.forEach((edge: Product) => {
+
+    const images: Array<string> = [];
+
+    if (edge.node.stock_quantity > 0 || edge.node.stock_status == 'instock') {
+      edge.node.images.forEach((image: object | any) => {
+        images.push(image.localFile.childImageSharp.gatsbyImageData.images.fallback.src);
+      });
+
+      gatsbyImages.set(edge.node.wordpress_id, images);
+    }
+
+  });
+
+  useEffect(() => { console.log(gatsbyImages) }, []);
+
   const isMobile = useMobile();
 
   return (
@@ -63,6 +81,7 @@ const ProductsLayout = (props: ProductsProps) => {
       <Main isMobile={isMobile}>
         <Content>
           {
+            /*
             data.allWcProducts.edges.map((edge: Product) => {
               console.log(edge.node.stock_status)
               const isProductInStock = (edge.node.stock_quantity !== null && edge.node.stock_quantity > 0) || edge.node.stock_status == 'instock';
@@ -70,6 +89,7 @@ const ProductsLayout = (props: ProductsProps) => {
               return (
                 isProductInStock && isCategoryMatch && <ProductThumb data={edge.node} key={edge.node.wordpress_id} />)
             })
+            */
           }
         </Content>
       </Main>
@@ -80,33 +100,24 @@ const ProductsLayout = (props: ProductsProps) => {
 export default ProductsLayout
 
 export const query = graphql`
-  query getProducts {
+  query getProductImages {
     allWcProducts {
       edges {
         node {
-          name
-          price
-          sku
           stock_quantity
           stock_status
-          purchasable
-          sale_price
-          slug
+          wordpress_id
           images {
-            alt
             localFile {
               childImageSharp {
                 gatsbyImageData(webpOptions: {quality: 85}, height: 240)
               }
             }
           }
-          categories {
-            slug
-          }
-          wordpress_id
         }
       }
     }
   }
+         
 `;
 
