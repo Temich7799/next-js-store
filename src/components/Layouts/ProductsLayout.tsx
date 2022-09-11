@@ -1,23 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
-import ProductThumb from "../Product/Thumbs/ProductThumb";
-import styled from "styled-components";
-import useMobile from "../../services/hooks/useMobile";
-
-const Main = styled.main<any>`
-    margin-top: ${props => props.isMobile ? "125px" : "0"};
-`;
-
-const Content = styled.div`
-  max-width: 1900;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(auto, 200px));
-  justify-content: center;
-  gap: 50px;
-  padding: 2.5%;
-`
+import ProductsPage from "../Products/ProductsPage";
 
 type Product = {
   node: {
@@ -56,7 +40,7 @@ const ProductsLayout = (props: ProductsProps) => {
 
   const { data } = props;
 
-  const gatsbyImages = new Map();
+  const gatsbyImages = new Map<number, Array<string>>();
 
   data.allWcProducts.edges.forEach((edge: Product) => {
 
@@ -72,27 +56,9 @@ const ProductsLayout = (props: ProductsProps) => {
 
   });
 
-  useEffect(() => { console.log(gatsbyImages) }, []);
-
-  const isMobile = useMobile();
-
   return (
     <Layout>
-      <Main isMobile={isMobile}>
-        <Content>
-          {
-            /*
-            data.allWcProducts.edges.map((edge: Product) => {
-              console.log(edge.node.stock_status)
-              const isProductInStock = (edge.node.stock_quantity !== null && edge.node.stock_quantity > 0) || edge.node.stock_status == 'instock';
-              const isCategoryMatch = typeof document !== `undefined` && document.location.href.split('/catalog/')[1] == edge.node.categories[0].slug;
-              return (
-                isProductInStock && isCategoryMatch && <ProductThumb data={edge.node} key={edge.node.wordpress_id} />)
-            })
-            */
-          }
-        </Content>
-      </Main>
+      <ProductsPage data={gatsbyImages} />
     </Layout>
   )
 }

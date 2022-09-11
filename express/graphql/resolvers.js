@@ -39,15 +39,15 @@ const resolvers = {
     allWpWcOrders: () => WooCommerce.get('orders').then((response) => response.data),
     allWpWcProducts: ({ filter }) => {
 
-        const options = {
-            offset: filter.offset ? filter.offset : 0,
-            per_page: filter.per_page ? filter.per_page : 10,
-            status: filter.status ? filter.status : 'any',
-        };
-
-        filter.orderby && (options.orderby = filter.orderby);
-        filter.stock_status && (options.stock_status = filter.stock_status);
-        filter.category && (options.category = filter.category);
+        const options = {};
+        if (filter) {
+            filter.offset && (options.offset = filter.offset);
+            filter.per_page && (options.per_page = filter.per_page);
+            filter.status && (options.status = filter.status);
+            filter.orderby && (options.orderby = filter.orderby);
+            filter.stock_status && (options.stock_status = filter.stock_status);
+            filter.category && (options.category = filter.category);
+        }
 
         return WooCommerce.get('products', options)
             .then((response) => response.data)

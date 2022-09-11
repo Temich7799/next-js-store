@@ -4,7 +4,7 @@ import toogle from "../../services/toogle";
 import Button from "../Button";
 import ImageSVG from "../ImageSVG";
 import PopUp from "../PopUp";
-import OrderDetails from "../Product/ShoppingCart/OrderDetails/OrderDetails";
+import OrderDetails from "../Products/ShoppingCart/OrderDetails/OrderDetails";
 import { useReactiveVar } from "@apollo/client";
 import { shoppingCartVar } from "../../graphql/vars/shoppingCartVar";
 

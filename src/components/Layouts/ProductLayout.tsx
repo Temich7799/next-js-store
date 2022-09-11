@@ -2,11 +2,11 @@ import React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import styled from "styled-components";
-import ProductGallery from "../Product/ProductGallery/ProductGallery";
-import ProductAbout from "../Product/ProductAbout/ProductAbout";
-import ProductDescription from "../Product/ProductDescription";
+import ProductGallery from "../Products/ProductGallery/ProductGallery";
+import ProductAbout from "../Products/ProductAbout/ProductAbout";
+import ProductDescription from "../Products/ProductDescription";
 import Carousel from "../Carousel";
-import ProductThumb from "../Product/Thumbs/ProductThumb";
+import ProductThumb from "../Products/Thumbs/ProductThumb";
 import useMobile from "../../services/hooks/useMobile";
 import { CAROUSEL_RELATED_PRODUCTS_TITLE } from "../../languages/ru/languages";
 
