@@ -6,7 +6,7 @@ import useMobile from "../../services/hooks/useMobile";
 import LoadingBar from "../LoadingBar";
 import ProductThumb from "./Thumbs/ProductThumb";
 
-type ProductsPageProps = {
+type ProductsPageContentProps = {
     gatsbyImages: Map<number, string>
     categoryId: string
 }
@@ -47,7 +47,7 @@ const Content = styled.div`
   padding: 2.5%;
 `;
 
-const ProductsPage = (props: ProductsPageProps) => {
+const ProductsPageContent = (props: ProductsPageContentProps) => {
 
     const { gatsbyImages, categoryId } = props;
 
@@ -97,4 +97,4 @@ const ProductsPage = (props: ProductsPageProps) => {
     )
 }
 
-export default ProductsPage;
+export default ProductsPageContent;

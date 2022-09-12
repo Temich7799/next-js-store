@@ -8,6 +8,30 @@ import { PRODUCT_SKU } from "../../../languages/ru/languages";
 import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
 import InteractiveImage from "../../InteractiveImage";
 
+type ProductProps = {
+    data: Product
+    absolutePath?: string
+}
+
+type Product = {
+    name: string
+    price: string
+    sku: string
+    stock_quantity: number | null
+    stock_status: string
+    sale_price: string
+    image: {
+        alt: string
+        src: string
+    }
+    categories: [
+        {
+            slug: string
+        }
+    ]
+    wordpress_id: number
+}
+
 const StyledProductThumb = styled.div`
     height: 320px;
     min-width: 225px;
@@ -40,30 +64,6 @@ const ProductCaption = styled.div`
         margin: 0;
     }
 `;
-
-type Product = {
-    name: string
-    price: string
-    sku: string
-    stock_quantity: number | null
-    stock_status: string
-    sale_price: string
-    image: {
-        alt: string
-        src: string
-    }
-    categories: [
-        {
-            slug: string
-        }
-    ]
-    wordpress_id: number
-}
-
-type ProductProps = {
-    data: Product
-    absolutePath?: string
-}
 
 const ProductThumb = (props: ProductProps) => {
 

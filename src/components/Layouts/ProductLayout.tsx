@@ -1,17 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import styled from "styled-components";
-import ProductGallery from "../Products/ProductGallery/ProductGallery";
-import ProductAbout from "../Products/ProductAbout/ProductAbout";
-import ProductDescription from "../Products/ProductDescription";
-import Carousel from "../Carousel";
-import ProductThumb from "../Products/Thumbs/ProductThumb";
 import useMobile from "../../services/hooks/useMobile";
-import { CAROUSEL_RELATED_PRODUCTS_TITLE } from "../../languages/ru/languages";
-import { useLazyQuery } from "@apollo/client";
-import { GET_ALL_WP_RELATED_PRODUCTS } from "../../graphql/queries/getAllWpRelatedProducts";
-import { GET_ALL_WP_RELATED_PRODUCTS_IDS } from "../../graphql/queries/getAllWpRelatedProductsIds";
+import ProductPageContent from "../Products/ProductPageContent";
 
 type Product = {
     name: string
@@ -58,21 +50,13 @@ const Main = styled.main<any>`
     margin-top: ${props => props.isMobile ? "125px" : "0"};
 `;
 
-const Content = styled.div`
-    max-width: 1900px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 25px;
-    padding: 5%;
-`;
-
 const ProductLayout = (props: ProductProps) => {
 
     const { data } = props;
-    data.wcProducts.image.src = data.wcProducts.images[0].src;
-    data.wcProducts.image.alt = data.wcProducts.images[0].alt;
+    if (data.wcProducts.image) {
+        data.wcProducts.image.src = data.wcProducts.images[0].src;
+        data.wcProducts.image.alt = data.wcProducts.images[0].alt;
+    }
 
     const isMobile = useMobile();
 
@@ -84,42 +68,10 @@ const ProductLayout = (props: ProductProps) => {
         }
     });
 
-    const [getAllWpRelatedProductsIds] = useLazyQuery(GET_ALL_WP_RELATED_PRODUCTS_IDS, { variables: { productId: data.wcProducts.wordpress_id } });
-    //const [getAllWpRelatedProducts] = useLazyQuery(GET_ALL_WP_RELATED_PRODUCTS);
-
-    useEffect(() => {
-        getAllWpRelatedProductsIds()
-            .then((response) => {
-                console.log(response.data)
-            });
-    }, []);
-
     return (
         <Layout>
             <Main isMobile={isMobile}>
-                <Content>
-                    <ProductGallery data={data.wcProducts.images}></ProductGallery>
-                    <ProductAbout data={data.wcProducts}></ProductAbout>
-                    <ProductDescription data={data.wcProducts.description}></ProductDescription>
-                    {
-                        /*
-                        data.wcProducts.related_products.length
-                            ?
-                            <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} carouselItemMax={3}>
-                                {
-                                    data.wcProducts.related_products.map((relatedProduct: Product) =>
-                                        <ProductThumb
-                                            data={relatedProduct}
-                                            absolutePath={`${document.location.origin}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
-                                            key={relatedProduct.wordpress_id}
-                                        />
-                                    )
-                                }
-                            </Carousel>
-                            : <></>
-                            */
-                    }
-                </Content>
+                <ProductPageContent data={data.wcProducts} gatsbyImages={gatsbyImages} />
             </Main>
         </Layout >
     )

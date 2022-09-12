@@ -1,7 +1,7 @@
-import React  from "react";
+import React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
-import ProductsPage from "../Products/ProductsPage";
+import ProductsPageContent from "../Products/ProductsPageContent";
 
 type ProductsProps = {
   data: {
@@ -44,7 +44,7 @@ const ProductsLayout = (props: ProductsProps) => {
 
   return (
     <Layout>
-      <ProductsPage gatsbyImages={gatsbyImages} categoryId={data.allWcProducts.edges[0].node.categories[0].wordpress_id.toString()} />
+      <ProductsPageContent gatsbyImages={gatsbyImages} categoryId={data.allWcProducts.edges[0].node.categories[0].wordpress_id.toString()} />
     </Layout>
   )
 }
