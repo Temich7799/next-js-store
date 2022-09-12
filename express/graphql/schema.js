@@ -17,8 +17,8 @@ const schema = buildSchema(`#graphql
         allWpWcProducts(filter: ProductsFilter): [WpWcProduct!]!
         allWpWcPaymentMethods: [PaymentMethod]
 
-        wpWcOrder(id: Int!): WpWcOrder!
-        wpWcProduct(id: Int!): WpWcProduct!
+        wpWcOrder(productId: Int!): WpWcOrder!
+        wpWcProduct(productId: Int!): WpWcProduct!
     }
 
     enum Languages {

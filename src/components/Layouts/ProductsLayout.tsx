@@ -3,6 +3,14 @@ import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import ProductsPage from "../Products/ProductsPage";
 
+type ProductsProps = {
+  data: {
+    allWcProducts: {
+      edges: [Product]
+    }
+  }
+}
+
 type Product = {
   node: {
     stock_quantity: number
@@ -19,14 +27,6 @@ type Product = {
       }
     ]
     wordpress_id: number
-  }
-}
-
-type ProductsProps = {
-  data: {
-    allWcProducts: {
-      edges: [Product]
-    }
   }
 }
 

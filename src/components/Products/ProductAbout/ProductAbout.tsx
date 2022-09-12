@@ -5,18 +5,6 @@ import ProductBuy from "./ProductBuy";
 import ProductDelivery from "./ProductDelivery";
 import ProductName from "./ProductName";
 
-const StyledProductAbout = styled.div`
-    position: relative;
-    width: fit-content;
-    max-width: 450px;
-    height: 400px;
-`;
-
-type ProductAttribute = {
-    options: [string]
-    name: string
-}
-
 type ProductAboutProps = {
     data: {
         name: string
@@ -24,7 +12,12 @@ type ProductAboutProps = {
         price: string
         sale_price: string
         stock_quantity: number | null
-        attributes: [ProductAttribute]
+        attributes: [
+            {
+                options: [string]
+                name: string
+            }
+        ]
         slug: string
         images: [{
             src: string
@@ -35,6 +28,13 @@ type ProductAboutProps = {
         quantity: number
     }
 }
+
+const StyledProductAbout = styled.div`
+    position: relative;
+    width: fit-content;
+    max-width: 450px;
+    height: 400px;
+`;
 
 const ProductAbout = (props: ProductAboutProps) => {
 

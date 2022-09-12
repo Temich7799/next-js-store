@@ -78,8 +78,8 @@ const resolvers = {
 
             return result;
         }),
-    wpWcOrder: ({ id }) => WooCommerce.get(`orders/${id}`).then((response) => response.data),
-    wpWcProduct: ({ id }) => WooCommerce.get(`products/${id}`).then((response) => response.data),
+    wpWcOrder: ({ productId }) => WooCommerce.get(`orders/${productId}`).then((response) => response.data),
+    wpWcProduct: ({ productId }) => WooCommerce.get(`products/${productId}`).then((response) => response.data),
 
 };
 
