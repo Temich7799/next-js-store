@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import styled from "styled-components";
-import { GET_ALL_WP_RELATED_PRODUCTS_IDS } from "../../graphql/queries/getAllWpRelatedProductsIds";
+import { GET_RELATED_PRODUCTS_IDS } from "../../graphql/queries/getRelatedProductsIds";
 import ProductAbout from "./ProductAbout/ProductAbout";
 import ProductDescription from "./ProductDescription";
 import ProductGallery from "./ProductGallery/ProductGallery";
 import Carousel from "../Carousel";
 import { CAROUSEL_RELATED_PRODUCTS_TITLE } from "../../languages/ru/languages";
 import ProductThumb from "./Thumbs/ProductThumb";
+import { GET_ALL_WP_RELATED_PRODUCTS } from "../../graphql/queries/getAllWpRelatedProducts";
+import LoadingBar from "../LoadingBar";
 
 type ProductPageContentProps = {
     data: Product
@@ -25,6 +27,7 @@ type Product = {
     stock_quantity: number | null
     stock_status: string
     related_products: [Product]
+    id?: string | any
     attributes: [
         {
             options: [string]
@@ -63,14 +66,23 @@ const ProductPageContent = (props: ProductPageContentProps) => {
 
     const { data, gatsbyImages } = props;
 
-    const [getAllWpRelatedProductsIds] = useLazyQuery(GET_ALL_WP_RELATED_PRODUCTS_IDS, { variables: { productId: data.wordpress_id } });
-    //const [getAllWpRelatedProducts] = useLazyQuery(GET_ALL_WP_RELATED_PRODUCTS);
+    const [getRelatedProductsIds, { loading: allRelatedProductsIdsLoading, error: allRelatedProductsIdsLoadingError, data: allRelatedProductsIdsData }] = useLazyQuery(GET_RELATED_PRODUCTS_IDS, { variables: { productId: data.wordpress_id } });
+    const [getAllWpRelatedProducts, { loading: allWpRelatedProductsLoading, error: allWpRelatedProductsLoadingError, data: allWpRelatedProductsData }] = useLazyQuery(GET_ALL_WP_RELATED_PRODUCTS);
 
     useEffect(() => {
-        getAllWpRelatedProductsIds()
+        getRelatedProductsIds()
             .then((response) => {
-                console.log(response.data)
-            });
+                const relatedIds = response.data.wpWcProduct.related_ids.map((id: string) => parseInt(id));
+                getAllWpRelatedProducts(
+                    {
+                        variables: {
+                            filter: {
+                                include: relatedIds
+                            }
+                        }
+                    });
+            }
+            );
     }, []);
 
     return (
@@ -79,24 +91,35 @@ const ProductPageContent = (props: ProductPageContentProps) => {
             <ProductAbout data={data}></ProductAbout>
             <ProductDescription data={data.description}></ProductDescription>
             {
-                /*
-                    data.related_products.length
-                        ?
-                        <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} carouselItemMax={3}>
-                            {
-                                data.related_products.map((relatedProduct: Product) =>
-                                    <ProductThumb
-                                        data={relatedProduct}
-                                        absolutePath={`${document.location.origin}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
-                                        key={relatedProduct.wordpress_id}
-                                    />
-                                )
-                            }
-                        </Carousel>
-                        : <></>
-                        */
+                allWpRelatedProductsData &&
+                <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} carouselItemMax={3}>
+                    {
+                        allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
+
+                            const productId = parseInt(fetchedProduct.id);
+
+                            const gatsbyImage = gatsbyImages.get(productId);
+
+                            const relatedProduct = {
+                                ...fetchedProduct,
+                                wordpress_id: productId,
+                                image: {
+                                    src: gatsbyImage ? gatsbyImage : fetchedProduct.images[0].src,
+                                    alt: fetchedProduct.images[0].alt
+                                }
+                            };
+
+                            return <ProductThumb
+                                data={relatedProduct}
+                                absolutePath={`${document.location.origin}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
+                                key={relatedProduct.wordpress_id}
+                            />
+                        }
+                        )
+                    }
+                </Carousel>
             }
-        </StyledProductsPageContent>
+        </StyledProductsPageContent >
     )
 }
 

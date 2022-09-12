@@ -30,6 +30,7 @@ const schema = buildSchema(`#graphql
         orderby: String
         offset: Int
         per_page: Int
+        include: [Int]
         stock_status: StockStatus
         status: PublishStatus
         category: String

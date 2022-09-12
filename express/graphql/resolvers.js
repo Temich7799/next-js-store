@@ -47,6 +47,7 @@ const resolvers = {
             filter.orderby && (options.orderby = filter.orderby);
             filter.stock_status && (options.stock_status = filter.stock_status);
             filter.category && (options.category = filter.category);
+            filter.include && (options.include = filter.include);
         }
 
         return WooCommerce.get('products', options)
