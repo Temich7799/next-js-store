@@ -5,7 +5,7 @@ import Button from "../../Button";
 import ImageSVG from "../../ImageSVG";
 import ProductPrice from "../ProductPrice";
 import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
-import useFetchedProducts from "../../../services/hooks/useFetchedProduct";
+import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct";
 
 const StyledProductBuy = styled.div`
     display: flex;
@@ -18,16 +18,27 @@ type ProductBuyProps = {
     data: {
         name: string
         slug: string
-        price: string
-        stock_quantity: number | null
-        sale_price: string
         sku: string
-        images: [{
+        image: {
             alt: string
-            localFile: any
-        }]
+            src: string
+        }
         wordpress_id: number
-        quantity: number
+    }
+}
+
+type FetchedData = {
+    name: string
+    slug: string
+    sku: string
+    wordpress_id: number
+    price: string
+    stock_status: string
+    stock_quantity: number | null
+    sale_price: string
+    image: {
+        alt: string
+        src: string
     }
 }
 
@@ -35,15 +46,15 @@ const ProductBuy = (props: ProductBuyProps) => {
 
     const { data } = props;
 
-    const { loading: isDataLoading, data: fetchedData, isOutOfStock } = useFetchedProducts(data);
+    const { loading: isDataLoading, data: updatedProduct, isOutOfStock } = useUpdatedProduct(data);
 
     function buttonOnClickHandler() {
-        addToCartResolver(data.wordpress_id, data);
+        addToCartResolver(data.wordpress_id, updatedProduct);
     }
 
     return (
         <StyledProductBuy>
-            <ProductPrice price={fetchedData && fetchedData.wpWcProduct.price} salePrice={fetchedData && fetchedData.wpWcProduct.sale_price} />
+            <ProductPrice price={updatedProduct && updatedProduct.wpWcProduct.price} salePrice={updatedProduct && updatedProduct.wpWcProduct.sale_price} />
             <Button id="shoppingCartButton" onClick={buttonOnClickHandler} disabled={isDataLoading || isOutOfStock}>
                 <>
                     {

@@ -9,11 +9,13 @@ type PurchasedProduct = {
     slug: string
     sku: string
     price: string
+    stock_quantity: number | null
+    stock_status: string
     sale_price: string
-    images: [{
+    image: {
         alt: string
-        localFile: any
-    }]
+        src: string
+    }
     wordpress_id: number
     quantity: number
 }

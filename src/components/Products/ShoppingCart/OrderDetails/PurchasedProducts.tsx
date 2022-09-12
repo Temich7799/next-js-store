@@ -9,11 +9,14 @@ type PurchasedProductProps = {
     sku: string
     price: string
     sale_price: string
-    images: [{
+    stock_quantity: number | null
+    stock_status: string
+    image: {
         alt: string
-        localFile: any
-    }]
+        src: string
+    }
     wordpress_id: number
+    id: string
     quantity: number
 }
 

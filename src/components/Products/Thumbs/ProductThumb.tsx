@@ -57,8 +57,7 @@ type Product = {
             slug: string
         }
     ]
-    id: number
-    quantity: number
+    wordpress_id: number
 }
 
 type ProductProps = {
@@ -69,10 +68,10 @@ type ProductProps = {
 const ProductThumb = (props: ProductProps) => {
 
     const { data, absolutePath } = props;
-    if (data.sku == '') data.sku = data.id.toString();
+    if (data.sku == '') data.sku = data.wordpress_id.toString();
 
     function buttonOnClickHandler() {
-        addToCartResolver(data.id, data);
+        addToCartResolver(data.wordpress_id, data);
     }
 
     return (

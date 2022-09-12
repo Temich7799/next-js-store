@@ -12,7 +12,7 @@ const batchLink = new BatchHttpLink({
 });
 
 const client = new ApolloClient({
-    link: batchLink,
+    uri: "http://localhost:3000/graphql",
     cache: new InMemoryCache(),
 });
 

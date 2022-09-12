@@ -9,23 +9,18 @@ type ProductAboutProps = {
     data: {
         name: string
         sku: string
-        price: string
-        sale_price: string
-        stock_quantity: number | null
+        slug: string
+        wordpress_id: number
+        image: {
+            src: string
+            alt: string
+        }
         attributes: [
             {
                 options: [string]
                 name: string
             }
         ]
-        slug: string
-        images: [{
-            src: string
-            alt: string
-            localFile: object
-        }]
-        wordpress_id: number
-        quantity: number
     }
 }
 

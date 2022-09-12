@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React  from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import ProductsPage from "../Products/ProductsPage";

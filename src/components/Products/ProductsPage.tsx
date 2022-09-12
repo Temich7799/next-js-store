@@ -11,18 +11,17 @@ type ProductsPageProps = {
     categoryId: string
 }
 
-type Product = {
+type FetchedProduct = {
     name: string
     slug: string
     sku: string
     price: string
     sale_price: string
-    stock_status: string
     stock_quantity: number
-    manage_stock: Boolean
+    stock_status: string
+    id: string
     categories: [
         {
-            id: string
             slug: string
         }
     ]
@@ -32,13 +31,6 @@ type Product = {
             src: string
         }
     ]
-    image: {
-        alt: string
-        src: string
-    }
-    wordpress_id: number
-    id: number
-    quantity: number
 }
 
 const Main = styled.main<any>`
@@ -81,19 +73,22 @@ const ProductsPage = (props: ProductsPageProps) => {
                     :
                     <Content>
                         {
-                            productsData && productsData.allWpWcProducts.map((product: Product) => {
+                            productsData && productsData.allWpWcProducts.map((fetchedProduct: FetchedProduct) => {
 
-                                const gatsbyImage = gatsbyImages.get(product.id);
+                                const productId = parseInt(fetchedProduct.id);
 
-                                product = {
-                                    ...product,
+                                const gatsbyImage = gatsbyImages.get(productId);
+
+                                const product = {
+                                    ...fetchedProduct,
+                                    wordpress_id: productId,
                                     image: {
-                                        src: gatsbyImage ? gatsbyImage : product.images[0].src,
-                                        alt: product.images[0].alt
+                                        src: gatsbyImage ? gatsbyImage : fetchedProduct.images[0].src,
+                                        alt: fetchedProduct.images[0].alt
                                     }
                                 };
 
-                                return <ProductThumb data={product} key={product.id} />
+                                return <ProductThumb data={product} key={product.wordpress_id} />
                             })
                         }
                     </Content>

@@ -1,17 +1,17 @@
 import { makeVar } from "@apollo/client";
 
-type PurchasedProduct = {
+type PurchasedProductProps = {
     name: string
     sku: string
     price?: string
+    stock_status: string
     stock_quantity: number | null
-    sale_price?: string
+    sale_price: string
     image: {
         alt: string
         src: string
     }
-    id: number
-    quantity?: number
+    wordpress_id: number
 }
 
 export const shoppingCartVar = makeVar(
@@ -21,7 +21,7 @@ export const shoppingCartVar = makeVar(
 );
 
 
-export const addToCartResolver = (productId: number, product: PurchasedProduct): void => {
+export const addToCartResolver = (productId: number, product: PurchasedProductProps): void => {
 
     const currentVar = { ...shoppingCartVar() };
 
@@ -36,8 +36,7 @@ export const addToCartResolver = (productId: number, product: PurchasedProduct):
         shoppingCartVar(currentVar);
     }
     else {
-        product.quantity = 1;
-        shoppingCartVar({ ...currentVar, [productId]: product });
+        shoppingCartVar({ ...currentVar, [productId]: { ...product, quantity: 1 } });
     }
 
     saveToLocalStorage();
@@ -64,7 +63,7 @@ export const deletePurchasedProductResolver = (productId: number): void => {
     saveToLocalStorage();
 }
 
-export const updatePurchasedProductPriceResolver = (productId: number, product: PurchasedProduct) => {
+export const updatePurchasedProductPriceResolver = (productId: number, product: PurchasedProductProps) => {
 
     const newVar: any = { ...shoppingCartVar() };
 

@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import styled from "styled-components"
 import { deletePurchasedProductResolver } from "../../../../graphql/vars/shoppingCartVar"
 import { PRODUCT_SKU } from "../../../../languages/ru/languages"
-import useFetchedProducts from "../../../../services/hooks/useFetchedProduct"
+import useFetchedProducts from "../../../../services/hooks/useUpdatedProduct"
 import ProductPrice from "../../ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
 
@@ -13,10 +13,12 @@ type PurchasedProductProps = {
         sku: string
         price: string
         sale_price: string
-        images: [{
+        stock_status: string
+        stock_quantity: number | null
+        image: {
             alt: string
-            localFile: any
-        }]
+            src: string
+        }
         wordpress_id: number
         quantity: number
     }
@@ -62,7 +64,7 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
 
     return (
         <StyledPurchasedProduct>
-            <PurchasedProductThumb src={data.images[0].localFile.childImageSharp.gatsbyImageData.images.fallback.src} alt={data.images[0].alt} />
+            <PurchasedProductThumb src={data.image.src} alt={data.image.alt} />
             <ProductPrice showTitle={false} price={fetchedData && fetchedData.wpWcProduct.price} salePrice={fetchedData && fetchedData.wpWcProduct.sale_price} />
             <PurchasedProductName>
                 <p>{data.name}</p>

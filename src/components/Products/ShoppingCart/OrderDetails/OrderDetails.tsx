@@ -16,11 +16,18 @@ type PurchasedProduct = {
     sku: string
     price: string
     sale_price: string
+    stock_quantity: number | null
+    stock_status: string
+    image: {
+        alt: string
+        src: string
+    }
     images: [{
         alt: string
         localFile: any
     }]
     wordpress_id: number
+    id: string
     quantity: number
 }
 

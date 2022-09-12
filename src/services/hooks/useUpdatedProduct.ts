@@ -2,9 +2,22 @@ import { gql, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { updatePurchasedProductPriceResolver } from "../../graphql/vars/shoppingCartVar";
 
-type PurchasedProductProps = {
+type ProductProps = {
     name: string
+    slug: string
     sku: string
+    image: {
+        alt: string
+        src: string
+    }
+    wordpress_id: number
+}
+
+type UpdatedProduct = {
+    name: string
+    slug: string
+    sku: string
+    wordpress_id: number
     price: string
     stock_status: string
     stock_quantity: number | null
@@ -13,18 +26,15 @@ type PurchasedProductProps = {
         alt: string
         src: string
     }
-    id: number
-    quantity: number
-
 }
 
-export default function useFetchedProducts(product: PurchasedProductProps) {
+export default function useUpdatedProduct(product: ProductProps) {
 
     const [isOutOfStock, setIsOutOfStock] = useState<boolean>(false);
 
     const [getProductFetchData, { loading, error, data }] = useLazyQuery(gql`
-    query getProductFetchData($wpWcProductId: Int!) {
-        wpWcProduct(id: $wpWcProductId) {
+    query getProductFetchData($productId: Int!) {
+        wpWcProduct(productId: $productId) {
             price
             sale_price
             stock_status
@@ -34,7 +44,7 @@ export default function useFetchedProducts(product: PurchasedProductProps) {
 `);
 
     useEffect(() => {
-        getProductFetchData({ variables: { wpWcProductId: product.id } });
+        getProductFetchData({ variables: { productId: product.wordpress_id } });
     }, []);
 
     useEffect(() => {
@@ -46,19 +56,21 @@ export default function useFetchedProducts(product: PurchasedProductProps) {
                     : true
             );
 
-            updateProduct();
+            updateProduct(data);
         }
     }, [data]);
 
-    function updateProduct() {
+    function updateProduct(data: any) {
 
-        product.price = data.wpWcProduct.price;
-        product.sale_price = data.wpWcProduct.sale_price;
+        const updatedProduct: UpdatedProduct = {
+            ...product,
+            price: data.wpWcProduct.price,
+            sale_price: data.wpWcProduct.sale_price,
+            stock_quantity: data.wpWcProduct.stock_quantity,
+            stock_status: data.wpWcProduct.stock_status
+        };
 
-        product.stock_quantity = data.wpWcProduct.stock_quantity;
-        product.stock_status = data.wpWcProduct.stock_status;
-
-        updatePurchasedProductPriceResolver(product.id, product);
+        updatePurchasedProductPriceResolver(product.wordpress_id, updatedProduct);
     }
 
     return {
