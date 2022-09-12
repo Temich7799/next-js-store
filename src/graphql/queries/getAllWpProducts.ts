@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_WP_PRODUCTS = gql`
-    query getAllWpProducts {
-        allWpWcProducts {
+    query getAllWpProducts($filter: ProductsFilter) {
+        allWpWcProducts(filter: $filter) {
             id
             name
             price

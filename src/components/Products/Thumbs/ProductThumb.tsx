@@ -5,9 +5,7 @@ import ImageSVG from "../../ImageSVG";
 import Button from "../../Button";
 import ProductPrice from "../ProductPrice";
 import { PRODUCT_SKU } from "../../../languages/ru/languages";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
-import useFetchedProducts from "../../../services/hooks/useFetchedProduct";
 import InteractiveImage from "../../InteractiveImage";
 
 const StyledProductThumb = styled.div`
@@ -71,13 +69,10 @@ type ProductProps = {
 const ProductThumb = (props: ProductProps) => {
 
     const { data, absolutePath } = props;
-    const { categories, image, id } = data;
-    if (data.sku == '') data.sku = id.toString();
-
-    const { loading: isDataLoading, data: fetchedData, isOutOfStock } = useFetchedProducts(data);
+    if (data.sku == '') data.sku = data.id.toString();
 
     function buttonOnClickHandler() {
-        addToCartResolver(id, data);
+        addToCartResolver(data.id, data);
     }
 
     return (
@@ -85,18 +80,18 @@ const ProductThumb = (props: ProductProps) => {
             <ProductImage>
                 {
                     absolutePath
-                        ? <a href={absolutePath}>
-                            <InteractiveImage>
-                                <img src={image.src} alt={image.alt} />
-                            </InteractiveImage>
-                        </a>
-                        : <Link to={`${categories[0].slug}-${data.sku}`}><img src={image.src} alt={image.alt} /></Link>
+                        ? <a href={absolutePath}><img src={data.image.src} alt={data.image.alt} /> </a>
+                        :
+                        <Link to={`${data.categories[0].slug}-${data.sku}`}>
+                            <img src={data.image.src} alt={data.image.alt} />
+                        </Link>
+
                 }
             </ProductImage>
             <ProductCaption>
                 <div>
                     <p>{PRODUCT_SKU}: {data.sku}</p>
-                    <ProductPrice price={fetchedData && fetchedData.wpWcProduct.price} salePrice={fetchedData && fetchedData.wpWcProduct.sale_price} />
+                    <ProductPrice price={data.price} salePrice={data.sale_price} />
                 </div>
                 <div>
                     <Button id="shoppingCartButton" buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>

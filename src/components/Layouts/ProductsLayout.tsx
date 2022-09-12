@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import ProductsPage from "../Products/ProductsPage";
@@ -7,6 +7,11 @@ type Product = {
   node: {
     stock_quantity: number
     stock_status: string
+    categories: [
+      {
+        wordpress_id: number
+      }
+    ]
     images: [
       {
         alt: string
@@ -39,7 +44,7 @@ const ProductsLayout = (props: ProductsProps) => {
 
   return (
     <Layout>
-      <ProductsPage data={gatsbyImages} />
+      <ProductsPage gatsbyImages={gatsbyImages} categoryId={data.allWcProducts.edges[0].node.categories[0].wordpress_id.toString()} />
     </Layout>
   )
 }
@@ -47,13 +52,15 @@ const ProductsLayout = (props: ProductsProps) => {
 export default ProductsLayout
 
 export const query = graphql`
-  query getProductImages {
-    allWcProducts {
+  query getProductImages($categoryId: Int) {
+    allWcProducts(filter: {categories: {elemMatch: {wordpress_id: {eq: $categoryId}}}}){
       edges {
         node {
           stock_quantity
           stock_status
-          wordpress_id
+          categories {
+            wordpress_id
+          }
           images {
             localFile {
               childImageSharp {

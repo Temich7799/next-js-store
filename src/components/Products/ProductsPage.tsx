@@ -1,5 +1,5 @@
-import { useLazyQuery, useQuery } from "@apollo/client";
-import React, { useEffect, useState } from "react";
+import { useLazyQuery } from "@apollo/client";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { GET_ALL_WP_PRODUCTS } from "../../graphql/queries/getAllWpProducts";
 import useMobile from "../../services/hooks/useMobile";
@@ -7,7 +7,8 @@ import LoadingBar from "../LoadingBar";
 import ProductThumb from "./Thumbs/ProductThumb";
 
 type ProductsPageProps = {
-    data: Map<number, string>
+    gatsbyImages: Map<number, string>
+    categoryId: string
 }
 
 type Product = {
@@ -56,16 +57,20 @@ const Content = styled.div`
 
 const ProductsPage = (props: ProductsPageProps) => {
 
-    const { data } = props;
+    const { gatsbyImages, categoryId } = props;
 
     const isMobile = useMobile();
-
-    const [products, setProducts] = useState<Array<Product>>([]);
 
     const [getAllWpProducts, { loading: productsLoading, error: productsLoadingError, data: productsData }] = useLazyQuery(GET_ALL_WP_PRODUCTS);
 
     useEffect(() => {
-        getAllWpProducts();
+        getAllWpProducts({
+            variables: {
+                filter: {
+                    category: categoryId
+                }
+            }
+        });
     }, []);
 
     return (
@@ -78,7 +83,7 @@ const ProductsPage = (props: ProductsPageProps) => {
                         {
                             productsData && productsData.allWpWcProducts.map((product: Product) => {
 
-                                const gatsbyImage = data.get(product.id);
+                                const gatsbyImage = gatsbyImages.get(product.id);
 
                                 product = {
                                     ...product,

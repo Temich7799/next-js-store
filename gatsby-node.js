@@ -34,7 +34,8 @@ exports.createPages = async function ({ actions, graphql }) {
         allWcProductsCategories {
           edges {
               node {
-              slug
+                wordpress_id
+                slug
             }
           }
         }
@@ -45,7 +46,7 @@ exports.createPages = async function ({ actions, graphql }) {
       actions.createPage({
         path: `catalog/${edge.node.slug}`,
         component: path.resolve(`./src/components/Layouts/ProductsLayout.tsx`),
-        context: { slug: edge.node.slug },
+        context: { categoryId: edge.node.wordpress_id },
       })
     })
   }
