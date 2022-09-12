@@ -13,7 +13,7 @@ type PurchasedProductProps = {
         alt: string
         src: string
     }
-    wordpress_id: number
+    id: number
     quantity: number
 
 }
@@ -34,7 +34,7 @@ export default function useFetchedProducts(product: PurchasedProductProps) {
 `);
 
     useEffect(() => {
-        getProductFetchData({ variables: { wpWcProductId: product.wordpress_id } });
+        getProductFetchData({ variables: { wpWcProductId: product.id } });
     }, []);
 
     useEffect(() => {
@@ -58,7 +58,7 @@ export default function useFetchedProducts(product: PurchasedProductProps) {
         product.stock_quantity = data.wpWcProduct.stock_quantity;
         product.stock_status = data.wpWcProduct.stock_status;
 
-        updatePurchasedProductPriceResolver(product.wordpress_id, product);
+        updatePurchasedProductPriceResolver(product.id, product);
     }
 
     return {

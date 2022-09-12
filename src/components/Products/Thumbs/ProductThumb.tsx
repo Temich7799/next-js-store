@@ -59,7 +59,7 @@ type Product = {
             slug: string
         }
     ]
-    wordpress_id: number
+    id: number
     quantity: number
 }
 
@@ -71,13 +71,13 @@ type ProductProps = {
 const ProductThumb = (props: ProductProps) => {
 
     const { data, absolutePath } = props;
-    const { categories, image, wordpress_id } = data;
-    if (data.sku == '') data.sku = wordpress_id.toString();
+    const { categories, image, id } = data;
+    if (data.sku == '') data.sku = id.toString();
 
     const { loading: isDataLoading, data: fetchedData, isOutOfStock } = useFetchedProducts(data);
 
     function buttonOnClickHandler() {
-        addToCartResolver(wordpress_id, data);
+        addToCartResolver(id, data);
     }
 
     return (

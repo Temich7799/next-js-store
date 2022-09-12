@@ -1,5 +1,5 @@
-import { useLazyQuery } from "@apollo/client";
-import React, { useEffect } from "react";
+import { useLazyQuery, useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GET_ALL_WP_PRODUCTS } from "../../graphql/queries/getAllWpProducts";
 import useMobile from "../../services/hooks/useMobile";
@@ -25,7 +25,7 @@ type Product = {
             slug: string
         }
     ]
-    images?: [
+    images: [
         {
             alt: string
             src: string
@@ -36,6 +36,7 @@ type Product = {
         src: string
     }
     wordpress_id: number
+    id: number
     quantity: number
 }
 
@@ -59,12 +60,12 @@ const ProductsPage = (props: ProductsPageProps) => {
 
     const isMobile = useMobile();
 
+    const [products, setProducts] = useState<Array<Product>>([]);
+
     const [getAllWpProducts, { loading: productsLoading, error: productsLoadingError, data: productsData }] = useLazyQuery(GET_ALL_WP_PRODUCTS);
 
     useEffect(() => {
-        getAllWpProducts().then((response) => {
-            console.log(response.data);
-        });
+        getAllWpProducts();
     }, []);
 
     return (
@@ -75,10 +76,20 @@ const ProductsPage = (props: ProductsPageProps) => {
                     :
                     <Content>
                         {
-                            /*
-                            productsData.allWpWcProducts.map((product: Product) =>
-                                <ProductThumb data={product} key={product.wordpress_id} />)
-                                */
+                            productsData && productsData.allWpWcProducts.map((product: Product) => {
+
+                                const gatsbyImage = data.get(product.id);
+
+                                product = {
+                                    ...product,
+                                    image: {
+                                        src: gatsbyImage ? gatsbyImage : product.images[0].src,
+                                        alt: product.images[0].alt
+                                    }
+                                };
+
+                                return <ProductThumb data={product} key={product.id} />
+                            })
                         }
                     </Content>
             }

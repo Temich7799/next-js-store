@@ -10,7 +10,7 @@ type PurchasedProduct = {
         alt: string
         src: string
     }
-    wordpress_id: number
+    id: number
     quantity?: number
 }
 
