@@ -13,8 +13,8 @@ type Product = {
     sale_price: string
     description: string
     wordpress_id: number
-    stock_quantity?: number | null
-    stock_status?: string
+    stock_quantity: number | null
+    stock_status: string
     related_products: [Product]
     attributes: [
         {
