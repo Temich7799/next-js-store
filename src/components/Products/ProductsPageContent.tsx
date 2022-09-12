@@ -2,7 +2,6 @@ import { useLazyQuery } from "@apollo/client";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { GET_ALL_WP_PRODUCTS } from "../../graphql/queries/getAllWpProducts";
-import useMobile from "../../services/hooks/useMobile";
 import LoadingBar from "../LoadingBar";
 import ProductThumb from "./Thumbs/ProductThumb";
 
@@ -33,10 +32,6 @@ type FetchedProduct = {
     ]
 }
 
-const Main = styled.main<any>`
-    margin-top: ${props => props.isMobile ? "125px" : "0"};
-`;
-
 const Content = styled.div`
   max-width: 1900;
   margin: 0 auto;
@@ -51,8 +46,6 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
 
     const { gatsbyImages, categoryId } = props;
 
-    const isMobile = useMobile();
-
     const [getAllWpProducts, { loading: productsLoading, error: productsLoadingError, data: productsData }] = useLazyQuery(GET_ALL_WP_PRODUCTS);
 
     useEffect(() => {
@@ -66,7 +59,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
     }, []);
 
     return (
-        <Main isMobile={isMobile}>
+        <>
             {
                 productsLoading
                     ? <LoadingBar />
@@ -93,7 +86,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
                         }
                     </Content>
             }
-        </Main>
+        </>
     )
 }
 

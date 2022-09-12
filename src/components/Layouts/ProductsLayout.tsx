@@ -2,6 +2,8 @@ import React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import ProductsPageContent from "../Products/ProductsPageContent";
+import styled from "styled-components";
+import useMobile from "../../services/hooks/useMobile";
 
 type ProductsProps = {
   data: {
@@ -30,9 +32,15 @@ type Product = {
   }
 }
 
+const Main = styled.main<any>`
+    margin-top: ${props => props.isMobile ? "125px" : "0"};
+`;
+
 const ProductsLayout = (props: ProductsProps) => {
 
   const { data } = props;
+
+  const isMobile = useMobile();
 
   const gatsbyImages = new Map<number, string>();
 
@@ -44,7 +52,9 @@ const ProductsLayout = (props: ProductsProps) => {
 
   return (
     <Layout>
-      <ProductsPageContent gatsbyImages={gatsbyImages} categoryId={data.allWcProducts.edges[0].node.categories[0].wordpress_id.toString()} />
+      <Main isMobile={isMobile}>
+        <ProductsPageContent gatsbyImages={gatsbyImages} categoryId={data.allWcProducts.edges[0].node.categories[0].wordpress_id.toString()} />
+      </Main>
     </Layout>
   )
 }
