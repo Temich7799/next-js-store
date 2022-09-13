@@ -71,7 +71,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
                                 const productId = parseInt(fetchedProduct.id);
 
                                 const gatsbyImage = gatsbyImages.get(productId);
-
+                                
                                 const product = {
                                     ...fetchedProduct,
                                     wordpress_id: productId,

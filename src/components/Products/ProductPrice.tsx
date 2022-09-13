@@ -6,6 +6,7 @@ import LoadingBar from "../LoadingBar";
 type ProductPriceProps = {
     price: string
     salePrice: string
+    isPriceLoading?: boolean
     showTitle?: boolean
 }
 
@@ -31,7 +32,7 @@ const SalePrice = styled.span`
 
 const ProductPrice = (props: ProductPriceProps) => {
 
-    let { price, salePrice, showTitle = true } = props;
+    let { price, salePrice, isPriceLoading = false, showTitle = true } = props;
 
     return (
         <StyledProductPrice showTitle={showTitle}>
@@ -39,7 +40,7 @@ const ProductPrice = (props: ProductPriceProps) => {
                 showTitle && <p>{`${PRODUCT_PRICE_TITLE}:`}</p>
             }
             {
-                (price === undefined && salePrice === undefined)
+                isPriceLoading
                     ? <LoadingBar size="15%" />
                     :
                     <>

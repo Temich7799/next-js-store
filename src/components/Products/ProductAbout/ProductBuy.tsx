@@ -46,15 +46,15 @@ const ProductBuy = (props: ProductBuyProps) => {
 
     const { data } = props;
 
-    const { loading: isDataLoading, data: updatedProduct, isOutOfStock } = useUpdatedProduct(data);
+    const { loading: isDataLoading, updatedData, isOutOfStock } = useUpdatedProduct(data);
 
     function buttonOnClickHandler() {
-        addToCartResolver(data.wordpress_id, updatedProduct);
+        addToCartResolver(data.wordpress_id, updatedData);
     }
 
     return (
         <StyledProductBuy>
-            <ProductPrice price={updatedProduct && updatedProduct.wpWcProduct.price} salePrice={updatedProduct && updatedProduct.wpWcProduct.sale_price} />
+            <ProductPrice price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} />
             <Button id="shoppingCartButton" onClick={buttonOnClickHandler} disabled={isDataLoading || isOutOfStock}>
                 <>
                     {

@@ -22,7 +22,7 @@ export const shoppingCartVar = makeVar(
 
 
 export const addToCartResolver = (productId: number, product: PurchasedProductProps): void => {
-
+    console.log(product)
     const currentVar = { ...shoppingCartVar() };
 
     if (currentVar.hasOwnProperty(productId)) {

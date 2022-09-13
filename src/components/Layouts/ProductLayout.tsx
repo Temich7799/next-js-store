@@ -53,11 +53,14 @@ const Main = styled.main<any>`
 const ProductLayout = (props: ProductProps) => {
 
     const { data } = props;
-    if (data.wcProducts.image) {
-        data.wcProducts.image.src = data.wcProducts.images[0].src;
-        data.wcProducts.image.alt = data.wcProducts.images[0].alt;
+    const wcProduct = {
+        ...data.wcProducts,
+        image: {
+            src: data.wcProducts.images[0].src,
+            alt: data.wcProducts.images[0].alt
+        }
     }
-
+    
     const isMobile = useMobile();
 
     const gatsbyImages = new Map<number, string>();
@@ -71,7 +74,7 @@ const ProductLayout = (props: ProductProps) => {
     return (
         <Layout>
             <Main isMobile={isMobile}>
-                <ProductPageContent data={data.wcProducts} gatsbyImages={gatsbyImages} />
+                <ProductPageContent data={wcProduct} gatsbyImages={gatsbyImages} />
             </Main>
         </Layout >
     )
@@ -93,7 +96,7 @@ export const query = graphql`
             name
         }
         related_products {
-            stock_quantity
+            status
             stock_status
             wordpress_id
             images {

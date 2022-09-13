@@ -15,7 +15,7 @@ type ProductsProps = {
 
 type Product = {
   node: {
-    stock_quantity: number
+    status: string
     stock_status: string
     categories: [
       {
@@ -45,7 +45,7 @@ const ProductsLayout = (props: ProductsProps) => {
   const gatsbyImages = new Map<number, string>();
 
   data.allWcProducts.edges.forEach((edge: Product) => {
-    if (edge.node.stock_quantity > 0 || edge.node.stock_status == 'instock') {
+    if (edge.node.status == 'publish' || edge.node.stock_status == 'instock') {
       gatsbyImages.set(edge.node.wordpress_id, edge.node.images[0].localFile.childImageSharp.gatsbyImageData.images.fallback.src);
     }
   });
@@ -53,7 +53,9 @@ const ProductsLayout = (props: ProductsProps) => {
   return (
     <Layout>
       <Main isMobile={isMobile}>
-        <ProductsPageContent gatsbyImages={gatsbyImages} categoryId={data.allWcProducts.edges[0].node.categories[0].wordpress_id.toString()} />
+        {
+          data.allWcProducts.edges.length > 0 && <ProductsPageContent gatsbyImages={gatsbyImages} categoryId={data.allWcProducts.edges[0].node.categories[0].wordpress_id.toString()} />
+        }
       </Main>
     </Layout>
   )
@@ -66,15 +68,16 @@ export const query = graphql`
     allWcProducts(filter: {categories: {elemMatch: {wordpress_id: {eq: $categoryId}}}}){
       edges {
         node {
-          stock_quantity
+          status
           stock_status
+          wordpress_id
           categories {
             wordpress_id
           }
           images {
             localFile {
               childImageSharp {
-                gatsbyImageData(webpOptions: {quality: 85}, height: 240)
+                gatsbyImageData(webpOptions: {quality: 85}, height: 240, formats: WEBP)
               }
             }
           }

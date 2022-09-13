@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
 import styled from "styled-components"
-import { deletePurchasedProductResolver } from "../../../../graphql/vars/shoppingCartVar"
+import { deletePurchasedProductResolver, updatePurchasedProductPriceResolver } from "../../../../graphql/vars/shoppingCartVar"
 import { PRODUCT_SKU } from "../../../../languages/ru/languages"
-import useFetchedProducts from "../../../../services/hooks/useUpdatedProduct"
+import useUpdatedProduct from "../../../../services/hooks/useUpdatedProduct"
 import ProductPrice from "../../ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
 
@@ -58,14 +58,17 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
 
     const { data } = props;
 
-    const { data: fetchedData, isOutOfStock } = useFetchedProducts(data);
+    const { loading: isDataLoading, updatedData, isOutOfStock } = useUpdatedProduct(data);
 
+    useEffect(() => {
+        updatedData && updatePurchasedProductPriceResolver(data.wordpress_id, updatedData);
+    }, [updatedData]);
     useEffect(() => { isOutOfStock && deletePurchasedProductResolver(data.wordpress_id); }, [isOutOfStock]);
 
     return (
         <StyledPurchasedProduct>
             <PurchasedProductThumb src={data.image.src} alt={data.image.alt} />
-            <ProductPrice showTitle={false} price={fetchedData && fetchedData.wpWcProduct.price} salePrice={fetchedData && fetchedData.wpWcProduct.sale_price} />
+            <ProductPrice showTitle={false} price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} />
             <PurchasedProductName>
                 <p>{data.name}</p>
                 <p>{PRODUCT_SKU}: {data.sku}</p>
