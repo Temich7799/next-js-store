@@ -10,6 +10,7 @@ import { CAROUSEL_RELATED_PRODUCTS_TITLE } from "../../languages/ru/languages";
 import ProductThumb from "./Thumbs/ProductThumb";
 import { GET_ALL_WP_RELATED_PRODUCTS } from "../../graphql/queries/getAllWpRelatedProducts";
 import LoadingBar from "../LoadingBar";
+import { extendProductByMatchingImages } from "../../services/extendProductByMatchingImages";
 
 type ProductPageContentProps = {
     data: Product
@@ -27,7 +28,7 @@ type Product = {
     stock_quantity: number | null
     stock_status: string
     related_products: [Product]
-    id?: string | any
+    id: string | any
     attributes: [
         {
             options: [string]
@@ -96,26 +97,14 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                     {
                         allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
 
-                            const productId = parseInt(fetchedProduct.id);
-
-                            const gatsbyImage = gatsbyImages.get(productId);
-
-                            const relatedProduct = {
-                                ...fetchedProduct,
-                                wordpress_id: productId,
-                                image: {
-                                    src: gatsbyImage ? gatsbyImage : fetchedProduct.images[0].src,
-                                    alt: fetchedProduct.images[0].alt
-                                }
-                            };
+                            const relatedProduct = extendProductByMatchingImages(fetchedProduct, gatsbyImages);
 
                             return <ProductThumb
                                 data={relatedProduct}
                                 absolutePath={`${document.location.origin}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
                                 key={relatedProduct.wordpress_id}
                             />
-                        }
-                        )
+                        })
                     }
                 </Carousel>
             }

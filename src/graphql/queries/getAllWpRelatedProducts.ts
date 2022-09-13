@@ -7,6 +7,8 @@ export const GET_ALL_WP_RELATED_PRODUCTS = gql`
             price
             sku
             sale_price
+            stock_quantity
+            stock_status
             id
             images {
                 alt

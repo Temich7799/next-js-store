@@ -13,6 +13,7 @@ type Product = {
     sale_price: string
     description: string
     wordpress_id: number
+    id: string
     stock_quantity: number | null
     stock_status: string
     related_products: [Product]
@@ -55,12 +56,13 @@ const ProductLayout = (props: ProductProps) => {
     const { data } = props;
     const wcProduct = {
         ...data.wcProducts,
+        id: data.wcProducts.wordpress_id.toString(),
         image: {
             src: data.wcProducts.images[0].src,
             alt: data.wcProducts.images[0].alt
         }
     }
-    
+
     const isMobile = useMobile();
 
     const gatsbyImages = new Map<number, string>();
