@@ -1,21 +1,21 @@
 import { makeVar, useReactiveVar } from "@apollo/client";
 import { useEffect } from "react";
-
-type PurchasedProductProps = {
+interface PurchasedProductProps {
     name: string
     sku: string
-    price?: string
+    price: string
+    sale_price: string
     stock_status: string
     stock_quantity: number | null
-    sale_price: string
     image: {
         alt: string
         src: string
     }
     wordpress_id: number
+    quantity?: number
 }
 
-export const shoppingCartVar = makeVar([{}]);
+export const shoppingCartVar: any = makeVar({});
 
 export function useShoppingCartVar() {
 

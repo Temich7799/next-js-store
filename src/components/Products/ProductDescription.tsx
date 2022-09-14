@@ -16,14 +16,14 @@ type ProductDescriptionProps = {
 const ProductDescription = (props: ProductDescriptionProps) => {
 
     const { data } = props;
-
+    
     const isMobile = useMobile();
 
     return (
         <StyledProductDescription maxWidth={isMobile ? '95%' : '55%'}>
             <CopyProtectedArea>
                 <h3>{PRODUCT_DESCRIPTION_TITLE}</h3>
-                <p dangerouslySetInnerHTML={{ __html: data }} />
+                <div dangerouslySetInnerHTML={{ __html: data }} />
             </CopyProtectedArea>
         </StyledProductDescription>
     )

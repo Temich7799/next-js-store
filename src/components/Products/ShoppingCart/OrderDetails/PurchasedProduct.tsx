@@ -63,18 +63,18 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
 
     useEffect(() => {
         updatedData && update(data.wordpress_id, updatedData);
-        console.log(data)
-        console.log(updatedData)
     }, [updatedData]);
     useEffect(() => { isOutOfStock && clear(data.wordpress_id); }, [isOutOfStock]);
 
     return (
         <StyledPurchasedProduct>
+            <PurchasedProductThumb src={data.image.src} alt={data.image.alt} />
+            <ProductPrice price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} />
             <PurchasedProductName>
-                <p>{updatedData.name}</p>
-                <p>{PRODUCT_SKU}: {updatedData.sku}</p>
+                <p>{data.name}</p>
+                <p>{PRODUCT_SKU}: {data.sku}</p>
             </PurchasedProductName>
-            <PurchasedProductQuantity data={updatedData} />
+            <PurchasedProductQuantity data={data} />
         </StyledPurchasedProduct>
     )
 }

@@ -34,7 +34,7 @@ export default function useUpdatedProduct(productToUpdateToUpdate: ProductProps)
 
     const [getProductFetchData, { loading, error }] = useLazyQuery(gql`
         query getProductFetchData($productId: Int!) {
-            wpWcProduct(productToUpdateToUpdateId: $productId) {
+            wpWcProduct(productId: $productId) {
                 price
                 sale_price
                 stock_status
@@ -44,9 +44,9 @@ export default function useUpdatedProduct(productToUpdateToUpdate: ProductProps)
     `);
 
     useEffect(() => {
-        getProductFetchData({ variables: { productToUpdateToUpdateId: productToUpdateToUpdate.wordpress_id } })
+        getProductFetchData({ variables: { productId: productToUpdateToUpdate.wordpress_id } })
             .then((response) => {
-                console.log(response.data)
+
                 setIsOutOfStock(
                     response.data.wpWcProduct.stock_status == 'instock' || response.data.wpWcProduct.stock_quantity > 0
                         ? false
@@ -54,7 +54,7 @@ export default function useUpdatedProduct(productToUpdateToUpdate: ProductProps)
                 );
 
                 setUpdatedData({
-                    ...productToUpdateToUpdate,
+                    ...updatedData,
                     ...response.data.wpWcProduct
                 })
             });
