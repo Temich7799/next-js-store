@@ -4,7 +4,7 @@ import { PRODUCT_BUY_BUTTON_TITLE, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } from "../
 import Button from "../../Button";
 import ImageSVG from "../../ImageSVG";
 import ProductPrice from "../ProductPrice";
-import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
+import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
 import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct";
 
 const StyledProductBuy = styled.div`
@@ -48,8 +48,10 @@ const ProductBuy = (props: ProductBuyProps) => {
 
     const { loading: isDataLoading, updatedData, isOutOfStock } = useUpdatedProduct(data);
 
+    const { add } = useShoppingCartVar();
+
     function buttonOnClickHandler() {
-        addToCartResolver(data.wordpress_id, updatedData);
+        add(data.wordpress_id, updatedData);
     }
 
     return (

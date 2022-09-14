@@ -1,12 +1,12 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
+import { useShoppingCartVar } from "../../services/hooks/useShoppingCartVar";
 import toogle from "../../services/toogle";
 import Button from "../Button";
 import ImageSVG from "../ImageSVG";
 import PopUp from "../PopUp";
 import OrderDetails from "../Products/ShoppingCart/OrderDetails/OrderDetails";
-import { useReactiveVar } from "@apollo/client";
-import { shoppingCartVar } from "../../graphql/vars/shoppingCartVar";
+
 
 const StyledHeaderShoppingCart = styled.div`
     position: relative;
@@ -29,7 +29,8 @@ const HeaderShoppingCart = () => {
 
     const [showPopUp, setShowPopUp] = useState<boolean>(false);
 
-    const purchasesCount = Object.values(useReactiveVar(shoppingCartVar)).length;
+    const { data } = useShoppingCartVar();
+    const purchasesCount = data ? Object.values(data).length : '0';
 
     function buttonOnClickHandler() {
         setShowPopUp(toogle(showPopUp));
@@ -43,7 +44,9 @@ const HeaderShoppingCart = () => {
                     <p>{purchasesCount}</p>
                 </PurchasesCount>
             </Button>
-            <PopUp visible={showPopUp} setVisible={setShowPopUp}><OrderDetails /></PopUp>
+            <PopUp visible={showPopUp} setVisible={setShowPopUp}>
+                <OrderDetails />
+            </PopUp>
         </StyledHeaderShoppingCart>
     )
 }

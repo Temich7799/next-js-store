@@ -38,7 +38,7 @@ const PurchasedProducts = (props: PurchasedProductsProps) => {
         <StyledPurchasedProducts id="ordered_products">
             <hr />
             {
-                data && data.length
+                data && data.length > 0
                     ? data.map((product: PurchasedProductProps) => <PurchasedProduct data={product} />)
                     : <p>{ORDER_FINAL_BUTTON_DISABLED}</p>
             }

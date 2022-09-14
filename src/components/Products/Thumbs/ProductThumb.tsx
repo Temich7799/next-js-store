@@ -5,7 +5,7 @@ import ImageSVG from "../../ImageSVG";
 import Button from "../../Button";
 import ProductPrice from "../ProductPrice";
 import { PRODUCT_SKU } from "../../../languages/ru/languages";
-import { addToCartResolver } from "../../../graphql/vars/shoppingCartVar";
+import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
 import InteractiveImage from "../../InteractiveImage";
 
 type ProductProps = {
@@ -70,8 +70,10 @@ const ProductThumb = (props: ProductProps) => {
     const { data, absolutePath } = props;
     if (data.sku == '') data.sku = data.wordpress_id.toString();
 
+    const { add } = useShoppingCartVar();
+
     function buttonOnClickHandler() {
-        addToCartResolver(data.wordpress_id, data);
+        add(data.wordpress_id, data);
     }
 
     return (

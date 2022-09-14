@@ -36,14 +36,12 @@ const PageLayout = (props: PageProps) => {
   const isMobile = useMobile();
 
   return (
-    <>
-      <Layout>
-        <Main isMobile={isMobile}>
-          <PageTitle>{data.wpPage.title}</PageTitle>
-          {(data.wpPage.content) ? <Content dangerouslySetInnerHTML={{ __html: data.wpPage.content }} /> : '404'}
-        </Main>
-      </Layout>
-    </>
+    <Layout>
+      <Main isMobile={isMobile}>
+        <PageTitle>{data.wpPage.title}</PageTitle>
+        {(data.wpPage.content) ? <Content dangerouslySetInnerHTML={{ __html: data.wpPage.content }} /> : '404'}
+      </Main>
+    </Layout>
   )
 }
 

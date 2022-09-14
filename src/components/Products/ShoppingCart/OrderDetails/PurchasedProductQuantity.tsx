@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { addToCartResolver, decreasePurchasedProductQuantityResolver, deletePurchasedProductResolver } from "../../../../graphql/vars/shoppingCartVar"
+import { useShoppingCartVar } from "../../../../services/hooks/useShoppingCartVar"
 import Button from "../../../Button"
 import ImageSVG from "../../../ImageSVG"
 
@@ -36,6 +36,8 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
 
     const { data } = props;
 
+    const { add, decrease, clear } = useShoppingCartVar();
+
     return (
         <StyledPurchasedProductQuantity>
             <p>x {data.quantity}</p>
@@ -43,14 +45,14 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
                 <Button buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
                         e.preventDefault();
-                        addToCartResolver(data.wordpress_id, data);
+                        add(data.wordpress_id, data);
                     }}>
                     <ImageSVG path='/svg/increase.svg' height="25px" width="25px" />
                 </Button>
                 <Button buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
                         e.preventDefault();
-                        decreasePurchasedProductQuantityResolver(data.wordpress_id);
+                        decrease(data.wordpress_id);
                     }}>
                     <ImageSVG path='/svg/decrease.svg' height="25px" width="25px" />
                 </Button>
@@ -58,7 +60,7 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
             <Button buttonSize="shrink" buttonStyle="transparent"
                 onClick={(e: any) => {
                     e.preventDefault();
-                    deletePurchasedProductResolver(data.wordpress_id);
+                    clear(data.wordpress_id);
                 }}>
                 <ImageSVG path='/svg/clear_cart.svg' height="25px" width="25px" />
             </Button>

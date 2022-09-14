@@ -92,21 +92,25 @@ const ProductPageContent = (props: ProductPageContentProps) => {
             <ProductAbout data={data}></ProductAbout>
             <ProductDescription data={data.description}></ProductDescription>
             {
-                allWpRelatedProductsData &&
-                <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} carouselItemMax={3}>
-                    {
-                        allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
-
-                            const relatedProduct = extendProductByMatchingImages(fetchedProduct, gatsbyImages);
-
-                            return <ProductThumb
-                                data={relatedProduct}
-                                absolutePath={`${document.location.origin}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
-                                key={relatedProduct.wordpress_id}
-                            />
-                        })
-                    }
-                </Carousel>
+                /*
+                                allWpRelatedProductsData &&
+                                <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} carouselItemMax={3}>
+                                    {
+                                        /*
+                                        allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
+                
+                                            const relatedProduct = extendProductByMatchingImages(fetchedProduct, gatsbyImages);
+                
+                                            return <ProductThumb
+                                                data={relatedProduct}
+                                                absolutePath={`${document.location.origin}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
+                                                key={relatedProduct.wordpress_id}
+                                            />
+                                        })
+                                        
+                                    }
+                                </Carousel>
+                */
             }
         </StyledProductsPageContent >
     )

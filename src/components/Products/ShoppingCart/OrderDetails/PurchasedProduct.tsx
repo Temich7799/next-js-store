@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import styled from "styled-components"
-import { deletePurchasedProductResolver, updatePurchasedProductPriceResolver } from "../../../../graphql/vars/shoppingCartVar"
+import { useShoppingCartVar } from "../../../../services/hooks/useShoppingCartVar"
 import { PRODUCT_SKU } from "../../../../languages/ru/languages"
 import useUpdatedProduct from "../../../../services/hooks/useUpdatedProduct"
 import ProductPrice from "../../ProductPrice"
@@ -59,21 +59,22 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
     const { data } = props;
 
     const { loading: isDataLoading, updatedData, isOutOfStock } = useUpdatedProduct(data);
+    const { update, clear } = useShoppingCartVar();
 
     useEffect(() => {
-        updatedData && updatePurchasedProductPriceResolver(data.wordpress_id, updatedData);
+        updatedData && update(data.wordpress_id, updatedData);
+        console.log(data)
+        console.log(updatedData)
     }, [updatedData]);
-    useEffect(() => { isOutOfStock && deletePurchasedProductResolver(data.wordpress_id); }, [isOutOfStock]);
+    useEffect(() => { isOutOfStock && clear(data.wordpress_id); }, [isOutOfStock]);
 
     return (
         <StyledPurchasedProduct>
-            <PurchasedProductThumb src={data.image.src} alt={data.image.alt} />
-            <ProductPrice showTitle={false} price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} />
             <PurchasedProductName>
-                <p>{data.name}</p>
-                <p>{PRODUCT_SKU}: {data.sku}</p>
+                <p>{updatedData.name}</p>
+                <p>{PRODUCT_SKU}: {updatedData.sku}</p>
             </PurchasedProductName>
-            <PurchasedProductQuantity data={data} />
+            <PurchasedProductQuantity data={updatedData} />
         </StyledPurchasedProduct>
     )
 }

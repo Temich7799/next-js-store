@@ -1,7 +1,6 @@
 import React, { forwardRef } from "react"
 import styled from "styled-components"
-import { useReactiveVar } from "@apollo/client";
-import { shoppingCartVar } from "../../../../graphql/vars/shoppingCartVar";
+import { useShoppingCartVar } from "../../../../services/hooks/useShoppingCartVar";
 import { ORDER_DETAILS_TITLE } from "../../../../languages/ru/languages";
 import OrderFinal from "./OrderFinal";
 import PurchasedProducts from "./PurchasedProducts";
@@ -53,7 +52,8 @@ const OrderDetails = forwardRef((props: OrderDetailsProps, formRef: any) => {
 
     const { isOrderFetching } = props;
 
-    const shoppingCartProducts: Array<PurchasedProduct> = Object.values(useReactiveVar(shoppingCartVar));
+    const { data } = useShoppingCartVar();
+    const shoppingCartProducts: PurchasedProduct | any = data && Object.values(data);
 
     return (
         <StyledOrderDetails id="order_details">
