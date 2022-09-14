@@ -67,7 +67,7 @@ const ProductPageContent = (props: ProductPageContentProps) => {
 
     const { data, gatsbyImages } = props;
 
-    const [getRelatedProductsIds, { loading: allRelatedProductsIdsLoading, error: allRelatedProductsIdsLoadingError, data: allRelatedProductsIdsData }] = useLazyQuery(GET_RELATED_PRODUCTS_IDS, { variables: { productId: data.wordpress_id } });
+    const [getRelatedProductsIds] = useLazyQuery(GET_RELATED_PRODUCTS_IDS, { variables: { productId: data.wordpress_id } });
     const [getAllWpRelatedProducts, { loading: allWpRelatedProductsLoading, error: allWpRelatedProductsLoadingError, data: allWpRelatedProductsData }] = useLazyQuery(GET_ALL_WP_RELATED_PRODUCTS);
 
     useEffect(() => {
