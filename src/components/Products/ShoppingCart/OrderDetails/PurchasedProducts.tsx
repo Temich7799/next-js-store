@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import { ORDER_FINAL_BUTTON_DISABLED } from "../../../../languages/ru/languages"
 import PurchasedProduct from "./PurchasedProduct"
@@ -34,12 +34,15 @@ const PurchasedProducts = (props: PurchasedProductsProps) => {
 
     const { data } = props;
 
+    const [shoppingCartProductsData, setShoppingCartProductsData] = useState<Array<PurchasedProductProps>>();
+    useEffect(() => { setShoppingCartProductsData(data) }, [data]);
+
     return (
         <StyledPurchasedProducts id="ordered_products">
             <hr />
             {
-                data && data.length > 0
-                    ? data.map((product: PurchasedProductProps) => <PurchasedProduct data={product} />)
+                shoppingCartProductsData
+                    ? shoppingCartProductsData.map((product: PurchasedProductProps) => <PurchasedProduct data={product} key={product.wordpress_id} />)
                     : <p>{ORDER_FINAL_BUTTON_DISABLED}</p>
             }
             <hr />

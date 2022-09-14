@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react"
+import React, { forwardRef, useEffect, useState } from "react"
 import styled from "styled-components"
 import { useShoppingCartVar } from "../../../../services/hooks/useShoppingCartVar";
 import { ORDER_DETAILS_TITLE } from "../../../../languages/ru/languages";
@@ -53,13 +53,15 @@ const OrderDetails = forwardRef((props: OrderDetailsProps, formRef: any) => {
     const { isOrderFetching } = props;
 
     const { data } = useShoppingCartVar();
-    const shoppingCartProducts: PurchasedProduct | any = data && Object.values(data);
+
+    const [shoppingCartProductsData, setShoppingCartProductsData] = useState<object | any>();
+    useEffect(() => { data && setShoppingCartProductsData(Object.values(data)) }, [data]);
 
     return (
         <StyledOrderDetails id="order_details">
             <h4>{ORDER_DETAILS_TITLE}</h4>
-            <PurchasedProducts data={shoppingCartProducts} />
-            <OrderFinal ref={formRef} data={shoppingCartProducts} isOrderFetching={isOrderFetching} />
+            <PurchasedProducts data={shoppingCartProductsData} />
+            <OrderFinal ref={formRef} data={shoppingCartProductsData} isOrderFetching={isOrderFetching} />
         </StyledOrderDetails >
     )
 })
