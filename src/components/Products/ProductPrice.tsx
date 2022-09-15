@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
 import { PRODUCT_PRICE_TITLE } from "../../languages/ru/languages";
-import LoadingBar from "../LoadingBar";
+import LoadingSpinner from "../Loaders/LoadingSpinner";
 
 type ProductPriceProps = {
     price: string
@@ -41,7 +41,7 @@ const ProductPrice = (props: ProductPriceProps) => {
             }
             {
                 isPriceLoading
-                    ? <LoadingBar size="15%" />
+                    ? <LoadingSpinner size="15%" />
                     :
                     <>
                         {

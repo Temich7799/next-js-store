@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState } from "react"
 import styled from "styled-components"
-import LoadingBar from "../LoadingBar";
+import LoadingSpinner from "../Loaders/LoadingSpinner";
 
 const StyledLabel = styled.div`
     display: flex;
@@ -110,7 +110,7 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
                 <ErrorMessage>{onInvalidMessage}</ErrorMessage>
                 {
                     isFetchPending
-                        ? <span><LoadingBar /></span>
+                        ? <span><LoadingSpinner /></span>
                         : !onInvalidMessage &&
                             valueFromProps
                             ? <ValidMessage>

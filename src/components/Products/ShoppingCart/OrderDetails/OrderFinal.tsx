@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useState } from "react"
 import styled from "styled-components"
 import { ORDER_FINAL_BUTTON_BACK, ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_BUTTON_DISABLED, ORDER_FINAL_BUTTON_SUBMIT, ORDER_FINAL_TITLE } from "../../../../languages/ru/languages";
 import Button from "../../../Button";
-import LoadingBar from "../../../LoadingBar";
+import LoadingSpinner from "../../../Loaders/LoadingSpinner";
 import { Link } from "gatsby";
 
 type OrderFinalProps = {
@@ -65,7 +65,7 @@ const OrderFinal = forwardRef((props: OrderFinalProps, formRef: any) => {
                 <Button onClick={(e: any) => e.preventDefault()}>{ORDER_FINAL_BUTTON_BACK}</Button>
                 {
                     formRef
-                        ? <Button type="submit" form="order_form" disabled={isButtonDisabled || isOrderFetching} buttonStyle="accent">{!isOrderFetching ? isButtonDisabled ? ORDER_FINAL_BUTTON_DISABLED : ORDER_FINAL_BUTTON_SUBMIT : <LoadingBar />}</Button>
+                        ? <Button type="submit" form="order_form" disabled={isButtonDisabled || isOrderFetching} buttonStyle="accent">{!isOrderFetching ? isButtonDisabled ? ORDER_FINAL_BUTTON_DISABLED : ORDER_FINAL_BUTTON_SUBMIT : <LoadingSpinner />}</Button>
                         : isButtonDisabled
                             ? <Button buttonStyle="accent" disabled={isButtonDisabled}>{ORDER_FINAL_BUTTON_DISABLED}</Button>
                             : <Link to="/shopping_cart"><Button buttonStyle="accent" disabled={isButtonDisabled}>{ORDER_FINAL_BUTTON_CONTINUE}</Button></Link>
