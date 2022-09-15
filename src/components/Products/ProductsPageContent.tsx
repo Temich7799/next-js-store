@@ -1,5 +1,5 @@
 import { useLazyQuery } from "@apollo/client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GET_ALL_WP_PRODUCTS } from "../../graphql/queries/getAllWpProducts";
 import { extendProductByMatchingImages } from "../../services/extendProductByMatchingImages";
@@ -47,17 +47,56 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
 
     const { gatsbyImages, categoryId } = props;
 
-    const [getAllWpProducts, { loading: productsLoading, error: productsLoadingError, data: productsData }] = useLazyQuery(GET_ALL_WP_PRODUCTS);
+    const [fetchOffset, setFetchOffset] = useState<number>(0);
+
+    const [getAllWpProducts, { loading: productsLoading, data: productsData, fetchMore }] = useLazyQuery(GET_ALL_WP_PRODUCTS);
 
     useEffect(() => {
+
         getAllWpProducts({
             variables: {
                 filter: {
-                    category: categoryId
+                    category: categoryId,
+                    per_page: 25,
+                    offset: fetchOffset
                 }
             }
+        }).then((response) => {
+            setFetchOffset(response.data.allWpWcProducts.length + fetchOffset);
         });
+
     }, []);
+
+    useEffect(() => {
+
+        window.addEventListener('scroll', onScrollHandler);
+
+        return () => {
+            window.removeEventListener('scroll', onScrollHandler);
+        }
+    }, [fetchOffset])
+
+    function onScrollHandler() {
+
+        if (window.scrollY > (document.documentElement.scrollHeight - document.documentElement.clientHeight) / 3) {
+
+            window.removeEventListener('scroll', onScrollHandler);
+            console.log(fetchOffset)
+            fetchMore(
+                {
+                    variables: {
+                        filter: {
+                            category: categoryId,
+                            per_page: 25,
+                            offset: fetchOffset
+                        }
+                    }
+                }
+            ).then((response) => {
+                setFetchOffset(response.data.allWpWcProducts.length + fetchOffset);
+            });
+        }
+    }
 
     return (
         <>
