@@ -13,7 +13,23 @@ const batchLink = new BatchHttpLink({
 
 const client = new ApolloClient({
     uri: "http://localhost:3000/graphql",
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache(
+        {
+            typePolicies: {
+                Query: {
+                    fields: {
+                        allWpWcProducts: {
+                            keyArgs: false,
+                            merge(existing = [], incoming) {
+                                console.log(incoming)
+                                return [...existing, ...incoming]
+                            }
+                        },
+                    },
+                },
+            },
+        }
+    ),
 });
 
 type LayoutProps = {
@@ -25,7 +41,7 @@ const Layout = (props: LayoutProps) => {
     const { children } = props;
 
     return (
-        <ApolloProvider client={client}>
+        <ApolloProvider client={client} >
             <Header />
             {children}
             <Footer />
