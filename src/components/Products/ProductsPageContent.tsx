@@ -57,6 +57,8 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
             variables: {
                 filter: {
                     category: categoryId,
+                    stock_status: 'instock',
+                    status: 'publish',
                     per_page: 25,
                     offset: fetchOffset
                 }
@@ -87,6 +89,8 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
                     variables: {
                         filter: {
                             category: categoryId,
+                            stock_status: 'instock',
+                            status: 'publish',
                             per_page: 25,
                             offset: fetchOffset
                         }
