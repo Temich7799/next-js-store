@@ -42,7 +42,7 @@ const resolvers = {
         const options = {};
         if (filter) {
             filter.offset && (options.offset = filter.offset);
-            filter.per_page ? options.per_page = filter.per_page : options.per_page = 60;
+            filter.per_page ? options.per_page = filter.per_page < 100 ? filter.per_page : 100 : options.per_page = 50;
             filter.status && (options.status = filter.status);
             filter.orderby && (options.orderby = filter.orderby);
             filter.stock_status && (options.stock_status = filter.stock_status);
