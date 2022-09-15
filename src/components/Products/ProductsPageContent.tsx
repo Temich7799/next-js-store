@@ -84,7 +84,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
         if (window.scrollY > (document.documentElement.scrollHeight - document.documentElement.clientHeight) / 3) {
 
             window.removeEventListener('scroll', onScrollHandler);
-            console.log(fetchOffset)
+            
             fetchMore(
                 {
                     variables: {

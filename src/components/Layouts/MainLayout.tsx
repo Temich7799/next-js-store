@@ -21,7 +21,6 @@ const client = new ApolloClient({
                         allWpWcProducts: {
                             keyArgs: false,
                             merge(existing = [], incoming) {
-                                console.log(incoming)
                                 return [...existing, ...incoming]
                             }
                         },
