@@ -48,18 +48,19 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
     const { gatsbyImages, categoryId } = props;
 
     const [fetchOffset, setFetchOffset] = useState<number>(0);
+    const [fetchLimit, setFetchLimit] = useState<number>(50);
 
     const [getAllWpProducts, { loading: productsLoading, data: productsData, fetchMore }] = useLazyQuery(GET_ALL_WP_PRODUCTS);
 
     useEffect(() => {
-
+        setFetchLimit(Math.floor((window.innerHeight * window.innerWidth) / 10000));
         getAllWpProducts({
             variables: {
                 filter: {
                     category: categoryId,
                     stock_status: 'instock',
                     status: 'publish',
-                    per_page: 25,
+                    per_page: Math.floor((window.innerHeight * window.innerWidth) / 10000),
                     offset: fetchOffset
                 }
             }
@@ -91,7 +92,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
                             category: categoryId,
                             stock_status: 'instock',
                             status: 'publish',
-                            per_page: 25,
+                            per_page: fetchLimit,
                             offset: fetchOffset
                         }
                     }
