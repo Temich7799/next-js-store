@@ -4,11 +4,8 @@ import { graphql } from "gatsby";
 import PageTitle from "../PageTitle";
 import styled from "styled-components";
 import useMobile from "../../services/hooks/useMobile";
+import { Main } from "../../styles/Main";
 require('../../styles/wp.css');
-
-const Main = styled.main<any>`
-  margin-top: ${props => props.isMobile ? "125px" : "0"};
-`;
 
 const Content = styled.div`
     max-width: 1700px;

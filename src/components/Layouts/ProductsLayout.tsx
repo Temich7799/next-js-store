@@ -2,8 +2,8 @@ import React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import ProductsPageContent from "../Products/ProductsPageContent";
-import styled from "styled-components";
 import useMobile from "../../services/hooks/useMobile";
+import { Main } from "../../styles/Main";
 
 type ProductsProps = {
   data: {
@@ -31,10 +31,6 @@ type Product = {
     wordpress_id: number
   }
 }
-
-const Main = styled.main<any>`
-    margin-top: ${props => props.isMobile ? "125px" : "0"};
-`;
 
 const ProductsLayout = (props: ProductsProps) => {
 
