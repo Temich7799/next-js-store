@@ -12,6 +12,28 @@ const WpWcOrder = `#graphql
         line_items: [WpWcOrderedProduct]
         shipping_lines: [ShippingLine]
     }
+
+    type WpWcOrderedProduct {
+        name: String
+        product_id: ID
+        quantity: Int
+        sku: String
+        price: Int
+    }
+
+    type ShippingLine {
+        id: ID
+        method_title: String
+        method_id: String
+    }
+
+    type WpWcCustomer {
+        first_name: String
+        last_name: String
+        address_1: String
+        city: String
+        phone: String
+    }
 `;
 
 module.exports = WpWcOrder;

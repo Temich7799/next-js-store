@@ -1,62 +1,44 @@
 const { buildSchema } = require('graphql');
-const ShippingLine = require('./types/ShippingLine');
-const WpWcOrderedProduct = require('./types/WpWcOrderedProduct');
-const WpWcCustomer = require('./types/WpWcCustomer');
 const WpWcOrder = require('./types/WpWcOrder');
 const WpNovaPoshtaWarehouse = require('./types/WpNovaPoshtaWarehouse');
 const WpNovaPoshtaCity = require('./types/WpNovaPoshtaCity');
 const WpWcProduct = require('./types/WpWcProduct');
 const PaymentMethod = require('./types/PaymentMethod');
+const ProductsFilterInput = require('./inputs/ProductsFilterInput');
+const OrderDataInput = require('./inputs/OrderDataInput');
+const LanguagesEnum = require('./enums/LanguagesEnum');
+const StockStatusesEnum = require('./enums/StockStatusesEnum');
+const PublishStatusesEnum = require('./enums/PublishStatusesEnum');
 
 const schema = buildSchema(`#graphql
 
     type Query {
         allWpWcOrders: [WpWcOrder!]!
-        allWpNovaPoshtaCities(language: Languages, regExp: String, limit: Int): [WpNovaPoshtaCity!]!
-        allWpNovaPoshtaWarehouses(language: Languages, cityRef: String!, regExp: String, limit: Int): [WpNovaPoshtaWarehouse!]!
-        allWpWcProducts(filter: ProductsFilter): [WpWcProduct!]!
+        allWpNovaPoshtaCities(language: LanguagesEnum, regExp: String, limit: Int): [WpNovaPoshtaCity!]!
+        allWpNovaPoshtaWarehouses(language: LanguagesEnum, cityRef: String!, regExp: String, limit: Int): [WpNovaPoshtaWarehouse!]!
+        allWpWcProducts(filter: ProductsFilterInput): [WpWcProduct!]!
         allWpWcPaymentMethods: [PaymentMethod]
 
         wpWcOrder(productId: Int!): WpWcOrder!
         wpWcProduct(productId: Int!): WpWcProduct!
     }
 
-    enum Languages {
-        RU
-        UA
+    type Mutation {
+        wpWcCreateOrder(data: OrderDataInput!): WpWcOrder
     }
-
-    input ProductsFilter {
-        orderby: String
-        offset: Int
-        per_page: Int
-        include: [Int]
-        stock_status: StockStatus
-        status: PublishStatus
-        category: String
-    }
-
-    enum StockStatus {
-        instock
-        outofstock
-        onbackorder
-    }
-
-    enum PublishStatus {
-        publish
-        private
-        pending
-        draft
-    }
-
+#############----------Types--------------####################
     ${WpWcProduct}
-    ${ShippingLine}
-    ${WpWcOrderedProduct}
-    ${WpWcCustomer}
     ${WpWcOrder}
     ${WpNovaPoshtaCity}
     ${WpNovaPoshtaWarehouse}
     ${PaymentMethod}
+#############----------Inputs--------------####################
+    ${ProductsFilterInput}
+    ${OrderDataInput}
+#############----------Enums--------------####################
+    ${LanguagesEnum}
+    ${PublishStatusesEnum}
+    ${StockStatusesEnum}
 `);
 
 module.exports = schema;

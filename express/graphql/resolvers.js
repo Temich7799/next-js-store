@@ -82,6 +82,9 @@ const resolvers = {
     wpWcOrder: ({ productId }) => WooCommerce.get(`orders/${productId}`).then((response) => response.data),
     wpWcProduct: ({ productId }) => WooCommerce.get(`products/${productId}`).then((response) => response.data),
 
+
+    wpWcCreateOrder: ({ data }) => WooCommerce.post("orders", data).then((response) => response.data),
+
 };
 
 function sqlQuery(sql) {
