@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useState } from "react"
 import styled from "styled-components"
 import { ORDER_FINAL_BUTTON_BACK, ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_BUTTON_DISABLED, ORDER_FINAL_BUTTON_SUBMIT, ORDER_FINAL_TITLE } from "../../../../languages/ru/languages";
 import Button from "../../../Button";
-import LoadingSpinner from "../../../Loaders/LoadingSpinner";
+import LoadingSpinner from "../../../LoadingBars/LoadingSpinner";
 import { Link } from "gatsby";
 
 type OrderFinalProps = {

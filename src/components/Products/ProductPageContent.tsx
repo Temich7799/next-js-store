@@ -9,7 +9,7 @@ import Carousel from "../Carousel";
 import { CAROUSEL_RELATED_PRODUCTS_TITLE } from "../../languages/ru/languages";
 import ProductThumb from "./Thumbs/ProductThumb";
 import { GET_ALL_WP_RELATED_PRODUCTS } from "../../graphql/queries/getAllWpRelatedProducts";
-import LoadingSpinner from "../Loaders/LoadingSpinner";
+import LoadingSpinner from "../LoadingBars/LoadingSpinner";
 import { extendProductByMatchingImages } from "../../services/extendProductByMatchingImages";
 
 type ProductPageContentProps = {

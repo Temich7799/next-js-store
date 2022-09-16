@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GET_ALL_WP_PRODUCTS } from "../../graphql/queries/getAllWpProducts";
 import { extendProductByMatchingImages } from "../../services/extendProductByMatchingImages";
-import LoadingSpinner from "../Loaders/LoadingSpinner";
+import LoadingBar from "../LoadingBars/LoadingBar";
 import ProductThumb from "./Thumbs/ProductThumb";
 
 type ProductsPageContentProps = {
@@ -107,7 +107,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
         <>
             {
                 productsLoading
-                    ? <LoadingSpinner />
+                    ? <LoadingBar />
                     :
                     <Content>
                         {

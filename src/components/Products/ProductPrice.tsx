@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
 import { PRODUCT_PRICE_TITLE } from "../../languages/ru/languages";
-import LoadingSpinner from "../Loaders/LoadingSpinner";
+import LoadingSpinner from "../LoadingBars/LoadingSpinner";
 
 type ProductPriceProps = {
     price: string

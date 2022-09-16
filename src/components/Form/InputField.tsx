@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState } from "react"
 import styled from "styled-components"
-import LoadingSpinner from "../Loaders/LoadingSpinner";
+import LoadingSpinner from "../LoadingBars/LoadingSpinner";
 
 const StyledLabel = styled.div`
     display: flex;
