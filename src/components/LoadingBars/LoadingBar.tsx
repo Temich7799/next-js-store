@@ -18,7 +18,6 @@ const StyledLoadingBar = styled.div<LoadingBarProps>`
     width: 2.5em;
     height: 2.5em;
     animation-fill-mode: both;
-    margin:0 auto;
     animation: ${loaderAnimation} 1.8s infinite ease-in-out;
     color: #8BDEC6;
     font-size: 7px;

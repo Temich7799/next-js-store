@@ -34,13 +34,20 @@ type FetchedProduct = {
 }
 
 const Content = styled.div`
-  max-width: 1900px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(auto, 200px));
-  justify-content: center;
-  gap: 50px;
-  padding: 2.5%;
+    max-width: 1900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(auto, 200px));
+    justify-content: center;
+    gap: 50px;
+    padding: 2.5%;
+`;
+
+const LoaderWrapper = styled.div`
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 const ProductsPageContent = (props: ProductsPageContentProps) => {
@@ -84,7 +91,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
         if (window.scrollY > (document.documentElement.scrollHeight - document.documentElement.clientHeight) / 3) {
 
             window.removeEventListener('scroll', onScrollHandler);
-            
+
             fetchMore(
                 {
                     variables: {
@@ -107,7 +114,10 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
         <>
             {
                 productsLoading
-                    ? <LoadingBar />
+                    ?
+                    <LoaderWrapper>
+                        <LoadingBar />
+                    </LoaderWrapper>
                     :
                     <Content>
                         {
