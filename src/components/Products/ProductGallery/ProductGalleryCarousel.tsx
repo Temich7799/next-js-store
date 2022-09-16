@@ -57,7 +57,7 @@ const ProductGalleryCarousel = (props: ProductGalleryCarouselProps) => {
                 data.map((image, index) =>
                     <ProductGalleryCarouselImage
                         isSelected={data.indexOf(image) == selectedImage && true}
-                        onClick={(e: any) => setSelectedImage(data.indexOf(image))}
+                        onClick={() => { setSelectedImage(data.indexOf(image)) }}
                         key={index}
                     >
                         <GatsbyImage image={getImage(image.localFile)} alt={image.alt} />

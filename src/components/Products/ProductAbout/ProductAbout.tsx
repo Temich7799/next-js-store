@@ -1,27 +1,21 @@
-import * as React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
+import { PageContext } from "../ProductPageContent";
 import ProductAttributes from "./ProductAttributes";
 import ProductBuy from "./ProductBuy";
 import ProductDelivery from "./ProductDelivery";
 import ProductName from "./ProductName";
 
-type ProductAboutProps = {
-    data: {
-        name: string
-        sku: string
-        slug: string
-        wordpress_id: number
-        image: {
-            src: string
-            alt: string
+type ProductAbout = {
+    name: string
+    sku: string
+    slug: string
+    attributes: [
+        {
+            options: [string]
+            name: string
         }
-        attributes: [
-            {
-                options: [string]
-                name: string
-            }
-        ]
-    }
+    ]
 }
 
 const StyledProductAbout = styled.div`
@@ -31,15 +25,19 @@ const StyledProductAbout = styled.div`
     height: 400px;
 `;
 
-const ProductAbout = (props: ProductAboutProps) => {
+const ProductAbout = () => {
 
-    const { data } = props;
+    const {
+        name,
+        sku,
+        attributes,
+    }: ProductAbout = useContext(PageContext);
 
     return (
         <StyledProductAbout>
-            <ProductName name={data.name} sku={data.sku} attributes={data.attributes} />
-            {data.attributes.length ? <ProductAttributes data={data.attributes} /> : <></>}
-            <ProductBuy data={data} />
+            <ProductName name={name} sku={sku} attributes={attributes} />
+            {attributes.length ? <ProductAttributes data={attributes} /> : <></>}
+            <ProductBuy />
             <ProductDelivery />
         </StyledProductAbout>
     )

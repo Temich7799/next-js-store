@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import { PRODUCT_BUY_BUTTON_TITLE, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } from "../../../languages/ru/languages";
 import Button from "../../Button";
@@ -6,6 +6,7 @@ import ImageSVG from "../../ImageSVG";
 import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
 import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct";
+import { PageContext } from "../ProductPageContent";
 
 const StyledProductBuy = styled.div`
     display: flex;
@@ -14,17 +15,15 @@ const StyledProductBuy = styled.div`
     margin: 10px 0;
 `;
 
-type ProductBuyProps = {
-    data: {
-        name: string
-        slug: string
-        sku: string
-        image: {
-            alt: string
-            src: string
-        }
-        wordpress_id: number
+type ProductBuy = {
+    name: string
+    slug: string
+    sku: string
+    image: {
+        alt: string
+        src: string
     }
+    wordpress_id: number
 }
 
 type FetchedData = {
@@ -42,9 +41,9 @@ type FetchedData = {
     }
 }
 
-const ProductBuy = (props: ProductBuyProps) => {
+const ProductBuy = () => {
 
-    const { data } = props;
+    const data: ProductBuy = useContext(PageContext);
 
     const { loading: isDataLoading, updatedData, isOutOfStock } = useUpdatedProduct(data);
 

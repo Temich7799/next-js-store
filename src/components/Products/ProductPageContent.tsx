@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { createContext, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import styled from "styled-components";
 import { GET_RELATED_PRODUCTS_IDS } from "../../graphql/queries/getRelatedProductsIds";
@@ -62,6 +62,8 @@ const StyledProductsPageContent = styled.div`
     padding: 5%;
 `;
 
+export const PageContext: Product | any = createContext({});
+
 const ProductPageContent = (props: ProductPageContentProps) => {
 
     const { data, gatsbyImages } = props;
@@ -88,28 +90,30 @@ const ProductPageContent = (props: ProductPageContentProps) => {
     }, []);
 
     return (
-        <StyledProductsPageContent>
-            <ProductGallery data={data.images}></ProductGallery>
-            <ProductAbout data={data}></ProductAbout>
-            <ProductDescription data={data.description}></ProductDescription>
-            {
-                allWpRelatedProductsDataIds &&
-                <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} isDataFetching={allWpRelatedProductsLoading} carouselItemMax={3}>
-                    {
-                        allWpRelatedProductsData && allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
+        <PageContext.Provider value={data}>
+            <StyledProductsPageContent>
+                <ProductGallery />
+                <ProductAbout />
+                <ProductDescription />
+                {
+                    allWpRelatedProductsDataIds &&
+                    <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} isDataFetching={allWpRelatedProductsLoading} carouselItemMax={3}>
+                        {
+                            allWpRelatedProductsData && allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
 
-                            const relatedProduct = extendProductByMatchingImages(fetchedProduct, gatsbyImages);
+                                const relatedProduct = extendProductByMatchingImages(fetchedProduct, gatsbyImages);
 
-                            return <ProductThumb
-                                data={relatedProduct}
-                                absolutePath={`${document.location.origin}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
-                                key={relatedProduct.wordpress_id}
-                            />
-                        })
-                    }
-                </Carousel>
-            }
-        </StyledProductsPageContent >
+                                return <ProductThumb
+                                    data={relatedProduct}
+                                    absolutePath={`${document.location.origin}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
+                                    key={relatedProduct.wordpress_id}
+                                />
+                            })
+                        }
+                    </Carousel>
+                }
+            </StyledProductsPageContent >
+        </PageContext.Provider>
     )
 }
 
