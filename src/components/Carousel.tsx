@@ -62,23 +62,20 @@ const Carousel = (props: CarouselProps) => {
     const slider = useRef<any>();
     slider.current = {
         isMouseDown: false,
-        slideStartPos: 0,
+        prevPosition: 0,
         position: 0,
         positionsMap: positions ? positions : [],
         positionIndex: 0,
     };
 
-    const sliderClientWidthObserver = typeof ResizeObserver !== `undefined`
-        ? new ResizeObserver(entries => {
-            for (let entry of entries) {
-                setSliderClientWidth(entry.borderBoxSize[0].inlineSize);
-            }
-        })
-        : {};
-
     useEffect(() => {
         setItemWidth(carouselSlider.current.firstChild.clientWidth);
 
+        const sliderClientWidthObserver = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                setSliderClientWidth(entry.borderBoxSize[0].inlineSize);
+            }
+        });
         sliderClientWidthObserver.observe(carouselSlider.current);
 
         carouselWrapper.current.addEventListener('mousemove', (onMouseMoveEvent: any) => sliderOnMouseMoveHandler(onMouseMoveEvent));
@@ -114,7 +111,9 @@ const Carousel = (props: CarouselProps) => {
     }, [itemsGap, sliderClientWidth]);
 
     function sliderOnMouseMoveHandler(onMouseMoveEvent: any): void {
+
         onMouseMoveEvent.cancelable && onMouseMoveEvent.preventDefault();
+        
         if (slider.current.isMouseDown == true) {
             slider.current.position += onMouseMoveEvent.movementX;
             carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
@@ -123,15 +122,17 @@ const Carousel = (props: CarouselProps) => {
 
     function sliderOnMouseDownHandler(): void {
         slider.current.isMouseDown = true;
-        slider.current.slideStartPos = slider.current.position;
+        slider.current.prevPosition = slider.current.position;
     }
 
     function windowOnMouseUpHandler(): void {
 
         if (slider.current.isMouseDown == true) {
 
-            makeSwipe(slider.current.position > slider.current.slideStartPos ? 'left' : 'right');
-            slider.current.slideStartPos = 0;
+            if (slider.current.position !== slider.current.prevPosition) {
+                makeSwipe(slider.current.position > slider.current.prevPosition ? 'left' : 'right');
+                slider.current.prevPosition = 0;
+            }
 
             carouselSlider.current.style.transition = `${speed}`;
         }
@@ -139,7 +140,9 @@ const Carousel = (props: CarouselProps) => {
     }
 
     function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
+
         let gap = 0;
+
         do {
             gap = (sliderWidth - itemWidth * itemsCount) / itemsCount;
             if (gap < minGap) {
@@ -148,6 +151,7 @@ const Carousel = (props: CarouselProps) => {
             }
             else break;
         } while (gap < minGap);
+
         return gap;
     }
 
