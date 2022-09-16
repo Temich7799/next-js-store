@@ -1,6 +1,19 @@
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import Button from "./Button"
+import LoadingBar from "./LoadingBars/LoadingBar";
+
+type CarouselProps = {
+    title?: string
+    speed?: string
+    maxWidth?: string
+    carouselItemMax?: number
+    minGap?: number
+    showButtons?: boolean
+    showGap?: boolean
+    isDataFetching?: boolean
+    children: any
+}
 
 const StyledCarousel = styled.div<any>`
     max-width: ${props => props.maxWidth};
@@ -27,16 +40,13 @@ const CarouselSlider = styled.div<any>`
     column-gap: ${props => props.gap}px;
 `;
 
-type CarouselProps = {
-    title?: string
-    speed?: string
-    maxWidth?: string
-    carouselItemMax?: number
-    minGap?: number
-    showButtons?: boolean
-    showGap?: boolean
-    children: any
-}
+const LoaderWrapper = styled.div`
+    width: 50vw;    
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
 
 const Carousel = (props: CarouselProps) => {
 
@@ -48,6 +58,7 @@ const Carousel = (props: CarouselProps) => {
         minGap = 24,
         showButtons = true,
         showGap = true,
+        isDataFetching = false,
         children,
     } = props;
 
@@ -69,23 +80,26 @@ const Carousel = (props: CarouselProps) => {
     };
 
     useEffect(() => {
-        setItemWidth(carouselSlider.current.firstChild.clientWidth);
+        if (children) {
 
-        const sliderClientWidthObserver = new ResizeObserver(entries => {
-            for (let entry of entries) {
-                setSliderClientWidth(entry.borderBoxSize[0].inlineSize);
-            }
-        });
-        sliderClientWidthObserver.observe(carouselSlider.current);
+            setItemWidth(carouselSlider.current.firstChild.clientWidth);
 
-        carouselWrapper.current.addEventListener('mousemove', (onMouseMoveEvent: any) => sliderOnMouseMoveHandler(onMouseMoveEvent));
-        carouselWrapper.current.addEventListener('mousedown', sliderOnMouseDownHandler);
-        window.addEventListener('mouseup', windowOnMouseUpHandler);
+            const sliderClientWidthObserver = new ResizeObserver(entries => {
+                for (let entry of entries) {
+                    setSliderClientWidth(entry.borderBoxSize[0].inlineSize);
+                }
+            });
+            sliderClientWidthObserver.observe(carouselSlider.current);
 
-        carouselWrapper.current.addEventListener('touchmove', (onTouchMoveEvent: any) => sliderOnMouseMoveHandler(onTouchMoveEvent));
-        carouselWrapper.current.addEventListener('touchstart', sliderOnMouseDownHandler);
-        window.addEventListener('touchend', windowOnMouseUpHandler);
-    }, []);
+            carouselWrapper.current.addEventListener('mousemove', (onMouseMoveEvent: any) => sliderOnMouseMoveHandler(onMouseMoveEvent));
+            carouselWrapper.current.addEventListener('mousedown', sliderOnMouseDownHandler);
+            window.addEventListener('mouseup', windowOnMouseUpHandler);
+
+            carouselWrapper.current.addEventListener('touchmove', (onTouchMoveEvent: any) => sliderOnMouseMoveHandler(onTouchMoveEvent));
+            carouselWrapper.current.addEventListener('touchstart', sliderOnMouseDownHandler);
+            window.addEventListener('touchend', windowOnMouseUpHandler);
+        }
+    }, [children]);
 
     useEffect(() => {
 
@@ -101,19 +115,21 @@ const Carousel = (props: CarouselProps) => {
 
     useEffect(() => {
 
-        slider.current.positionsMap = makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0);
-        setPositions(slider.current.positionsMap);
-        slider.current.positionIndex = 0;
-        slider.current.position = slider.current.positionsMap[slider.current.positionIndex];
+        if (isDataFetching === false) {
+            slider.current.positionsMap = makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0);
+            setPositions(slider.current.positionsMap);
+            slider.current.positionIndex = 0;
+            slider.current.position = slider.current.positionsMap[slider.current.positionIndex];
 
-        carouselSlider.current.style.left = `${slider.current.position}px`;
+            carouselSlider.current.style.left = `${slider.current.position}px`;
+        }
 
     }, [itemsGap, sliderClientWidth]);
 
     function sliderOnMouseMoveHandler(onMouseMoveEvent: any): void {
 
         onMouseMoveEvent.cancelable && onMouseMoveEvent.preventDefault();
-        
+
         if (slider.current.isMouseDown == true) {
             slider.current.position += onMouseMoveEvent.movementX;
             carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
@@ -183,11 +199,21 @@ const Carousel = (props: CarouselProps) => {
             {title ? <h3>{title}</h3> : <></>}
             <CarouselContent showButtons={showButtons}>
                 {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('left')}><b>{'<'}</b></Button>}
-                <CarouselSliderWrapper ref={carouselWrapper}>
-                    <CarouselSlider ref={carouselSlider} gap={itemsGap}>
-                        {children}
-                    </CarouselSlider>
-                </CarouselSliderWrapper>
+                {
+                    isDataFetching
+                        ?
+                        <LoaderWrapper>
+                            <LoadingBar size="50%"/>
+                        </LoaderWrapper>
+                        :
+                        <CarouselSliderWrapper ref={carouselWrapper}>
+                            {
+                                <CarouselSlider ref={carouselSlider} gap={itemsGap}>
+                                    {children}
+                                </CarouselSlider>
+                            }
+                        </CarouselSliderWrapper>
+                }
                 {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('right')}><b>{'>'}</b></Button>}
             </CarouselContent>
         </StyledCarousel >

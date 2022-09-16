@@ -9,7 +9,6 @@ import Carousel from "../Carousel";
 import { CAROUSEL_RELATED_PRODUCTS_TITLE } from "../../languages/ru/languages";
 import ProductThumb from "./Thumbs/ProductThumb";
 import { GET_ALL_WP_RELATED_PRODUCTS } from "../../graphql/queries/getAllWpRelatedProducts";
-import LoadingSpinner from "../LoadingBars/LoadingSpinner";
 import { extendProductByMatchingImages } from "../../services/extendProductByMatchingImages";
 
 type ProductPageContentProps = {
@@ -67,13 +66,15 @@ const ProductPageContent = (props: ProductPageContentProps) => {
 
     const { data, gatsbyImages } = props;
 
-    const [getRelatedProductsIds] = useLazyQuery(GET_RELATED_PRODUCTS_IDS, { variables: { productId: data.wordpress_id } });
-    const [getAllWpRelatedProducts, { loading: allWpRelatedProductsLoading, error: allWpRelatedProductsLoadingError, data: allWpRelatedProductsData }] = useLazyQuery(GET_ALL_WP_RELATED_PRODUCTS);
+    const [getRelatedProductsIds, { data: allWpRelatedProductsDataIds }] = useLazyQuery(GET_RELATED_PRODUCTS_IDS, { variables: { productId: data.wordpress_id } });
+    const [getAllWpRelatedProducts, { loading: allWpRelatedProductsLoading, data: allWpRelatedProductsData }] = useLazyQuery(GET_ALL_WP_RELATED_PRODUCTS);
 
     useEffect(() => {
         getRelatedProductsIds()
             .then((response) => {
+
                 const relatedIds = response.data.wpWcProduct.related_ids.map((id: string) => parseInt(id));
+
                 getAllWpRelatedProducts(
                     {
                         variables: {
@@ -92,10 +93,10 @@ const ProductPageContent = (props: ProductPageContentProps) => {
             <ProductAbout data={data}></ProductAbout>
             <ProductDescription data={data.description}></ProductDescription>
             {
-                allWpRelatedProductsData &&
-                <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} carouselItemMax={3}>
+                allWpRelatedProductsDataIds &&
+                <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} isDataFetching={allWpRelatedProductsLoading} carouselItemMax={3}>
                     {
-                        allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
+                        allWpRelatedProductsData && allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
 
                             const relatedProduct = extendProductByMatchingImages(fetchedProduct, gatsbyImages);
 
