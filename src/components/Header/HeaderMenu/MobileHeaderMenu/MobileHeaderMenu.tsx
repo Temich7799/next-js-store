@@ -33,16 +33,19 @@ const MobileHeaderMenuItems = styled.nav`
     text-align: center;
     background-color: #f7dcf4;
     overflow: hidden;
+    ::-webkit-scrollbar { display: none }
 `;
 
 const MobileHeaderMenuLinksWrapper = styled.div`
     max-height: 100%;
+    width: 100%;
     overflow: scroll;
     scrollbar-width: none;
     ::-webkit-scrollbar { display: none }
 `;
 
 const MobileHeaderMenuLinks = styled.ul`
+    width:100%;
     padding: 0;
     margin: 0;
     display: flex;

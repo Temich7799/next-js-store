@@ -10,6 +10,7 @@ const subMenuPopUpAnimation = keyframes`
 `;
 
 const MobileHeaderSubMenuLinks = styled.ul`
+    max-height: 200px;
     margin: 5px 0;
     font-family: "Comfortaa";
     padding: 0;
@@ -21,6 +22,8 @@ const MobileHeaderSubMenuLinks = styled.ul`
     font-size: 16px;
     list-style: none;
     animation: ${subMenuPopUpAnimation} 750ms;
+    ::-webkit-scrollbar { display: none }
+    overflow-y: scroll;
 `;
 
 type MobileHeaderMenuSubLink = {
