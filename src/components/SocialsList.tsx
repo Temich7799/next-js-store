@@ -15,9 +15,6 @@ const StyledSocialsList = styled.ul`
     li {
         display: block;
     }
-    @media (max-width: 820px) {
-        display: none;
-    }
 `;
 
 const SocialsList = () => {
