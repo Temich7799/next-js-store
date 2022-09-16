@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import styled, { keyframes } from "styled-components"
+import styled from "styled-components"
 import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import toogle from "../../../../services/toogle";
@@ -9,17 +9,12 @@ import SocialsList from "../../../SocialsList";
 import MobileHeaderSubMenu from "./MobileHeaderSubMenu";
 import MobileHeaderSubMenuTitle from "./MobileHeaderSubMenuTitle";
 
-const slideFromTopAnimation = keyframes`
-    from {top: -322px}
-    to {top: 124px}
-`;
-
-const StyledMobileHeaderMenu = styled.div`
+const StyledMobileHeaderMenu = styled.div<any>`
     position: fixed;
-    top: 124px;
     width: 100%;
+    top: ${props => props.isMenuOpened ? '124px' : '-500px'};
     flex-direction: column;
-    animation: ${slideFromTopAnimation} 500ms;
+    transition: 250ms;
 `;
 
 const MobileHeaderMenuItems = styled.nav`
@@ -45,7 +40,7 @@ const MobileHeaderMenuLinksWrapper = styled.div`
 `;
 
 const MobileHeaderMenuLinks = styled.ul`
-    width:100%;
+    width: 100%;
     padding: 0;
     margin: 0;
     display: flex;
@@ -62,7 +57,7 @@ const StyledSocials = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgb(248,229,255);
+    background-color: rgb(248, 229, 255);
 `;
 
 type MobileHeaderMenuItem = {
@@ -87,26 +82,25 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
 
     const { data } = props;
 
-    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
-    const [showSubMenu, setShowSubMenu] = useState<boolean>(false);
+    const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+    const [isSubMenuOpened, setIsSubMenuOpened] = useState<boolean>(false);
 
     function buttonOnClickHandler(): void {
-        setShowMobileMenu(toogle(showMobileMenu));
+        setIsMenuOpened(toogle(isMenuOpened));
     }
 
     function MobileHeaderSubMenuTitleOnClickHandler(): void {
-        setShowSubMenu(toogle(showSubMenu));
+        setIsSubMenuOpened(toogle(isSubMenuOpened));
     }
 
     return (
         <>
             <Button buttonStyle="transparent" buttonSize="shrink" onClick={buttonOnClickHandler}>
-                <ImageSVG path={showMobileMenu ? "/svg/close.svg" : "/svg/open_mobile_menu.svg"} height="30px" width="30px" />
+                <ImageSVG path={isMenuOpened ? "/svg/close.svg" : "/svg/open_mobile_menu.svg"} height="30px" width="30px" />
             </Button>
             <StaticImage src="../../../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
             {
-                showMobileMenu &&
-                <StyledMobileHeaderMenu>
+                <StyledMobileHeaderMenu isMenuOpened={isMenuOpened}>
 
                     <MobileHeaderMenuItems>
                         <MobileHeaderMenuLinksWrapper>
@@ -118,8 +112,8 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
                                                 link.childItems.nodes.length
                                                     ?
                                                     <MobileHeaderMenuLinks key={index}>
-                                                        <MobileHeaderSubMenuTitle title={link.label} isSubMenuOpened={showSubMenu} onClickHandler={MobileHeaderSubMenuTitleOnClickHandler} />
-                                                        {showSubMenu && <MobileHeaderSubMenu data={link} />}
+                                                        <MobileHeaderSubMenuTitle title={link.label} isSubMenuOpened={isSubMenuOpened} onClickHandler={MobileHeaderSubMenuTitleOnClickHandler} />
+                                                        {isSubMenuOpened && <MobileHeaderSubMenu data={link} />}
                                                     </MobileHeaderMenuLinks>
                                                     : !link.parentId &&
                                                     <li key={index}>
@@ -128,7 +122,8 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
                                                         </Link>
                                                     </li>
                                             }
-                                        </>)
+                                        </>
+                                    )
                                 }
                             </MobileHeaderMenuLinks>
                         </MobileHeaderMenuLinksWrapper>
