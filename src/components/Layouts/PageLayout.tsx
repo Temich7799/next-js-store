@@ -3,8 +3,6 @@ import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import PageTitle from "../PageTitle";
 import styled from "styled-components";
-import useMobile from "../../services/hooks/useMobile";
-import { Main } from "../../styles/Main";
 require('../../styles/wp.css');
 
 const Content = styled.div`
@@ -30,14 +28,12 @@ const PageLayout = (props: PageProps) => {
 
   const { data } = props;
 
-  const isMobile = useMobile();
-
   return (
     <Layout>
-      <Main isMobile={isMobile}>
+      <main>
         <PageTitle>{data.wpPage.title}</PageTitle>
         {(data.wpPage.content) ? <Content dangerouslySetInnerHTML={{ __html: data.wpPage.content }} /> : '404'}
-      </Main>
+      </main>
     </Layout>
   )
 }

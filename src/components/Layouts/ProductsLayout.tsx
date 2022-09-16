@@ -2,8 +2,6 @@ import React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
 import ProductsPageContent from "../Products/ProductsPageContent";
-import useMobile from "../../services/hooks/useMobile";
-import { Main } from "../../styles/Main";
 
 type ProductsProps = {
   data: {
@@ -36,8 +34,6 @@ const ProductsLayout = (props: ProductsProps) => {
 
   const { data } = props;
 
-  const isMobile = useMobile();
-
   const gatsbyImages = new Map<number, string>();
 
   data.allWcProducts.edges.forEach((edge: Product) => {
@@ -48,11 +44,11 @@ const ProductsLayout = (props: ProductsProps) => {
 
   return (
     <Layout>
-      <Main isMobile={isMobile}>
+      <main>
         {
           data.allWcProducts.edges.length > 0 && <ProductsPageContent gatsbyImages={gatsbyImages} categoryId={data.allWcProducts.edges[0].node.categories[0].wordpress_id.toString()} />
         }
-      </Main>
+      </main>
     </Layout>
   )
 }

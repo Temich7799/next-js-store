@@ -9,7 +9,12 @@ body {
 }
 
 main {
+    margin-top: 0;
     flex: 1 0 auto;
+
+    @media (max-width: 820px) {
+        margin-top: 125px;
+    }
 }
 
 footer {

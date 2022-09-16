@@ -1,9 +1,7 @@
 import React from "react";
 import Layout from "./MainLayout";
 import { graphql } from "gatsby";
-import useMobile from "../../services/hooks/useMobile";
 import ProductPageContent from "../Products/ProductPageContent";
-import { Main } from "../../styles/Main";
 
 type Product = {
     name: string
@@ -59,8 +57,6 @@ const ProductLayout = (props: ProductProps) => {
         }
     }
 
-    const isMobile = useMobile();
-
     const gatsbyImages = new Map<number, string>();
 
     data.wcProducts.related_products.forEach((relatedProduct: object | any) => {
@@ -71,9 +67,9 @@ const ProductLayout = (props: ProductProps) => {
 
     return (
         <Layout>
-            <Main isMobile={isMobile}>
+            <main>
                 <ProductPageContent data={wcProduct} gatsbyImages={gatsbyImages} />
-            </Main>
+            </main>
         </Layout >
     )
 }

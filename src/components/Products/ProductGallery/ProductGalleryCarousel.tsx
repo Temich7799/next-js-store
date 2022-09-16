@@ -1,17 +1,34 @@
 import React from "react"
 import styled from "styled-components"
-import useMobile from "../../../services/hooks/useMobile";
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
+type ProductGalleryCarouselProps = {
+    data: [
+        {
+            alt: string
+            localFile: any
+        }
+    ]
+    selectedImage: number
+    setSelectedImage: any
+}
+
 const StyledProductGalleryCarousel = styled.div<any>`
-    width: ${props => props.isMobile ? "300px" : "100px"};
-    height: ${props => props.isMobile ? "100px" : "400px"};
+    width: 100px;
+    height: 400px;
     display: flex;
-    flex-wrap: ${props => props.isMobile ? "no-wrap" : "wrap"};
+    flex-wrap: wrap;
     align-content: flex-start;
     gap: 5px;
-    overflow-x: ${props => props.isMobile ? "scroll" : "hidden"};
-    overflow-y: ${props => props.isMobile ? "hidden" : "scroll"};
+    overflow-x: hidden;
+    overflow-y: scroll;
+    @media (max-width: 450px) { 
+        width: 300px;
+        height: 100px;
+        flex-wrap: no-wrap;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
     
 `;
 
@@ -34,25 +51,12 @@ const ProductGalleryCarouselImage = styled.div<any>`
     }
 `;
 
-type ProductGalleryCarouselProps = {
-    data: [
-        {
-            alt: string
-            localFile: any
-        }
-    ]
-    selectedImage: number
-    setSelectedImage: any
-}
-
 const ProductGalleryCarousel = (props: ProductGalleryCarouselProps) => {
 
     const { data, setSelectedImage, selectedImage } = props;
 
-    const isMobile = useMobile(450);
-
     return (
-        <StyledProductGalleryCarousel isMobile={isMobile}>
+        <StyledProductGalleryCarousel>
             {
                 data.map((image, index) =>
                     <ProductGalleryCarouselImage
