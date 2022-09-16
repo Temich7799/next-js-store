@@ -6,14 +6,14 @@ exports.createPages = async function ({ actions, graphql }) {
 
     const { data } = await graphql(`
       query getPages {
-      allWpPage {
-        edges {
-          node {
-            slug
+        allWpPage(filter: {status: {eq: "publish"}}) {
+          edges {
+            node {
+              slug
+            }
           }
         }
       }
-    }
     `);
 
     data.allWpPage.edges.forEach((edge) => {
@@ -55,7 +55,7 @@ exports.createPages = async function ({ actions, graphql }) {
 
     const { data } = await graphql(`
       query getProducts {
-        allWcProducts {
+        allWcProducts(filter: {stock_status: {eq: "instock"}, status: {eq: "publish"}}) {
           edges {
             node {
               sku
@@ -68,12 +68,12 @@ exports.createPages = async function ({ actions, graphql }) {
           }
         }
       }
-  `);
+    `);
 
     data.allWcProducts.edges.forEach((edge) => {
 
       if (edge.node.sku == '') edge.node.sku = edge.node.wordpress_id;
-      
+
       actions.createPage({
         path: `catalog/${edge.node.categories[0].slug}/${edge.node.categories[0].slug}-${edge.node.sku}`,
         component: path.resolve(`./src/components/Layouts/ProductLayout.tsx`),
