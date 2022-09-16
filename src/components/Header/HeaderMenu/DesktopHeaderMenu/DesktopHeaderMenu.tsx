@@ -40,6 +40,9 @@ const StyledDesktopHeaderMenu = styled.nav`
             }
         }
     }
+    @media (max-width: 820px) {
+        display: none;
+    }
 `;
 
 const SubMenuTitle = styled.div`

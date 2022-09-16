@@ -35,9 +35,9 @@ const HeaderMenu = (props: HeaderMenuProps) => {
   return (
     <>
       {
-        isMobile === true
+        isMobile
           ? <MobileHeaderMenu data={data.wpMenu.menuItems.nodes} />
-          : isMobile === false &&
+          :
           <>
             <SocialsList />
             <DesktopHeaderMenu data={data.wpMenu.menuItems.nodes} />
