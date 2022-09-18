@@ -45,7 +45,7 @@ export function useSendOrder() {
                         shipping: {
                             first_name: formElement.elements[0].value,
                             last_name: formElement.elements[1].value,
-                            address_1: formElement.elements[10].value,
+                            address_1: formElement.elements[10].value ? formElement.elements[10].value : 'Самовывоз',
                             city: formElement.elements[8].value,
                             phone: formElement.elements[2].value
                         },
