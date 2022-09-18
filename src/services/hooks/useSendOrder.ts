@@ -65,11 +65,11 @@ export function useSendOrder() {
             }),
         })
             .then((response) => response.json())
-            .then((result) => { setData(result) })
-            .finally(() => {
+            .then((result) => {
+                setData(result.wpWcCreateOrder);
                 setIsSending(false);
-                return data;
-            })
+                return result;
+            });
     }
 
     function getLineItemsData(orderedProducts: object | any): Array<LineItem> {
