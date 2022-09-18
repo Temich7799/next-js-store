@@ -1,9 +1,18 @@
-import React, { forwardRef } from "react"
+import React from "react"
 import styled from "styled-components"
 import Delivery from "./Delivery/Delivery";
 import ClientContacts from "./ClientContacts";
+import { useShoppingCartVar } from "../../../../services/hooks/useShoppingCartVar";
+import { useSendOrder } from "../../../../services/hooks/useSendOrder";
 
-const StyledShoppingCartForm = styled.form`
+type ShoppingCartFormProps = {
+    setters: {
+        setOrderDetailsData: React.Dispatch<React.SetStateAction<object>>
+        setIsOrderSending: React.Dispatch<React.SetStateAction<boolean>>
+    }
+}
+
+const StyledShoppingCartForm = styled.form<any>`
     width: 90vw;
     background-color: hsl(0, 0%, 99.6078431372549%);
     box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
@@ -33,14 +42,32 @@ const StyledShoppingCartForm = styled.form`
     /* other form styles are in <src/styles/wp.css> */
 `;
 
-const ShoppingCartForm = forwardRef((props: any, ref: any) => {
+const ShoppingCartForm = (props: ShoppingCartFormProps) => {
+
+    const { setIsOrderSending, setOrderDetailsData } = props.setters;
+
+    const { data: orderedProducts }: any = useShoppingCartVar();
+    const { send: sendOrder } = useSendOrder();
+
+    function formOnSubmitHandler(onSubmitEvent: any) {
+
+        onSubmitEvent.preventDefault();
+
+        setIsOrderSending(true);
+        console.log(orderedProducts)
+        sendOrder(onSubmitEvent.target, orderedProducts)
+            .then((response) => {
+                setOrderDetailsData(response);
+                setIsOrderSending(false);
+            })
+    }
 
     return (
-        <StyledShoppingCartForm ref={ref} id="order_form">
+        <StyledShoppingCartForm onSubmit={(e: any) => { formOnSubmitHandler(e) }} id="order_form">
             <ClientContacts />
             <Delivery />
         </StyledShoppingCartForm >
     )
-})
+}
 
 export default ShoppingCartForm;

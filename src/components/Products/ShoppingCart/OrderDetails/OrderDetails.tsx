@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import { useShoppingCartVar } from "../../../../services/hooks/useShoppingCartVar";
 import { ORDER_DETAILS_TITLE } from "../../../../languages/ru/languages";
@@ -6,7 +6,7 @@ import OrderFinal from "./OrderFinal";
 import PurchasedProducts from "./PurchasedProducts";
 
 type OrderDetailsProps = {
-    isOrderFetching?: boolean
+    isOrderSending?: boolean
 }
 
 type PurchasedProduct = {
@@ -48,9 +48,9 @@ const StyledOrderDetails = styled.form`
     }
 `;
 
-const OrderDetails = forwardRef((props: OrderDetailsProps, formRef: any) => {
+const OrderDetails = (props: OrderDetailsProps) => {
 
-    const { isOrderFetching } = props;
+    const { isOrderSending } = props;
 
     const { data } = useShoppingCartVar();
 
@@ -61,9 +61,9 @@ const OrderDetails = forwardRef((props: OrderDetailsProps, formRef: any) => {
         <StyledOrderDetails id="order_details">
             <h4>{ORDER_DETAILS_TITLE}</h4>
             <PurchasedProducts data={shoppingCartProductsData} />
-            <OrderFinal ref={formRef} data={shoppingCartProductsData} isOrderFetching={isOrderFetching} />
+            <OrderFinal data={shoppingCartProductsData} isOrderSending={isOrderSending} />
         </StyledOrderDetails >
     )
-})
+}
 
 export default OrderDetails;

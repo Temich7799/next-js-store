@@ -1,9 +1,17 @@
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import styled from "styled-components";
-import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
-import { useOrder } from "../../../services/hooks/useOrder";
 import OrderDetails from "./OrderDetails/OrderDetails";
 import ShoppingCartForm from "./ShoppingCartForm/ShoppingCartForm";
+
+type ShoppingCartPageContentProps = {
+  setters: {
+    setOrderDetailsData: React.Dispatch<React.SetStateAction<object>>
+    setIsOrderSending: React.Dispatch<React.SetStateAction<boolean>>
+  }
+  data: {
+    isOrderSending: boolean
+  }
+}
 
 const StyledShoppingCartPageContent = styled.div<any>`
   margin: 0 auto;
@@ -20,29 +28,19 @@ const StyledShoppingCartPageContent = styled.div<any>`
   }
 `;
 
-const ShoppingCartPageContent = () => {
+const ShoppingCartPageContent = (props: ShoppingCartPageContentProps) => {
 
-    const form = useRef<any>();
+  const { setOrderDetailsData, setIsOrderSending } = props.setters;
+  const { isOrderSending } = props.data;
 
-    const { data: orderedProducts }: any = useShoppingCartVar();
-    const { data: orderData, sendOrder } = useOrder();
+  const setters = { setOrderDetailsData: setOrderDetailsData, setIsOrderSending: setIsOrderSending };
 
-    useEffect(() => {
-        form.current.addEventListener('submit', (e: any) => formOnSubmitHandler(e))
-    }, []);
-
-    function formOnSubmitHandler(onSubmitEvent: any) {
-        onSubmitEvent.preventDefault();
-        //setIsOrderFetching(true);
-        sendOrder(form.current, orderedProducts)
-    }
-
-    return (
-        <StyledShoppingCartPageContent>
-            <ShoppingCartForm ref={form} />
-            <OrderDetails ref={form} isOrderFetching={isOrderFetching} />
-        </StyledShoppingCartPageContent>
-    )
+  return (
+    <StyledShoppingCartPageContent>
+      <ShoppingCartForm setters={setters} />
+      <OrderDetails isOrderSending={isOrderSending} />
+    </StyledShoppingCartPageContent>
+  )
 }
 
 export default ShoppingCartPageContent;

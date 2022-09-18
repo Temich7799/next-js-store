@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import { ORDER_FINAL_BUTTON_BACK, ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_BUTTON_DISABLED, ORDER_FINAL_BUTTON_SUBMIT, ORDER_FINAL_TITLE } from "../../../../languages/ru/languages";
 import Button from "../../../Button";
@@ -7,7 +7,7 @@ import { Link } from "gatsby";
 
 type OrderFinalProps = {
     data: Array<PurchasedProduct>
-    isOrderFetching?: boolean
+    isOrderSending?: boolean
 }
 
 type PurchasedProduct = {
@@ -30,7 +30,7 @@ const StyledOrderFinal = styled.div`
         text-align: center;
         font-size: 20px;
     }
-    div{  
+    div {  
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
@@ -38,9 +38,9 @@ const StyledOrderFinal = styled.div`
     }
 `;
 
-const OrderFinal = forwardRef((props: OrderFinalProps, formRef: any) => {
+const OrderFinal = (props: OrderFinalProps) => {
 
-    const { data, isOrderFetching } = props;
+    const { data, isOrderSending } = props;
 
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -64,8 +64,8 @@ const OrderFinal = forwardRef((props: OrderFinalProps, formRef: any) => {
             <div>
                 <Button onClick={(e: any) => e.preventDefault()}>{ORDER_FINAL_BUTTON_BACK}</Button>
                 {
-                    formRef
-                        ? <Button type="submit" form="order_form" disabled={isButtonDisabled || isOrderFetching} buttonStyle="accent">{!isOrderFetching ? isButtonDisabled ? ORDER_FINAL_BUTTON_DISABLED : ORDER_FINAL_BUTTON_SUBMIT : <LoadingSpinner />}</Button>
+                    isOrderSending === false || isOrderSending === true
+                        ? <Button type="submit" form="order_form" disabled={isButtonDisabled || isOrderSending} buttonStyle="accent">{!isOrderSending ? isButtonDisabled ? ORDER_FINAL_BUTTON_DISABLED : ORDER_FINAL_BUTTON_SUBMIT : <LoadingSpinner />}</Button>
                         : isButtonDisabled
                             ? <Button buttonStyle="accent" disabled={isButtonDisabled}>{ORDER_FINAL_BUTTON_DISABLED}</Button>
                             : <Link to="/shopping_cart"><Button buttonStyle="accent" disabled={isButtonDisabled}>{ORDER_FINAL_BUTTON_CONTINUE}</Button></Link>
@@ -73,6 +73,6 @@ const OrderFinal = forwardRef((props: OrderFinalProps, formRef: any) => {
             </div>
         </StyledOrderFinal>
     )
-});
+}
 
 export default OrderFinal;

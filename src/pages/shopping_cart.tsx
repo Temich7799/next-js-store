@@ -1,23 +1,30 @@
-import React, { createContext } from "react"
+import React, { useState } from "react"
+import { useEffect } from "react";
 import Layout from "../components/Layouts/MainLayout";
 import ShoppingCartPageContent from "../components/Products/ShoppingCart/ShoppingCartPageContent";
 
-export const OrderDetails = createContext(
-  {
-
-  }
-);
-
 const ShoppingCartPage = () => {
+
+  const [orderDetailsData, setOrderDetailsData] = useState<object>();
+  const [isOrderSending, setIsOrderSending] = useState<boolean>(false);
+
+  const setters = {
+    setOrderDetailsData: setOrderDetailsData,
+    setIsOrderSending: setIsOrderSending
+  };
+
+  const data = { isOrderSending: isOrderSending }
+
+  useEffect(() => { console.log(orderDetailsData) }, [orderDetailsData]);
 
   return (
     <Layout>
       <main>
-        <OrderDetails.Provider value={ }>
-          {
-            <ShoppingCartPageContent />
-          }
-        </OrderDetails.Provider>
+        {
+          orderDetailsData
+            ? <></>
+            : <ShoppingCartPageContent setters={setters} data={data} />
+        }
       </main>
     </Layout >
   )
