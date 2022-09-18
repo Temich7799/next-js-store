@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GET_ALL_WP_PRODUCTS } from "../../graphql/queries/getAllWpProducts";
 import { extendProductByMatchingImages } from "../../services/extendProductByMatchingImages";
+import ContainerCentered from "../../styles/ContainerCentered";
 import LoadingBar from "../LoadingBars/LoadingBar";
 import ProductThumb from "./Thumbs/ProductThumb";
 
@@ -41,13 +42,6 @@ const Content = styled.div`
     justify-content: center;
     gap: 50px;
     padding: 2.5%;
-`;
-
-const LoaderWrapper = styled.div`
-    height: 50vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 `;
 
 const ProductsPageContent = (props: ProductsPageContentProps) => {
@@ -115,9 +109,9 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
             {
                 productsLoading
                     ?
-                    <LoaderWrapper>
+                    <ContainerCentered>
                         <LoadingBar />
-                    </LoaderWrapper>
+                    </ContainerCentered>
                     :
                     <Content>
                         {
