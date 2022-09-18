@@ -1,14 +1,14 @@
 import React from "react"
 import styled from "styled-components"
-import ImageSVG from "../../ImageSVG";
 
 type SubMenuIconProps = {
     isOpened: boolean
 }
 
-const StyledSubMenuIcon = styled.div<SubMenuIconProps>`
+const StyledSubMenuIcon = styled.p<SubMenuIconProps>`
+    font-size: 20px;
     transition: 250ms;
-    transform: rotate(${props => props.isOpened ? '180deg' : '0deg'});
+    transform: rotate(${props => props.isOpened ? '90deg' : '-90deg'});
 `;
 
 const SubMenuIcon = (props: SubMenuIconProps) => {
@@ -17,7 +17,7 @@ const SubMenuIcon = (props: SubMenuIconProps) => {
 
     return (
         <StyledSubMenuIcon isOpened={isOpened}>
-            <ImageSVG path="/svg/arrow_more.svg" width="20px" height="20px" />
+            {">"}
         </StyledSubMenuIcon>
     )
 }
