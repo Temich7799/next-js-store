@@ -54,10 +54,10 @@ const ShoppingCartForm = (props: ShoppingCartFormProps) => {
         onSubmitEvent.preventDefault();
 
         setIsOrderSending(true);
-        console.log(orderedProducts)
+
         sendOrder(onSubmitEvent.target, orderedProducts)
             .then((response) => {
-                setOrderDetailsData(response);
+                console.log(response);
                 setIsOrderSending(false);
             })
     }

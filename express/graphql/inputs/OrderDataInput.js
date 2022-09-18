@@ -2,6 +2,7 @@ const OrderDataInput = `#graphql
     input OrderDataInput {
         payment_method: String
         shipping: ShippingData!
+        billing: ShippingData
         line_items: [LineItemInput!]
         shipping_lines: [ShippingLineInput]
     }

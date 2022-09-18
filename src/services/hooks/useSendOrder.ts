@@ -49,6 +49,11 @@ export function useSendOrder() {
                             city: formElement.elements[8].value,
                             phone: formElement.elements[2].value
                         },
+                        billing: {
+                            first_name: formElement.elements[0].value,
+                            last_name: formElement.elements[1].value,
+                            phone: formElement.elements[2].value
+                        },
                         shipping_lines: [
                             {
                                 method_id: formElement.elements[4].value,

@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { useEffect } from "react";
 import Layout from "../components/Layouts/MainLayout";
 import ShoppingCartPageContent from "../components/Products/ShoppingCart/ShoppingCartPageContent";
 
@@ -14,8 +13,6 @@ const ShoppingCartPage = () => {
   };
 
   const data = { isOrderSending: isOrderSending }
-
-  useEffect(() => { console.log(orderDetailsData) }, [orderDetailsData]);
 
   return (
     <Layout>
