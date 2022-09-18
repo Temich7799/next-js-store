@@ -44,6 +44,11 @@ export const ORDER_DETAILS_TITLE = 'Your Order';
 
 export const ORDER_FINAL_TITLE = 'Total';
 export const ORDER_FINAL_BUTTON_BACK = 'Back to shopping';
+export const ORDER_FINAL_BUTTON_HOME = 'Home';
 export const ORDER_FINAL_BUTTON_CONTINUE = 'Add to cart';
 export const ORDER_FINAL_BUTTON_SUBMIT = 'Checkout';
 export const ORDER_FINAL_BUTTON_DISABLED = 'Cart is empty';
+
+export const ORDER_SUCCESS_TITLE = 'Order sent for processing';
+export const ORDER_SUCCESS_DETAILS = 'Order number';
+export const ORDER_SUCCESS_DESCRIPTION = 'After our manager processes your order, he will contact you to clarify the details.';

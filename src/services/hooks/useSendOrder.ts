@@ -66,7 +66,7 @@ export function useSendOrder() {
         })
             .then((response) => response.json())
             .then((result) => {
-                setData(result.wpWcCreateOrder);
+                setData(result.data.wpWcCreateOrder);
                 setIsSending(false);
                 return result;
             });

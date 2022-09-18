@@ -44,6 +44,11 @@ export const ORDER_DETAILS_TITLE = 'Ваш Заказ';
 
 export const ORDER_FINAL_TITLE = 'Итого';
 export const ORDER_FINAL_BUTTON_BACK = 'Вернуться к покупкам';
+export const ORDER_FINAL_BUTTON_HOME = 'На главную';
 export const ORDER_FINAL_BUTTON_CONTINUE = 'В корзину';
 export const ORDER_FINAL_BUTTON_SUBMIT = 'Оформить заказ';
 export const ORDER_FINAL_BUTTON_DISABLED = 'Корзина пуста';
+
+export const ORDER_SUCCESS_TITLE = 'Заказ отправлен в обработку';
+export const ORDER_SUCCESS_DETAILS = 'Номер заказа';
+export const ORDER_SUCCESS_DESCRIPTION = 'После того, как наш менеджер обработает Ваш заказ, он свяжется с Вами для уточнения деталей.';

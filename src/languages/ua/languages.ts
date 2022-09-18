@@ -44,6 +44,11 @@ export const ORDER_DETAILS_TITLE = 'Ваше замовлення';
 
 export const ORDER_FINAL_TITLE = 'Разом';
 export const ORDER_FINAL_BUTTON_BACK = 'Повернутись до покупок';
+export const ORDER_FINAL_BUTTON_HOME = 'На головну';
 export const ORDER_FINAL_BUTTON_CONTINUE = 'У кошик';
 export const ORDER_FINAL_BUTTON_SUBMIT = 'Оформити замовлення';
 export const ORDER_FINAL_BUTTON_DISABLED = 'Кошик порожній';
+
+export const ORDER_SUCCESS_TITLE = 'Замовлення надіслано в обробку';
+export const ORDER_SUCCESS_DETAILS = 'Номер замовлення';
+export const ORDER_SUCCESS_DESCRIPTION = 'Після того, як наш менеджер обробить Ваше замовлення, він зв\'яжеться з Вами для уточнення деталей.';

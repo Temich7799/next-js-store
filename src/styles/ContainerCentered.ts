@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
-const ContainerCentered = styled.div`
+type ContainerCenteredProps = {
+    direction?: string
+};
+
+const ContainerCentered = styled.div<ContainerCenteredProps>`
     height: 50vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 15px;
+    flex-direction: ${props => props.direction ? props.direction : 'column'};
+    justify-content: space-around;
 `;
 
 export default ContainerCentered;

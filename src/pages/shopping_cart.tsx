@@ -1,10 +1,17 @@
 import React, { useState } from "react"
+import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
-import ShoppingCartPageContent from "../components/Products/ShoppingCart/ShoppingCartPageContent";
+import ShoppingCartContent from "../components/Products/ShoppingCart/ShoppingCartContent";
+import SuccessOrderContent from "../components/Products/ShoppingCart/SuccessOrderContent";
+
+const StyledShoppingCartPage = styled.main`
+    max-width: 1700px;
+    padding: 2.5% 2.5%;
+`;
 
 const ShoppingCartPage = () => {
 
-  const [orderDetailsData, setOrderDetailsData] = useState<object>();
+  const [orderDetailsData, setOrderDetailsData] = useState<object | any>();
   const [isOrderSending, setIsOrderSending] = useState<boolean>(false);
 
   const setters = {
@@ -16,13 +23,13 @@ const ShoppingCartPage = () => {
 
   return (
     <Layout>
-      <main>
+      <StyledShoppingCartPage>
         {
           orderDetailsData
-            ? <></>
-            : <ShoppingCartPageContent setters={setters} data={data} />
+            ? <SuccessOrderContent orderId={orderDetailsData.id} />
+            : <ShoppingCartContent setters={setters} data={data} />
         }
-      </main>
+      </StyledShoppingCartPage>
     </Layout >
   )
 }
