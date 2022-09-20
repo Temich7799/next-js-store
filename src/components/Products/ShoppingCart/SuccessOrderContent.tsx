@@ -16,7 +16,7 @@ const SuccessOrderContent = (props: SuccessOrderContentProps) => {
     return (
         <ContainerCentered>
             <h3>{ORDER_SUCCESS_TITLE}</h3>
-            <p>{ORDER_SUCCESS_DETAILS}: {orderId}</p>
+            <p><b>{ORDER_SUCCESS_DETAILS}: </b>{orderId}</p>
             <ImageSVG path="/svg/baby_ok.svg" width="50%" height="50%" />
             <p>{ORDER_SUCCESS_DESCRIPTION}</p>
             <ContainerCentered direction="row">

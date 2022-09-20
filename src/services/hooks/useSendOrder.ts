@@ -25,7 +25,6 @@ type LineItem = {
 
 export function useSendOrder() {
 
-    const [data, setData] = useState<object>({});
     const [isSending, setIsSending] = useState(false);
 
     async function send(formElement: any, orderedProducts: object | any | Product): Promise<any> {
@@ -66,9 +65,8 @@ export function useSendOrder() {
         })
             .then((response) => response.json())
             .then((result) => {
-                setData(result.data.wpWcCreateOrder);
                 setIsSending(false);
-                return result;
+                return result.data.wpWcCreateOrder;
             });
     }
 
@@ -83,8 +81,7 @@ export function useSendOrder() {
     }
 
     return {
-        data,
-        isSending,
-        send
+        send,
+        isSending
     }
 }
