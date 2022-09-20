@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
-import Button from "../../Button";
+import Button from "../../Buttons/Button";
 import getRandomColor from "../../../services/getRandomColor";
 import { CATEGORY_THUMB_BUTTON } from "../../../languages/ru/languages";
 import InteractiveImage from "../../InteractiveImage";

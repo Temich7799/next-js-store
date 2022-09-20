@@ -1,8 +1,8 @@
-import { Link } from "gatsby";
 import React from "react";
-import { ORDER_FINAL_BUTTON_BACK, ORDER_FINAL_BUTTON_HOME, ORDER_SUCCESS_DESCRIPTION, ORDER_SUCCESS_DETAILS, ORDER_SUCCESS_TITLE } from "../../../languages/ru/languages";
+import { ORDER_SUCCESS_DESCRIPTION, ORDER_SUCCESS_DETAILS, ORDER_SUCCESS_TITLE } from "../../../languages/ru/languages";
 import ContainerCentered from "../../../styles/ContainerCentered";
-import Button from "../../Button";
+import ContinueShoppingButton from "../../Buttons/ContinueShoppingButton";
+import GoToHomepageButton from "../../Buttons/GoToHomepageButton";
 import ImageSVG from "../../ImageSVG";
 
 type SuccessOrderContentProps = {
@@ -20,8 +20,8 @@ const SuccessOrderContent = (props: SuccessOrderContentProps) => {
             <ImageSVG path="/svg/baby_ok.svg" width="50%" height="50%" />
             <p>{ORDER_SUCCESS_DESCRIPTION}</p>
             <ContainerCentered direction="row">
-                <Button>{ORDER_FINAL_BUTTON_BACK}</Button>
-                <Link to="/"><Button>{ORDER_FINAL_BUTTON_HOME}</Button></Link>
+                <ContinueShoppingButton />
+                <GoToHomepageButton />
             </ContainerCentered>
         </ContainerCentered>
     )

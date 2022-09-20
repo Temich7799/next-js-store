@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
-import Button from "./Button"
+import Button from "./Buttons/Button"
 import LoadingBar from "./LoadingBars/LoadingBar";
 
 type CarouselProps = {

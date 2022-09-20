@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 import { PRODUCT_BUY_BUTTON_TITLE, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } from "../../../languages/ru/languages";
-import Button from "../../Button";
+import Button from "../../Buttons/Button";
 import ImageSVG from "../../ImageSVG";
 import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";

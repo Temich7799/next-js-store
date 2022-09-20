@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import { useShoppingCartVar } from "../../services/hooks/useShoppingCartVar";
 import toogle from "../../services/toogle";
-import Button from "../Button";
+import Button from "../Buttons/Button";
 import ImageSVG from "../ImageSVG";
 import PopUp from "../PopUp";
 import OrderDetails from "../Products/ShoppingCart/OrderDetails/OrderDetails";

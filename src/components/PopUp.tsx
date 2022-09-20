@@ -1,7 +1,7 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
 import toogle from "../services/toogle";
-import Button from "./Button";
+import Button from "./Buttons/Button";
 import ImageSVG from "./ImageSVG";
 
 const slideFromTopAnimation = keyframes`

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { useShoppingCartVar } from "../../../../services/hooks/useShoppingCartVar"
-import Button from "../../../Button"
+import Button from "../../../Buttons/Button"
 import ImageSVG from "../../../ImageSVG"
 
 type PurchasedProduct = {

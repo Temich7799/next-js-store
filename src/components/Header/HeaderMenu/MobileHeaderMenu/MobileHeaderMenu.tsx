@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import toogle from "../../../../services/toogle";
-import Button from "../../../Button";
+import Button from "../../../Buttons/Button";
 import ImageSVG from "../../../ImageSVG";
 import SocialsList from "../../../SocialsList";
 import MobileHeaderSubMenu from "./MobileHeaderSubMenu";

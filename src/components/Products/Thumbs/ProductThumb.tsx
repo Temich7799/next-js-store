@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
 import ImageSVG from "../../ImageSVG";
-import Button from "../../Button";
+import Button from "../../Buttons/Button";
 import ProductPrice from "../ProductPrice";
 import { PRODUCT_SKU } from "../../../languages/ru/languages";
 import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
