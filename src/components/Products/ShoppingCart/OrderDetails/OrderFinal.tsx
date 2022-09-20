@@ -4,6 +4,7 @@ import { ORDER_FINAL_BUTTON_BACK, ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_BUTTO
 import Button from "../../../Button";
 import LoadingSpinner from "../../../LoadingBars/LoadingSpinner";
 import { Link } from "gatsby";
+import { useLastProductPageVar } from "../../../../services/hooks/useLastProductPageVar";
 
 type OrderFinalProps = {
     data: Array<PurchasedProduct>
@@ -45,10 +46,17 @@ const OrderFinal = (props: OrderFinalProps) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [totalPrice, setTotalPrice] = useState<number>(0);
 
+    const { url: lastProductPageUrl } = useLastProductPageVar();
+
     useEffect(() => {
         data && setIsButtonDisabled(data.length ? false : true);
         setTotalPrice(calcTotalPrice(data));
     }, [data]);
+
+    function onGoBackButtonClickHandler(onButtonClickEvent: any): void {
+        onButtonClickEvent.preventDefault();
+        window.document.location.href = lastProductPageUrl;
+    }
 
     function calcTotalPrice(products: any): number {
         let price = 0;
@@ -62,7 +70,7 @@ const OrderFinal = (props: OrderFinalProps) => {
             <h4>{ORDER_FINAL_TITLE} </h4>
             <p>{totalPrice} $</p>
             <div>
-                <Button onClick={(e: any) => e.preventDefault()}>{ORDER_FINAL_BUTTON_BACK}</Button>
+                <Button onClick={(e: any) => onGoBackButtonClickHandler(e)}>{ORDER_FINAL_BUTTON_BACK}</Button>
                 {
                     isOrderSending === false || isOrderSending === true
                         ? <Button type="submit" form="order_form" disabled={isButtonDisabled || isOrderSending} buttonStyle="accent">{!isOrderSending ? isButtonDisabled ? ORDER_FINAL_BUTTON_DISABLED : ORDER_FINAL_BUTTON_SUBMIT : <LoadingSpinner />}</Button>

@@ -6,7 +6,7 @@ import Button from "../../Button";
 import ProductPrice from "../ProductPrice";
 import { PRODUCT_SKU } from "../../../languages/ru/languages";
 import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
-import InteractiveImage from "../../InteractiveImage";
+import { useLastProductPageVar } from "../../../services/hooks/useLastProductPageVar";
 
 type ProductProps = {
     data: Product
@@ -70,14 +70,20 @@ const ProductThumb = (props: ProductProps) => {
     const { data, absolutePath } = props;
     if (data.sku == '') data.sku = data.wordpress_id.toString();
 
-    const { add } = useShoppingCartVar();
+    const { add: addToCart } = useShoppingCartVar();
+    const { save: saveLastProductPage } = useLastProductPageVar();
 
-    function buttonOnClickHandler() {
-        add(data.wordpress_id, data);
+    function buttonOnClickHandler(): void {
+        addToCart(data.wordpress_id, data);
+        saveLastProductPage();
+    }
+
+    function thumbOnClickHandler(): void {
+        saveLastProductPage();
     }
 
     return (
-        <StyledProductThumb>
+        <StyledProductThumb onClick={thumbOnClickHandler}>
             <ProductImage>
                 {
                     absolutePath
