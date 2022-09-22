@@ -3,11 +3,13 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const { graphqlHTTP } = require('express-graphql');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const schema = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
 
-const port = 3000;
+const port = process.env.PORT;
 
 app.use(cors({ origin: true, credentials: true }));
 

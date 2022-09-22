@@ -2,18 +2,18 @@ const mysql = require('mysql');
 const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
 
 const connection = mysql.createConnection({
-    host: 'localhost',
-    port: 8889,
-    database: 'nines_dolls',
-    user: 'root',
-    password: 'root'
+    host: process.env.SQL_HOST,
+    port: process.env.SQL_PORT,
+    database: process.env.SQL_DB,
+    user: process.env.SQL_USER,
+    password: process.env.SQL_PASS
 });
 
 const WooCommerce = new WooCommerceRestApi({
-    url: 'http://localhost:8888/wordpress',
-    consumerKey: 'ck_0db198da88b1a81b2e7766af5126771190b31b96',
-    consumerSecret: 'cs_601709c4babde4702e285a2f972dad154f2021c7',
-    version: 'wc/v3'
+    url: process.env.WC_URL,
+    consumerKey: process.env.WC_KEY,
+    consumerSecret: process.env.WC_SECRET,
+    version: process.env.WC_VERSION
 });
 
 const resolvers = {
