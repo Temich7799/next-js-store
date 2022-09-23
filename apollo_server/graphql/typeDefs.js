@@ -1,4 +1,3 @@
-const { buildSchema } = require('graphql');
 const WpWcOrder = require('./types/WpWcOrder');
 const WpNovaPoshtaWarehouse = require('./types/WpNovaPoshtaWarehouse');
 const WpNovaPoshtaCity = require('./types/WpNovaPoshtaCity');
@@ -9,8 +8,9 @@ const OrderDataInput = require('./inputs/OrderDataInput');
 const LanguagesEnum = require('./enums/LanguagesEnum');
 const StockStatusesEnum = require('./enums/StockStatusesEnum');
 const PublishStatusesEnum = require('./enums/PublishStatusesEnum');
+const { gql } = require('apollo-server');
 
-const schema = buildSchema(`#graphql
+const typeDefs = gql`#graphql
 
     type Query {
         allWpWcOrders: [WpWcOrder!]!
@@ -39,6 +39,6 @@ const schema = buildSchema(`#graphql
     ${LanguagesEnum}
     ${PublishStatusesEnum}
     ${StockStatusesEnum}
-`);
+`;
 
-module.exports = schema;
+module.exports = typeDefs;
