@@ -19,7 +19,7 @@ const WooCommerce = new WooCommerceRestApi({
 
 const resolvers = {
     Query: {
-        allWpNovaPoshtaCities: ({ language, regExp, limit }) => {
+        allWpNovaPoshtaCities: (_, { language, regExp, limit }) => {
 
             const cityRow = language == 'UA' ? 'description' : 'description_ru';
             const sqlLimit = limit == undefined ? '' : ` LIMIT ${limit}`;
@@ -28,7 +28,7 @@ const resolvers = {
                 ? 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE 1' + sqlLimit
                 : 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE LOWER(' + cityRow + `) REGEXP '^` + regExp.toLowerCase() + `'` + ' ORDER BY CHAR_LENGTH(' + cityRow + ')' + sqlLimit);
         },
-        allWpNovaPoshtaWarehouses: ({ language, cityRef, regExp, limit }) => {
+        allWpNovaPoshtaWarehouses: (_, { language, cityRef, regExp, limit }) => {
 
             const warehouseRow = language == 'UA' ? 'description' : 'description_ru';
             const sqlLimit = limit == undefined ? '' : ` LIMIT ${limit}`;
@@ -39,10 +39,10 @@ const resolvers = {
                 : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + cityRef + '\' AND LOWER(' + warehouseRow + regex + `'` + ' ORDER BY CHAR_LENGTH(' + warehouseRow + ')' + sqlLimit);
         },
         allWpWcOrders: () => WooCommerce.get('orders').then((response) => response.data),
-        allWpWcProducts: ({ filter }) => {
+        allWpWcProducts: (_, { filter }) => {
 
             const options = {};
-            if (filter) {
+            if (filter !== undefined) {
                 filter.offset && (options.offset = filter.offset);
                 filter.per_page ? options.per_page = filter.per_page < 100 ? filter.per_page : 100 : options.per_page = 50;
                 filter.status && (options.status = filter.status);
@@ -81,12 +81,12 @@ const resolvers = {
 
                 return result;
             }),
-        wpWcOrder: ({ productId }) => WooCommerce.get(`orders/${productId}`).then((response) => response.data),
-        wpWcProduct: ({ productId }) => WooCommerce.get(`products/${productId}`).then((response) => response.data),
+        wpWcOrder: (_, { productId }) => WooCommerce.get(`orders/${productId}`).then((response) => response.data),
+        wpWcProduct: (_, { productId }) => WooCommerce.get(`products/${productId}`).then((response) => response.data),
 
     },
     Mutation: {
-        wpWcCreateOrder: ({ data }) => WooCommerce.post("orders", data).then((response) => response.data),
+        wpWcCreateOrder: (_, { data }) => WooCommerce.post("orders", data).then((response) => response.data),
     }
 };
 
@@ -98,7 +98,7 @@ function sqlQuery(sql) {
     })
 }
 /*
-const images = ["http://localhost:8888/wordpress/wp-content/uploads/2022/09/3954484832_w280_h280_pups-vanilnij-nines.png", "http://localhost:8888/wordpress/wp-content/uploads/2022/09/3954469445_w280_h280_pups-vanilnij-nines.png", "http://localhost:8888/wordpress/wp-content/uploads/2022/09/3953920415_w280_h280_pups-vanilnij-nines.png", "http://localhost:8888/wordpress/wp-content/uploads/2022/09/3953062012_w280_h280_pups-vanilnij-nines.png", "http://localhost:8888/wordpress/wp-content/uploads/2022/09/3948023537_w280_h280_pups-vanilnij-nines.png", "http://localhost:8888/wordpress/wp-content/uploads/2022/09/3948020525_w280_h280_pups-vanilnij-nines.png", "http://localhost:8888/wordpress/wp-content/uploads/2022/09/3948013401_w280_h280_pups-vanilnij-nines.png", "http://localhost:8888/wordpress/wp-content/uploads/2022/09/3947996278_w280_h280_pups-vanilnij-nines.png", "http://localhost:8888/wordpress/wp-content/uploads/2022/09/3946729172_w280_h280_pups-vanilnij-nines.png", "http://localhost:8888/wordpress/wp-content/uploads/2022/09/3946725166_w280_h280_pups-vanilnij-nines.png"];
+const images = ["https://localhost:8888/wordpress/wp-content/uploads/2022/09/3954484832_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3954469445_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3953920415_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3953062012_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3948023537_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3948020525_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3948013401_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3947996278_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3946729172_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3946725166_w280_h280_pups-vanilnij-nines.png"];
 const names = ["Испанский пупс Nines d Onil с запахом ванили 26 см", "Ванильный пупс 23 см Nines d Onil", "Испанская кукла Nines d Onil, ванильный пупс с волосами"]
 for (let i = 0; i < 50; i++) {
     const data = {
