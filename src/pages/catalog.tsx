@@ -71,19 +71,19 @@ const CatalogPage = (props: CatalogProps) => {
 export default CatalogPage;
 
 export const query = graphql`
-query getCategories {
-  allWcProductsCategories {
-    edges {
-      node {
-        image {
-          alt
-          src
+  query getAllCategories {
+    allWcProductsCategories {
+      edges {
+        node {
+          image {
+            alt
+            src
+          }
+          slug
+          name
+          description
         }
-        slug
-        name
-        description
       }
     }
   }
-}
 `;

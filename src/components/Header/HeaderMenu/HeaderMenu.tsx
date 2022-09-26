@@ -13,24 +13,24 @@ const HeaderMenu = (props: HeaderMenuProps) => {
   const { isMobile } = props;
 
   const data = useStaticQuery(graphql`
-    query HeaderMenuItems {
-      wpMenu(id: {eq: "dGVybTozMQ=="}) {
+    query getAllHeaderMenuItems {
+      wpMenu(id: {eq: "dGVybTo0NA=="}) {
         menuItems {
           nodes {
             label
-            url
             parentId
             childItems {
               nodes {
-                url
                 label
+                path
               }
             }
+            path
           }
         }
       }
     }
-`);
+  `);
 
   return (
     <>

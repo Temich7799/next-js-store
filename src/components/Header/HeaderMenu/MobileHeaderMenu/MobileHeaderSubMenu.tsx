@@ -27,13 +27,13 @@ const MobileHeaderSubMenuLinks = styled.ul`
 `;
 
 type MobileHeaderMenuSubLink = {
-    url: string
+    path: string
     label: string
 }
 
 type MobileHeaderSubMenuProps = {
     data: {
-        url: string
+        path: string
         childItems: {
             nodes: [MobileHeaderMenuSubLink]
         }
@@ -47,12 +47,12 @@ const MobileHeaderSubMenu = (props: MobileHeaderSubMenuProps) => {
     return (
         <MobileHeaderSubMenuLinks>
             <li>
-                <Link to={data.url}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
+                <Link to={data.path}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
             </li>
             {
                 data.childItems.nodes.length && data.childItems.nodes.map((childItem: MobileHeaderMenuSubLink, index: number) =>
                     <li key={index}>
-                        <a href={formatCatalogChildItemUrl(childItem.url)}>
+                        <a href={formatCatalogChildItemUrl(childItem.path)}>
                             {childItem.label}
                         </a>
                     </li>)

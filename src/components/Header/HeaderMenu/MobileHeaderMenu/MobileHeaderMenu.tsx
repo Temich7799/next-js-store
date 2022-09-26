@@ -62,12 +62,12 @@ const StyledSocials = styled.div`
 
 type MobileHeaderMenuItem = {
     label: string
-    url: string
+    path: string
     parentId: number
     childItems: {
         nodes: [
             {
-                url: string
+                path: string
                 label: string
             }
         ]
@@ -117,7 +117,7 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
                                                     </MobileHeaderMenuLinks>
                                                     : !link.parentId &&
                                                     <li key={index}>
-                                                        <Link to={link.url != '/home/' ? link.url : '/'}>
+                                                        <Link to={link.path != '/home/' ? link.path : '/'}>
                                                             {link.label}
                                                         </Link>
                                                     </li>

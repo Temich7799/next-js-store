@@ -9,12 +9,12 @@ type DesktopHeaderMenuProps = {
     data: [
         {
             label: string
-            url: string
+            path: string
             parentId: number
             childItems: {
                 nodes: [
                     {
-                        url: string
+                        path: string
                         label: string
                     }
                 ]
@@ -82,7 +82,7 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
                                             (link.childItems.nodes.length)
                                                 ?
                                                 <div onMouseOver={(e: any) => onMouseOverHandler(e)}>
-                                                    <Link to={link.url != '/home/' ? link.url : '/'}>
+                                                    <Link to={link.path != '/home/' ? link.path : '/'}>
                                                         <SubMenuTitle>
                                                             {link.label}
                                                             <SubMenuIcon isOpened={isMouseOver} />
@@ -90,7 +90,7 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
                                                     </Link>
                                                     {isMouseOver && <HeaderSubMenu childItems={link.childItems.nodes} />}
                                                 </div>
-                                                : <Link to={link.url != '/home/' ? link.url : '/'}>{link.label}</Link>
+                                                : <Link to={link.path != '/home/' ? link.path : '/'}>{link.label}</Link>
                                         }
                                     </li>
                                 }

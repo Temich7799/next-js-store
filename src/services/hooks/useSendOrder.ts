@@ -10,14 +10,6 @@ type Product = {
     quantity: number
 }
 
-type ShippingData = {
-    first_name: string
-    last_name: string
-    address_1: string
-    city: string
-    phone: string
-}
-
 type LineItem = {
     product_id: number
     quantity: number
@@ -31,7 +23,7 @@ export function useSendOrder() {
 
         setIsSending(true);
 
-        return fetch('http://localhost:3000/graphql', {
+        return fetch('http://server.malinikids.com', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

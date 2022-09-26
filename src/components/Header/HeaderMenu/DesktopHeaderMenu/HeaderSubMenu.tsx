@@ -29,7 +29,7 @@ const StyledHeaderSubMenu = styled.div`
 type SubMenuProps = {
     childItems: [
         {
-            url: string
+            path: string
             label: string
         }
     ]
@@ -45,7 +45,7 @@ const HeaderSubMenu = (props: SubMenuProps) => {
                 {
                     childItems.map((childItem: any, index: number) =>
                         <li key={index}>
-                            <a href={formatCatalogChildItemUrl(childItem.url != '/home/' ? childItem.url : '/')}>
+                            <a href={formatCatalogChildItemUrl(childItem.path != '/home/' ? childItem.path : '/')}>
                                 {childItem.label}
                             </a>
                         </li>)

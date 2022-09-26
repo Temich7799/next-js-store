@@ -6,13 +6,13 @@ import { BatchHttpLink } from "@apollo/client/link/batch-http";
 require('../../styles/global.css');
 
 const batchLink = new BatchHttpLink({
-    uri: "http://localhost:3000/graphql",
+    uri: "https://server.malinikids.com",
     batchMax: 5,
     batchInterval: 100
 });
 
 const client = new ApolloClient({
-    uri: "http://localhost:3000/graphql",
+    link: batchLink,
     cache: new InMemoryCache(
         {
             typePolicies: {

@@ -12,17 +12,18 @@ const StyledFooterMenu = styled.nav`
 `;
 
 const FooterMenu = () => {
+
     const data = useStaticQuery(graphql`
-    query FooterMenu {
-        wpMenu(id: {eq: "dGVybTo0NA=="}) {
-            menuItems {
-                nodes {
-                  label
-                  url
+        query getAllFooterMenuItems {
+            wpMenu(id: {eq: "dGVybTo2Ng=="}) {
+                menuItems {
+                    nodes {
+                    label
+                    path
+                    }
                 }
-              }
             }
-          } 
+        } 
     `);
 
     const links = data.wpMenu.menuItems.nodes;
@@ -30,8 +31,8 @@ const FooterMenu = () => {
     return (
         <StyledFooterMenu>
             {links.map((link: any, index: number) => index == links.length - 1
-                ? <Link to={link.url} key={index}> {link.label}</Link>
-                : <Fragment key={index}> <Link to={link.url} > {link.label}</Link> / </Fragment>
+                ? <Link to={link.path} key={index}> {link.label}</Link>
+                : <Fragment key={index}> <Link to={link.path} > {link.label}</Link> / </Fragment>
             )
             }
         </StyledFooterMenu >
