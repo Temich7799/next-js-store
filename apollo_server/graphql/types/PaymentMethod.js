@@ -1,4 +1,5 @@
 const PaymentMethod = `#graphql
+
     type PaymentMethod {
         id: String
         title: String

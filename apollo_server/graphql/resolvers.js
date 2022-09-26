@@ -55,6 +55,21 @@ const resolvers = {
             return WooCommerce.get('products', options)
                 .then((response) => response.data)
         },
+        allWpWcProductsCategories: (_, { filter }) => {
+            const options = {};
+            if (filter !== undefined) {
+                filter.hide_empty && (options.hide_empty = filter.hide_empty);
+                filter.product && (options.product = filter.product);
+                filter.slug && (options.slug = filter.slug);
+            }
+
+            return WooCommerce.get('products/categories', options)
+                .then((response) => response.data)
+        },
+        allWpShippingZonesMethods: (_, { zoneId }) => {
+            console.log(zoneId)
+            return WooCommerce.get(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`).then((response) => response.data)
+        },
         allWpWcPaymentMethods: () =>
 
             WooCommerce.get('payment_gateways').then((response) => {

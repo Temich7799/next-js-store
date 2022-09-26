@@ -1,4 +1,27 @@
 const WpWcProduct = `#graphql
+
+    type WpWcProduct {
+        id: ID
+        name: String
+        slug: String
+        sku: String
+        description: String
+        price: String
+        sale_price: String
+        stock_status: String
+        stock_quantity: Int
+        attributes: [wpWcProductAttributes]
+        manage_stock: Boolean
+        related_ids: [ID]
+        categories: [WpWcProductCategory]
+        images: [WpWcProductImage]
+    }
+
+    type wpWcProductAttributes {
+        options: [String]
+        name: String
+    }
+
     type WpWcProductCategory {
         id: ID
         name: String
@@ -9,21 +32,6 @@ const WpWcProduct = `#graphql
         id: ID
         src: String
         alt: String
-    }
-
-    type WpWcProduct {
-        id: ID
-        name: String
-        slug: String
-        sku: String
-        price: String
-        sale_price: String
-        stock_status: String
-        stock_quantity: Int
-        manage_stock: Boolean
-        related_ids: [ID]
-        categories: [WpWcProductCategory]
-        images: [WpWcProductImage]
     }
 `;
 
