@@ -1,4 +1,4 @@
-import { graphql, useStaticQuery } from "gatsby";
+import { gql, useQuery } from "@apollo/client";
 import React from "react"
 import { SHIPPING_LINE_SELECTOR_ERROR_MESSAGE, SHIPPING_LINE_SELECTOR_TITLE } from "../../../../../languages/ru/languages";
 import Select from "../../../../Form/Select/Select";
@@ -16,21 +16,15 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
         setSelectedShippingLine(onChangeEvent.target.value);
     }
 
-    const data = useStaticQuery(
-        graphql`
-            query getAllShippingZonesMethods {
-                allWcShippingZones3Methods(filter: {enabled: {eq: true}}) {
-                    edges {
-                        node {
-                            method_id
-                            method_title
-                            method_description
-                        }
-                    }
+    const { data } = useQuery(gql`
+            query getAllShippingZonesMethods($zoneId: Int) {
+                allWpShippingZonesMethods(zoneId: $zoneId) {
+                    method_id
+                    method_title
+                    method_description
                 }
             }
-        `
-    );
+        `, { variables: { zoneId: 1 } });
 
     return (
         <Select
@@ -40,9 +34,9 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
             onChangeHandler={selectOnChangeHandler}
         >
             {
-                data.allWcShippingZones3Methods.edges.map((method: any, index: number) =>
-                    <SelectOption value={method.node.method_id} key={index}>
-                        {method.node.method_title}
+                data && data.allWpShippingZonesMethods.map((method: any, index: number) =>
+                    <SelectOption value={method.method_id} key={index}>
+                        {method.method_title}
                     </SelectOption>)
             }
         </Select >
