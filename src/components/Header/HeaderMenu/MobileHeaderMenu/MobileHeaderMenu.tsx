@@ -8,6 +8,7 @@ import ImageSVG from "../../../ImageSVG";
 import SocialsList from "../../../SocialsList";
 import MobileHeaderSubMenu from "./MobileHeaderSubMenu";
 import MobileHeaderSubMenuTitle from "./MobileHeaderSubMenuTitle";
+import { useIsMenuOpenedVar } from "../../../../services/hooks/useIsMenuOpenedVar";
 
 const StyledMobileHeaderMenu = styled.div<any>`
     position: fixed;
@@ -15,6 +16,7 @@ const StyledMobileHeaderMenu = styled.div<any>`
     top: ${props => props.isMenuOpened ? '124px' : '-500px'};
     flex-direction: column;
     transition: 250ms;
+    z-index: 100;
 `;
 
 const MobileHeaderMenuItems = styled.nav`
@@ -85,8 +87,11 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
     const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
     const [isSubMenuOpened, setIsSubMenuOpened] = useState<boolean>(false);
 
+    const { setIsMenuOpenedVar } = useIsMenuOpenedVar();
+
     function buttonOnClickHandler(): void {
         setIsMenuOpened(toogle(isMenuOpened));
+        setIsMenuOpenedVar(toogle(isMenuOpened));
     }
 
     function MobileHeaderSubMenuTitleOnClickHandler(): void {

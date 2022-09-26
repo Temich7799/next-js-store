@@ -4,6 +4,12 @@ import toogle from "../services/toogle";
 import Button from "./Buttons/Button";
 import ImageSVG from "./ImageSVG";
 
+type PopUpProps = {
+    children: JSX.Element
+    visible: boolean
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 const slideFromTopAnimation = keyframes`
     from {top: -322px}
     to {top: 50%}
@@ -26,12 +32,6 @@ const CloseButton = styled(Button)`
     top: 10px;
 `;
 
-type PopUpProps = {
-    children: JSX.Element
-    visible: boolean
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>
-}
-
 const PopUp = (props: PopUpProps) => {
 
     const { children, visible, setVisible } = props;
@@ -41,7 +41,7 @@ const PopUp = (props: PopUpProps) => {
     }
 
     return (
-        <StyledPopUp isVisible={visible}>
+        <StyledPopUp isVisible={visible} >
             <CloseButton buttonStyle="transparent" buttonSize="shrink" onClick={buttonOnClickHandler}>
                 <ImageSVG path="/svg/close.svg" height="15px" width="15px" />
             </CloseButton >
