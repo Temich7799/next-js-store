@@ -1,6 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
-import { checkName, getName, makePath } from "../../../services/attributes";
+import { useProductAttributes } from "../../../services/hooks/useProductAttributes";
 import ImageSVG from "../../ImageSVG";
 
 const StyledProductAttributes = styled.div`
@@ -27,12 +27,14 @@ const ProductAttributes = (props: ProductAttributesProps) => {
 
     const { data } = props;
 
+    const { checkName, getName: parseAttributeName, makePath: makePathToSVG } = useProductAttributes();
+
     return (
         <StyledProductAttributes>
             {
                 data.map((attribute, index) =>
-                    (checkName(attribute.name) && getName(attribute.name) != "height") &&
-                    <ImageSVG path={makePath(attribute.name)} height="25px" width="45px" key={index} />
+                    (checkName(attribute.name) && parseAttributeName(attribute.name) != "height") &&
+                    <ImageSVG path={makePathToSVG(attribute.name)} height="25px" width="45px" key={index} />
                 )
             }
         </StyledProductAttributes >

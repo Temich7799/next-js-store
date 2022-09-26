@@ -1,9 +1,20 @@
-import * as React from "react"
+import React from "react"
 import styled from "styled-components"
-import { getHeightAttribute } from "../../../services/attributes";
 import ImageSVG from "../../ImageSVG";
 import CopyArea from "../../CopyArea";
 import { PRODUCT_SKU, PRODUCT_SKU_EMPTY } from "../../../languages/ru/languages";
+import { useProductAttributes } from "../../../services/hooks/useProductAttributes";
+
+type ProductNameProps = {
+    name: string
+    sku: string
+    attributes: [ProductAttribute]
+}
+
+type ProductAttribute = {
+    options: [string]
+    name: string
+}
 
 const StyledProductName = styled.div`
     display: flex;
@@ -15,20 +26,11 @@ const StyledProductName = styled.div`
     }
 `;
 
-type ProductAttribute = {
-    options: [string]
-    name: string
-}
-
-type ProductNameProps = {
-    name: string
-    sku: string
-    attributes: [ProductAttribute]
-}
-
 const ProductName = (props: ProductNameProps) => {
 
     const { name, sku, attributes } = props;
+
+    const { getHeightAttribute } = useProductAttributes();
 
     const height = getHeightAttribute(attributes);
 
@@ -38,7 +40,13 @@ const ProductName = (props: ProductNameProps) => {
                 <CopyArea><h1>{name}</h1></CopyArea>
                 <CopyArea><p>{PRODUCT_SKU}: {sku != '' ? sku : PRODUCT_SKU_EMPTY}</p></CopyArea>
             </div>
-            {height != undefined && <p><ImageSVG path='/svg/height.svg' height="100%" />{height.options[0]}</p>}
+            {
+                height != undefined &&
+                <p>
+                    <ImageSVG path='/svg/height.svg' height="100%" />
+                    {height.options[0]}
+                </p>
+            }
         </StyledProductName>
     )
 }
