@@ -72,7 +72,7 @@ export default CatalogPage;
 
 export const query = graphql`
   query getAllCategories {
-    allWcProductsCategories {
+    allWcProductsCategories(filter: {products: {elemMatch: {stock_status: {eq: "instock"}, status: {eq: "publish"}}}}) {
       edges {
         node {
           image {
