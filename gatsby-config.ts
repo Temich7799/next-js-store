@@ -1,16 +1,14 @@
 import type { GatsbyConfig } from "gatsby";
+require("dotenv").config();
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `Nines d'Onil`,
-    siteUrl: `https://www.yourdomain.tld`
+    title: process.env.SITE_TITLE,
+    siteUrl: process.env.SITE_URL
   },
   flags: {
     DEV_SSR: true
   },
-  // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
-  // If you use VSCode you can also use the GraphQL plugin
-  // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
     "gatsby-plugin-image",
@@ -22,7 +20,7 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-source-wordpress',
       options: {
-        "url": "http://localhost:8888/wordpress/graphql",
+        "url": process.env.WP_GRAPHQL_URL,
         schema: {
           timeout: 50000
         }
@@ -45,13 +43,13 @@ const config: GatsbyConfig = {
     {
       resolve: '@pasdo501/gatsby-source-woocommerce',
       options: {
-        api: 'localhost:8888/wordpress',
-        https: false,
+        api: process.env.WC_URL,
+        https: true,
         api_keys: {
-          consumer_key: 'ck_0db198da88b1a81b2e7766af5126771190b31b96',
-          consumer_secret: 'cs_601709c4babde4702e285a2f972dad154f2021c7',
+          consumer_key: process.env.WC_KEY,
+          consumer_secret: process.env.WC_SECRET,
         },
-        fields: ['products', 'products/categories', 'products/attributes', 'products/reviews', 'shipping/zones/3/methods', 'payment_gateways']
+        fields: ['products', 'products/categories']
       }
     },
     {

@@ -5,14 +5,12 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BatchHttpLink } from "@apollo/client/link/batch-http";
 require('../../styles/global.css');
 
-const batchLink = new BatchHttpLink({
-    uri: "https://server.malinikids.com",
-    batchMax: 5,
-    batchInterval: 100
-});
-
 const client = new ApolloClient({
-    link: batchLink,
+    link: new BatchHttpLink({
+        uri: process.env.GATSBY_APOLLO_SERVER_URL,
+        batchMax: 5,
+        batchInterval: 100
+    }),
     cache: new InMemoryCache(
         {
             typePolicies: {
