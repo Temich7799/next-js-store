@@ -1,4 +1,5 @@
 const WpNovaPoshtaCity = `#graphql
+
     type WpNovaPoshtaCity {
         ref: String!
         description: String

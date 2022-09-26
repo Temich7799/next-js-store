@@ -1,4 +1,5 @@
 const WpWcOrder = `#graphql
+
     type WpWcOrder {
         id: ID
         status: String
