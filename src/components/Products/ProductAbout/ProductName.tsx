@@ -18,11 +18,21 @@ type ProductAttribute = {
 
 const StyledProductName = styled.div`
     display: flex;
-    gap: 15px;
+    align-items: center;
     justify-content: space-between;
-    h1, p {
+    h1 {
         display: inline-block;
         margin: 2.5% 0;
+    }
+`;
+
+const StyledHeightAttribute = styled.div`
+    min-width: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p {
+        margin: 0;
     }
 `;
 
@@ -41,11 +51,11 @@ const ProductName = (props: ProductNameProps) => {
                 <CopyArea><p>{PRODUCT_SKU}: {sku != '' ? sku : PRODUCT_SKU_EMPTY}</p></CopyArea>
             </div>
             {
-                height != undefined &&
-                <p>
-                    <ImageSVG path='/svg/height.svg' height="100%" />
-                    {height.options[0]}
-                </p>
+                height !== undefined &&
+                <StyledHeightAttribute>
+                    <ImageSVG path='/svg/height.svg' height="75px" width="25px" />
+                    <p>{height.options[0]}</p>
+                </StyledHeightAttribute>
             }
         </StyledProductName>
     )
