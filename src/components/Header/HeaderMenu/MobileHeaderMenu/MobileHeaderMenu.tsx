@@ -13,6 +13,7 @@ import { useIsMenuOpenedVar } from "../../../../services/hooks/useIsMenuOpenedVa
 const StyledMobileHeaderMenu = styled.div<any>`
     position: fixed;
     width: 100%;
+    left: 0;
     top: ${props => props.isMenuOpened ? '124px' : '-500px'};
     flex-direction: column;
     transition: 250ms;
@@ -30,7 +31,7 @@ const MobileHeaderMenuItems = styled.nav`
     text-align: center;
     background-color: #f7dcf4;
     overflow: hidden;
-    ::-webkit-scrollbar { display: none }
+    //::-webkit-scrollbar { display: none }
 `;
 
 const MobileHeaderMenuLinksWrapper = styled.div`
@@ -38,7 +39,7 @@ const MobileHeaderMenuLinksWrapper = styled.div`
     width: 100%;
     overflow: scroll;
     scrollbar-width: none;
-    ::-webkit-scrollbar { display: none }
+    //::-webkit-scrollbar { display: none }
 `;
 
 const MobileHeaderMenuLinks = styled.ul`
@@ -112,22 +113,20 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
                             <MobileHeaderMenuLinks>
                                 {
                                     data.map((link: MobileHeaderMenuItem, index: number) =>
-                                        <>
-                                            {
-                                                link.childItems.nodes.length
-                                                    ?
-                                                    <MobileHeaderMenuLinks key={index}>
-                                                        <MobileHeaderSubMenuTitle title={link.label} isSubMenuOpened={isSubMenuOpened} onClickHandler={MobileHeaderSubMenuTitleOnClickHandler} />
-                                                        {isSubMenuOpened && <MobileHeaderSubMenu data={link} />}
-                                                    </MobileHeaderMenuLinks>
-                                                    : !link.parentId &&
-                                                    <li key={index}>
-                                                        <Link to={link.path != '/home/' ? link.path : '/'}>
-                                                            {link.label}
-                                                        </Link>
-                                                    </li>
-                                            }
-                                        </>
+
+                                        link.childItems.nodes.length
+                                            ?
+                                            <MobileHeaderMenuLinks key={index}>
+                                                <MobileHeaderSubMenuTitle title={link.label} isSubMenuOpened={isSubMenuOpened} onClickHandler={MobileHeaderSubMenuTitleOnClickHandler} />
+                                                {isSubMenuOpened && <MobileHeaderSubMenu data={link} />}
+                                            </MobileHeaderMenuLinks>
+                                            : !link.parentId &&
+                                            <li key={index}>
+                                                <Link to={link.path !== '/home/' ? link.path : '/'}>
+                                                    {link.label}
+                                                </Link>
+                                            </li>
+
                                     )
                                 }
                             </MobileHeaderMenuLinks>

@@ -2,6 +2,10 @@ body {
     margin: 0;
 }
 
+body ::-webkit-scrollbar {
+    display: none
+}
+
 #gatsby-focus-wrapper {
     min-height: 100vh;
     display: flex;

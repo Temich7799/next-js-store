@@ -31,7 +31,7 @@ exports.createPages = async function ({ actions, graphql }) {
 
     const { data } = await graphql(`
       query getCategories {
-        allWcProductsCategories(filter: {products: {elemMatch: {stock_status: {eq: "instock"}, status: {eq: "publish"}}}}) {
+        allWcProductsCategories {
           edges {
             node {
               wordpress_id
@@ -59,8 +59,7 @@ exports.createPages = async function ({ actions, graphql }) {
           edges {
             node {
               sku
-              wordpress_id
-              slug
+              wordpress_id         
               categories {
                 slug
               }
