@@ -96,10 +96,10 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                 <ProductAbout />
                 <ProductDescription />
                 {
-                    allWpRelatedProductsDataIds &&
+                    allWpRelatedProductsDataIds !== undefined &&
                     <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} isDataFetching={allWpRelatedProductsLoading} carouselItemMax={3}>
                         {
-                            allWpRelatedProductsData && allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
+                            allWpRelatedProductsData !== undefined && allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
 
                                 const relatedProduct = extendProductByMatchingImages(fetchedProduct, gatsbyImages);
 

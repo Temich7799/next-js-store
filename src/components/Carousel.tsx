@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
+import ResizeObserver from "resize-observer-polyfill";
 import styled from "styled-components"
+import useMobile from "../services/hooks/useMobile";
 import Button from "./Buttons/Button"
 import LoadingBar from "./LoadingBars/LoadingBar";
 
@@ -62,6 +64,9 @@ const Carousel = (props: CarouselProps) => {
         children,
     } = props;
 
+    let pointerType = useMobile() ? 'pointer' : 'mouse';
+    let eventEndType = useMobile() ? 'cancel' : 'up';
+
     const [sliderClientWidth, setSliderClientWidth] = useState<number>(0);
     const [itemWidth, setItemWidth] = useState<number>(0);
     const [itemsGap, setItemsGap] = useState<number>(0);
@@ -72,7 +77,7 @@ const Carousel = (props: CarouselProps) => {
 
     const slider = useRef<any>();
     slider.current = {
-        isMouseDown: false,
+        isPointerDown: false,
         prevPosition: 0,
         position: 0,
         positionsMap: positions ? positions : [],
@@ -84,20 +89,15 @@ const Carousel = (props: CarouselProps) => {
 
             setItemWidth(carouselSlider.current.firstChild.clientWidth);
 
-            const sliderClientWidthObserver = new ResizeObserver(entries => {
+            const sliderClientWidthObserver = new ResizeObserver((entries) => {
                 for (let entry of entries) {
-                    setSliderClientWidth(entry.borderBoxSize[0].inlineSize);
+                    setSliderClientWidth(entry.contentRect.width);
                 }
             });
+
             sliderClientWidthObserver.observe(carouselSlider.current);
 
-            carouselWrapper.current.addEventListener('mousemove', (onMouseMoveEvent: any) => sliderOnMouseMoveHandler(onMouseMoveEvent));
-            carouselWrapper.current.addEventListener('mousedown', sliderOnMouseDownHandler);
-            window.addEventListener('mouseup', windowOnMouseUpHandler);
-
-            carouselWrapper.current.addEventListener('touchmove', (onTouchMoveEvent: any) => sliderOnMouseMoveHandler(onTouchMoveEvent));
-            carouselWrapper.current.addEventListener('touchstart', sliderOnMouseDownHandler);
-            window.addEventListener('touchend', windowOnMouseUpHandler);
+            carouselWrapper.current.addEventListener(`${pointerType}down`, onPointerDownHandler);
         }
     }, [children]);
 
@@ -116,6 +116,7 @@ const Carousel = (props: CarouselProps) => {
     useEffect(() => {
 
         if (isDataFetching === false) {
+            
             slider.current.positionsMap = makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0);
             setPositions(slider.current.positionsMap);
             slider.current.positionIndex = 0;
@@ -123,36 +124,42 @@ const Carousel = (props: CarouselProps) => {
 
             carouselSlider.current.style.left = `${slider.current.position}px`;
         }
-
     }, [itemsGap, sliderClientWidth]);
 
-    function sliderOnMouseMoveHandler(onMouseMoveEvent: any): void {
+    function onPointerDownHandler(): void {
+        console.log()
+        carouselWrapper.current.addEventListener(`${pointerType}move`, onPointerMoveHandler);
 
-        onMouseMoveEvent.cancelable && onMouseMoveEvent.preventDefault();
+        window.addEventListener(`${pointerType}${eventEndType}`, () => { //----- Add onUpEvent
 
-        if (slider.current.isMouseDown == true) {
-            slider.current.position += onMouseMoveEvent.movementX;
-            carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
-        }
-    }
+            carouselWrapper.current.removeEventListener(`${pointerType}down`, onPointerDownHandler);
+            carouselWrapper.current.removeEventListener(`${pointerType}move`, onPointerMoveHandler);
 
-    function sliderOnMouseDownHandler(): void {
-        slider.current.isMouseDown = true;
+            onPointerUpHandler();
+        });
+
         slider.current.prevPosition = slider.current.position;
     }
 
-    function windowOnMouseUpHandler(): void {
+    function onPointerMoveHandler(onPointerMoveEvent: any): void {
 
-        if (slider.current.isMouseDown == true) {
+        onPointerMoveEvent.cancelable && onPointerMoveEvent.preventDefault();
 
-            if (slider.current.position !== slider.current.prevPosition) {
-                makeSwipe(slider.current.position > slider.current.prevPosition ? 'left' : 'right');
-                slider.current.prevPosition = 0;
-            }
+        slider.current.position += onPointerMoveEvent.movementX;
+        carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
+    }
 
-            carouselSlider.current.style.transition = `${speed}`;
+    function onPointerUpHandler(): void {
+
+        if (slider.current.position !== slider.current.prevPosition) {
+            makeSwipe(slider.current.position > slider.current.prevPosition ? 'left' : 'right');
+            slider.current.prevPosition = 0;
         }
-        slider.current.isMouseDown = false;
+
+        carouselSlider.current.style.transition = `${speed}`;
+
+        carouselWrapper.current.addEventListener(`${pointerType}down`, onPointerDownHandler);
+        window.removeEventListener(`${pointerType}${eventEndType}`, onPointerUpHandler); //----- Remove onUpEvent
     }
 
     function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
@@ -186,11 +193,14 @@ const Carousel = (props: CarouselProps) => {
     }
 
     function makePositionsMap(startFrom: number): Array<number> {
+
         let array = [];
+
         do {
             array.push(startFrom);
             startFrom -= carouselSlider.current.clientWidth;
         } while (carouselSlider.current.clientWidth && startFrom > 0 - carouselSlider.current.scrollWidth);
+
         return array;
     }
 
@@ -203,7 +213,7 @@ const Carousel = (props: CarouselProps) => {
                     isDataFetching
                         ?
                         <LoaderWrapper>
-                            <LoadingBar size="50%"/>
+                            <LoadingBar size="50%" />
                         </LoaderWrapper>
                         :
                         <CarouselSliderWrapper ref={carouselWrapper}>
