@@ -1,8 +1,17 @@
 import React from "react"
 import Layout from "../components/Layouts/MainLayout";
-import { graphql } from "gatsby"
+import { graphql, HeadProps } from "gatsby"
 import styled from "styled-components";
-import useMobile from "../services/hooks/useMobile";
+import useMobile from "../services/hooks/useMobile"
+import MetaData from "../components/Layouts/MetaData";
+
+type IndexProps = {
+  data: {
+    wpPage: {
+      content: string
+    }
+  }
+};
 
 const Main = styled.main<any>`
   margin-top: ${props => props.isMobile ? "125px" : "0"};
@@ -17,14 +26,6 @@ const Content = styled.div`
     gap: 50px;
     padding: 2.5%;
 `;
-
-type IndexProps = {
-  data: {
-    wpPage: {
-      content: string
-    }
-  }
-}
 
 const IndexPage = (props: IndexProps) => {
 
@@ -45,12 +46,27 @@ const IndexPage = (props: IndexProps) => {
 
 export default IndexPage
 
-export const query = graphql`
-query getHomePage {
-  wpPage(slug: {eq: "home"}) {
-    content
-    title
-  }
+export const Head = (headProps: HeadProps) => {
+
+  const metaData = {
+    title: 'title',
+    description: 'description'
+  };
+
+  const linkedData = {
+    context: 'context',
+    type: 'type',
+    name: 'name'
+  };
+
+  return <MetaData metaData={metaData} linkedData={linkedData} />
 }
 
-`
+export const query = graphql`
+  query getHomePage {
+    wpPage(slug: {eq: "home"}) {
+      content
+      title
+    }
+  }
+`;

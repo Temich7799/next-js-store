@@ -5,6 +5,10 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BatchHttpLink } from "@apollo/client/link/batch-http";
 require('../../styles/global.css');
 
+type LayoutProps = {
+    children: JSX.Element | string
+}
+
 const client = new ApolloClient({
     link: new BatchHttpLink({
         uri: process.env.GATSBY_APOLLO_SERVER_URL,
@@ -29,10 +33,6 @@ const client = new ApolloClient({
     ),
 });
 
-type LayoutProps = {
-    children: JSX.Element | string
-}
-
 const Layout = (props: LayoutProps) => {
 
     const { children } = props;
@@ -47,5 +47,4 @@ const Layout = (props: LayoutProps) => {
 }
 
 export default Layout
-
 

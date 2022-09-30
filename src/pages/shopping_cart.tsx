@@ -1,6 +1,8 @@
+import { HeadProps } from "gatsby";
 import React, { useState } from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
+import MetaData from "../components/Layouts/MetaData";
 import ShoppingCartContent from "../components/Products/ShoppingCart/ShoppingCartContent";
 import SuccessOrderContent from "../components/Products/ShoppingCart/SuccessOrderContent";
 
@@ -35,3 +37,19 @@ const ShoppingCartPage = () => {
 }
 
 export default ShoppingCartPage;
+
+export const Head = (headProps: HeadProps) => {
+
+  const metaData = {
+    title: 'title',
+    description: 'description'
+  };
+
+  const linkedData = {
+    context: 'context',
+    type: 'type',
+    name: 'name'
+  };
+
+  return <MetaData metaData={metaData} linkedData={linkedData} />
+}

@@ -1,7 +1,14 @@
 import React from "react";
 import Layout from "./MainLayout";
-import { graphql } from "gatsby";
+import { graphql, HeadProps } from "gatsby";
 import ProductPageContent from "../Products/ProductPageContent";
+import MetaData from "./MetaData";
+
+type ProductProps = {
+    data: {
+        wcProducts: Product
+    }
+}
 
 type Product = {
     name: string
@@ -39,12 +46,6 @@ type Product = {
     ]
 }
 
-type ProductProps = {
-    data: {
-        wcProducts: Product
-    }
-}
-
 const ProductLayout = (props: ProductProps) => {
 
     const { data } = props;
@@ -75,6 +76,18 @@ const ProductLayout = (props: ProductProps) => {
 }
 
 export default ProductLayout
+
+export const Head = (headProps: HeadProps) => {
+
+    const metaData: any = {};
+    const linkedData = {
+        context: 'artem',
+        type: 'temich',
+        name: 'artemon'
+    };
+
+    return <MetaData metaData={metaData} linkedData={linkedData} />
+}
 
 export const query = graphql`
   query getProduct($productId: Int!){

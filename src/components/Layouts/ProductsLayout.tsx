@@ -1,7 +1,8 @@
 import React from "react";
 import Layout from "./MainLayout";
-import { graphql } from "gatsby";
+import { graphql, HeadProps } from "gatsby";
 import ProductsPageContent from "../Products/ProductsPageContent";
+import MetaData from "./MetaData";
 
 type ProductsProps = {
   data: {
@@ -53,7 +54,23 @@ const ProductsLayout = (props: ProductsProps) => {
   )
 }
 
-export default ProductsLayout
+export default ProductsLayout;
+
+export const Head = (headProps: HeadProps) => {
+
+  const metaData = {
+    title: 'title',
+    description: 'description'
+  };
+
+  const linkedData = {
+    context: 'context',
+    type: 'type',
+    name: 'name'
+  };
+
+  return <MetaData metaData={metaData} linkedData={linkedData} />
+}
 
 export const query = graphql`
   query getProductImages($categoryId: Int) {

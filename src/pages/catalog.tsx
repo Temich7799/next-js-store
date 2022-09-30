@@ -1,4 +1,4 @@
-import { graphql } from "gatsby";
+import { graphql, HeadProps } from "gatsby";
 import React from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/MainLayout";
@@ -6,21 +6,7 @@ import CategoryThumb from "../components/Products/Thumbs/CategoryThumb";
 import PageTitle from "../components/PageTitle";
 import useMobile from "../services/hooks/useMobile";
 import { CATALOG_PAGE_TITLE } from "../languages/ru/languages";
-
-const Main = styled.main<any>`
-  margin-top: ${props => props.isMobile ? "125px" : "0"};
-`;
-
-const Content = styled.div`
-  max-width: 1700px;
-  margin: 0 auto;
-  padding: 2.5%;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  column-gap: 25px;
-  row-gap: 50px;
-`
+import MetaData from "../components/Layouts/MetaData";
 
 type CatalogProps = {
   data: {
@@ -42,7 +28,22 @@ type CatalogProps = {
       ]
     }
   }
-}
+};
+
+const Main = styled.main<any>`
+  margin-top: ${props => props.isMobile ? "125px" : "0"};
+`;
+
+const Content = styled.div`
+  max-width: 1700px;
+  margin: 0 auto;
+  padding: 2.5%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  column-gap: 25px;
+  row-gap: 50px;
+`;
 
 const CatalogPage = (props: CatalogProps) => {
 
@@ -69,6 +70,22 @@ const CatalogPage = (props: CatalogProps) => {
 }
 
 export default CatalogPage;
+
+export const Head = (headProps: HeadProps) => {
+
+  const metaData = {
+    title: 'title',
+    description: 'description'
+  };
+
+  const linkedData = {
+    context: 'context',
+    type: 'type',
+    name: 'name'
+  };
+
+  return <MetaData metaData={metaData} linkedData={linkedData} />
+}
 
 export const query = graphql`
   query getAllCategories {
