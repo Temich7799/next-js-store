@@ -7,6 +7,7 @@ import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
 import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct";
 import { PageContext } from "../ProductPageContent";
+import ProductBuyButton from "../../Buttons/ProductBuyButton";
 
 const StyledProductBuy = styled.div`
     display: flex;
@@ -56,16 +57,7 @@ const ProductBuy = () => {
     return (
         <StyledProductBuy>
             <ProductPrice price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} />
-            <Button id="shoppingCartButton" onClick={buttonOnClickHandler} disabled={isDataLoading || isOutOfStock}>
-                <>
-                    {
-                        isOutOfStock
-                            ? PRODUCT_OUT_OF_STOCK_BUTTON_TITLE
-                            : PRODUCT_BUY_BUTTON_TITLE
-                    }
-                    <ImageSVG path="/svg/add_to_cart.svg" height="25px" width="25px" />
-                </>
-            </Button>
+            <ProductBuyButton onClickHandler={buttonOnClickHandler} isDataLoading={isDataLoading} isOutOfStock={isOutOfStock} />
         </StyledProductBuy >
     )
 }

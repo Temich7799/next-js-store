@@ -100,11 +100,9 @@ const ProductThumb = (props: ProductProps) => {
                     <p>{PRODUCT_SKU}: {data.sku}</p>
                     <ProductPrice price={data.price} salePrice={data.sale_price} />
                 </div>
-                <div>
-                    <Button id="shoppingCartButton" buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
-                        <ImageSVG path='/svg/add_to_cart.svg' height="25px" width="25px" />
-                    </Button>
-                </div>
+                <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
+                    <ImageSVG path='/svg/add_to_cart.svg' height="25px" width="25px" />
+                </Button>
             </ProductCaption>
         </StyledProductThumb >
     )
