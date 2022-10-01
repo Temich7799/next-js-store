@@ -105,7 +105,7 @@ const ProductPageContent = (props: ProductPageContentProps) => {
 
                                 return <ProductThumb
                                     data={relatedProduct}
-                                    absolutePath={`${document.location.origin}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
+                                    absolutePath={`${process.env.GATSBY_SITE_URL}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
                                     key={relatedProduct.wordpress_id}
                                 />
                             })

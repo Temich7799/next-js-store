@@ -38,7 +38,7 @@ const ShoppingCartPage = () => {
 
 export default ShoppingCartPage;
 
-export const Head = (headProps: HeadProps) => {
+export const Head = (props: HeadProps) => {
 
   const metaData = {
     title: 'title',
@@ -51,5 +51,5 @@ export const Head = (headProps: HeadProps) => {
     name: 'name'
   };
 
-  return <MetaData metaData={metaData} linkedData={linkedData} />
+  return <MetaData data={metaData} linkedData={linkedData} />
 }

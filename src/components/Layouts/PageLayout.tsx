@@ -6,6 +6,7 @@ import styled from "styled-components";
 import MetaData from "./MetaData";
 require('../../styles/wp.css');
 import type { HeadProps } from "gatsby"
+import useYoastMetaData from "../../services/hooks/useYoastMetaData";
 
 type PageProps = {
   data: {
@@ -42,20 +43,23 @@ const PageLayout = (props: PageProps) => {
 
 export default PageLayout
 
-export const Head = (headProps: HeadProps) => {
+export const Head = (props: HeadProps) => {
 
-  const metaData = {
-    title: 'title',
-    description: 'description'
-  };
+  const { slug }: any = props.pageContext;
+
+  const { metaData, openGraphData } = useYoastMetaData(`/${slug}/`, {
+    openGraphData: {
+      og_url: `${process.env.GATSBY_SITE_URL}/${slug}`
+    }
+  });
 
   const linkedData = {
-    context: 'context',
-    type: 'type',
-    name: 'name'
+    context: 'artem',
+    type: 'temich',
+    name: 'artemon'
   };
 
-  return <MetaData metaData={metaData} linkedData={linkedData} />
+  return <MetaData data={metaData} linkedData={linkedData} openGraphData={openGraphData} />
 }
 
 export const query = graphql`

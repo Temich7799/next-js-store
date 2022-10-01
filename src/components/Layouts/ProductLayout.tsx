@@ -77,20 +77,31 @@ const ProductLayout = (props: ProductProps) => {
 
 export default ProductLayout
 
-export const Head = (headProps: HeadProps) => {
+export const Head = (props: HeadProps) => {
 
-    const metaData: any = {};
+    const { metaData: data }: any = props.pageContext;
+
+    const metaData = {
+        title: data.title,
+        description: data.description
+    };
+
+    delete data.title;
+    delete data.description;
+
+    const openGraphData = data;
+
     const linkedData = {
         context: 'artem',
         type: 'temich',
         name: 'artemon'
     };
 
-    return <MetaData metaData={metaData} linkedData={linkedData} />
+    return <MetaData data={metaData} linkedData={linkedData} openGraphData={openGraphData} />
 }
 
 export const query = graphql`
-  query getProduct($productId: Int!){
+  query getProductData($productId: Int!){
     wcProducts(wordpress_id: {eq: $productId}) {
         name
         sku
@@ -106,20 +117,17 @@ export const query = graphql`
             status
             stock_status
             wordpress_id
-            images {
-                alt
-                localFile {
-                    childImageSharp {
-                        gatsbyImageData(
-                            webpOptions: {quality: 85}
-                            height: 240
-                        )
-                    }
-                }
+        images {
+            alt
+            localFile {
+            childImageSharp {
+                gatsbyImageData(webpOptions: {quality: 85}, height: 240)
             }
-            categories {
-                slug
             }
+        }
+        categories {
+            slug
+        }
         }
         images {
             src

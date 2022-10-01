@@ -4,6 +4,8 @@ import { graphql, HeadProps } from "gatsby"
 import styled from "styled-components";
 import useMobile from "../services/hooks/useMobile"
 import MetaData from "../components/Layouts/MetaData";
+import parseYoastMetaData from "../services/hooks/useYoastMetaData";
+import useYoastMetaData from "../services/hooks/useYoastMetaData";
 
 type IndexProps = {
   data: {
@@ -34,32 +36,33 @@ const IndexPage = (props: IndexProps) => {
   const isMobile = useMobile();
 
   return (
-    <>
-      <Layout>
-        <Main isMobile={isMobile}>
-          {(data.wpPage.content) && <Content dangerouslySetInnerHTML={{ __html: data.wpPage.content }} />}
-        </Main>
-      </Layout>
-    </>
+    <Layout>
+      <Main isMobile={isMobile}>
+        {
+          (data.wpPage.content) && <Content dangerouslySetInnerHTML={{ __html: data.wpPage.content }} />
+        }
+      </Main>
+    </Layout>
   )
 }
 
 export default IndexPage
 
-export const Head = (headProps: HeadProps) => {
+export const Head = (props: HeadProps) => {
 
-  const metaData = {
-    title: 'title',
-    description: 'description'
-  };
+  const { metaData, openGraphData } = useYoastMetaData('/home/', {
+    openGraphData: {
+      og_url: process.env.GATSBY_SITE_URL
+    }
+  });
 
   const linkedData = {
-    context: 'context',
-    type: 'type',
-    name: 'name'
+    context: 'artem',
+    type: 'temich',
+    name: 'artemon'
   };
 
-  return <MetaData metaData={metaData} linkedData={linkedData} />
+  return <MetaData data={metaData} linkedData={linkedData} openGraphData={openGraphData} />
 }
 
 export const query = graphql`

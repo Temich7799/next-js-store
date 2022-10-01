@@ -1,3 +1,3 @@
 export function formatCatalogChildItemUrl(url: string): string {
-    return document.location.origin + '/catalog/' + url.split('/product-category/')[1];
+    return process.env.GATSBY_SITE_URL + '/catalog/' + url.split('/product-category/')[1];
 }

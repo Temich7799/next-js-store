@@ -27,10 +27,10 @@ type UpdatedProduct = {
     }
 }
 
-export default function useUpdatedProduct(productToUpdateToUpdate: ProductProps) {
+export default function useUpdatedProduct(productToUpdate: ProductProps) {
 
     const [isOutOfStock, setIsOutOfStock] = useState<boolean>(false);
-    const [updatedData, setUpdatedData] = useState<UpdatedProduct | ProductProps | any>(productToUpdateToUpdate);
+    const [updatedData, setUpdatedData] = useState<UpdatedProduct | ProductProps | any>(productToUpdate);
 
     const [getProductFetchData, { loading, error }] = useLazyQuery(gql`
         query getProductFetchData($productId: Int!) {
@@ -44,7 +44,7 @@ export default function useUpdatedProduct(productToUpdateToUpdate: ProductProps)
     `);
 
     useEffect(() => {
-        getProductFetchData({ variables: { productId: productToUpdateToUpdate.wordpress_id } })
+        getProductFetchData({ variables: { productId: productToUpdate.wordpress_id } })
             .then((response) => {
 
                 setIsOutOfStock(

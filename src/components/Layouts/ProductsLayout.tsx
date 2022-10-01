@@ -56,12 +56,19 @@ const ProductsLayout = (props: ProductsProps) => {
 
 export default ProductsLayout;
 
-export const Head = (headProps: HeadProps) => {
+export const Head = (props: HeadProps) => {
+
+  const { metaData: data }: any = props.pageContext;
 
   const metaData = {
-    title: 'title',
-    description: 'description'
+    title: data.title,
+    description: data.description
   };
+
+  delete data.title;
+  delete data.description;
+
+  const openGraphData = data;
 
   const linkedData = {
     context: 'context',
@@ -69,7 +76,7 @@ export const Head = (headProps: HeadProps) => {
     name: 'name'
   };
 
-  return <MetaData metaData={metaData} linkedData={linkedData} />
+  return <MetaData data={metaData} linkedData={linkedData} openGraphData={openGraphData} />
 }
 
 export const query = graphql`

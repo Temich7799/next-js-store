@@ -4,7 +4,7 @@ require("dotenv").config();
 const config: GatsbyConfig = {
   siteMetadata: {
     title: process.env.SITE_TITLE,
-    siteUrl: process.env.SITE_URL
+    siteUrl: process.env.GATSBY_SITE_URL
   },
   flags: {
     DEV_SSR: true
@@ -42,7 +42,7 @@ const config: GatsbyConfig = {
     {
       resolve: '@pasdo501/gatsby-source-woocommerce',
       options: {
-        api: process.env.WC_URL,
+        api: process.env.GATSBY_WC_URL,
         https: true,
         api_keys: {
           consumer_key: process.env.WC_KEY,

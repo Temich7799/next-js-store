@@ -7,6 +7,7 @@ import PageTitle from "../components/PageTitle";
 import useMobile from "../services/hooks/useMobile";
 import { CATALOG_PAGE_TITLE } from "../languages/ru/languages";
 import MetaData from "../components/Layouts/MetaData";
+import useYoastMetaData from "../services/hooks/useYoastMetaData";
 
 type CatalogProps = {
   data: {
@@ -52,39 +53,37 @@ const CatalogPage = (props: CatalogProps) => {
   const isMobile = useMobile();
 
   return (
-    <>
-      <Layout>
-        <>
-          <Main isMobile={isMobile}>
-            <PageTitle>{CATALOG_PAGE_TITLE}</PageTitle>
-            <Content>
-              {
-                data.allWcProductsCategories.edges.map((edge: any, index: number) => <CategoryThumb data={edge.node} key={index} />)
-              }
-            </Content>
-          </Main>
-        </>
-      </Layout>
-    </>
+    <Layout>
+      <Main isMobile={isMobile}>
+        <PageTitle>{CATALOG_PAGE_TITLE}</PageTitle>
+        <Content>
+          {
+            data.allWcProductsCategories.edges.map((edge: any, index: number) =>
+              <CategoryThumb data={edge.node} key={index} />)
+          }
+        </Content>
+      </Main>
+    </Layout>
   )
 }
 
 export default CatalogPage;
 
-export const Head = (headProps: HeadProps) => {
+export const Head = (props: HeadProps) => {
 
-  const metaData = {
-    title: 'title',
-    description: 'description'
-  };
+  const { metaData, openGraphData } = useYoastMetaData('/catalog/', {
+    openGraphData: {
+      og_url: `${process.env.GATSBY_SITE_URL}/catalog`
+    }
+  });
 
   const linkedData = {
-    context: 'context',
-    type: 'type',
-    name: 'name'
+    context: 'artem',
+    type: 'temich',
+    name: 'artemon'
   };
 
-  return <MetaData metaData={metaData} linkedData={linkedData} />
+  return <MetaData data={metaData} linkedData={linkedData} openGraphData={openGraphData} />
 }
 
 export const query = graphql`
