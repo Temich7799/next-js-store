@@ -36,11 +36,11 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
 
     const { data } = props;
 
-    const { add, decrease, clear } = useShoppingCartVar();
+    const { add, decrease, clear, data: shoppingCartData } = useShoppingCartVar();
 
     return (
         <StyledPurchasedProductQuantity>
-            <p>x {data.quantity}</p>
+            <p>x {data.quantity ? data.quantity : shoppingCartData ? shoppingCartData[data.wordpress_id].quantity : 0}</p>
             <div>
                 <Button buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {

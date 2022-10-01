@@ -20,14 +20,15 @@ export const shoppingCartVar: any = makeVar({});
 export function useShoppingCartVar() {
 
     useEffect(() => {
-        shoppingCartVar(JSON.parse(window.localStorage.getItem('purchased-products')));
+        const localStorage = window.localStorage.getItem('purchased-products');
+        localStorage && shoppingCartVar(JSON.parse(localStorage));
     }, []);
 
-    const add = (productId: number, product: PurchasedProductProps): void => {
+    const addToCart = (productId: number, product: PurchasedProductProps): void => {
 
         const currentVar = { ...shoppingCartVar() };
 
-        if (currentVar.hasOwnProperty(productId)) {
+        if (checkForTheProduct(productId)) {
 
             product.stock_quantity !== null
                 ? currentVar[productId].quantity < product.stock_quantity && currentVar[productId].quantity++
@@ -44,7 +45,7 @@ export function useShoppingCartVar() {
         saveToLocalStorage();
     }
 
-    const decrease = (productId: number): void => {
+    const decreaseQuantity = (productId: number): void => {
 
         const newVar: any = { ...shoppingCartVar() };
 
@@ -56,7 +57,7 @@ export function useShoppingCartVar() {
         saveToLocalStorage();
     }
 
-    const clear = (productId: number): void => {
+    const clearCart = (productId: number): void => {
 
         const newVar: any = { ...shoppingCartVar() };
         delete newVar[productId];
@@ -65,7 +66,7 @@ export function useShoppingCartVar() {
         saveToLocalStorage();
     }
 
-    const update = (productId: number, product: PurchasedProductProps) => {
+    const updateCart = (productId: number, product: PurchasedProductProps) => {
 
         const newVar: any = { ...shoppingCartVar() };
 
@@ -78,16 +79,21 @@ export function useShoppingCartVar() {
         }
     }
 
+    const checkForTheProduct = (productId: number): boolean => {
+        return shoppingCartVar().hasOwnProperty(productId);
+    }
+
     function saveToLocalStorage(): void {
         window.localStorage.setItem('purchased-products', JSON.stringify(shoppingCartVar()));
     }
 
     return {
-        add,
-        decrease,
-        clear,
-        update,
-        data: useReactiveVar(shoppingCartVar)
+        add: addToCart,
+        decrease: decreaseQuantity,
+        clear: clearCart,
+        update: updateCart,
+        data: <any>useReactiveVar(shoppingCartVar),
+        isInTheCart: checkForTheProduct
     }
 }
 

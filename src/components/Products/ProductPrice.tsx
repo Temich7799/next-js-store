@@ -11,12 +11,16 @@ type ProductPriceProps = {
 }
 
 const StyledProductPrice = styled.div<any>`
+    max-width: 125px;
     ${props => props.showTitle && `
        display: flex;
         align-items: center;
         gap: 5px;
         flex-wrap: wrap; 
     `} 
+    p {
+        margin: 0;
+    }
 `;
 
 const OldPrice = styled.s`

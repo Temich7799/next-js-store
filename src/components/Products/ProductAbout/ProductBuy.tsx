@@ -1,18 +1,20 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { PRODUCT_BUY_BUTTON_TITLE, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } from "../../../languages/ru/languages";
-import Button from "../../Buttons/Button";
-import ImageSVG from "../../ImageSVG";
 import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
 import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct";
 import { PageContext } from "../ProductPageContent";
 import ProductBuyButton from "../../Buttons/ProductBuyButton";
+import PurchasedProductQuantity from "../ShoppingCart/OrderDetails/PurchasedProductQuantity";
+import GoToCartButton from "../../Buttons/GoToCartButton";
 
 const StyledProductBuy = styled.div`
+    width: fit-content;
     display: flex;
     justify-content: center;
-    gap: 15px;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
     margin: 10px 0;
 `;
 
@@ -48,7 +50,7 @@ const ProductBuy = () => {
 
     const { loading: isDataLoading, updatedData, isOutOfStock } = useUpdatedProduct(data);
 
-    const { add } = useShoppingCartVar();
+    const { add, isInTheCart } = useShoppingCartVar();
 
     function buttonOnClickHandler() {
         add(data.wordpress_id, updatedData);
@@ -57,7 +59,15 @@ const ProductBuy = () => {
     return (
         <StyledProductBuy>
             <ProductPrice price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} />
-            <ProductBuyButton onClickHandler={buttonOnClickHandler} isDataLoading={isDataLoading} isOutOfStock={isOutOfStock} />
+            {
+                isInTheCart(data.wordpress_id)
+                    ?
+                    <StyledProductBuy>
+                        <GoToCartButton isButtonDisabled={isDataLoading || isOutOfStock} />
+                        <PurchasedProductQuantity data={updatedData} />
+                    </StyledProductBuy>
+                    : <ProductBuyButton onClickHandler={buttonOnClickHandler} isDataLoading={isDataLoading} isOutOfStock={isOutOfStock} />
+            }
         </StyledProductBuy >
     )
 }
