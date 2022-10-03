@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "gatsby";
 import styled from "styled-components"
 import ImageSVG from "../../ImageSVG";
 import Button from "../../Buttons/Button";
@@ -10,7 +9,7 @@ import { useLastProductPageVar } from "../../../services/hooks/useLastProductPag
 
 type ProductProps = {
     data: Product
-    absolutePath?: string
+    url: string
 }
 
 type Product = {
@@ -48,7 +47,7 @@ const StyledProductThumb = styled.div`
     }
 `;
 
-const ProductImage = styled.div`
+const ProductLink = styled.a`
     position: relative;
 `;
 
@@ -67,7 +66,7 @@ const ProductCaption = styled.div`
 
 const ProductThumb = (props: ProductProps) => {
 
-    const { data, absolutePath } = props;
+    const { data, url } = props;
     if (data.sku == '') data.sku = data.wordpress_id.toString();
 
     const { add: addToCart } = useShoppingCartVar();
@@ -84,17 +83,9 @@ const ProductThumb = (props: ProductProps) => {
 
     return (
         <StyledProductThumb onClick={thumbOnClickHandler}>
-            <ProductImage>
-                {
-                    absolutePath
-                        ? <a href={absolutePath}><img src={data.image.src} alt={data.image.alt} /> </a>
-                        :
-                        <Link to={`${data.categories[0].slug}-${data.sku}`}>
-                            <img src={data.image.src} alt={data.image.alt} />
-                        </Link>
-
-                }
-            </ProductImage>
+            <ProductLink href={url}>
+                <img src={data.image.src} alt={data.image.alt} />
+            </ProductLink>
             <ProductCaption>
                 <div>
                     <p>{PRODUCT_SKU}: {data.sku}</p>

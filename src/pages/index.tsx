@@ -33,13 +33,11 @@ const IndexPage = (props: IndexProps) => {
   const isMobile = useMobile();
 
   return (
-    <>
-      <Layout>
-        <Main isMobile={isMobile}>
-          {(data.wpPage.content) && <Content dangerouslySetInnerHTML={{ __html: data.wpPage.content }} />}
-        </Main>
-      </Layout>
-    </>
+    <Layout>
+      <Main isMobile={isMobile}>
+        {(data.wpPage.content) && <Content dangerouslySetInnerHTML={{ __html: data.wpPage.content }} />}
+      </Main>
+    </Layout>
   )
 }
 

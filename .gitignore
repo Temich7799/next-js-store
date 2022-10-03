@@ -3,3 +3,5 @@ node_modules/
 .env
 public
 src/gatsby-types.d.ts
+.env.production
+.env.development

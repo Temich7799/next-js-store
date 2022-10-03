@@ -7,7 +7,7 @@ export function useLastProductPageVar() {
 
     useEffect(() => {
         const localStorage = window.localStorage.getItem('last-products-page-url');
-        lastProductPageUrlVar(localStorage ? localStorage : `${window.document.location.origin}/catalog`);
+        lastProductPageUrlVar(localStorage ? localStorage : `${window.process.env.GATSBY_SITE_URL}/catalog`);
     }, []);
 
     function save(): void {

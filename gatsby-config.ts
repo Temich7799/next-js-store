@@ -1,5 +1,7 @@
 import type { GatsbyConfig } from "gatsby";
-require("dotenv").config();
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -42,7 +44,7 @@ const config: GatsbyConfig = {
     {
       resolve: '@pasdo501/gatsby-source-woocommerce',
       options: {
-        api: process.env.WC_URL,
+        api: process.env.GATSBY_WC_URL,
         https: true,
         api_keys: {
           consumer_key: process.env.WC_KEY,

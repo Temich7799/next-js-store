@@ -28,11 +28,11 @@ interface ExtendedProduct extends ProductProps {
     }
 }
 
-export function extendProductByMatchingImages(product: ProductProps, propsImages: Map<number, string>): ExtendedProduct {
-    
+export function extendProductByMatchingImages(product: ProductProps, gatsbyImages: Map<number, string>): ExtendedProduct {
+
     const productId = parseInt(product.id);
 
-    const gatsbyImage = propsImages.get(productId);
+    const gatsbyImage = gatsbyImages.get(productId);
 
     return {
         ...product,

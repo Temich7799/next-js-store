@@ -51,9 +51,7 @@ const CatalogPage = (props: CatalogProps) => {
   const isMobile = useMobile();
 
   return (
-    <>
       <Layout>
-        <>
           <Main isMobile={isMobile}>
             <PageTitle>{CATALOG_PAGE_TITLE}</PageTitle>
             <Content>
@@ -62,9 +60,7 @@ const CatalogPage = (props: CatalogProps) => {
               }
             </Content>
           </Main>
-        </>
       </Layout>
-    </>
   )
 }
 

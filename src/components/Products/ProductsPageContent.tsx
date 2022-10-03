@@ -118,8 +118,9 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
                             productsData && productsData.allWpWcProducts.map((fetchedProduct: FetchedProduct) => {
 
                                 const product = extendProductByMatchingImages(fetchedProduct, gatsbyImages);
+                                const url = `${process.env.GATSBY_SITE_URL}/catalog/${product.categories[0].slug}/${product.categories[0].slug}-${product.sku}`;
 
-                                return <ProductThumb data={product} key={product.wordpress_id} />
+                                return <ProductThumb data={product} url={url} key={product.wordpress_id} />
                             })
                         }
                     </Content>

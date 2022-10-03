@@ -102,12 +102,9 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                             allWpRelatedProductsData !== undefined && allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
 
                                 const relatedProduct = extendProductByMatchingImages(fetchedProduct, gatsbyImages);
+                                const url = `${process.env.GATSBY_SITE_URL}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`;
 
-                                return <ProductThumb
-                                    data={relatedProduct}
-                                    absolutePath={`${document.location.origin}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`}
-                                    key={relatedProduct.wordpress_id}
-                                />
+                                return <ProductThumb data={relatedProduct} url={url} key={relatedProduct.wordpress_id} />
                             })
                         }
                     </Carousel>
