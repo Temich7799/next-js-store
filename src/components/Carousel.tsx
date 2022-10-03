@@ -99,6 +99,8 @@ const Carousel = (props: CarouselProps) => {
 
             carouselWrapper.current.addEventListener(`${pointerType}down`, onPointerDownHandler);
         }
+
+        return carouselWrapper.current.removeEventListener(`${pointerType}down`, onPointerDownHandler);
     }, [children]);
 
     useEffect(() => {
@@ -116,7 +118,7 @@ const Carousel = (props: CarouselProps) => {
     useEffect(() => {
 
         if (isDataFetching === false) {
-            
+
             slider.current.positionsMap = makePositionsMap(carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth ? itemsGap / 2 : 0);
             setPositions(slider.current.positionsMap);
             slider.current.positionIndex = 0;
@@ -127,7 +129,7 @@ const Carousel = (props: CarouselProps) => {
     }, [itemsGap, sliderClientWidth]);
 
     function onPointerDownHandler(): void {
-        console.log()
+
         carouselWrapper.current.addEventListener(`${pointerType}move`, onPointerMoveHandler);
 
         window.addEventListener(`${pointerType}${eventEndType}`, () => { //----- Add onUpEvent
