@@ -170,12 +170,13 @@ const Carousel = (props: CarouselProps) => {
 
         do {
             gap = (sliderWidth - itemWidth * itemsCount) / itemsCount;
+
             if (gap < minGap) {
                 gap = 0;
                 itemsCount--;
             }
             else break;
-        } while (gap < minGap);
+        } while (gap < minGap && itemsCount > 0);
 
         return gap;
     }
