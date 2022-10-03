@@ -30,6 +30,9 @@ const StyledPurchasedProductQuantity = styled.div`
     justify-content: center;
     align-items: center;  
     gap: 5px;
+    p {
+        min-width: 25px;
+    }
 `;
 
 const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {

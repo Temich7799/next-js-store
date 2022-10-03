@@ -16,7 +16,6 @@ function buttonSizePropsHandler(size: string | undefined) {
         `;
         default:
             return `
-            font-size: 24px;
             width: 200px;
             height: 50px;
         `;
@@ -50,6 +49,7 @@ function buttonStylePropsHandler(style: string | undefined) {
 }
 
 const StyledButton = styled.button<any>`
+    padding: 5%;
     font-family: 'Amatic SC';
     display: flex;
     justify-content: space-around;
