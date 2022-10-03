@@ -23,7 +23,7 @@ export function useSendOrder() {
 
         setIsSending(true);
 
-        return fetch('http://server.malinikids.com', {
+        return fetch(process.env.GATSBY_APOLLO_SERVER_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

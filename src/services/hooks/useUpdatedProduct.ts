@@ -17,6 +17,7 @@ type UpdatedProduct = {
     slug: string
     sku: string
     wordpress_id: number
+    id?: number
     price: string
     stock_status: string
     stock_quantity: number | null

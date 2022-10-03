@@ -2,7 +2,6 @@ import { useLazyQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GET_ALL_WP_PRODUCTS } from "../../graphql/queries/getAllWpProducts";
-import { extendProductByMatchingImages } from "../../services/extendProductByMatchingImages";
 import ContainerCentered from "../../styles/ContainerCentered";
 import LoadingBar from "../LoadingBars/LoadingBar";
 import ProductThumb from "./Thumbs/ProductThumb";
@@ -117,10 +116,14 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
                         {
                             productsData && productsData.allWpWcProducts.map((fetchedProduct: FetchedProduct) => {
 
-                                const product = extendProductByMatchingImages(fetchedProduct, gatsbyImages);
-                                const url = `${process.env.GATSBY_SITE_URL}/catalog/${product.categories[0].slug}/${product.categories[0].slug}-${product.sku}`;
+                                const product = {
+                                    ...fetchedProduct,
+                                    wordpress_id: parseInt(fetchedProduct.id)
+                                };
 
-                                return <ProductThumb data={product} url={url} key={product.wordpress_id} />
+                                const gatsbyImage = gatsbyImages.get(product.wordpress_id);
+
+                                return <ProductThumb data={product} gatsbyImage={gatsbyImage} key={fetchedProduct.id} />
                             })
                         }
                     </Content>

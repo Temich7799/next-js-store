@@ -12,6 +12,7 @@ interface PurchasedProductProps {
         src: string
     }
     wordpress_id: number
+    id?: string
     quantity?: number
 }
 

@@ -85,6 +85,7 @@ const Carousel = (props: CarouselProps) => {
     };
 
     useEffect(() => {
+
         if (children) {
 
             setItemWidth(carouselSlider.current.firstChild.clientWidth);
@@ -99,8 +100,7 @@ const Carousel = (props: CarouselProps) => {
 
             carouselWrapper.current.addEventListener(`${pointerType}down`, onPointerDownHandler);
         }
-
-        return carouselWrapper.current.removeEventListener(`${pointerType}down`, onPointerDownHandler);
+        //return () => carouselWrapper.current.removeEventListener(`${pointerType}down`, onPointerDownHandler);
     }, [children]);
 
     useEffect(() => {

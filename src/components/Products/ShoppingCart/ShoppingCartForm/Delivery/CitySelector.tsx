@@ -19,7 +19,6 @@ const CitySelector = (props: CitySelectorProps) => {
 
     const [getNovaPoshtaCities, { loading: novaPoshtaCitiesLoading }] = useLazyQuery(GET_NOVA_POSHTA_CITIES);
 
-
     function selectOnInputHandler(onInputEvent: any): void {
 
         if (onInputEvent.target.value.length > 2) {

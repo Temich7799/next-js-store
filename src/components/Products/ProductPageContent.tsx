@@ -9,25 +9,24 @@ import Carousel from "../Carousel";
 import { CAROUSEL_RELATED_PRODUCTS_TITLE } from "../../languages/ru/languages";
 import ProductThumb from "./Thumbs/ProductThumb";
 import { GET_ALL_WP_RELATED_PRODUCTS } from "../../graphql/queries/getAllWpRelatedProducts";
-import { extendProductByMatchingImages } from "../../services/extendProductByMatchingImages";
 
 type ProductPageContentProps = {
     data: Product
-    gatsbyImages: Map<number, string>
+    gatsbyImages?: Map<number, string>
+    relatedProductsIds?: Array<string>
 }
 
 type Product = {
     name: string
-    slug: string
     sku: string
     price: string
     sale_price: string
     description: string
-    wordpress_id: number
     stock_quantity: number | null
     stock_status: string
-    related_products: [Product]
-    id: string | any
+    related_products?: [Product]
+    wordpress_id?: number
+    id: string
     attributes: [
         {
             options: [string]
@@ -41,7 +40,7 @@ type Product = {
             localFile: object | any
         }
     ]
-    image: {
+    image?: {
         src: string
         alt: string
     }
@@ -66,27 +65,35 @@ export const PageContext: Product | any = createContext({});
 
 const ProductPageContent = (props: ProductPageContentProps) => {
 
-    const { data, gatsbyImages } = props;
+    const { data, gatsbyImages, relatedProductsIds } = props;
+
+    data.wordpress_id = parseInt(data.id);
 
     const [getRelatedProductsIds, { data: allWpRelatedProductsDataIds }] = useLazyQuery(GET_RELATED_PRODUCTS_IDS, { variables: { productId: data.wordpress_id } });
     const [getAllWpRelatedProducts, { loading: allWpRelatedProductsLoading, data: allWpRelatedProductsData }] = useLazyQuery(GET_ALL_WP_RELATED_PRODUCTS);
 
     useEffect(() => {
-        getRelatedProductsIds()
-            .then((response) => {
-
-                const relatedIds = response.data.wpWcProduct.related_ids.map((id: string) => parseInt(id));
-
-                getAllWpRelatedProducts(
-                    {
-                        variables: {
-                            filter: {
-                                include: relatedIds
-                            }
+        relatedProductsIds
+            ? getAllWpRelatedProducts(
+                {
+                    variables: {
+                        filter: {
+                            include: relatedProductsIds
                         }
-                    });
-            }
-            );
+                    }
+                })
+            : getRelatedProductsIds()
+                .then((response) => {
+                    getAllWpRelatedProducts(
+                        {
+                            variables: {
+                                filter: {
+                                    include: response.data.wpWcProduct.related_ids.map((id: string) => parseInt(id))
+                                }
+                            }
+                        });
+                }
+                );
     }, []);
 
     return (
@@ -101,10 +108,14 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                         {
                             allWpRelatedProductsData !== undefined && allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
 
-                                const relatedProduct = extendProductByMatchingImages(fetchedProduct, gatsbyImages);
-                                const url = `${process.env.GATSBY_SITE_URL}/catalog/${relatedProduct.categories[0].slug}/${relatedProduct.categories[0].slug}-${relatedProduct.sku != '' ? relatedProduct.sku : relatedProduct.wordpress_id}`;
+                                const product = {
+                                    ...fetchedProduct,
+                                    wordpress_id: parseInt(fetchedProduct.id)
+                                };
 
-                                return <ProductThumb data={relatedProduct} url={url} key={relatedProduct.wordpress_id} />
+                                const gatsbyImage = gatsbyImages ? gatsbyImages.get(product.wordpress_id) : undefined;
+
+                                return <ProductThumb data={product} gatsbyImage={gatsbyImage} key={fetchedProduct.id} />
                             })
                         }
                     </Carousel>

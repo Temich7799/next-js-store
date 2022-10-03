@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
-import { ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_BUTTON_DISABLED, ORDER_FINAL_BUTTON_SUBMIT, ORDER_FINAL_TITLE } from "../../../../languages/ru/languages";
-import Button from "../../../Buttons/Button";
-import LoadingSpinner from "../../../LoadingBars/LoadingSpinner";
-import { Link } from "gatsby";
+import { ORDER_FINAL_TITLE } from "../../../../languages/ru/languages";
 import ContinueShoppingButton from "../../../Buttons/ContinueShoppingButton";
 import SendOrderButton from "../../../Buttons/SendOrderButton";
 import GoToCartButton from "../../../Buttons/GoToCartButton";

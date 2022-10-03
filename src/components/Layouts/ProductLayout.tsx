@@ -5,7 +5,6 @@ import ProductPageContent from "../Products/ProductPageContent";
 
 type Product = {
     name: string
-    slug: string
     sku: string
     price: string
     sale_price: string

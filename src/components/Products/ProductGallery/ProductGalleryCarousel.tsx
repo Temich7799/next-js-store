@@ -6,6 +6,7 @@ type ProductGalleryCarouselProps = {
     data: [
         {
             alt: string
+            src: string
             localFile: any
         }
     ]
@@ -35,7 +36,11 @@ const StyledProductGalleryCarousel = styled.div<any>`
 const ProductGalleryCarouselImage = styled.div<any>`
     width: 100px;
     height: 100px;
-    //object-fit: cover;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
     ${(props) => {
         switch (props.isSelected) {
             case true:
@@ -64,7 +69,11 @@ const ProductGalleryCarousel = (props: ProductGalleryCarouselProps) => {
                         onClick={() => { setSelectedImage(data.indexOf(image)) }}
                         key={index}
                     >
-                        <GatsbyImage image={getImage(image.localFile)} alt={image.alt} />
+                        {
+                            image.localFile
+                                ? <GatsbyImage image={getImage(image.localFile)} alt={image.alt} />
+                                : <img src={image.src} alt={image.alt} />
+                        }
                     </ProductGalleryCarouselImage>
                 )
             }

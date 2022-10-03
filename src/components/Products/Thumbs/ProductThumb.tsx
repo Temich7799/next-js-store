@@ -9,26 +9,34 @@ import { useLastProductPageVar } from "../../../services/hooks/useLastProductPag
 
 type ProductProps = {
     data: Product
-    url: string
+    gatsbyImage?: string | undefined
 }
-
-type Product = {
+interface Product {
     name: string
     price: string
     sku: string
     stock_quantity: number | null
     stock_status: string
     sale_price: string
-    image: {
-        alt: string
-        src: string
-    }
     categories: [
         {
             slug: string
         }
     ]
+    images: [
+        {
+            alt: string;
+            src: string;
+        }
+    ]
     wordpress_id: number
+}
+
+interface ExtendedProduct extends Product {
+    image: {
+        src: string
+        alt: string
+    }
 }
 
 const StyledProductThumb = styled.div`
@@ -49,6 +57,7 @@ const StyledProductThumb = styled.div`
 
 const ProductLink = styled.a`
     position: relative;
+    display: block;
 `;
 
 const ProductCaption = styled.div`
@@ -66,8 +75,20 @@ const ProductCaption = styled.div`
 
 const ProductThumb = (props: ProductProps) => {
 
-    const { data, url } = props;
-    if (data.sku == '') data.sku = data.wordpress_id.toString();
+    const { data: propsData, gatsbyImage } = props;
+    if (propsData.sku == '') propsData.sku = propsData.wordpress_id.toString();
+
+    const data: ExtendedProduct = {
+        ...propsData,
+        image: {
+            src: gatsbyImage ? gatsbyImage : propsData.images[0].src,
+            alt: propsData.images[0].alt
+        }
+    };
+
+    const url = gatsbyImage
+        ? `${process.env.GATSBY_SITE_URL}/catalog/${data.categories[0].slug}/${data.categories[0].slug}-${data.sku != '' ? data.sku : data.wordpress_id}`
+        : `${process.env.GATSBY_SITE_URL}/product?id=${data.wordpress_id}`;
 
     const { add: addToCart } = useShoppingCartVar();
     const { save: saveLastProductPage } = useLastProductPageVar();
