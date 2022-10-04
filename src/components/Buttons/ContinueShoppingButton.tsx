@@ -3,7 +3,11 @@ import { ORDER_FINAL_BUTTON_BACK } from "../../languages/ru/languages";
 import { useLastProductPageVar } from "../../services/hooks/useLastProductPageVar";
 import Button from "./Button";
 
-const ContinueShoppingButton = () => {
+type ContinueShoppingButtonProps = {
+    customText?: string
+}
+
+const ContinueShoppingButton = (props: ContinueShoppingButtonProps) => {
 
     const { url: lastProductPageUrl } = useLastProductPageVar();
 
@@ -13,7 +17,12 @@ const ContinueShoppingButton = () => {
     }
 
     return (
-        <Button onClick={(e: any) => onClickHandler(e)}>{ORDER_FINAL_BUTTON_BACK}</Button>
+        <Button onClick={(e: any) => onClickHandler(e)}>{
+            props.customText
+                ? props.customText
+                : ORDER_FINAL_BUTTON_BACK
+        }
+        </Button>
     )
 }
 

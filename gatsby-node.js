@@ -20,7 +20,7 @@ exports.createPages = async function ({ actions, graphql }) {
       if (edge.node.slug !== 'catalog' && edge.node.slug !== 'home') {
         actions.createPage({
           path: edge.node.slug,
-          component: path.resolve(`./src/components/Layouts/PageLayout.tsx`),
+          component: path.resolve(`./src/components/Layouts/pages/PageLayout.tsx`),
           context: { slug: edge.node.slug },
         })
       }
@@ -45,7 +45,7 @@ exports.createPages = async function ({ actions, graphql }) {
     data.allWcProductsCategories.edges.forEach((edge) => {
       actions.createPage({
         path: `catalog/${edge.node.slug}`,
-        component: path.resolve(`./src/components/Layouts/ProductsLayout.tsx`),
+        component: path.resolve(`./src/components/Layouts/pages/ProductsLayout.tsx`),
         context: { categoryId: edge.node.wordpress_id },
       })
     })
@@ -75,7 +75,7 @@ exports.createPages = async function ({ actions, graphql }) {
 
       actions.createPage({
         path: `catalog/${edge.node.categories[0].slug}/${edge.node.categories[0].slug}-${edge.node.sku}`,
-        component: path.resolve(`./src/components/Layouts/ProductLayout.tsx`),
+        component: path.resolve(`./src/components/Layouts/pages/ProductLayout.tsx`),
         context: { productId: edge.node.wordpress_id },
       })
     })
