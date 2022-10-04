@@ -1,7 +1,7 @@
 import { graphql } from "gatsby";
 import React from "react"
 import styled from "styled-components";
-import Layout from "../components/Layouts/MainLayout";
+import Layout from "../components/Layouts/Layout";
 import CategoryThumb from "../components/Products/Thumbs/CategoryThumb";
 import PageTitle from "../components/PageTitle";
 import useMobile from "../services/hooks/useMobile";

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react"
-import Layout from "../components/Layouts/MainLayout";
+import Layout from "../components/Layouts/Layout";
 import LoadingBar from "../components/LoadingBars/LoadingBar";
 import ProductPageContent from "../components/Products/ProductPageContent";
 import { GET_WP_PRODUCT } from "../graphql/queries/getWpProduct";
 import ContainerCentered from "../styles/ContainerCentered";
+import NotFoundPage from "./404";
 
 const ProductClientPage = () => {
 
     const [productData, setProductData] = useState();
+    const [fetchError, setFetchError] = useState<boolean>(false);
 
     useEffect(() => {
         parseProductIdFromUrl()
@@ -26,7 +28,10 @@ const ProductClientPage = () => {
             .then((response) => response.json())
             .then((result) => {
                 setProductData(result.data.wpWcProduct);
-            });
+            })
+            .catch(() => {
+                setFetchError(true)
+            })
     }, []);
 
     function parseProductIdFromUrl(): number {
@@ -37,12 +42,14 @@ const ProductClientPage = () => {
         <Layout>
             <main>
                 {
-                    productData === undefined
-                        ?
-                        <ContainerCentered>
-                            <LoadingBar />
-                        </ContainerCentered>
-                        : <ProductPageContent data={productData} relatedProductsIds={productData.relatedProductsIds} />
+                    fetchError === true
+                        ? <NotFoundPage />
+                        : productData === undefined
+                            ?
+                            <ContainerCentered>
+                                <LoadingBar />
+                            </ContainerCentered>
+                            : <ProductPageContent data={productData} relatedProductsIds={productData.relatedProductsIds} />
                 }
             </main>
         </Layout >

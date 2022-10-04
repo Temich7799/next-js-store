@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "./MainLayout";
+import Layout from "./Layout";
 import { graphql } from "gatsby";
 import PageTitle from "../PageTitle";
 import styled from "styled-components";

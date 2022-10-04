@@ -1,5 +1,5 @@
 import React from "react"
-import Layout from "../components/Layouts/MainLayout";
+import Layout from "../components/Layouts/Layout";
 import { graphql } from "gatsby"
 import styled from "styled-components";
 import useMobile from "../services/hooks/useMobile";

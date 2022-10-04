@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components";
-import Layout from "../components/Layouts/MainLayout";
+import Layout from "../components/Layouts/Layout";
 import ShoppingCartContent from "../components/Products/ShoppingCart/ShoppingCartContent";
 import SuccessOrderContent from "../components/Products/ShoppingCart/SuccessOrderContent";
 
