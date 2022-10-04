@@ -49,6 +49,14 @@ export const ORDER_FINAL_BUTTON_CONTINUE = 'Add to cart';
 export const ORDER_FINAL_BUTTON_SUBMIT = 'Checkout';
 export const ORDER_FINAL_BUTTON_DISABLED = 'Cart is empty';
 
+export const GO_BACK_BUTTON = 'Go back';
+
+export const PAGE_NOT_FOUND_TITLE = 'Page not found';
+export const PAGE_NOT_FOUND_DESCRIPTION = 'This page does not exist or has been deleted. Perhaps there was an error in the request';
+
 export const ORDER_SUCCESS_TITLE = 'Order sent for processing';
 export const ORDER_SUCCESS_DETAILS = 'Order number';
 export const ORDER_SUCCESS_DESCRIPTION = 'After our manager processes your order, he will contact you to clarify the details.';
+
+export const LOADING_ERROR_TITLE = 'An error occurred while loading';
+export const LOADING_ERROR_DESCRIPTION = 'Try reloading the page or check your internet connection.';

@@ -2,7 +2,9 @@ import { useLazyQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GET_ALL_WP_PRODUCTS } from "../../graphql/queries/getAllWpProducts";
+import { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } from "../../languages/ru/languages";
 import ContainerCentered from "../../styles/ContainerCentered";
+import InfoLayout from "../Layouts/pages/InfoLayout";
 import LoadingBar from "../LoadingBars/LoadingBar";
 import ProductThumb from "./Thumbs/ProductThumb";
 
@@ -50,7 +52,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
     const [fetchOffset, setFetchOffset] = useState<number>(0);
     const [fetchLimit, setFetchLimit] = useState<number>(50);
 
-    const [getAllWpProducts, { loading: productsLoading, data: productsData, fetchMore }] = useLazyQuery(GET_ALL_WP_PRODUCTS);
+    const [getAllWpProducts, { loading: productsLoading, error: productsLoadingError, data: productsData, fetchMore }] = useLazyQuery(GET_ALL_WP_PRODUCTS);
 
     useEffect(() => {
         setFetchLimit(Math.floor((window.innerHeight * window.innerWidth) / 10000));
@@ -112,21 +114,24 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
                         <LoadingBar />
                     </ContainerCentered>
                     :
-                    <Content>
-                        {
-                            productsData && productsData.allWpWcProducts.map((fetchedProduct: FetchedProduct) => {
+                    productsLoadingError
+                        ?
+                        <InfoLayout title={LOADING_ERROR_TITLE} description={LOADING_ERROR_DESCRIPTION} imagePath={""} />
+                        : <Content>
+                            {
+                                productsData && productsData.allWpWcProducts.map((fetchedProduct: FetchedProduct) => {
 
-                                const product = {
-                                    ...fetchedProduct,
-                                    wordpress_id: parseInt(fetchedProduct.id)
-                                };
+                                    const product = {
+                                        ...fetchedProduct,
+                                        wordpress_id: parseInt(fetchedProduct.id)
+                                    };
 
-                                const gatsbyImage = gatsbyImages.get(product.wordpress_id);
+                                    const gatsbyImage = gatsbyImages.get(product.wordpress_id);
 
-                                return <ProductThumb data={product} gatsbyImage={gatsbyImage} key={fetchedProduct.id} />
-                            })
-                        }
-                    </Content>
+                                    return <ProductThumb data={product} gatsbyImage={gatsbyImage} key={fetchedProduct.id} />
+                                })
+                            }
+                        </Content>
             }
         </>
     )

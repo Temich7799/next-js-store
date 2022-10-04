@@ -1,9 +1,9 @@
 import React from "react";
-import Layout from "./Layout";
+import Layout from "../Layout";
 import { graphql } from "gatsby";
-import PageTitle from "../PageTitle";
+import PageTitle from "../../PageTitle";
 import styled from "styled-components";
-require('../../styles/wp.css');
+require('../../../styles/wp.css');
 
 const Content = styled.div`
     max-width: 1700px;

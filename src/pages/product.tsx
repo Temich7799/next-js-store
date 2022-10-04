@@ -12,7 +12,6 @@ const ProductClientPage = () => {
     const [fetchError, setFetchError] = useState<boolean>(false);
 
     useEffect(() => {
-        parseProductIdFromUrl()
         fetch(process.env.GATSBY_APOLLO_SERVER_URL, {
             method: 'POST',
             headers: {
@@ -28,9 +27,10 @@ const ProductClientPage = () => {
             .then((response) => response.json())
             .then((result) => {
                 setProductData(result.data.wpWcProduct);
+                setFetchError(false);
             })
             .catch(() => {
-                setFetchError(true)
+                setFetchError(true);
             })
     }, []);
 
@@ -39,20 +39,24 @@ const ProductClientPage = () => {
     }
 
     return (
-        <Layout>
-            <main>
-                {
-                    fetchError === true
-                        ? <NotFoundPage />
-                        : productData === undefined
-                            ?
-                            <ContainerCentered>
-                                <LoadingBar />
-                            </ContainerCentered>
-                            : <ProductPageContent data={productData} relatedProductsIds={productData.relatedProductsIds} />
-                }
-            </main>
-        </Layout >
+        <>
+            {
+                fetchError === true
+                    ? <NotFoundPage />
+                    : <Layout>
+                        <main>
+                            {
+                                productData === undefined
+                                    ?
+                                    <ContainerCentered>
+                                        <LoadingBar />
+                                    </ContainerCentered>
+                                    : <ProductPageContent data={productData} relatedProductsIds={productData.relatedProductsIds} />
+                            }
+                        </main>
+                    </Layout >
+            }
+        </>
     )
 }
 

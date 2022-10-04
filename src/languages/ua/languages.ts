@@ -49,6 +49,14 @@ export const ORDER_FINAL_BUTTON_CONTINUE = 'У кошик';
 export const ORDER_FINAL_BUTTON_SUBMIT = 'Оформити замовлення';
 export const ORDER_FINAL_BUTTON_DISABLED = 'Кошик порожній';
 
+export const GO_BACK_BUTTON = 'Повернутись назад';
+
+export const PAGE_NOT_FOUND_TITLE = 'Сторінку не знайдено';
+export const PAGE_NOT_FOUND_DESCRIPTION = 'Даної сторінки не існує, або вона була видалена. Можливо, було допущено помилку в запиті';
+
 export const ORDER_SUCCESS_TITLE = 'Замовлення надіслано в обробку';
 export const ORDER_SUCCESS_DETAILS = 'Номер замовлення';
 export const ORDER_SUCCESS_DESCRIPTION = 'Після того, як наш менеджер обробить Ваше замовлення, він зв\'яжеться з Вами для уточнення деталей.';
+
+export const LOADING_ERROR_TITLE = 'Під час завантаження сталася помилка';
+export const LOADING_ERROR_DESCRIPTION = 'Спробуйте перезавантажити сторінку або перевірте підключення до Інтернету.';

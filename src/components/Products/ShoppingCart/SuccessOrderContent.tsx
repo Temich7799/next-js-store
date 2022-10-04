@@ -3,7 +3,7 @@ import { ORDER_SUCCESS_DESCRIPTION, ORDER_SUCCESS_DETAILS, ORDER_SUCCESS_TITLE }
 import ContainerCentered from "../../../styles/ContainerCentered";
 import ContinueShoppingButton from "../../Buttons/ContinueShoppingButton";
 import GoToHomepageButton from "../../Buttons/GoToHomepageButton";
-import ImageSVG from "../../ImageSVG";
+import InfoLayout from "../../Layouts/pages/InfoLayout";
 
 type SuccessOrderContentProps = {
     orderId: string
@@ -14,16 +14,12 @@ const SuccessOrderContent = (props: SuccessOrderContentProps) => {
     const { orderId } = props;
 
     return (
-        <ContainerCentered>
-            <h3>{ORDER_SUCCESS_TITLE}</h3>
-            <p><b>{ORDER_SUCCESS_DETAILS}: </b>{orderId}</p>
-            <ImageSVG path="/svg/baby_ok.svg" width="50%" height="50%" />
-            <p>{ORDER_SUCCESS_DESCRIPTION}</p>
+        <InfoLayout title={ORDER_SUCCESS_TITLE} description={ORDER_SUCCESS_DESCRIPTION} details={`<b>${ORDER_SUCCESS_DETAILS}: </b>${orderId}`} imagePath="/svg/baby_ok.svg">
             <ContainerCentered direction="row">
                 <ContinueShoppingButton />
                 <GoToHomepageButton />
             </ContainerCentered>
-        </ContainerCentered>
+        </InfoLayout>
     )
 }
 

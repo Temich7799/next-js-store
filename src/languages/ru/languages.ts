@@ -49,6 +49,14 @@ export const ORDER_FINAL_BUTTON_CONTINUE = 'В корзину';
 export const ORDER_FINAL_BUTTON_SUBMIT = 'Оформить заказ';
 export const ORDER_FINAL_BUTTON_DISABLED = 'Корзина пуста';
 
+export const GO_BACK_BUTTON = 'Вернуться назад';
+
+export const PAGE_NOT_FOUND_TITLE = 'Страница не найдена';
+export const PAGE_NOT_FOUND_DESCRIPTION = 'Данной страницы не существует, либо она была удалена. Возможно, была допущена ошибка в запросе';
+
 export const ORDER_SUCCESS_TITLE = 'Заказ отправлен в обработку';
 export const ORDER_SUCCESS_DETAILS = 'Номер заказа';
 export const ORDER_SUCCESS_DESCRIPTION = 'После того, как наш менеджер обработает Ваш заказ, он свяжется с Вами для уточнения деталей.';
+
+export const LOADING_ERROR_TITLE = 'Во время загрузки произошла ошибка';
+export const LOADING_ERROR_DESCRIPTION = 'Попробуйте перезагрузить страницу, либо проверьте интернет-соединение.';
