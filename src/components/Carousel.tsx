@@ -99,6 +99,7 @@ const Carousel = (props: CarouselProps) => {
             sliderClientWidthObserver.observe(carouselSlider.current);
 
             carouselWrapper.current.addEventListener(`${pointerType}down`, onPointerDownHandler);
+            window.addEventListener(`${pointerType}${eventEndType}`, onPointerUpHandler);
         }
         //return () => carouselWrapper.current.removeEventListener(`${pointerType}down`, onPointerDownHandler);
     }, [children]);
@@ -132,14 +133,6 @@ const Carousel = (props: CarouselProps) => {
 
         carouselWrapper.current.addEventListener(`${pointerType}move`, onPointerMoveHandler);
 
-        window.addEventListener(`${pointerType}${eventEndType}`, () => { //----- Add onUpEvent
-
-            carouselWrapper.current.removeEventListener(`${pointerType}down`, onPointerDownHandler);
-            carouselWrapper.current.removeEventListener(`${pointerType}move`, onPointerMoveHandler);
-
-            onPointerUpHandler();
-        });
-
         slider.current.prevPosition = slider.current.position;
     }
 
@@ -160,8 +153,7 @@ const Carousel = (props: CarouselProps) => {
 
         carouselSlider.current.style.transition = `${speed}`;
 
-        carouselWrapper.current.addEventListener(`${pointerType}down`, onPointerDownHandler);
-        window.removeEventListener(`${pointerType}${eventEndType}`, onPointerUpHandler); //----- Remove onUpEvent
+        carouselWrapper.current.removeEventListener(`${pointerType}move`, onPointerMoveHandler);
     }
 
     function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
