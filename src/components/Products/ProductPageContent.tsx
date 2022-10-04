@@ -37,7 +37,7 @@ type Product = {
         {
             src: string
             alt: string
-            localFile: object | any
+            localFile?: object | any
         }
     ]
     image?: {
@@ -68,6 +68,7 @@ const ProductPageContent = (props: ProductPageContentProps) => {
     const { data, gatsbyImages, relatedProductsIds } = props;
 
     data.wordpress_id = parseInt(data.id);
+    if (!data.image) data.image = data.images[0];
 
     const [getRelatedProductsIds, { data: allWpRelatedProductsDataIds }] = useLazyQuery(GET_RELATED_PRODUCTS_IDS, { variables: { productId: data.wordpress_id } });
     const [getAllWpRelatedProducts, { loading: allWpRelatedProductsLoading, data: allWpRelatedProductsData }] = useLazyQuery(GET_ALL_WP_RELATED_PRODUCTS);

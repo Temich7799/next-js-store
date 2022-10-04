@@ -16,7 +16,7 @@ type ProductGallery = [
     {
         alt: string
         src: string
-        localFile: object
+        localFile?: object
     }
 ]
 

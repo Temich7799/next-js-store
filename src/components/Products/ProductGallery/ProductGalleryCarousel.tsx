@@ -7,7 +7,7 @@ type ProductGalleryCarouselProps = {
         {
             alt: string
             src: string
-            localFile: any
+            localFile?: any
         }
     ]
     selectedImage: number
