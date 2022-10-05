@@ -21,7 +21,7 @@ const resolvers = {
     Query: {
         allWpNovaPoshtaCities: (_, { language, regExp, limit }) => {
 
-            const cityRow = language == 'UA' ? 'description' : 'description_ru';
+            const cityRow = language == 'uk' ? 'description' : 'description_ru';
             const sqlLimit = limit == undefined ? '' : ` LIMIT ${limit}`;
 
             return sqlQuery(regExp == undefined
@@ -30,7 +30,7 @@ const resolvers = {
         },
         allWpNovaPoshtaWarehouses: (_, { language, cityRef, regExp, limit }) => {
 
-            const warehouseRow = language == 'UA' ? 'description' : 'description_ru';
+            const warehouseRow = language == 'uk' ? 'description' : 'description_ru';
             const sqlLimit = limit == undefined ? '' : ` LIMIT ${limit}`;
             const regex = regExp == undefined ? '' : `) REGEXP '` + regExp.toLowerCase();
 

@@ -1,7 +1,8 @@
 const LanguagesEnum = `#graphql
     enum LanguagesEnum {
-        RU
-        UA
+        ru
+        uk
+        en
     }
 `;
 
