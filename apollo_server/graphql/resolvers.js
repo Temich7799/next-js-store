@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 require('dotenv').config();
 const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
+const fetch = require('cross-fetch');
 
 const connection = mysql.createConnection({
     host: process.env.SQL_HOST,
@@ -10,8 +11,49 @@ const connection = mysql.createConnection({
     password: process.env.SQL_PASS
 });
 
-const WooCommerce = new WooCommerceRestApi({
-    url: process.env.WC_URL,
+function sqlQuery(sql) {
+    return new Promise(resolve => {
+        //connection.connect();
+        connection.query(sql, (err, responce) => (responce !== undefined) && resolve(responce));
+        //connection.end();
+    })
+}
+
+function wordpressQuery(endpoint, options) {
+
+    const { language, filter } = options;
+
+    return fetch(`${process.env.WP_URL}/${language ? `${language}/` : '/'}wp-json/wp/v2/${endpoint}`)
+        .then(response => response.json())
+        .then(data => {
+            
+            if (filter !== undefined) {
+
+                const result = [];
+                const ignoreIndexes = new Set();
+
+                Object.keys(filter).forEach(key => {
+
+                    data.forEach((object, index) => {
+                        if (object[key] && object[key] !== filter[key]) {
+                            ignoreIndexes.add(index);
+                        }
+                    });
+                });
+                
+                data.forEach((object, index) => {
+                   if (!ignoreIndexes.has(index)) result.push(object);
+                });
+
+                return result
+            }
+
+            else return data;
+        });
+}
+
+const WooCommerceQuery = new WooCommerceRestApi({
+    url: process.env.WP_URL,
     consumerKey: process.env.WC_KEY,
     consumerSecret: process.env.WC_SECRET,
     version: process.env.WC_VERSION
@@ -19,6 +61,8 @@ const WooCommerce = new WooCommerceRestApi({
 
 const resolvers = {
     Query: {
+        allWpPages: (_, { language, filter}) => wordpressQuery('pages', { language: language, filter: filter}),
+        allWpPosts: (_, { language, filter}) => wordpressQuery('posts', { language: language, filter: filter}),
         allWpNovaPoshtaCities: (_, { language, regExp, limit }) => {
 
             const cityRow = language == 'uk' ? 'description' : 'description_ru';
@@ -38,7 +82,7 @@ const resolvers = {
                 ? 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE 1' + sqlLimit
                 : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + cityRef + '\' AND LOWER(' + warehouseRow + regex + `'` + ' ORDER BY CHAR_LENGTH(' + warehouseRow + ')' + sqlLimit);
         },
-        allWpWcOrders: () => WooCommerce.get('orders').then((response) => response.data),
+        allWpWcOrders: () => WooCommerceQuery.get('orders').then((response) => response.data),
         allWpWcProducts: (_, { filter }) => {
 
             const options = {};
@@ -52,7 +96,7 @@ const resolvers = {
                 filter.include && (options.include = filter.include);
             }
 
-            return WooCommerce.get('products', options)
+            return WooCommerceQuery.get('products', options)
                 .then((response) => response.data)
         },
         allWpWcProductsCategories: (_, { filter }) => {
@@ -63,16 +107,15 @@ const resolvers = {
                 filter.slug && (options.slug = filter.slug);
             }
 
-            return WooCommerce.get('products/categories', options)
+            return WooCommerceQuery.get('products/categories', options)
                 .then((response) => response.data)
         },
         allWpShippingZonesMethods: (_, { zoneId }) => {
-            console.log(zoneId)
-            return WooCommerce.get(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`).then((response) => response.data)
+            return WooCommerceQuery.get(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`).then((response) => response.data)
         },
         allWpWcPaymentMethods: () =>
 
-            WooCommerce.get('payment_gateways').then((response) => {
+            WooCommerceQuery.get('payment_gateways').then((response) => {
                 const result = [];
 
                 response.data.forEach((paymentMethod) => {
@@ -96,22 +139,15 @@ const resolvers = {
 
                 return result;
             }),
-        wpWcOrder: (_, { productId }) => WooCommerce.get(`orders/${productId}`).then((response) => response.data),
-        wpWcProduct: (_, { productId }) => WooCommerce.get(`products/${productId}`).then((response) => response.data),
+        wpWcOrder: (_, { productId }) => WooCommerceQuery.get(`orders/${productId}`).then((response) => response.data),
+        wpWcProduct: (_, { productId }) => WooCommerceQuery.get(`products/${productId}`).then((response) => response.data),
 
     },
     Mutation: {
-        wpWcCreateOrder: (_, { data }) => WooCommerce.post("orders", data).then((response) => response.data),
+        wpWcCreateOrder: (_, { data }) => WooCommerceQuery.post("orders", data).then((response) => response.data),
     }
 };
 
-function sqlQuery(sql) {
-    return new Promise(resolve => {
-        //connection.connect();
-        connection.query(sql, (err, responce) => (responce !== undefined) && resolve(responce));
-        //connection.end();
-    })
-}
 /*
 const images = ["https://localhost:8888/wordpress/wp-content/uploads/2022/09/3954484832_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3954469445_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3953920415_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3953062012_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3948023537_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3948020525_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3948013401_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3947996278_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3946729172_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3946725166_w280_h280_pups-vanilnij-nines.png"];
 const names = ["Испанский пупс Nines d Onil с запахом ванили 26 см", "Ванильный пупс 23 см Nines d Onil", "Испанская кукла Nines d Onil, ванильный пупс с волосами"]
@@ -137,7 +173,7 @@ for (let i = 0; i < 50; i++) {
         ]
     };
 
-    WooCommerce.post("products", data)
+    WooCommerceQuery.post("products", data)
         .then((response) => {
             console.log('Oka');
         });
