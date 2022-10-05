@@ -1,5 +1,5 @@
-const WpShippingMethod = `#graphql
-    type WpShippingMethod {
+const WC_ShippingMethod = `#graphql
+    type WC_ShippingMethod {
         instance_id: Int
         title: String
         method_id: String
@@ -9,4 +9,4 @@ const WpShippingMethod = `#graphql
     }
 `;
 
-module.exports = WpShippingMethod;
+module.exports = WC_ShippingMethod;

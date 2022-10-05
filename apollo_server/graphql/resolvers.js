@@ -26,7 +26,7 @@ function wordpressQuery(endpoint, options) {
     return fetch(`${process.env.WP_URL}/${language ? `${language}/` : '/'}wp-json/wp/v2/${endpoint}`)
         .then(response => response.json())
         .then(data => {
-            
+
             if (filter !== undefined) {
 
                 const result = [];
@@ -40,9 +40,9 @@ function wordpressQuery(endpoint, options) {
                         }
                     });
                 });
-                
+
                 data.forEach((object, index) => {
-                   if (!ignoreIndexes.has(index)) result.push(object);
+                    if (!ignoreIndexes.has(index)) result.push(object);
                 });
 
                 return result
@@ -61,8 +61,8 @@ const WooCommerceQuery = new WooCommerceRestApi({
 
 const resolvers = {
     Query: {
-        allWpPages: (_, { language, filter}) => wordpressQuery('pages', { language: language, filter: filter}),
-        allWpPosts: (_, { language, filter}) => wordpressQuery('posts', { language: language, filter: filter}),
+        wp_allPages: (_, { language, filter }) => wordpressQuery('pages', { language: language, filter: filter }),
+        wp_allPosts: (_, { language, filter }) => wordpressQuery('posts', { language: language, filter: filter }),
         allWpNovaPoshtaCities: (_, { language, regExp, limit }) => {
 
             const cityRow = language == 'uk' ? 'description' : 'description_ru';
@@ -110,10 +110,10 @@ const resolvers = {
             return WooCommerceQuery.get('products/categories', options)
                 .then((response) => response.data)
         },
-        allWpShippingZonesMethods: (_, { zoneId }) => {
+        wc_allShippingZonesMethods: (_, { zoneId }) => {
             return WooCommerceQuery.get(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`).then((response) => response.data)
         },
-        allWpWcPaymentMethods: () =>
+        wc_allPaymentMethods: () =>
 
             WooCommerceQuery.get('payment_gateways').then((response) => {
                 const result = [];

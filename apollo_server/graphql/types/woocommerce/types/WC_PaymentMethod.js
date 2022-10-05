@@ -1,6 +1,6 @@
-const PaymentMethod = `#graphql
+const WC_PaymentMethod = `#graphql
 
-    type PaymentMethod {
+    type WC_PaymentMethod {
         id: String
         title: String
         description: String
@@ -14,4 +14,4 @@ const PaymentMethod = `#graphql
     }
 `;
 
-module.exports = PaymentMethod;
+module.exports = WC_PaymentMethod;

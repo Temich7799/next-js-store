@@ -1,7 +1,7 @@
 import type { GatsbyConfig } from "gatsby";
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
-})
+});
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -47,8 +47,8 @@ const config: GatsbyConfig = {
         api: process.env.GATSBY_WC_URL,
         https: true,
         api_keys: {
-          consumer_key: process.env.WC_KEY,
-          consumer_secret: process.env.WC_SECRET,
+          consumer_key: process.env.GATSBY_WC_KEY,
+          consumer_secret: process.env.GATSBY_WC_SECRET,
         },
         fields: ['products', 'products/categories']
       }

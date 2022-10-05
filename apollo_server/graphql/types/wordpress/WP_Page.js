@@ -1,7 +1,7 @@
 const Content = require("./Content");
 
-const WpPage = `#graphql
-    type WpPage {
+const WP_Page = `#graphql
+    type WP_Page {
         id: ID
         date: String
         modified: String
@@ -14,4 +14,4 @@ const WpPage = `#graphql
     ${Content}
 `;
 
-module.exports = WpPage;
+module.exports = WP_Page;
