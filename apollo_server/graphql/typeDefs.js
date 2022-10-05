@@ -1,21 +1,23 @@
-const WpWcOrder = require('./types/WpWcOrder');
-const WpNovaPoshtaWarehouse = require('./types/WpNovaPoshtaWarehouse');
-const WpNovaPoshtaCity = require('./types/WpNovaPoshtaCity');
-const WpWcProduct = require('./types/WpWcProduct');
-const WpWcCategory = require('./types/WpWcCategory');
-const PaymentMethod = require('./types/PaymentMethod');
-const WpShippingMethod = require('./types/WpShippingMethod');
-const ProductsFilterInput = require('./inputs/ProductsFilterInput');
-const OrderDataInput = require('./inputs/OrderDataInput');
-const ProductCategoryInput = require('./inputs/ProductCategoryInput');
-const LanguagesEnum = require('./enums/LanguagesEnum');
-const StockStatusesEnum = require('./enums/StockStatusesEnum');
-const PublishStatusesEnum = require('./enums/PublishStatusesEnum');
+const WpNovaPoshtaCity = require("./types/wordpress/WpNovaPoshtaCity");
+const WpNovaPoshtaWarehouse = require("./types/wordpress/WpNovaPoshtaWarehouse");
+const WpWcProduct = require("./types/woocommerce/types/WpWcProduct");
+const WpWcCategory = require("./types/woocommerce/types/WpWcCategory");
+const WpWcOrder = require("./types/woocommerce/types/WpWcOrder");
+const PaymentMethod = require("./types/woocommerce/types/PaymentMethod");
+const WpShippingMethod = require("./types/woocommerce/types/WpShippingMethod");
+const ProductsFilterInput = require("./types/woocommerce/inputs/ProductsFilterInput");
+const OrderDataInput = require("./types/woocommerce/inputs/OrderDataInput");
+const ProductCategoryInput = require("./types/woocommerce/inputs/ProductCategoryInput");
+const LanguagesEnum = require("./enums/LanguagesEnum");
+const PublishStatusesEnum = require("./enums/PublishStatusesEnum");
+const StockStatusesEnum = require("./enums/StockStatusesEnum");
+
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`#graphql
 
     type Query {
+        allWpPages: [WpPage!]!
         allWpWcOrders: [WpWcOrder!]!
         allWpNovaPoshtaCities(language: LanguagesEnum, regExp: String, limit: Int): [WpNovaPoshtaCity!]!
         allWpNovaPoshtaWarehouses(language: LanguagesEnum, cityRef: String!, regExp: String, limit: Int): [WpNovaPoshtaWarehouse!]!

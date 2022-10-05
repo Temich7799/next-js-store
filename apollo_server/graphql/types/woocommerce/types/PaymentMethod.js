@@ -14,6 +14,4 @@ const PaymentMethod = `#graphql
     }
 `;
 
-
-
 module.exports = PaymentMethod;
