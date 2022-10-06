@@ -1,5 +1,4 @@
 const path = require(`path`);
-const fetch = require('cross-fetch');
 
 exports.createSchemaCustomization = ({ actions }) => {
 
@@ -9,55 +8,65 @@ exports.createSchemaCustomization = ({ actions }) => {
   const WP_PageInput = require("./apollo_server/graphql/types/wordpress/inputs/WP_PageInput");
   const WC_ShippingMethod = require("./apollo_server/graphql/types/woocommerce/types/WC_ShippingMethod");
   const WC_PaymentMethod = require("./apollo_server/graphql/types/woocommerce/types/WC_PaymentMethod");
+  const WC_Product = require("./apollo_server/graphql/types/woocommerce/types/WC_Product");
+  const WC_ProductInput = require("./apollo_server/graphql/types/woocommerce/inputs/WC_ProductInput");
+  const WC_Category = require("./apollo_server/graphql/types/woocommerce/types/WC_Category");
+  const WC_ProductCategoryInput = require("./apollo_server/graphql/types/woocommerce/inputs/WC_ProductCategoryInput");
   const LanguagesEnum = require('./apollo_server/graphql/enums/LanguagesEnum')
+  const StockStatusesEnum = require('./apollo_server/graphql/enums/StockStatusesEnum')
 
   createTypes(`
     ${WP_Page}
     ${WP_PageInput}
     ${WC_ShippingMethod}
     ${WC_PaymentMethod}
+    ${WC_Product}
+    ${WC_ProductInput}
+    ${WC_Category}
+    ${WC_ProductCategoryInput}
     ${LanguagesEnum}
+    ${StockStatusesEnum}
   `);
 }
 
 exports.createResolvers = ({ createResolvers }) => {
 
+  const fetch = require('cross-fetch');
   const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
-  const WooCommerceQuery = new WooCommerceRestApi({
-    url: process.env.GASTBY_WP_URL,
-    consumerKey: process.env.GATSBY_WC_KEY,
-    consumerSecret: process.env.GATSBY_WC_SECRET,
-    version: process.env.GATSBY_WC_VERSION
-  });
 
   createResolvers({
+
     Query: {
-      wp_allPages: {
-        type: ['WP_Page'],
+      allMultilangWpPages: {
+        type: ['WP_Page!'],
         args: {
           language: 'LanguagesEnum',
           filter: 'WP_PageInput'
         },
         resolve: (_, { language, filter }) => wordpressQuery('pages', { language: language, filter: filter })
       },
-      wp_allPosts: {
-        type: ['WP_Page'],
+      allMultilangWpPosts: {
+        type: ['WP_Page!'],
         args: {
           language: 'LanguagesEnum',
           filter: 'WP_PageInput'
         },
         resolve: (_, { language, filter }) => wordpressQuery('posts', { language: language, filter: filter })
       },
-      wc_allShippingMethods: {
-        type: ['WC_ShippingMethod'],
+      allMultilangWcShippingMethods: {
+        type: ['WC_ShippingMethod!'],
         args: {
           zoneId: 'Int!',
+          language: 'LanguagesEnum',
         },
-        resolve: (_, { zoneId }) => WooCommerceQuery.get(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`).then((response) => response.data)
+        resolve: (_, { zoneId, language }) => WooCommerceQuery(language).get(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`).then((response) => response.data)
       },
-      wc_allPaymentMethods: {
-        type: ['WC_PaymentMethod'],
-        resolve: () => WooCommerceQuery.get('payment_gateways').then((response) => {
+      allMultilangWcPaymentMethods: {
+        type: ['WC_PaymentMethod!'],
+        args: {
+          language: 'LanguagesEnum',
+        },
+        resolve: (_, { language }) => WooCommerceQuery(language).get('payment_gateways').then((response) => {
 
           const result = [];
 
@@ -82,9 +91,60 @@ exports.createResolvers = ({ createResolvers }) => {
 
           return result;
         })
-      }
+      },
+      allMultilangWcProducts: {
+        type: ['WC_Product!'],
+        args: {
+          filter: 'WC_ProductInput',
+          language: 'LanguagesEnum',
+        },
+        resolve: (_, { filter, language }) => {
+
+          const options = {};
+          if (filter !== undefined) {
+            filter.offset && (options.offset = filter.offset);
+            filter.per_page ? options.per_page = filter.per_page < 100 ? filter.per_page : 100 : options.per_page = 50;
+            filter.status && (options.status = filter.status);
+            filter.orderby && (options.orderby = filter.orderby);
+            filter.stock_status && (options.stock_status = filter.stock_status);
+            filter.category && (options.category = filter.category);
+            filter.include && (options.include = filter.include);
+          }
+
+          return WooCommerceQuery(language).get('products', options)
+            .then((response) => response.data)
+        }
+      },
+      allMultilangWcCategories: {
+        type: ['WC_Category!'],
+        args: {
+          filter: 'WC_ProductCategoryInput',
+          language: 'LanguagesEnum',
+        },
+        resolve: (_, { filter, language }) => {
+
+          const options = {};
+          if (filter !== undefined) {
+            filter.hide_empty && (options.hide_empty = filter.hide_empty);
+            filter.product && (options.product = filter.product);
+            filter.slug && (options.slug = filter.slug);
+          }
+
+          return WooCommerceQuery(language).get('products/categories', options)
+            .then((response) => response.data)
+        }
+      },
     }
   });
+
+  function WooCommerceQuery(languagePrefix) {
+    return new WooCommerceRestApi({
+      url: `${process.env.GASTBY_WP_URL}${languagePrefix ? `/${languagePrefix}` : ''}`,
+      consumerKey: process.env.GATSBY_WC_KEY,
+      consumerSecret: process.env.GATSBY_WC_SECRET,
+      version: process.env.GATSBY_WC_VERSION
+    });
+  }
 
   function wordpressQuery(endpoint, options) {
 

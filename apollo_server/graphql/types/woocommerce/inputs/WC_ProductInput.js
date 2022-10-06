@@ -1,5 +1,5 @@
-const ProductsFilterInput = `#graphql
-    input ProductsFilterInput {
+const WC_ProductInput = `#graphql
+    input WC_ProductInput {
         orderby: String
         offset: Int
         per_page: Int
@@ -10,4 +10,4 @@ const ProductsFilterInput = `#graphql
     }
 `;
 
-module.exports = ProductsFilterInput;
+module.exports = WC_ProductInput;

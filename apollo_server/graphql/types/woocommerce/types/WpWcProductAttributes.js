@@ -1,10 +1,10 @@
-const WpWcProductAttributes = `#graphql
+const WC_ProductAttributes = `#graphql
 
-    type WpWcProductAttributes {
+    type WC_ProductAttributes {
         id: ID!
         name: String
         slug: String
     }
 `;
 
-module.exports = WpWcProductAttributes;
+module.exports = WC_ProductAttributes;

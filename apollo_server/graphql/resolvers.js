@@ -83,7 +83,7 @@ const resolvers = {
                 : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + cityRef + '\' AND LOWER(' + warehouseRow + regex + `'` + ' ORDER BY CHAR_LENGTH(' + warehouseRow + ')' + sqlLimit);
         },
         allWpWcOrders: () => WooCommerceQuery.get('orders').then((response) => response.data),
-        allWpWcProducts: (_, { filter }) => {
+        allWC_Products: (_, { filter }) => {
 
             const options = {};
             if (filter !== undefined) {
@@ -99,7 +99,7 @@ const resolvers = {
             return WooCommerceQuery.get('products', options)
                 .then((response) => response.data)
         },
-        allWpWcProductsCategories: (_, { filter }) => {
+        allWC_ProductsCategories: (_, { filter }) => {
             const options = {};
             if (filter !== undefined) {
                 filter.hide_empty && (options.hide_empty = filter.hide_empty);

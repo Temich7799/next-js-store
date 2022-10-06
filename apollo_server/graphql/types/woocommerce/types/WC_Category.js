@@ -1,6 +1,6 @@
-const WpWcCategory = `#graphql
+const WC_Category = `#graphql
 
-    type WpWcCategory {
+    type WC_Category {
         id: ID!
         name: String
         slug: String
@@ -15,4 +15,4 @@ const WpWcCategory = `#graphql
     }
 `;
 
-module.exports = WpWcCategory;
+module.exports = WC_Category;

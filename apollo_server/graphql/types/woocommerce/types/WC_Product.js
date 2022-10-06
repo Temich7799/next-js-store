@@ -1,6 +1,6 @@
-const WpWcProduct = `#graphql
+const WC_Product = `#graphql
 
-    type WpWcProduct {
+    type WC_Product {
         id: ID
         name: String
         slug: String
@@ -13,8 +13,8 @@ const WpWcProduct = `#graphql
         attributes: [wpWcProductAttributes]
         manage_stock: Boolean
         related_ids: [ID]
-        categories: [WpWcProductCategory]
-        images: [WpWcProductImage]
+        categories: [WC_ProductCategory]
+        images: [WC_ProductImage]
     }
 
     type wpWcProductAttributes {
@@ -22,17 +22,17 @@ const WpWcProduct = `#graphql
         name: String
     }
 
-    type WpWcProductCategory {
+    type WC_ProductCategory {
         id: ID
         name: String
         slug: String
     }
 
-    type WpWcProductImage {
+    type WC_ProductImage {
         id: ID
         src: String
         alt: String
     }
 `;
 
-module.exports = WpWcProduct;
+module.exports = WC_Product;
