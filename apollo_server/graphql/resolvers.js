@@ -19,14 +19,13 @@ function sqlQuery(sql) {
     })
 }
 
-function wordpressQuery(endpoint, options) {
+function wordpressQuery(endpoint, options, version) {
 
     const { language, filter } = options;
 
-    return fetch(`${process.env.WP_URL}/${language ? `${language}/` : '/'}wp-json/wp/v2/${endpoint}`)
+    return fetch(`${process.env.WP_URL}/${language ? `${language}/` : ''}wp-json/${version === 'none' ? '' : version ? `${version}/` : 'wp/v2/'}${endpoint}`)
         .then(response => response.json())
         .then(data => {
-
             if (filter !== undefined) {
 
                 const result = [];
@@ -61,8 +60,10 @@ const WooCommerceQuery = new WooCommerceRestApi({
 
 const resolvers = {
     Query: {
-        wp_allPages: (_, { language, filter }) => wordpressQuery('pages', { language: language, filter: filter }),
-        wp_allPosts: (_, { language, filter }) => wordpressQuery('posts', { language: language, filter: filter }),
+        allWpPages: (_, { language, filter }) => wordpressQuery('pages', { language: language, filter: filter }),
+        allWpPosts: (_, { language, filter }) => wordpressQuery('posts', { language: language, filter: filter }),
+        allWpMenuItems: (_, { language, slug }) => wordpressQuery(`menus/v1/menus/${slug}`, { language: language }, 'none').then(responce => responce.items),
+        allWpWcOrders: () => WooCommerceQuery.get('orders').then((response) => response.data),
         allWpNovaPoshtaCities: (_, { language, regExp, limit }) => {
 
             const cityRow = language == 'uk' ? 'description' : 'description_ru';
@@ -82,8 +83,7 @@ const resolvers = {
                 ? 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE 1' + sqlLimit
                 : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + cityRef + '\' AND LOWER(' + warehouseRow + regex + `'` + ' ORDER BY CHAR_LENGTH(' + warehouseRow + ')' + sqlLimit);
         },
-        allWpWcOrders: () => WooCommerceQuery.get('orders').then((response) => response.data),
-        allWC_Products: (_, { filter }) => {
+        allWcProducts: (_, { filter }) => {
 
             const options = {};
             if (filter !== undefined) {
@@ -99,7 +99,7 @@ const resolvers = {
             return WooCommerceQuery.get('products', options)
                 .then((response) => response.data)
         },
-        allWC_ProductsCategories: (_, { filter }) => {
+        allWcProductsCategories: (_, { filter }) => {
             const options = {};
             if (filter !== undefined) {
                 filter.hide_empty && (options.hide_empty = filter.hide_empty);
@@ -110,10 +110,10 @@ const resolvers = {
             return WooCommerceQuery.get('products/categories', options)
                 .then((response) => response.data)
         },
-        wc_allShippingZonesMethods: (_, { zoneId }) => {
+        allWcShippingZonesMethods: (_, { zoneId }) => {
             return WooCommerceQuery.get(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`).then((response) => response.data)
         },
-        wc_allPaymentMethods: () =>
+        allWcPaymentMethods: () =>
 
             WooCommerceQuery.get('payment_gateways').then((response) => {
                 const result = [];
@@ -139,6 +139,7 @@ const resolvers = {
 
                 return result;
             }),
+
         wpWcOrder: (_, { productId }) => WooCommerceQuery.get(`orders/${productId}`).then((response) => response.data),
         wpWcProduct: (_, { productId }) => WooCommerceQuery.get(`products/${productId}`).then((response) => response.data),
 

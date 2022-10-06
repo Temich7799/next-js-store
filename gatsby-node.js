@@ -6,6 +6,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
   const WP_Page = require("./apollo_server/graphql/types/wordpress/WP_Page");
   const WP_PageInput = require("./apollo_server/graphql/types/wordpress/inputs/WP_PageInput");
+  const WP_MenuItem = require("./apollo_server/graphql/types/wordpress/WP_MenuItem");
   const WC_ShippingMethod = require("./apollo_server/graphql/types/woocommerce/types/WC_ShippingMethod");
   const WC_PaymentMethod = require("./apollo_server/graphql/types/woocommerce/types/WC_PaymentMethod");
   const WC_Product = require("./apollo_server/graphql/types/woocommerce/types/WC_Product");
@@ -18,6 +19,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(`
     ${WP_Page}
     ${WP_PageInput}
+    ${WP_MenuItem}
     ${WC_ShippingMethod}
     ${WC_PaymentMethod}
     ${WC_Product}
@@ -52,6 +54,14 @@ exports.createResolvers = ({ createResolvers }) => {
           filter: 'WP_PageInput'
         },
         resolve: (_, { language, filter }) => wordpressQuery('posts', { language: language, filter: filter })
+      },
+      allMultilangWpMenuItems: {
+        type: ['WP_MenuItem!'],
+        args: {
+          language: 'LanguagesEnum',
+          slug: 'String!'
+        },
+        resolve: (_, { language, slug }) => wordpressQuery(`menus/v1/menus/${slug}`, { language: language }, 'none').then(responce => responce.items)
       },
       allMultilangWcShippingMethods: {
         type: ['WC_ShippingMethod!'],
@@ -146,14 +156,13 @@ exports.createResolvers = ({ createResolvers }) => {
     });
   }
 
-  function wordpressQuery(endpoint, options) {
+  function wordpressQuery(endpoint, options, version) {
 
     const { language, filter } = options;
 
-    return fetch(`${process.env.GASTBY_WP_URL}/${language ? `${language}/` : '/'}wp-json/wp/v2/${endpoint}`)
+    return fetch(`${process.env.GASTBY_WP_URL}/${language ? `${language}/` : ''}wp-json/${version === 'none' ? '' : version ? `${version}/` : 'wp/v2/'}${endpoint}`)
       .then(response => response.json())
       .then(data => {
-
         if (filter !== undefined) {
 
           const result = [];

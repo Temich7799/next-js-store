@@ -1,4 +1,5 @@
 const WP_Page = require("./types/wordpress/WP_Page");
+const WP_MenuItem = require("./types/wordpress/WP_MenuItem");
 const WpNovaPoshtaCity = require("./types/wordpress/WpNovaPoshtaCity");
 const WpNovaPoshtaWarehouse = require("./types/wordpress/WpNovaPoshtaWarehouse");
 const WP_PageInput = require("./types/wordpress/inputs/WP_PageInput");
@@ -21,12 +22,13 @@ const typeDefs = gql`#graphql
     type Query {
         allWpPages(language: LanguagesEnum, filter: WP_PageInput): [WP_Page!]!
         allWpPosts(language: LanguagesEnum, filter: WP_PageInput): [WP_Page!]!
+        allWpMenuItems(slug: String!, language: LanguagesEnum): [WP_MenuItem!]!
         allWpWcOrders: [WpWcOrder!]! ###########
         allWpNovaPoshtaCities(language: LanguagesEnum, regExp: String, limit: Int): [WpNovaPoshtaCity!]!
         allWpNovaPoshtaWarehouses(language: LanguagesEnum, cityRef: String!, regExp: String, limit: Int): [WpNovaPoshtaWarehouse!]!
         allWcProducts(filter: WC_ProductInput): [WC_Product!]!
-        allWcShippingZonesMethods(zoneId: Int): [WC_ShippingMethod!]!
         allWcProductsCategories(filter: WC_ProductCategoryInput): [WC_Category!]! ###########
+        allWcShippingZonesMethods(zoneId: Int): [WC_ShippingMethod!]!
         allWcPaymentMethods: [WC_PaymentMethod!]!
 
         wpWcOrder(productId: Int!): WpWcOrder! ###########
@@ -39,6 +41,7 @@ const typeDefs = gql`#graphql
 #############----------Types--------------####################
     ${WP_Page}
     ${WC_Product}
+    ${WP_MenuItem}
     ${WC_Category}
     ${WpWcOrder}
     ${WpNovaPoshtaCity}
