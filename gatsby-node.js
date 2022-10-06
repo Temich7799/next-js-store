@@ -33,160 +33,18 @@ exports.createSchemaCustomization = ({ actions }) => {
 
 exports.createResolvers = ({ createResolvers }) => {
 
-  const fetch = require('cross-fetch');
-  const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
-
   createResolvers({
 
     Query: {
-      allMultilangWpPages: {
-        type: ['WP_Page!'],
-        args: {
-          language: 'LanguagesEnum',
-          filter: 'WP_PageInput'
-        },
-        resolve: (_, { language, filter }) => wordpressQuery('pages', { language: language, filter: filter })
-      },
-      allMultilangWpPosts: {
-        type: ['WP_Page!'],
-        args: {
-          language: 'LanguagesEnum',
-          filter: 'WP_PageInput'
-        },
-        resolve: (_, { language, filter }) => wordpressQuery('posts', { language: language, filter: filter })
-      },
-      allMultilangWpMenuItems: {
-        type: ['WP_MenuItem!'],
-        args: {
-          language: 'LanguagesEnum',
-          slug: 'String!'
-        },
-        resolve: (_, { language, slug }) => wordpressQuery(`menus/v1/menus/${slug}`, { language: language }, 'none').then(responce => responce.items)
-      },
-      allMultilangWcShippingMethods: {
-        type: ['WC_ShippingMethod!'],
-        args: {
-          zoneId: 'Int!',
-          language: 'LanguagesEnum',
-        },
-        resolve: (_, { zoneId, language }) => WooCommerceQuery(language).get(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`).then((response) => response.data)
-      },
-      allMultilangWcPaymentMethods: {
-        type: ['WC_PaymentMethod!'],
-        args: {
-          language: 'LanguagesEnum',
-        },
-        resolve: (_, { language }) => WooCommerceQuery(language).get('payment_gateways').then((response) => {
-
-          const result = [];
-
-          response.data.forEach((WC_PaymentMethod) => {
-            if (WC_PaymentMethod.settings.enable_for_methods) {
-              WC_PaymentMethod.enable_for_methods = [];
-
-              Object.entries(WC_PaymentMethod.settings.enable_for_methods.options).forEach(enableMethods => {
-
-                Object.entries(enableMethods[1]).forEach(method => {
-                  method.forEach(name => { WC_PaymentMethod.enable_for_methods.push(name) })
-                })
-              }
-              );
-              result.push(WC_PaymentMethod);
-            }
-
-            else {
-              result.push(WC_PaymentMethod);
-            }
-          })
-
-          return result;
-        })
-      },
-      allMultilangWcProducts: {
-        type: ['WC_Product!'],
-        args: {
-          filter: 'WC_ProductInput',
-          language: 'LanguagesEnum',
-        },
-        resolve: (_, { filter, language }) => {
-
-          const options = {};
-          if (filter !== undefined) {
-            filter.offset && (options.offset = filter.offset);
-            filter.per_page ? options.per_page = filter.per_page < 100 ? filter.per_page : 100 : options.per_page = 50;
-            filter.status && (options.status = filter.status);
-            filter.orderby && (options.orderby = filter.orderby);
-            filter.stock_status && (options.stock_status = filter.stock_status);
-            filter.category && (options.category = filter.category);
-            filter.include && (options.include = filter.include);
-          }
-
-          return WooCommerceQuery(language).get('products', options)
-            .then((response) => response.data)
-        }
-      },
-      allMultilangWcCategories: {
-        type: ['WC_Category!'],
-        args: {
-          filter: 'WC_ProductCategoryInput',
-          language: 'LanguagesEnum',
-        },
-        resolve: (_, { filter, language }) => {
-
-          const options = {};
-          if (filter !== undefined) {
-            filter.hide_empty && (options.hide_empty = filter.hide_empty);
-            filter.product && (options.product = filter.product);
-            filter.slug && (options.slug = filter.slug);
-          }
-
-          return WooCommerceQuery(language).get('products/categories', options)
-            .then((response) => response.data)
-        }
-      },
+      allMultilangWpPages: require("./graphql/resolvers/queries/allMultilangWpPages"),
+      allMultilangWpPosts: require("./graphql/resolvers/queries/allMultilangWpPosts"),
+      allMultilangWpMenuItems: require("./graphql/resolvers/queries/allMultilangWpMenuItems"),
+      allMultilangWcShippingMethods: require("./graphql/resolvers/queries/allMultilangWcShippingMethods"),
+      allWcPaymentMethods: require("./graphql/resolvers/queries/allMultilangWcPaymentMethods"),
+      allMultilangWcProducts: require("./graphql/resolvers/queries/allMultilangWcProducts"),
+      allMultilangWcCategories: require("./graphql/resolvers/queries/allMultilangWcCategories"),
     }
   });
-
-  function WooCommerceQuery(languagePrefix) {
-    return new WooCommerceRestApi({
-      url: `${process.env.GASTBY_WP_URL}${languagePrefix ? `/${languagePrefix}` : ''}`,
-      consumerKey: process.env.GATSBY_WC_KEY,
-      consumerSecret: process.env.GATSBY_WC_SECRET,
-      version: process.env.GATSBY_WC_VERSION
-    });
-  }
-
-  function wordpressQuery(endpoint, options, version) {
-
-    const { language, filter } = options;
-
-    return fetch(`${process.env.GASTBY_WP_URL}/${language ? `${language}/` : ''}wp-json/${version === 'none' ? '' : version ? `${version}/` : 'wp/v2/'}${endpoint}`)
-      .then(response => response.json())
-      .then(data => {
-        if (filter !== undefined) {
-
-          const result = [];
-          const ignoreIndexes = new Set();
-
-          Object.keys(filter).forEach(key => {
-
-            data.forEach((object, index) => {
-              if (object[key] && object[key] !== filter[key]) {
-                ignoreIndexes.add(index);
-              }
-            });
-          });
-
-          data.forEach((object, index) => {
-            if (!ignoreIndexes.has(index)) result.push(object);
-          });
-
-          return result
-        }
-
-        else return data;
-      });
-  }
 }
 
 

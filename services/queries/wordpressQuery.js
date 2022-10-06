@@ -1,0 +1,13 @@
+const fetch = require('cross-fetch');
+const filterData = require('../filterData');
+
+const wordpressQuery = (endpoint, options, version) => {
+
+    const { language, filter } = options;
+
+    return fetch(`${process.env.GASTBY_WP_URL}/${language ? `${language}/` : ''}wp-json/${version === 'none' ? '' : version ? `${version}/` : 'wp/v2/'}${endpoint}`)
+        .then(response => response.json())
+        .then(data => filter !== undefined ? filterData(data, filter) : data);
+}
+
+module.exports = wordpressQuery;
