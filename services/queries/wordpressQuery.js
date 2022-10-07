@@ -7,7 +7,10 @@ const wordpressQuery = (endpoint, options, version) => {
 
     return fetch(`${process.env.GASTBY_WP_URL}/${language ? `${language}/` : ''}wp-json/${version === 'none' ? '' : version ? `${version}/` : 'wp/v2/'}${endpoint}`)
         .then(response => response.json())
-        .then(data => filter !== undefined ? filterData(data, filter) : data);
+        .then(data => {
+            data.forEach(key => { key.language = language ? language : 'ru'; })
+            filter !== undefined ? filterData(data, filter) : data
+        });
 }
 
 module.exports = wordpressQuery;
