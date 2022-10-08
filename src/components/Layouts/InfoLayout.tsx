@@ -1,6 +1,6 @@
 import React from "react";
-import ContainerCentered from "../../../styles/ContainerCentered";
-import ImageSVG from "../../ImageSVG";
+import ContainerCentered from "../../styles/ContainerCentered";
+import ImageSVG from "../ImageSVG";
 
 type InfoLayoutProps = {
     title: string

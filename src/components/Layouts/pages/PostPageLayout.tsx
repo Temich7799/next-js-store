@@ -3,6 +3,7 @@ import Layout from "../Layout";
 import { graphql } from "gatsby";
 import PageTitle from "../../PageTitle";
 import styled from "styled-components";
+import NotFoundPageContent from "../../Content/NotFoundPageContent";
 require('../../../styles/wp.css');
 
 const Content = styled.div`
@@ -32,7 +33,11 @@ const PageLayout = (props: PageProps) => {
     <Layout>
       <main>
         <PageTitle>{data.wpPage.title}</PageTitle>
-        {(data.wpPage.content) ? <Content dangerouslySetInnerHTML={{ __html: data.wpPage.content }} /> : '404'}
+        {
+          (data.wpPage.content)
+            ? <Content dangerouslySetInnerHTML={{ __html: data.wpPage.content }} />
+            : <NotFoundPageContent />
+        }
       </main>
     </Layout>
   )

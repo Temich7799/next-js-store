@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Layout from "../components/Layouts/Layout";
 import LoadingBar from "../components/LoadingBars/LoadingBar";
-import ProductPageContent from "../components/Products/ProductPageContent";
+import ProductPageContent from "../components/Content/ProductPageContent";
 import { GET_WP_PRODUCT } from "../graphql/queries/getWpProduct";
 import ContainerCentered from "../styles/ContainerCentered";
 import NotFoundPage from "./404";

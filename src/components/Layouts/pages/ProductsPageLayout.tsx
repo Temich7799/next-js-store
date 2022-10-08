@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../Layout";
 import { graphql } from "gatsby";
-import ProductsPageContent from "../../Products/ProductsPageContent";
+import ProductsPageContent from "../../Content/ProductsPageContent";
 
 type ProductsProps = {
   data: {

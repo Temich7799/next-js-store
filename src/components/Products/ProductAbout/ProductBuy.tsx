@@ -3,7 +3,7 @@ import styled from "styled-components"
 import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
 import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct";
-import { PageContext } from "../ProductPageContent";
+import { PageContext } from "../../Content/ProductPageContent";
 import ProductBuyButton from "../../Buttons/ProductBuyButton";
 import PurchasedProductQuantity from "../ShoppingCart/OrderDetails/PurchasedProductQuantity";
 import GoToCartButton from "../../Buttons/GoToCartButton";

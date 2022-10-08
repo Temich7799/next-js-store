@@ -2,12 +2,12 @@ import React, { createContext, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import styled from "styled-components";
 import { GET_RELATED_PRODUCTS_IDS } from "../../graphql/queries/getRelatedProductsIds";
-import ProductAbout from "./ProductAbout/ProductAbout";
-import ProductDescription from "./ProductDescription";
-import ProductGallery from "./ProductGallery/ProductGallery";
+import ProductAbout from "../Products/ProductAbout/ProductAbout";
+import ProductDescription from "../Products/ProductDescription";
+import ProductGallery from "../Products/ProductGallery/ProductGallery";
 import Carousel from "../Carousel";
 import { CAROUSEL_RELATED_PRODUCTS_TITLE } from "../../languages/ru/languages";
-import ProductThumb from "./Thumbs/ProductThumb";
+import ProductThumb from "../Products/Thumbs/ProductThumb";
 import { GET_ALL_WP_RELATED_PRODUCTS } from "../../graphql/queries/getAllWpRelatedProducts";
 
 type ProductPageContentProps = {

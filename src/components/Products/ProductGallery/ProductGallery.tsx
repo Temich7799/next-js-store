@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 import styled from "styled-components"
-import { PageContext } from "../ProductPageContent";
+import { PageContext } from "../../Content/ProductPageContent";
 import ProductGalleryCarousel from "./ProductGalleryCarousel";
 import ProductGallerySelectedImage from "./ProductGallerySelectedImage";
 

@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { PRODUCT_DESCRIPTION_TITLE } from "../../languages/ru/languages";
 import useMobile from "../../services/hooks/useMobile";
 import CopyProtectedArea from "../CopyProtectedArea";
-import { PageContext } from "./ProductPageContent";
+import { PageContext } from "../Content/ProductPageContent";
 
 const StyledProductDescription = styled.div<any>`
     max-width: ${props => props.maxWidth};

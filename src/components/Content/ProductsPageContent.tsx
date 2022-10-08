@@ -4,9 +4,9 @@ import styled from "styled-components";
 import { GET_ALL_WP_PRODUCTS } from "../../graphql/queries/getAllWpProducts";
 import { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } from "../../languages/ru/languages";
 import ContainerCentered from "../../styles/ContainerCentered";
-import InfoLayout from "../Layouts/pages/InfoLayout";
+import InfoLayout from "../Layouts/InfoLayout";
 import LoadingBar from "../LoadingBars/LoadingBar";
-import ProductThumb from "./Thumbs/ProductThumb";
+import ProductThumb from "../Products/Thumbs/ProductThumb";
 
 type ProductsPageContentProps = {
     gatsbyImages: Map<number, string>

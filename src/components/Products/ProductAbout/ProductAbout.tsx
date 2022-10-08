@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { PageContext } from "../ProductPageContent";
+import { PageContext } from "../../Content/ProductPageContent";
 import ProductAttributes from "./ProductAttributes";
 import ProductBuy from "./ProductBuy";
 import ProductDelivery from "./ProductDelivery";

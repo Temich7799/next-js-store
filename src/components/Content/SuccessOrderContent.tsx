@@ -1,9 +1,9 @@
 import React from "react";
-import { ORDER_SUCCESS_DESCRIPTION, ORDER_SUCCESS_DETAILS, ORDER_SUCCESS_TITLE } from "../../../languages/ru/languages";
-import ContainerCentered from "../../../styles/ContainerCentered";
-import ContinueShoppingButton from "../../Buttons/ContinueShoppingButton";
-import GoToHomepageButton from "../../Buttons/GoToHomepageButton";
-import InfoLayout from "../../Layouts/pages/InfoLayout";
+import { ORDER_SUCCESS_DESCRIPTION, ORDER_SUCCESS_DETAILS, ORDER_SUCCESS_TITLE } from "../../languages/ru/languages";
+import ContainerCentered from "../../styles/ContainerCentered";
+import ContinueShoppingButton from "../Buttons/ContinueShoppingButton";
+import GoToHomepageButton from "../Buttons/GoToHomepageButton";
+import InfoLayout from "../Layouts/InfoLayout";
 
 type SuccessOrderContentProps = {
     orderId: string
