@@ -1,5 +1,5 @@
-const WC_ProductInput = `#graphql
-    input WC_ProductInput {
+const WC_ProductParams = `#graphql
+    input WC_ProductParams {
         orderby: String
         offset: Int
         per_page: Int
@@ -10,4 +10,4 @@ const WC_ProductInput = `#graphql
     }
 `;
 
-module.exports = WC_ProductInput;
+module.exports = WC_ProductParams;

@@ -5,6 +5,7 @@ const WP_MenuItem = `#graphql
         url: String
         post_name: String
         post_status: String
+        language: String
         child_items: [WP_MenuItem]
     }
 `;

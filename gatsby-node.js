@@ -5,27 +5,29 @@ exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
 
   const WP_Page = require("./apollo_server/graphql/types/wordpress/WP_Page");
-  const WP_PageInput = require("./apollo_server/graphql/types/wordpress/inputs/WP_PageInput");
+  const WP_PageFilter = require("./apollo_server/graphql/types/wordpress/inputs/WP_PageFilter");
   const WP_MenuItem = require("./apollo_server/graphql/types/wordpress/WP_MenuItem");
+  const WP_MenuItemFilter = require("./apollo_server/graphql/types/wordpress/inputs/WP_MenuItemFilter");
   const WC_ShippingMethod = require("./apollo_server/graphql/types/woocommerce/types/WC_ShippingMethod");
   const WC_PaymentMethod = require("./apollo_server/graphql/types/woocommerce/types/WC_PaymentMethod");
   const WC_Product = require("./apollo_server/graphql/types/woocommerce/types/WC_Product");
-  const WC_ProductInput = require("./apollo_server/graphql/types/woocommerce/inputs/WC_ProductInput");
+  const WC_ProductParams = require("./apollo_server/graphql/types/woocommerce/inputs/WC_ProductParams");
   const WC_Category = require("./apollo_server/graphql/types/woocommerce/types/WC_Category");
-  const WC_ProductCategoryInput = require("./apollo_server/graphql/types/woocommerce/inputs/WC_ProductCategoryInput");
+  const WC_ProductCategoryParams = require("./apollo_server/graphql/types/woocommerce/inputs/WC_ProductCategoryParams");
   const LanguagesEnum = require('./apollo_server/graphql/enums/LanguagesEnum')
   const StockStatusesEnum = require('./apollo_server/graphql/enums/StockStatusesEnum')
 
   createTypes(`
     ${WP_Page}
-    ${WP_PageInput}
+    ${WP_PageFilter}
     ${WP_MenuItem}
+    ${WP_MenuItemFilter}
     ${WC_ShippingMethod}
     ${WC_PaymentMethod}
     ${WC_Product}
-    ${WC_ProductInput}
+    ${WC_ProductParams}
     ${WC_Category}
-    ${WC_ProductCategoryInput}
+    ${WC_ProductCategoryParams}
     ${LanguagesEnum}
     ${StockStatusesEnum}
   `);

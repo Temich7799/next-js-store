@@ -3,16 +3,16 @@ const wooCommerceQuery = require('../../../services/queries/wooCommerceQuery');
 const allMultilangWcCategories = {
     type: ['WC_Category!'],
     args: {
-        filter: 'WC_ProductCategoryInput',
+        params: 'WC_ProductCategoryParams',
         language: 'LanguagesEnum',
     },
-    resolve: (_, { filter, language }) => {
+    resolve: (_, { params, language }) => {
 
         const options = {};
-        if (filter !== undefined) {
-            filter.hide_empty && (options.hide_empty = filter.hide_empty);
-            filter.product && (options.product = filter.product);
-            filter.slug && (options.slug = filter.slug);
+        if (params !== undefined) {
+            params.hide_empty && (options.hide_empty = params.hide_empty);
+            params.product && (options.product = params.product);
+            params.slug && (options.slug = params.slug);
         }
 
         return wooCommerceQuery(language).get('products/categories', options)

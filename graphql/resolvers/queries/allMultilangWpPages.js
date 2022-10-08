@@ -4,7 +4,7 @@ const allMultilangWpPages = {
   type: ['WP_Page!'],
   args: {
     language: 'LanguagesEnum',
-    filter: 'WP_PageInput'
+    filter: 'WP_PageFilter'
   },
   resolve: (_, { language, filter }) => wordpressQuery('pages', { language: language, filter: filter })
 }

@@ -3,20 +3,20 @@ const wooCommerceQuery = require('../../../services/queries/wooCommerceQuery');
 const allMultilangWcProducts = {
     type: ['WC_Product!'],
     args: {
-        filter: 'WC_ProductInput',
+        params: 'WC_ProductParams',
         language: 'LanguagesEnum',
     },
-    resolve: (_, { filter, language }) => {
+    resolve: (_, { params, language }) => {
 
         const options = {};
-        if (filter !== undefined) {
-            filter.offset && (options.offset = filter.offset);
-            filter.per_page ? options.per_page = filter.per_page < 100 ? filter.per_page : 100 : options.per_page = 50;
-            filter.status && (options.status = filter.status);
-            filter.orderby && (options.orderby = filter.orderby);
-            filter.stock_status && (options.stock_status = filter.stock_status);
-            filter.category && (options.category = filter.category);
-            filter.include && (options.include = filter.include);
+        if (params !== undefined) {
+            params.offset && (options.offset = params.offset);
+            params.per_page ? options.per_page = params.per_page < 100 ? params.per_page : 100 : options.per_page = 50;
+            params.status && (options.status = params.status);
+            params.orderby && (options.orderby = params.orderby);
+            params.stock_status && (options.stock_status = params.stock_status);
+            params.category && (options.category = params.category);
+            params.include && (options.include = params.include);
         }
 
         return wooCommerceQuery(language).get('products', options)

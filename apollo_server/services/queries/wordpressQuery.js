@@ -6,7 +6,7 @@ const wordpressQuery = (endpoint, options, dataPathArray, version = 'wp/v2/') =>
 
     const { language, filter } = options;
 
-    return fetch(`${process.env.GATSBY_WP_URL}/${language ? `${language}/` : ''}wp-json/${version === 'none' ? '' : version}${endpoint}`)
+    return fetch(`${process.env.WP_URL}/${language ? `${language}/` : ''}wp-json/${version === 'none' ? '' : version}${endpoint}`)
         .then(response => response.json())
         .then(response => {
 
