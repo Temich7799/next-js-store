@@ -19,8 +19,7 @@ const allMultilangWcProducts = {
             params.include && (options.include = params.include);
         }
 
-        return wooCommerceQuery(language).get('products', options)
-            .then((response) => response.data)
+        return wooCommerceQuery('products', options, 'get', language)
     }
 }
 

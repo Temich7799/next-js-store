@@ -6,7 +6,7 @@ const allMultilangWcShippingMethods = {
         zoneId: 'Int!',
         language: 'LanguagesEnum',
     },
-    resolve: (_, { zoneId, language }) => wooCommerceQuery(language).get(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`).then((response) => response.data)
+    resolve: (_, { zoneId, language }) => wooCommerceQuery(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`, null, 'get', language)
 }
 
 module.exports = allMultilangWcShippingMethods;

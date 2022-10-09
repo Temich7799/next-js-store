@@ -15,8 +15,7 @@ const allMultilangWcCategories = {
             params.slug && (options.slug = params.slug);
         }
 
-        return wooCommerceQuery(language).get('products/categories', options)
-            .then((response) => response.data)
+        return wooCommerceQuery('products/categories', options, 'get', language)
     }
 }
 

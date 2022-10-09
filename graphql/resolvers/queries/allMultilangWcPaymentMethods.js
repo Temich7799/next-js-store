@@ -2,11 +2,11 @@ const wooCommerceQuery = require('../../../services/queries/wooCommerceQuery');
 
 const allMultilangWcPaymentMethods = {
     type: ['WC_PaymentMethod!'],
-    resolve: () => wooCommerceQuery().get('payment_gateways').then((response) => {
+    resolve: () => wooCommerceQuery('payment_gateways', null, 'get', '', (data) => {
 
         const result = [];
 
-        response.data.forEach((WC_PaymentMethod) => {
+        data.forEach((WC_PaymentMethod) => {
             if (WC_PaymentMethod.settings.enable_for_methods) {
                 WC_PaymentMethod.enable_for_methods = [];
 
@@ -26,7 +26,7 @@ const allMultilangWcPaymentMethods = {
         })
 
         return result;
-    })
+    }),
 }
 
 module.exports = allMultilangWcPaymentMethods;
