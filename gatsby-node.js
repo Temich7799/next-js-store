@@ -1,4 +1,5 @@
 const path = require(`path`);
+const getDirectories = require('./services/getDirectories');
 
 exports.createSchemaCustomization = ({ actions }) => {
 
@@ -56,81 +57,88 @@ exports.createResolvers = ({ createResolvers }) => {
 
 exports.createPages = async function ({ actions, graphql }) {
 
-  {
-    ///---------------------------------Make Pages
+  const languages = getDirectories('./src/languages');
+
+  languages.forEach((language) => {
+
+    if (language === 'ru') language = null; //make as default language
+
+    createPages(language);
+    createProductsPages(language);
+    createProductPages(language);
+  });
+
+  async function createPages(language) {
+
     const { data } = await graphql(`
       query getPages {
-        allWpPage(filter: {status: {eq: "publish"}}) {
-          edges {
-            node {
-              slug
-            }
-          }
+        allMultilangWpPages(filter: {exclude: {slug: ["home", "catalog"]}, include: {status: publish}}) {
+          id
+          slug
         }
       }
     `);
 
-    data.allWpPage.edges.forEach((edge) => {
-      if (edge.node.slug !== 'catalog' && edge.node.slug !== 'home') {
-        actions.createPage({
-          path: edge.node.slug,
-          component: path.resolve(`./src/components/Layouts/pages/PostPageLayout.tsx`),
-          context: { slug: edge.node.slug },
-        })
-      }
-    })
-  }
-
-  {
-    ///---------------------------------Make Products Pages
-    const { data } = await graphql(`
-      query getCategories {
-        allWcProductsCategories {
-          edges {
-            node {
-              wordpress_id
-              slug
-            }
-          }
-        }
-      }
-    `);
-
-    data.allWcProductsCategories.edges.forEach((edge) => {
+    data.allMultilangWpPages.forEach((wpPage) => {
       actions.createPage({
-        path: `catalog/${edge.node.slug}`,
-        component: path.resolve(`./src/components/Layouts/pages/ProductsPageLayout.tsx`),
-        context: { categoryId: edge.node.wordpress_id },
+        path: `${language ? `${language}/` : ''}${wpPage.slug}`,
+        component: path.resolve(`./src/components/Layouts/pages/PostPageLayout.tsx`),
+        context: {
+          pageId: parseInt(wpPage.id),
+          language: language,
+        },
       })
     })
   }
 
-  {
+  async function createProductsPages(language) {
+
+    const { data } = await graphql(`
+      query getCategories {
+        allMultilangWcCategories(params: {hide_empty: true}) {
+          id
+          slug
+        }
+      }
+    `);
+
+    data.allMultilangWcCategories.forEach((wcCategory) => {
+      actions.createPage({
+        path: `${language ? `${language}/` : ''}catalog/${wcCategory.slug}`,
+        component: path.resolve(`./src/components/Layouts/pages/ProductsPageLayout.tsx`),
+        context: {
+          categoryId: parseInt(wcCategory.id),
+          language: language,
+        },
+      })
+    })
+  }
+
+  async function createProductPages(language) {
     ///---------------------------------Make Product Pages
     const { data } = await graphql(`
       query getProducts {
-        allWcProducts(filter: {stock_status: {eq: "instock"}, status: {eq: "publish"}}) {
-          edges {
-            node {
-              sku
-              wordpress_id         
-              categories {
-                slug
-              }
-            }
+        allMultilangWcProducts(params: {stock_status: instock, status: publish}) {
+          id
+          sku
+          categories {
+            slug
           }
         }
       }
     `);
 
-    data.allWcProducts.edges.forEach((edge) => {
+    data.allMultilangWcProducts.forEach((wcProduct) => {
 
-      if (edge.node.sku == '') edge.node.sku = edge.node.wordpress_id;
+      if (wcProduct.sku == '') wcProduct.sku = wcProduct.wordpress_id;
 
       actions.createPage({
-        path: `catalog/${edge.node.categories[0].slug}/${edge.node.categories[0].slug}-${edge.node.sku}`,
+        path: `${language ? `${language}/` : ''}catalog/${wcProduct.categories[0].slug}/${wcProduct.categories[0].slug}-${wcProduct.sku}`,
         component: path.resolve(`./src/components/Layouts/pages/ProductPageLayout.tsx`),
-        context: { productId: edge.node.wordpress_id },
+        context: {
+          productId: parseInt(wcProduct.id),
+          language: language ? language : 'ru',
+        },
       })
     })
   }

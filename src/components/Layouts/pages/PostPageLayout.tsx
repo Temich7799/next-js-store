@@ -18,9 +18,13 @@ const Content = styled.div`
 
 type PageProps = {
   data: {
-    wpPage: {
-      content: string
-      title: string
+    multilangWpPage: {
+      content: {
+        rendered: string
+      }
+      title: {
+        rendered: string
+      }
     }
   }
 }
@@ -28,14 +32,14 @@ type PageProps = {
 const PostPageLayout = (props: PageProps) => {
 
   const { data } = props;
-
+  
   return (
     <Layout>
       <main>
-        <PageTitle>{data.wpPage.title}</PageTitle>
+        <PageTitle>{data.multilangWpPage.title.rendered}</PageTitle>
         {
-          (data.wpPage.content)
-            ? <Content dangerouslySetInnerHTML={{ __html: data.wpPage.content }} />
+          (data.multilangWpPage.content.rendered)
+            ? <Content dangerouslySetInnerHTML={{ __html: data.multilangWpPage.content.rendered }} />
             : <NotFoundPageContent />
         }
       </main>
@@ -46,10 +50,14 @@ const PostPageLayout = (props: PageProps) => {
 export default PostPageLayout
 
 export const query = graphql`
-query ($slug: String!) {
-    wpPage(slug: {eq: $slug}) {
-      content
-      title
+query ($pageId: Int!, $language: LanguagesEnum) {
+    multilangWpPage(pageId: $pageId, language: $language) {
+      title {
+        rendered
+      }
+      content {
+        rendered
+      }
     }
   } 
 `

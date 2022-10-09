@@ -33,7 +33,7 @@ type Product = {
 const ProductsPageLayout = (props: ProductsProps) => {
 
   const { data } = props;
-
+  
   const gatsbyImages = new Map<number, string>();
 
   data.allWcProducts.edges.forEach((edge: Product) => {
@@ -57,6 +57,7 @@ export default ProductsPageLayout
 
 export const query = graphql`
   query getProductImages($categoryId: Int) {
+    
     allWcProducts(filter: {categories: {elemMatch: {wordpress_id: {eq: $categoryId}}}}){
       edges {
         node {

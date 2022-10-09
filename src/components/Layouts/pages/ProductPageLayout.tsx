@@ -3,23 +3,34 @@ import Layout from "../Layout";
 import { graphql } from "gatsby";
 import ProductPageContent from "../../Content/ProductPageContent";
 
-type Product = {
+type ProductProps = {
+    data: {
+        multilangWcProduct: MultilangProduct
+        wcProducts: Product
+    }
+}
+
+interface MultilangProduct {
     name: string
-    sku: string
-    price: string
-    sale_price: string
     description: string
-    wordpress_id: number
-    id: string
-    stock_quantity: number | null
-    stock_status: string
-    related_products: [Product]
     attributes: [
         {
             options: [string]
             name: string
         }
     ]
+    language: string
+}
+
+interface Product extends MultilangProduct {
+    sku: string
+    price: string
+    sale_price: string
+    wordpress_id: number
+    id: string
+    stock_quantity: number | null
+    stock_status: string
+    related_products: [Product]
     images: [
         {
             src: string
@@ -38,17 +49,13 @@ type Product = {
     ]
 }
 
-type ProductProps = {
-    data: {
-        wcProducts: Product
-    }
-}
-
 const ProductPageLayout = (props: ProductProps) => {
 
     const { data } = props;
+    console.log(data)
     const wcProduct = {
         ...data.wcProducts,
+        ...data.multilangWcProduct,
         id: data.wcProducts.wordpress_id.toString(),
         image: {
             src: data.wcProducts.images[0].src,
@@ -76,18 +83,23 @@ const ProductPageLayout = (props: ProductProps) => {
 export default ProductPageLayout
 
 export const query = graphql`
-  query getProduct($productId: Int!){
-    wcProducts(wordpress_id: {eq: $productId}) {
+  query getProduct($productId: Int!, $language: LanguagesEnum) {
+
+    multilangWcProduct(productId: $productId, language: $language) {
         name
-        sku
-        price
-        sale_price
         description
-        wordpress_id
+        language
         attributes {
             options
             name
         }
+    }
+
+    wcProducts(wordpress_id: {eq: $productId}) {
+        sku
+        price
+        sale_price
+        wordpress_id
         related_products {
             status
             stock_status
