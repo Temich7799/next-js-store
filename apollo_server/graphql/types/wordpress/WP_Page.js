@@ -7,7 +7,7 @@ const WP_Page = `#graphql
         modified: String
         slug: String
         status: String
-        language: String!
+        language: String
         title: Content!
         content: Content!
     }

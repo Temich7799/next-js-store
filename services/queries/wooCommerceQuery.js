@@ -11,9 +11,11 @@ const wooCommerceQuery = (endpoint, params, method = 'get', languagePrefix = '',
 
     return query[method](endpoint, params).then((response) => {
 
-        response.data.forEach(key => {
-            key.language = languagePrefix ? languagePrefix : 'ru';
-        });
+        Array.isArray(response.data)
+            ? response.data.forEach(key => {
+                key.language = languagePrefix ? languagePrefix : 'ru';
+            })
+            : response.data.language = languagePrefix ? languagePrefix : 'ru';
 
         return callback
             ? callback(response.data)
