@@ -107,7 +107,7 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                     allWpRelatedProductsDataIds !== undefined &&
                     <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} isDataFetching={allWpRelatedProductsLoading} carouselItemMax={3}>
                         {
-                            allWpRelatedProductsData !== undefined && allWpRelatedProductsData.allWpWcProducts.map((fetchedProduct: Product) => {
+                            allWpRelatedProductsData !== undefined && allWpRelatedProductsData.allWcProducts.map((fetchedProduct: Product) => {
 
                                 const product = {
                                     ...fetchedProduct,

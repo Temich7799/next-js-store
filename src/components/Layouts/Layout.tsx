@@ -16,7 +16,7 @@ const client = new ApolloClient({
             typePolicies: {
                 Query: {
                     fields: {
-                        allWpWcProducts: {
+                        allWcProducts: {
                             keyArgs: false,
                             merge(existing = [], incoming) {
                                 return [...existing, ...incoming]

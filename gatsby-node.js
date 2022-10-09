@@ -52,7 +52,7 @@ exports.createResolvers = ({ createResolvers }) => {
 
 exports.createPages = async function ({ actions, graphql }) {
 
-  async () => {
+  {
     ///---------------------------------Make Pages
     const { data } = await graphql(`
       query getPages {
@@ -77,7 +77,7 @@ exports.createPages = async function ({ actions, graphql }) {
     })
   }
 
-  async () => {
+  {
     ///---------------------------------Make Products Pages
     const { data } = await graphql(`
       query getCategories {
@@ -101,7 +101,7 @@ exports.createPages = async function ({ actions, graphql }) {
     })
   }
 
-  async () => {
+  {
     ///---------------------------------Make Product Pages
     const { data } = await graphql(`
       query getProducts {

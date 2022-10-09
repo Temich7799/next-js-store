@@ -58,7 +58,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
         setFetchLimit(Math.floor((window.innerHeight * window.innerWidth) / 10000));
         getAllWpProducts({
             variables: {
-                filter: {
+                params: {
                     category: categoryId,
                     stock_status: 'instock',
                     status: 'publish',
@@ -67,7 +67,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
                 }
             }
         }).then((response) => {
-            setFetchOffset(response.data.allWpWcProducts.length + fetchOffset);
+            setFetchOffset(response.data.allWcProducts.length + fetchOffset);
         });
 
     }, []);
@@ -90,7 +90,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
             fetchMore(
                 {
                     variables: {
-                        filter: {
+                        params: {
                             category: categoryId,
                             stock_status: 'instock',
                             status: 'publish',
@@ -100,7 +100,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
                     }
                 }
             ).then((response) => {
-                setFetchOffset(response.data.allWpWcProducts.length + fetchOffset);
+                setFetchOffset(response.data.allWcProducts.length + fetchOffset);
             });
         }
     }
@@ -119,7 +119,7 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
                         <InfoLayout title={LOADING_ERROR_TITLE} description={LOADING_ERROR_DESCRIPTION} imagePath={""} />
                         : <Content>
                             {
-                                productsData && productsData.allWpWcProducts.map((fetchedProduct: FetchedProduct) => {
+                                productsData && productsData.allWcProducts.map((fetchedProduct: FetchedProduct) => {
 
                                     const product = {
                                         ...fetchedProduct,

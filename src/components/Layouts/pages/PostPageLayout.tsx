@@ -25,7 +25,7 @@ type PageProps = {
   }
 }
 
-const PageLayout = (props: PageProps) => {
+const PostPageLayout = (props: PageProps) => {
 
   const { data } = props;
 
@@ -43,7 +43,7 @@ const PageLayout = (props: PageProps) => {
   )
 }
 
-export default PageLayout
+export default PostPageLayout
 
 export const query = graphql`
 query ($slug: String!) {

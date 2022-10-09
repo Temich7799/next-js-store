@@ -151,7 +151,7 @@ const Carousel = (props: CarouselProps) => {
             slider.current.prevPosition = 0;
         }
 
-        carouselSlider.current.style.transition = `${speed}`;
+        if (carouselSlider.current) carouselSlider.current.style.transition = `${speed}`;
 
         carouselWrapper.current.removeEventListener(`${pointerType}move`, onPointerMoveHandler);
     }

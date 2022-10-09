@@ -44,7 +44,7 @@ type ProductProps = {
     }
 }
 
-const ProductLayout = (props: ProductProps) => {
+const ProductPageLayout = (props: ProductProps) => {
 
     const { data } = props;
     const wcProduct = {
@@ -73,7 +73,7 @@ const ProductLayout = (props: ProductProps) => {
     )
 }
 
-export default ProductLayout
+export default ProductPageLayout
 
 export const query = graphql`
   query getProduct($productId: Int!){

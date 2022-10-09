@@ -9,7 +9,7 @@ const resolvers = {
         allWpPages: (_, { language, filter }) => wordpressQuery('pages', { language: language, filter: filter }),
         allWpPosts: (_, { language, filter }) => wordpressQuery('posts', { language: language, filter: filter }),
         allWpMenuItems: (_, { language, slug, filter }) => wordpressQuery(`menus/v1/menus/${slug}`, { language: language, filter: filter }, ['items'], 'none'),
-        allWpWcOrders: () => wooCommerceQuery.get('orders').then((response) => response.data),
+        allWpWcOrders: () => wooCommerceQuery().get('orders').then((response) => response.data),
         allWpNovaPoshtaCities: (_, { params }) => {
 
             const cityRow = params.language == 'uk' ? 'description' : 'description_ru';
@@ -22,7 +22,7 @@ const resolvers = {
         allWpNovaPoshtaWarehouses: (_, { params }) => {
 
             const warehouseRow = params.language == 'uk' ? 'description' : 'description_ru';
-            const sqlLimit = params.limit == undefined ? '' : ` LIMIT ${lparams.imit}`;
+            const sqlLimit = params.limit == undefined ? '' : ` LIMIT ${params.imit}`;
             const regex = params.regExp == undefined ? '' : `) REGEXP '` + params.regExp.toLowerCase();
 
             return sqlQuery(params.cityRef == undefined
@@ -42,7 +42,7 @@ const resolvers = {
                 params.include && (options.include = params.include);
             }
 
-            return wooCommerceQuery.get('products', options)
+            return wooCommerceQuery().get('products', options)
                 .then((response) => response.data)
         },
         allWcProductsCategories: (_, { params }) => {
@@ -53,15 +53,15 @@ const resolvers = {
                 params.slug && (options.slug = params.slug);
             }
 
-            return wooCommerceQuery.get('products/categories', options)
+            return wooCommerceQuery().get('products/categories', options)
                 .then((response) => response.data)
         },
         allWcShippingZonesMethods: (_, { zoneId }) => {
-            return wooCommerceQuery.get(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`).then((response) => response.data)
+            return wooCommerceQuery().get(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`).then((response) => response.data)
         },
         allWcPaymentMethods: () =>
 
-            wooCommerceQuery.get('payment_gateways').then((response) => {
+            wooCommerceQuery().get('payment_gateways').then((response) => {
                 const result = [];
 
                 response.data.forEach((paymentMethod) => {
@@ -86,12 +86,12 @@ const resolvers = {
                 return result;
             }),
 
-        wpWcOrder: (_, { productId }) => wooCommerceQuery.get(`orders/${productId}`).then((response) => response.data),
-        wpWcProduct: (_, { productId }) => wooCommerceQuery.get(`products/${productId}`).then((response) => response.data),
+        wpWcOrder: (_, { productId }) => wooCommerceQuery().get(`orders/${productId}`).then((response) => response.data),
+        wpWcProduct: (_, { productId }) => wooCommerceQuery().get(`products/${productId}`).then((response) => response.data),
 
     },
     Mutation: {
-        wpWcCreateOrder: (_, { data }) => wooCommerceQuery.post("orders", data).then((response) => response.data),
+        wpWcCreateOrder: (_, { data }) => wooCommerceQuery().post("orders", data).then((response) => response.data),
     }
 };
 
@@ -120,7 +120,7 @@ for (let i = 0; i < 50; i++) {
         ]
     };
 
-    wooCommerceQuery.post("products", data)
+    wooCommerceQuery().post("products", data)
         .then((response) => {
             console.log('Oka');
         });
