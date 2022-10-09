@@ -45,6 +45,10 @@ exports.createResolvers = ({ createResolvers }) => {
       allWcPaymentMethods: require("./graphql/resolvers/queries/allMultilangWcPaymentMethods"),
       allMultilangWcProducts: require("./graphql/resolvers/queries/allMultilangWcProducts"),
       allMultilangWcCategories: require("./graphql/resolvers/queries/allMultilangWcCategories"),
+
+      multilangWpPage: require("./graphql/resolvers/queries/multilangWpPage"),
+      multilangWpPost: require("./graphql/resolvers/queries/multilangWpPost"),
+      multilangWcProduct: require("./graphql/resolvers/queries/multilangWcProduct"),
     }
   });
 }
