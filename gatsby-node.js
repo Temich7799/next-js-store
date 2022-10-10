@@ -91,18 +91,18 @@ exports.createPages = async ({ actions, graphql }) => {
 
   languages.forEach((language) => {
 
-    if (language === 'ru') language = null; //make as default language
+    const langPrefix = language === 'ru' ? '' : `${language}/`; //make as default language
 
-    createPages(pagesData, language);
-    createProductsPages(categoriesData, language);
-    createProductPages(productsData, language);
+    createPages(pagesData, language, langPrefix);
+    createProductsPages(categoriesData, language, langPrefix);
+    createProductPages(productsData, language, langPrefix);
   });
 
-  function createPages(data, language) {
+  function createPages(data, language, langPrefix) {
 
     data.allMultilangWpPages.forEach((wpPage) => {
       actions.createPage({
-        path: `${language ? `${language}/` : ''}${wpPage.slug}`,
+        path: `${langPrefix}${wpPage.slug}`,
         component: path.resolve(`./src/components/Layouts/pages/PostPageLayout.tsx`),
         context: {
           pageId: parseInt(wpPage.id),
@@ -112,11 +112,11 @@ exports.createPages = async ({ actions, graphql }) => {
     });
   }
 
-  function createProductsPages(data, language) {
+  function createProductsPages(data, language, langPrefix) {
 
     data.allMultilangWcCategories.forEach((wcCategory) => {
       actions.createPage({
-        path: `${language ? `${language}/` : ''}catalog/${wcCategory.slug}`,
+        path: `${langPrefix}catalog/${wcCategory.slug}`,
         component: path.resolve(`./src/components/Layouts/pages/ProductsPageLayout.tsx`),
         context: {
           categoryId: parseInt(wcCategory.id),
@@ -126,18 +126,18 @@ exports.createPages = async ({ actions, graphql }) => {
     });
   }
 
-  function createProductPages(data, language) {
+  function createProductPages(data, language, langPrefix) {
 
     data.allMultilangWcProducts.forEach((wcProduct) => {
 
       if (wcProduct.sku == '') wcProduct.sku = wcProduct.wordpress_id;
 
       actions.createPage({
-        path: `${language ? `${language}/` : ''}catalog/${wcProduct.categories[0].slug}/${wcProduct.categories[0].slug}-${wcProduct.sku}`,
+        path: `${langPrefix}catalog/${wcProduct.categories[0].slug}/${wcProduct.categories[0].slug}-${wcProduct.sku}`,
         component: path.resolve(`./src/components/Layouts/pages/ProductPageLayout.tsx`),
         context: {
           productId: parseInt(wcProduct.id),
-          language: language ? language : 'ru',
+          language: language,
         },
       });
     });
