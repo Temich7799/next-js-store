@@ -55,29 +55,50 @@ exports.createResolvers = ({ createResolvers }) => {
 }
 
 
-exports.createPages = async function ({ actions, graphql }) {
+exports.createPages = async ({ actions, graphql }) => {
 
   const languages = getDirectories('./src/languages');
+
+  const { data: pagesData } = await graphql(`
+    query getPages {
+      allMultilangWpPages(filter: {exclude: {slug: ["home", "catalog"]}, include: {status: publish}}) {
+        id
+        slug
+      }
+    }
+  `);
+
+  const { data: categoriesData } = await graphql(`
+    query getCategories {
+      allMultilangWcCategories(params: {hide_empty: true}) {
+        id
+        slug
+      }
+    }
+  `);
+
+  const { data: productsData } = await graphql(`
+    query getProducts {
+      allMultilangWcProducts(params: {stock_status: instock, status: publish}) {
+        id
+        sku
+        categories {
+          slug
+        }
+      }
+    }
+  `);
 
   languages.forEach((language) => {
 
     if (language === 'ru') language = null; //make as default language
 
-    createPages(language);
-    createProductsPages(language);
-    createProductPages(language);
+    createPages(pagesData, language);
+    createProductsPages(categoriesData, language);
+    createProductPages(productsData, language);
   });
 
-  async function createPages(language) {
-
-    const { data } = await graphql(`
-      query getPages {
-        allMultilangWpPages(filter: {exclude: {slug: ["home", "catalog"]}, include: {status: publish}}) {
-          id
-          slug
-        }
-      }
-    `);
+  function createPages(data, language) {
 
     data.allMultilangWpPages.forEach((wpPage) => {
       actions.createPage({
@@ -87,20 +108,11 @@ exports.createPages = async function ({ actions, graphql }) {
           pageId: parseInt(wpPage.id),
           language: language,
         },
-      })
-    })
+      });
+    });
   }
 
-  async function createProductsPages(language) {
-
-    const { data } = await graphql(`
-      query getCategories {
-        allMultilangWcCategories(params: {hide_empty: true}) {
-          id
-          slug
-        }
-      }
-    `);
+  function createProductsPages(data, language) {
 
     data.allMultilangWcCategories.forEach((wcCategory) => {
       actions.createPage({
@@ -110,23 +122,11 @@ exports.createPages = async function ({ actions, graphql }) {
           categoryId: parseInt(wcCategory.id),
           language: language,
         },
-      })
-    })
+      });
+    });
   }
 
-  async function createProductPages(language) {
-    ///---------------------------------Make Product Pages
-    const { data } = await graphql(`
-      query getProducts {
-        allMultilangWcProducts(params: {stock_status: instock, status: publish}) {
-          id
-          sku
-          categories {
-            slug
-          }
-        }
-      }
-    `);
+  function createProductPages(data, language) {
 
     data.allMultilangWcProducts.forEach((wcProduct) => {
 
@@ -139,7 +139,7 @@ exports.createPages = async function ({ actions, graphql }) {
           productId: parseInt(wcProduct.id),
           language: language ? language : 'ru',
         },
-      })
-    })
+      });
+    });
   }
 }
