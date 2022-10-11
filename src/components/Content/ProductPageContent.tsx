@@ -1,14 +1,12 @@
-import React, { createContext, useContext, useEffect } from "react";
-import { useLazyQuery } from "@apollo/client";
+import React, { createContext, useContext } from "react";
 import styled from "styled-components";
-import { GET_RELATED_PRODUCTS_IDS } from "../../graphql/queries/getRelatedProductsIds";
 import ProductAbout from "../Products/ProductAbout/ProductAbout";
 import ProductDescription from "../Products/ProductDescription";
 import ProductGallery from "../Products/ProductGallery/ProductGallery";
 import Carousel from "../Carousel";
 import ProductThumb from "../Products/Thumbs/ProductThumb";
-import { GET_ALL_WP_RELATED_PRODUCTS } from "../../graphql/queries/getAllWpRelatedProducts";
 import { LangContext } from "../Layouts/Layout";
+import { useRelatedProducts } from "../../services/hooks/graphql/useRelatedProducts";
 
 type ProductPageContentProps = {
     data: Product
@@ -73,32 +71,7 @@ const ProductPageContent = (props: ProductPageContentProps) => {
     data.wordpress_id = parseInt(data.id);
     if (!data.image) data.image = data.images[0];
 
-    const [getRelatedProductsIds, { data: allWpRelatedProductsDataIds }] = useLazyQuery(GET_RELATED_PRODUCTS_IDS, { variables: { productId: data.wordpress_id } });
-    const [getAllWpRelatedProducts, { loading: allWpRelatedProductsLoading, data: allWpRelatedProductsData }] = useLazyQuery(GET_ALL_WP_RELATED_PRODUCTS);
-
-    useEffect(() => {
-        relatedProductsIds
-            ? getAllWpRelatedProducts(
-                {
-                    variables: {
-                        filter: {
-                            include: relatedProductsIds
-                        }
-                    }
-                })
-            : getRelatedProductsIds()
-                .then((response) => {
-                    getAllWpRelatedProducts(
-                        {
-                            variables: {
-                                filter: {
-                                    include: response.data.wpWcProduct.related_ids.map((id: string) => parseInt(id))
-                                }
-                            }
-                        });
-                }
-                );
-    }, []);
+    const { data: relatedProductsData, loading, hasRelatedProducts } = useRelatedProducts(data.wordpress_id, relatedProductsIds);
 
     return (
         <PageContext.Provider value={data}>
@@ -107,19 +80,19 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                 <ProductAbout />
                 <ProductDescription />
                 {
-                    allWpRelatedProductsDataIds !== undefined &&
-                    <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} isDataFetching={allWpRelatedProductsLoading} carouselItemMax={3}>
+                    hasRelatedProducts &&
+                    <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} isDataFetching={loading} carouselItemMax={3}>
                         {
-                            allWpRelatedProductsData !== undefined && allWpRelatedProductsData.allWcProducts.map((fetchedProduct: Product) => {
+                            relatedProductsData !== undefined && relatedProductsData.map((product: Product) => {
 
-                                const product = {
-                                    ...fetchedProduct,
-                                    wordpress_id: parseInt(fetchedProduct.id)
+                                const productData = {
+                                    ...product,
+                                    wordpress_id: parseInt(product.id)
                                 };
 
-                                const gatsbyImage = gatsbyImages ? gatsbyImages.get(product.wordpress_id) : undefined;
+                                const gatsbyImage = gatsbyImages ? gatsbyImages.get(productData.wordpress_id) : undefined;
 
-                                return <ProductThumb data={product} gatsbyImage={gatsbyImage} key={fetchedProduct.id} />
+                                return <ProductThumb data={productData} gatsbyImage={gatsbyImage} key={product.id} />
                             })
                         }
                     </Carousel>
