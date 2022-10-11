@@ -40,7 +40,7 @@ const StyledOrderFinal = styled.div`
 
 const OrderFinal = (props: OrderFinalProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { ORDER_FINAL_TITLE } = require(`../../../../languages/${language}/languages`);
 
     const { data, isOrderSending } = props;

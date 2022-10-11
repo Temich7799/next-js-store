@@ -47,7 +47,7 @@ const Content = styled.div`
 
 const ProductsPageContent = (props: ProductsPageContentProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } = require(`../../languages/${language}/languages`);
 
     const { gatsbyImages, categoryId } = props;

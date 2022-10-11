@@ -11,7 +11,7 @@ type ProductBuyButtonProps = {
 
 const ProductBuyButton = (props: ProductBuyButtonProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { PRODUCT_BUY_BUTTON_TITLE, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } = require(`../../languages/${language}/languages`);
 
     const { onClickHandler, isDataLoading, isOutOfStock } = props;

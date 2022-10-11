@@ -75,7 +75,7 @@ const ProductCaption = styled.div`
 
 const ProductThumb = (props: ProductProps) => {
 
-    const language = useContext(LangContext);
+    const { language, langPrefix } = useContext(LangContext);
     const { PRODUCT_SKU } = require(`../../../languages/${language}/languages`);
 
     const { data: propsData, gatsbyImage } = props;
@@ -90,8 +90,8 @@ const ProductThumb = (props: ProductProps) => {
     };
 
     const url = gatsbyImage
-        ? `${process.env.GATSBY_SITE_URL}/catalog/${data.categories[0].slug}/${data.categories[0].slug}-${data.sku != '' ? data.sku : data.wordpress_id}`
-        : `${process.env.GATSBY_SITE_URL}/product?id=${data.wordpress_id}`;
+        ? `${process.env.GATSBY_SITE_URL}/${langPrefix}catalog/${data.categories[0].slug}/${data.categories[0].slug}-${data.sku != '' ? data.sku : data.wordpress_id}`
+        : `${process.env.GATSBY_SITE_URL}/${langPrefix}product?id=${data.wordpress_id}`;
 
     const { add: addToCart } = useShoppingCartVar();
     const { save: saveLastProductPage } = useLastProductPageVar();

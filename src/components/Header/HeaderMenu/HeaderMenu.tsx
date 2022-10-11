@@ -14,7 +14,7 @@ const HeaderMenu = (props: HeaderMenuProps) => {
 
   const { isMobile } = props;
 
-  const language = useContext(LangContext);
+  const { language } = useContext(LangContext);
   const data: [MenuItemType] = useHeaderMenuItems(language);
 
   return (

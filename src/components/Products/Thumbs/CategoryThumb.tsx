@@ -77,7 +77,7 @@ const Line = styled.div`
 
 const CategoryThumb = (props: CategoryThumbProps) => {
 
-    const language = useContext(LangContext);
+    const { language, langPrefix } = useContext(LangContext);
     const { CATEGORY_THUMB_BUTTON } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;

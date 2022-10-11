@@ -10,7 +10,7 @@ type GoToCartButtonProps = {
 
 const GoToCartButton = (props: GoToCartButtonProps) => {
 
-    const language = useContext(LangContext);
+    const { language, langPrefix } = useContext(LangContext);
     const { ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_BUTTON_DISABLED, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } = require(`../../languages/${language}/languages`);
 
     const { isButtonDisabled, isOutOfStock } = props;
@@ -28,7 +28,7 @@ const GoToCartButton = (props: GoToCartButtonProps) => {
                         }
                     </Button>
                     :
-                    <Link to="/shopping_cart">
+                    <Link to={`/${langPrefix}shopping_cart`}>
                         <Button buttonStyle="accent" disabled={isButtonDisabled}>
                             {ORDER_FINAL_BUTTON_CONTINUE}
                         </Button>

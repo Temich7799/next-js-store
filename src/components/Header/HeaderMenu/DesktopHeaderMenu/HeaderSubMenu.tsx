@@ -1,7 +1,8 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import { formatCatalogChildItemUrl } from "../../../../services/formatCatalogChildItemUrl";
 import { MenuItemType } from "../../../../types/MenuItemType";
+import { LangContext } from "../../../Layouts/Layout";
 
 const StyledHeaderSubMenu = styled.div`
     font-size: 16px;
@@ -35,6 +36,8 @@ type SubMenuProps = {
 
 const HeaderSubMenu = (props: SubMenuProps) => {
 
+    const { langPrefix } = useContext(LangContext);
+
     const { data } = props;
 
     return (
@@ -43,7 +46,7 @@ const HeaderSubMenu = (props: SubMenuProps) => {
                 {
                     data.map((item: MenuItemType, index: number) =>
                         <SubMenuItem key={index}>
-                            <a href={formatCatalogChildItemUrl(item.slug != '/home/' ? `/${item.slug}` : '/')}>
+                            <a href={formatCatalogChildItemUrl(item.slug === 'home' ? '/' : `/${langPrefix}${item.slug}`)}>
                                 {item.title}
                             </a>
                         </SubMenuItem>)

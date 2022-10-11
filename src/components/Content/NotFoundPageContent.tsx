@@ -5,7 +5,7 @@ import { LangContext } from "../Layouts/Layout";
 
 const NotFoundPageContent = () => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { GO_BACK_BUTTON, PAGE_NOT_FOUND_DESCRIPTION, PAGE_NOT_FOUND_TITLE } = require(`../../languages/${language}/languages`);
 
     return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
@@ -10,6 +10,7 @@ import MobileHeaderSubMenu from "./MobileHeaderSubMenu";
 import MobileHeaderSubMenuTitle from "./MobileHeaderSubMenuTitle";
 import { useIsMenuOpenedVar } from "../../../../services/hooks/apollo/useIsMenuOpenedVar";
 import { MenuItemType } from "../../../../types/MenuItemType";
+import { LangContext } from "../../../Layouts/Layout";
 
 type MobileHeaderMenuProps = {
     data: [MenuItemType]
@@ -70,6 +71,8 @@ const StyledSocials = styled.div`
 
 const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
 
+    const { langPrefix } = useContext(LangContext);
+
     const { data } = props;
 
     const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
@@ -105,11 +108,13 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
                                             ?
                                             <MobileHeaderMenuLinks key={index}>
                                                 <MobileHeaderSubMenuTitle title={item.title} isSubMenuOpened={isSubMenuOpened} onClickHandler={MobileHeaderSubMenuTitleOnClickHandler} />
-                                                {isSubMenuOpened && <MobileHeaderSubMenu parentSlug={item.slug} data={item.child_items} />}
+                                                {
+                                                    isSubMenuOpened && <MobileHeaderSubMenu parentSlug={item.slug} data={item.child_items} />
+                                                }
                                             </MobileHeaderMenuLinks>
                                             :
                                             <li key={index}>
-                                                <Link to={item.slug === 'home' ? '/' : `/${item.slug}`}>
+                                                <Link to={item.slug === 'home' ? `/${langPrefix}` : `/${langPrefix}${item.slug}`}>
                                                     {item.title}
                                                 </Link>
                                             </li>

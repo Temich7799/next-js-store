@@ -16,7 +16,7 @@ const StyledFooterMenu = styled.nav`
 
 const FooterMenu = () => {
 
-    const language = useContext(LangContext);
+    const { language, langPrefix } = useContext(LangContext);
     const data: [MenuItemType] = useFooterMenuItems(language);
 
     return (
@@ -25,12 +25,12 @@ const FooterMenu = () => {
                 data.map((item: MenuItemType, index: number) =>
                     index === data.length - 1
                         ?
-                        <Link to={`/${item.slug}`} key={index}>
+                        <Link to={`/${langPrefix}${item.slug}`} key={index}>
                             {item.title}
                         </Link>
                         :
                         <Fragment>
-                            <Link to={`/${item.slug}`} key={index}>
+                            <Link to={`/${langPrefix}${item.slug}`} key={index}>
                                 {item.title}
                             </Link> /
                         </Fragment>

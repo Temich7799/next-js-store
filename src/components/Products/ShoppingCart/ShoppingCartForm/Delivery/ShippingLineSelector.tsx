@@ -10,7 +10,7 @@ type ShippingLineSelectorProps = {
 
 const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { SHIPPING_LINE_SELECTOR_ERROR_MESSAGE, SHIPPING_LINE_SELECTOR_TITLE } = require(`../../../../../languages/${language}/languages`);
 
     const { setSelectedShippingLine } = props;

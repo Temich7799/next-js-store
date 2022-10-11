@@ -13,7 +13,7 @@ const StyledProductDescription = styled.div<any>`
 const ProductDescription = () => {
 
     const { description }: string | any = useContext(PageContext);
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { PRODUCT_DESCRIPTION_TITLE } = require(`../../languages/${language}/languages`);
 
     const isMobile = useMobile();

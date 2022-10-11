@@ -17,7 +17,7 @@ type PaymentMethod = {
 
 const PaymentMethodSelector = (props: PaymentMethodSelectorProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { PAYMENT_METHOD_SELECTOR_ERROR_MESSAGE, PAYMENT_METHOD_SELECTOR_TITLE } = require(`../../../../../languages/${language}/languages`);
 
     const { selectedShippingLine } = props;

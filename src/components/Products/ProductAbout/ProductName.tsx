@@ -38,7 +38,7 @@ const StyledHeightAttribute = styled.div`
 
 const ProductName = (props: ProductNameProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { PRODUCT_SKU, PRODUCT_SKU_EMPTY } = require(`../../../languages/${language}/languages`);
 
     const { name, sku, attributes } = props;

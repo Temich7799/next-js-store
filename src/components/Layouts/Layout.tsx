@@ -34,15 +34,23 @@ type LayoutProps = {
     language?: string
 }
 
-export const LangContext = createContext('ru');
+export const LangContext = createContext({
+    language: 'ru',
+    langPrefix: ''
+});
 
 const Layout = (props: LayoutProps) => {
 
     const { children, language = 'ru' } = props;
 
+    const langContext = {
+        language: language,
+        langPrefix: language === 'ru' ? '' : `${language}/`
+    }
+
     return (
         <ApolloProvider client={client} >
-            <LangContext.Provider value={language}>
+            <LangContext.Provider value={langContext}>
                 <Header />
                 {children}
                 <Footer />

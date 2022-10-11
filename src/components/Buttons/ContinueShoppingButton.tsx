@@ -9,7 +9,7 @@ type ContinueShoppingButtonProps = {
 
 const ContinueShoppingButton = (props: ContinueShoppingButtonProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { ORDER_FINAL_BUTTON_BACK } = require(`../../languages/${language}/languages`);
 
     const { url: lastProductPageUrl } = useLastProductPageVar();

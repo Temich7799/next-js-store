@@ -1,10 +1,11 @@
-import React, { useState, Fragment } from "react"
+import React, { useState, Fragment, useContext } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 import { StaticImage } from "gatsby-plugin-image"
 import HeaderSubMenu from "../DesktopHeaderMenu/HeaderSubMenu";
 import SubMenuIcon from "../SubMenuIcon";
 import { MenuItemType } from "../../../../types/MenuItemType";
+import { LangContext } from "../../../Layouts/Layout";
 
 type DesktopHeaderMenuProps = {
     data: [MenuItemType]
@@ -42,6 +43,8 @@ const SubMenuTitle = styled.div`
 
 const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
 
+    const { langPrefix } = useContext(LangContext);
+
     const { data } = props;
 
     const [isMouseOver, setIsMouseOver] = useState(false);
@@ -60,7 +63,7 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
                             <Fragment key={index}>
                                 {
                                     index == Math.floor(data.length / 2) &&
-                                    <Link to="/">
+                                    <Link to={`/${langPrefix}`}>
                                         <StaticImage src="../../../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
                                     </Link>
                                 }
@@ -70,7 +73,7 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
                                             item.child_items !== null
                                                 ?
                                                 <div onMouseOver={(e: any) => onMouseOverHandler(e)}>
-                                                    <Link to={item.slug === 'home' ? '/' : `/${item.slug}`}>
+                                                    <Link to={item.slug === 'home' ? `/${langPrefix}` : `/${langPrefix}${item.slug}`}>
                                                         <SubMenuTitle>
                                                             {item.title}
                                                             <SubMenuIcon isOpened={isMouseOver} />
@@ -79,7 +82,7 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
                                                     {isMouseOver && <HeaderSubMenu data={item.child_items} />}
                                                 </div>
                                                 :
-                                                <Link to={item.slug === 'home' ? '/' : `/${item.slug}`}>
+                                                <Link to={item.slug === 'home' ? `/${langPrefix}` : `/${langPrefix}${item.slug}`}>
                                                     {item.title}
                                                 </Link>
                                         }

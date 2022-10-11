@@ -65,7 +65,7 @@ export const PageContext: Product | any = createContext({});
 
 const ProductPageContent = (props: ProductPageContentProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { CAROUSEL_RELATED_PRODUCTS_TITLE } = require(`../../languages/${language}/languages`);
 
     const { data, gatsbyImages, relatedProductsIds } = props;

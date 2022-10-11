@@ -34,7 +34,7 @@ const MobileHeaderSubMenuItems = styled.ul`
 
 const MobileHeaderSubMenu = (props: MobileHeaderSubMenuProps) => {
 
-    const language = useContext(LangContext);
+    const { language, langPrefix } = useContext(LangContext);
     const { MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../../../languages/${language}/languages`);
 
     const { data, parentSlug } = props;
@@ -42,12 +42,12 @@ const MobileHeaderSubMenu = (props: MobileHeaderSubMenuProps) => {
     return (
         <MobileHeaderSubMenuItems>
             <li>
-                <Link to={`/${parentSlug}`}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
+                <Link to={`/${langPrefix}${parentSlug}`}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
             </li>
             {
                 data.map((item: MenuItemType, index: number) =>
                     <li key={index}>
-                        <a href={formatCatalogChildItemUrl(`/${item.slug}`)}>
+                        <a href={formatCatalogChildItemUrl(`/${langPrefix}${item.slug}`)}>
                             {item.title}
                         </a>
                     </li>)

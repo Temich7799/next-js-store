@@ -32,7 +32,7 @@ const StyledPurchasedProducts = styled.div`
 
 const PurchasedProducts = (props: PurchasedProductsProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { ORDER_FINAL_BUTTON_DISABLED } = require(`../../../../languages/${language}/languages`);
 
     const { data } = props;

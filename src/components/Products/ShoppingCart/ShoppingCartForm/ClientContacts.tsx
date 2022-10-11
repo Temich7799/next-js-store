@@ -4,7 +4,7 @@ import { LangContext } from "../../../Layouts/Layout";
 
 const ClientContacts = () => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const {
         CLIENT_CONTACTS_LAST_NAME_TITLE,
         CLIENT_CONTACTS_NAME_ERROR_MESSAGE,

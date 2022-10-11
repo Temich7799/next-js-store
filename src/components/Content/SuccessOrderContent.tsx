@@ -11,7 +11,7 @@ type SuccessOrderContentProps = {
 
 const SuccessOrderContent = (props: SuccessOrderContentProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { ORDER_SUCCESS_DESCRIPTION, ORDER_SUCCESS_DETAILS, ORDER_SUCCESS_TITLE } = require(`../../languages/${language}/languages`);
 
     const { orderId } = props;

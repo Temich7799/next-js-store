@@ -36,7 +36,7 @@ type SelectProps = {
 
 const Select = (props: SelectProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { SELECT_PLACEHOLDER } = require(`../../../languages/${language}/languages`);
 
     const {

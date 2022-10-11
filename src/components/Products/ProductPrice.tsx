@@ -36,7 +36,7 @@ const SalePrice = styled.span`
 
 const ProductPrice = (props: ProductPriceProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { PRODUCT_PRICE_TITLE } = require(`../../languages/${language}/languages`);
 
     let { price, salePrice, isPriceLoading = false, showTitle = true } = props;

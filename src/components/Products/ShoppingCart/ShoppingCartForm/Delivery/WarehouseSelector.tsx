@@ -15,7 +15,7 @@ type WarehouseSelectorProps = {
 
 const WarehouseSelector = (props: WarehouseSelectorProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { WAREHOUSE_SELECTOR_ERROR_MESSAGE, WAREHOUSE_SELECTOR_PLACEHOLDER, WAREHOUSE_SELECTOR_TITLE } = require(`../../../../../languages/${language}/languages`);
 
     const { selectedShippingLine, selectedCity, warehousesData, setWarehousesData } = props;

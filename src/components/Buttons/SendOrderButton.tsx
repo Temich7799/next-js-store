@@ -10,7 +10,7 @@ type SendOrderButtonProps = {
 
 const SendOrderButton = (props: SendOrderButtonProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { ORDER_FINAL_BUTTON_DISABLED, ORDER_FINAL_BUTTON_SUBMIT } = require(`../../languages/${language}/languages`);
 
     const { isButtonDisabled, isOrderSending } = props;

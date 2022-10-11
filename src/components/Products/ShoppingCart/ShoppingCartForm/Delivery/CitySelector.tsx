@@ -13,7 +13,7 @@ type CitySelectorProps = {
 
 const CitySelector = (props: CitySelectorProps) => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { CITY_SELECTOR_ERROR_MESSAGE, CITY_SELECTOR_TITLE, CITY_SELECTOR__PLACEHOLDER } = require(`../../../../../languages/${language}/languages`);
 
     const { selectedShippingLine, setSelectedCity, setWarehousesData } = props;

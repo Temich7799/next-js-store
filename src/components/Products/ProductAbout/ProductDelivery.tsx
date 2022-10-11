@@ -26,7 +26,7 @@ const DeliveryIcons = styled.div`
 
 const ProductDelivery = () => {
 
-    const language = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { DELIVERY_ABOUT_AFTERPAY_INFO, DELIVERY_ABOUT_DELIVERY_INFO } = require(`../../../languages/${language}/languages`);
 
     return (
