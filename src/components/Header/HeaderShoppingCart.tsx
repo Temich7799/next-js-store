@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
-import { useIsMenuOpenedVar } from "../../services/hooks/useIsMenuOpenedVar";
-import { useShoppingCartVar } from "../../services/hooks/useShoppingCartVar";
+import { useIsMenuOpenedVar } from "../../services/hooks/apollo/useIsMenuOpenedVar";
+import { useShoppingCartVar } from "../../services/hooks/apollo/useShoppingCartVar";
 import toogle from "../../services/toogle";
 import Button from "../Buttons/Button";
 import ImageSVG from "../ImageSVG";

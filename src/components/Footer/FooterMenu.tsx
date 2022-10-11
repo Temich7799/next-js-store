@@ -1,6 +1,9 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useContext } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
+import { LangContext } from "../Layouts/Layout";
+import { useFooterMenuItems } from "../../services/hooks/gatsby/useFooterMenuItems";
+import { MenuItemType } from "../../types/MenuItemType";
 
 const StyledFooterMenu = styled.nav`
     display: flex;
@@ -13,27 +16,25 @@ const StyledFooterMenu = styled.nav`
 
 const FooterMenu = () => {
 
-    const data = useStaticQuery(graphql`
-        query getAllFooterMenuItems {
-            wpMenu(id: {eq: "dGVybTo2Ng=="}) {
-                menuItems {
-                    nodes {
-                    label
-                    path
-                    }
-                }
-            }
-        } 
-    `);
-
-    const links = data.wpMenu.menuItems.nodes;
+    const language = useContext(LangContext);
+    const data: [MenuItemType] = useFooterMenuItems(language);
 
     return (
         <StyledFooterMenu>
-            {links.map((link: any, index: number) => index == links.length - 1
-                ? <Link to={link.path} key={index}> {link.label}</Link>
-                : <Fragment key={index}> <Link to={link.path} > {link.label}</Link> / </Fragment>
-            )
+            {
+                data.map((item: MenuItemType, index: number) =>
+                    index === data.length - 1
+                        ?
+                        <Link to={`/${item.slug}`} key={index}>
+                            {item.title}
+                        </Link>
+                        :
+                        <Fragment>
+                            <Link to={`/${item.slug}`} key={index}>
+                                {item.title}
+                            </Link> /
+                        </Fragment>
+                )
             }
         </StyledFooterMenu >
     )

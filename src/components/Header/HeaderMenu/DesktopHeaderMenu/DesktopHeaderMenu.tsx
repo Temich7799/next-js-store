@@ -4,44 +4,33 @@ import styled from "styled-components"
 import { StaticImage } from "gatsby-plugin-image"
 import HeaderSubMenu from "../DesktopHeaderMenu/HeaderSubMenu";
 import SubMenuIcon from "../SubMenuIcon";
+import { MenuItemType } from "../../../../types/MenuItemType";
 
 type DesktopHeaderMenuProps = {
-    data: [
-        {
-            label: string
-            path: string
-            parentId: number
-            childItems: {
-                nodes: [
-                    {
-                        path: string
-                        label: string
-                    }
-                ]
-            }
-        }
-    ]
+    data: [MenuItemType]
 }
 
 const StyledDesktopHeaderMenu = styled.nav`
-    ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        justify-self: center;
-        align-items: center;
-        list-style: none;
-        width: fit-content;
-        padding: 0;
-        li {
-            padding: 3px 15px 1px;
-            &:hover {
-                text-shadow: 0.25px 0 0 currentColor;
-            }
-        }
-    }
     @media (max-width: 820px) {
         display: none;
+    }
+`;
+
+const DesktopHeaderMenuItems = styled.ul`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    justify-self: center;
+    align-items: center;
+    list-style: none;
+    width: fit-content;
+    padding: 0;
+`;
+
+const DesktopHeaderMenuItem = styled.li`
+    padding: 3px 15px 1px;
+    &:hover {
+        text-shadow: 0.25px 0 0 currentColor;
     }
 `;
 
@@ -64,10 +53,10 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
 
     return (
         <StyledDesktopHeaderMenu>
-            <ul>
+            <DesktopHeaderMenuItems>
                 {
                     data.map(
-                        (link: any, index: number) =>
+                        (item: MenuItemType, index: number) =>
                             <Fragment key={index}>
                                 {
                                     index == Math.floor(data.length / 2) &&
@@ -76,28 +65,30 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
                                     </Link>
                                 }
                                 {
-                                    !link.parentId &&
-                                    <li>
+                                    <DesktopHeaderMenuItem>
                                         {
-                                            (link.childItems.nodes.length)
+                                            item.child_items !== null
                                                 ?
                                                 <div onMouseOver={(e: any) => onMouseOverHandler(e)}>
-                                                    <Link to={link.path != '/home/' ? link.path : '/'}>
+                                                    <Link to={item.slug === 'home' ? '/' : `/${item.slug}`}>
                                                         <SubMenuTitle>
-                                                            {link.label}
+                                                            {item.title}
                                                             <SubMenuIcon isOpened={isMouseOver} />
                                                         </SubMenuTitle>
                                                     </Link>
-                                                    {isMouseOver && <HeaderSubMenu childItems={link.childItems.nodes} />}
+                                                    {isMouseOver && <HeaderSubMenu data={item.child_items} />}
                                                 </div>
-                                                : <Link to={link.path != '/home/' ? link.path : '/'}>{link.label}</Link>
+                                                :
+                                                <Link to={item.slug === 'home' ? '/' : `/${item.slug}`}>
+                                                    {item.title}
+                                                </Link>
                                         }
-                                    </li>
+                                    </DesktopHeaderMenuItem>
                                 }
                             </Fragment>
                     )
                 }
-            </ul>
+            </DesktopHeaderMenuItems>
         </StyledDesktopHeaderMenu >
     )
 }

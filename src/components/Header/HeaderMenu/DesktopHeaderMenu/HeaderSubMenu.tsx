@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { formatCatalogChildItemUrl } from "../../../../services/formatCatalogChildItemUrl";
+import { MenuItemType } from "../../../../types/MenuItemType";
 
 const StyledHeaderSubMenu = styled.div`
     font-size: 16px;
@@ -12,45 +13,42 @@ const StyledHeaderSubMenu = styled.div`
     background-color: #fefefe;
     box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
     z-index: 1000;
-    ul {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 0;
-        li {
-            text-shadow: none;
-            :hover {
-                text-shadow: 0.25px 0 0 currentColor;
-            }
-        }
+`;
+
+const SubMenuItems = styled.ul`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+`;
+
+const SubMenuItem = styled.li`
+    text-shadow: none;
+    :hover {
+        text-shadow: 0.25px 0 0 currentColor;
     }
 `;
 
 type SubMenuProps = {
-    childItems: [
-        {
-            path: string
-            label: string
-        }
-    ]
+    data: [MenuItemType]
 }
 
 const HeaderSubMenu = (props: SubMenuProps) => {
 
-    const { childItems } = props;
+    const { data } = props;
 
     return (
         <StyledHeaderSubMenu>
-            <ul>
+            <SubMenuItems>
                 {
-                    childItems.map((childItem: any, index: number) =>
-                        <li key={index}>
-                            <a href={formatCatalogChildItemUrl(childItem.path != '/home/' ? childItem.path : '/')}>
-                                {childItem.label}
+                    data.map((item: MenuItemType, index: number) =>
+                        <SubMenuItem key={index}>
+                            <a href={formatCatalogChildItemUrl(item.slug != '/home/' ? `/${item.slug}` : '/')}>
+                                {item.title}
                             </a>
-                        </li>)
+                        </SubMenuItem>)
                 }
-            </ul>
+            </SubMenuItems>
         </StyledHeaderSubMenu >
     )
 }

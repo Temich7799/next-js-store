@@ -8,7 +8,12 @@ import ImageSVG from "../../../ImageSVG";
 import SocialsList from "../../../SocialsList";
 import MobileHeaderSubMenu from "./MobileHeaderSubMenu";
 import MobileHeaderSubMenuTitle from "./MobileHeaderSubMenuTitle";
-import { useIsMenuOpenedVar } from "../../../../services/hooks/useIsMenuOpenedVar";
+import { useIsMenuOpenedVar } from "../../../../services/hooks/apollo/useIsMenuOpenedVar";
+import { MenuItemType } from "../../../../types/MenuItemType";
+
+type MobileHeaderMenuProps = {
+    data: [MenuItemType]
+}
 
 const StyledMobileHeaderMenu = styled.div<any>`
     position: fixed;
@@ -63,24 +68,6 @@ const StyledSocials = styled.div`
     background-color: rgb(248, 229, 255);
 `;
 
-type MobileHeaderMenuItem = {
-    label: string
-    path: string
-    parentId: number
-    childItems: {
-        nodes: [
-            {
-                path: string
-                label: string
-            }
-        ]
-    }
-}
-
-type MobileHeaderMenuProps = {
-    data: [MobileHeaderMenuItem]
-}
-
 const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
 
     const { data } = props;
@@ -112,18 +99,18 @@ const MobileHeaderMenu = (props: MobileHeaderMenuProps) => {
                         <MobileHeaderMenuLinksWrapper>
                             <MobileHeaderMenuLinks>
                                 {
-                                    data.map((link: MobileHeaderMenuItem, index: number) =>
+                                    data.map((item: MenuItemType, index: number) =>
 
-                                        link.childItems.nodes.length
+                                        item.child_items !== null
                                             ?
                                             <MobileHeaderMenuLinks key={index}>
-                                                <MobileHeaderSubMenuTitle title={link.label} isSubMenuOpened={isSubMenuOpened} onClickHandler={MobileHeaderSubMenuTitleOnClickHandler} />
-                                                {isSubMenuOpened && <MobileHeaderSubMenu data={link} />}
+                                                <MobileHeaderSubMenuTitle title={item.title} isSubMenuOpened={isSubMenuOpened} onClickHandler={MobileHeaderSubMenuTitleOnClickHandler} />
+                                                {isSubMenuOpened && <MobileHeaderSubMenu parentSlug={item.slug} data={item.child_items} />}
                                             </MobileHeaderMenuLinks>
-                                            : !link.parentId &&
+                                            :
                                             <li key={index}>
-                                                <Link to={link.path !== '/home/' ? link.path : '/'}>
-                                                    {link.label}
+                                                <Link to={item.slug === 'home' ? '/' : `/${item.slug}`}>
+                                                    {item.title}
                                                 </Link>
                                             </li>
 

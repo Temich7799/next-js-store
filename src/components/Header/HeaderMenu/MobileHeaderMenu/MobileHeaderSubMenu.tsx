@@ -3,13 +3,19 @@ import React, { useContext } from "react"
 import styled, { keyframes } from "styled-components"
 import { formatCatalogChildItemUrl } from "../../../../services/formatCatalogChildItemUrl";
 import { LangContext } from "../../../Layouts/Layout";
+import { MenuItemType } from "../../../../types/MenuItemType";
+
+type MobileHeaderSubMenuProps = {
+    data: [MenuItemType]
+    parentSlug: string | null
+}
 
 const subMenuPopUpAnimation = keyframes`
     from {opacity: 0%}
     to {opacity: 100%}
 `;
 
-const MobileHeaderSubMenuLinks = styled.ul`
+const MobileHeaderSubMenuItems = styled.ul`
     max-height: 200px;
     margin: 5px 0;
     font-family: "Comfortaa";
@@ -26,41 +32,27 @@ const MobileHeaderSubMenuLinks = styled.ul`
     overflow-y: scroll;
 `;
 
-type MobileHeaderMenuSubLink = {
-    path: string
-    label: string
-}
-
-type MobileHeaderSubMenuProps = {
-    data: {
-        path: string
-        childItems: {
-            nodes: [MobileHeaderMenuSubLink]
-        }
-    }
-}
-
 const MobileHeaderSubMenu = (props: MobileHeaderSubMenuProps) => {
 
     const language = useContext(LangContext);
     const { MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../../../languages/${language}/languages`);
 
-    const { data } = props;
+    const { data, parentSlug } = props;
 
     return (
-        <MobileHeaderSubMenuLinks>
+        <MobileHeaderSubMenuItems>
             <li>
-                <Link to={data.path}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
+                <Link to={`/${parentSlug}`}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
             </li>
             {
-                data.childItems.nodes.length && data.childItems.nodes.map((childItem: MobileHeaderMenuSubLink, index: number) =>
+                data.map((item: MenuItemType, index: number) =>
                     <li key={index}>
-                        <a href={formatCatalogChildItemUrl(childItem.path)}>
-                            {childItem.label}
+                        <a href={formatCatalogChildItemUrl(`/${item.slug}`)}>
+                            {item.title}
                         </a>
                     </li>)
             }
-        </MobileHeaderSubMenuLinks>
+        </MobileHeaderSubMenuItems>
     )
 }
 
