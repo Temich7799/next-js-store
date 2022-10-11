@@ -19,10 +19,6 @@ const StyledShoppingCartContent = styled.div<any>`
   flex-wrap: wrap;
   gap: 15px;
   justify-content: space-around;
-
-  @media (max-width: 820px) {
-    margin-top: 164px;
-  }
 `;
 
 const ShoppingCartContent = (props: ShoppingCartContentProps) => {

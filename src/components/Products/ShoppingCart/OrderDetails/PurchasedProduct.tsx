@@ -26,14 +26,14 @@ type PurchasedProductProps = {
 
 const StyledPurchasedProduct = styled.div`
     height: fit-content;
-    width: 100%;
+    width: 97%;
     max-width: 430px;
     margin: 5px 0;
     display: grid;
-    grid-template-columns: 65px 0.5fr 1fr 0.8fr;
+    grid-template-columns: auto 0.25fr auto 1fr;
     justify-content: space-around;
     align-items: center;
-    gap: 10px;
+    gap: 2%;
 `;
 
 const PurchasedProductThumb = styled.img`
