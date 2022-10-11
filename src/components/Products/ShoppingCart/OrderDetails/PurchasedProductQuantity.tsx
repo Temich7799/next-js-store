@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { useShoppingCartVar } from "../../../../services/hooks/useShoppingCartVar"
+import { useShoppingCartVar } from "../../../../services/hooks/apollo/useShoppingCartVar"
 import Button from "../../../Buttons/Button"
 import ImageSVG from "../../../ImageSVG"
 

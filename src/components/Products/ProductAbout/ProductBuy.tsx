@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 import ProductPrice from "../ProductPrice";
-import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
+import { useShoppingCartVar } from "../../../services/hooks/apollo/useShoppingCartVar";
 import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct";
 import { PageContext } from "../../Content/ProductPageContent";
 import ProductBuyButton from "../../Buttons/ProductBuyButton";

@@ -3,8 +3,8 @@ import styled from "styled-components"
 import ImageSVG from "../../ImageSVG";
 import Button from "../../Buttons/Button";
 import ProductPrice from "../ProductPrice";
-import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
-import { useLastProductPageVar } from "../../../services/hooks/useLastProductPageVar";
+import { useShoppingCartVar } from "../../../services/hooks/apollo/useShoppingCartVar";
+import { useLastProductPageVar } from "../../../services/hooks/apollo/useLastProductPageVar";
 import { LangContext } from "../../Layouts/Layout";
 
 type ProductProps = {
