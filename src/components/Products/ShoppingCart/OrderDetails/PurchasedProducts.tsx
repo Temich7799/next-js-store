@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
-import { ORDER_FINAL_BUTTON_DISABLED } from "../../../../languages/ru/languages"
+import { LangContext } from "../../../Layouts/Layout"
 import PurchasedProduct from "./PurchasedProduct"
 
 type PurchasedProductProps = {
@@ -31,6 +31,9 @@ const StyledPurchasedProducts = styled.div`
 `;
 
 const PurchasedProducts = (props: PurchasedProductsProps) => {
+
+    const language = useContext(LangContext);
+    const { ORDER_FINAL_BUTTON_DISABLED } = require(`../../../../languages/${language}/languages`);
 
     const { data } = props;
 

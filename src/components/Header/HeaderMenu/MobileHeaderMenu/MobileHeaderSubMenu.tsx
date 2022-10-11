@@ -1,8 +1,8 @@
 import { Link } from "gatsby";
-import React from "react"
+import React, { useContext } from "react"
 import styled, { keyframes } from "styled-components"
-import { MOBILE_HEADER_SUBMENU_SEE_ALL } from "../../../../languages/ru/languages";
 import { formatCatalogChildItemUrl } from "../../../../services/formatCatalogChildItemUrl";
+import { LangContext } from "../../../Layouts/Layout";
 
 const subMenuPopUpAnimation = keyframes`
     from {opacity: 0%}
@@ -41,6 +41,9 @@ type MobileHeaderSubMenuProps = {
 }
 
 const MobileHeaderSubMenu = (props: MobileHeaderSubMenuProps) => {
+
+    const language = useContext(LangContext);
+    const { MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../../../languages/${language}/languages`);
 
     const { data } = props;
 

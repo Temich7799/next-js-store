@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
-import { ORDER_FINAL_TITLE } from "../../../../languages/ru/languages";
 import ContinueShoppingButton from "../../../Buttons/ContinueShoppingButton";
 import SendOrderButton from "../../../Buttons/SendOrderButton";
 import GoToCartButton from "../../../Buttons/GoToCartButton";
+import { LangContext } from "../../../Layouts/Layout";
 
 type OrderFinalProps = {
     data: Array<PurchasedProduct>
@@ -39,6 +39,9 @@ const StyledOrderFinal = styled.div`
 `;
 
 const OrderFinal = (props: OrderFinalProps) => {
+
+    const language = useContext(LangContext);
+    const { ORDER_FINAL_TITLE } = require(`../../../../languages/${language}/languages`);
 
     const { data, isOrderSending } = props;
 

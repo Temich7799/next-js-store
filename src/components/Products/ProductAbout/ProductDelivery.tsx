@@ -1,7 +1,7 @@
-import * as React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
-import { DELIVERY_ABOUT_AFTERPAY_INFO, DELIVERY_ABOUT_DELIVERY_INFO } from "../../../languages/ru/languages";
 import ImageSVG from "../../ImageSVG";
+import { LangContext } from "../../Layouts/Layout";
 
 const StyledProductDelivery = styled.div`
     display: flex;
@@ -25,6 +25,10 @@ const DeliveryIcons = styled.div`
 `;
 
 const ProductDelivery = () => {
+
+    const language = useContext(LangContext);
+    const { DELIVERY_ABOUT_AFTERPAY_INFO, DELIVERY_ABOUT_DELIVERY_INFO } = require(`../../../languages/${language}/languages`);
+
     return (
         <StyledProductDelivery>
             <DeliveryAbout>

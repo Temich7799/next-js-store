@@ -1,10 +1,10 @@
-import * as React from "react"
+import React, { useContext } from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
 import Button from "../../Buttons/Button";
 import getRandomColor from "../../../services/getRandomColor";
-import { CATEGORY_THUMB_BUTTON } from "../../../languages/ru/languages";
 import InteractiveImage from "../../InteractiveImage";
+import { LangContext } from "../../Layouts/Layout";
 
 type CategoryThumbProps = {
     data: {
@@ -76,6 +76,9 @@ const Line = styled.div`
 `;
 
 const CategoryThumb = (props: CategoryThumbProps) => {
+
+    const language = useContext(LangContext);
+    const { CATEGORY_THUMB_BUTTON } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;
 

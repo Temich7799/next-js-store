@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
-import React from "react"
-import { PAYMENT_METHOD_SELECTOR_ERROR_MESSAGE, PAYMENT_METHOD_SELECTOR_TITLE } from "../../../../../languages/ru/languages";
+import React, { useContext } from "react"
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
+import { LangContext } from "../../../../Layouts/Layout";
 
 type PaymentMethodSelectorProps = {
     selectedShippingLine: string
@@ -16,6 +16,9 @@ type PaymentMethod = {
 }
 
 const PaymentMethodSelector = (props: PaymentMethodSelectorProps) => {
+
+    const language = useContext(LangContext);
+    const { PAYMENT_METHOD_SELECTOR_ERROR_MESSAGE, PAYMENT_METHOD_SELECTOR_TITLE } = require(`../../../../../languages/${language}/languages`);
 
     const { selectedShippingLine } = props;
 

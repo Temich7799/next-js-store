@@ -1,10 +1,10 @@
-import React, { useEffect } from "react"
+import React, { useContext, useEffect } from "react"
 import styled from "styled-components"
 import { useShoppingCartVar } from "../../../../services/hooks/useShoppingCartVar"
-import { PRODUCT_SKU } from "../../../../languages/ru/languages"
 import useUpdatedProduct from "../../../../services/hooks/useUpdatedProduct"
 import ProductPrice from "../../ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
+import { LangContext } from "../../../Layouts/Layout"
 
 type PurchasedProductProps = {
     data: {
@@ -55,6 +55,9 @@ const PurchasedProductName = styled.div`
 `;
 
 const PurchasedProduct = (props: PurchasedProductProps) => {
+
+    const language = useContext(LangContext);
+    const { PRODUCT_SKU } = require(`../../../../languages/${language}/languages`);
 
     const { data } = props;
 

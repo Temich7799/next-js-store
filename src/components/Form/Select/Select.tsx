@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import styled from "styled-components";
-import { SELECT_PLACEHOLDER } from "../../../languages/ru/languages";
+import { LangContext } from "../../Layouts/Layout";
 import InputField from "../InputField";
 
 const StyledSelectWrapper = styled.div`
@@ -35,6 +35,9 @@ type SelectProps = {
 }
 
 const Select = (props: SelectProps) => {
+
+    const language = useContext(LangContext);
+    const { SELECT_PLACEHOLDER } = require(`../../../languages/${language}/languages`);
 
     const {
         name,

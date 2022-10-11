@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import styled from "styled-components";
 import { GET_RELATED_PRODUCTS_IDS } from "../../graphql/queries/getRelatedProductsIds";
@@ -6,9 +6,9 @@ import ProductAbout from "../Products/ProductAbout/ProductAbout";
 import ProductDescription from "../Products/ProductDescription";
 import ProductGallery from "../Products/ProductGallery/ProductGallery";
 import Carousel from "../Carousel";
-import { CAROUSEL_RELATED_PRODUCTS_TITLE } from "../../languages/ru/languages";
 import ProductThumb from "../Products/Thumbs/ProductThumb";
 import { GET_ALL_WP_RELATED_PRODUCTS } from "../../graphql/queries/getAllWpRelatedProducts";
+import { LangContext } from "../Layouts/Layout";
 
 type ProductPageContentProps = {
     data: Product
@@ -64,6 +64,9 @@ const StyledProductsPageContent = styled.div`
 export const PageContext: Product | any = createContext({});
 
 const ProductPageContent = (props: ProductPageContentProps) => {
+
+    const language = useContext(LangContext);
+    const { CAROUSEL_RELATED_PRODUCTS_TITLE } = require(`../../languages/${language}/languages`);
 
     const { data, gatsbyImages, relatedProductsIds } = props;
 

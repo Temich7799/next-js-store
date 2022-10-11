@@ -1,9 +1,9 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { PRODUCT_DESCRIPTION_TITLE } from "../../languages/ru/languages";
 import useMobile from "../../services/hooks/useMobile";
 import CopyProtectedArea from "../CopyProtectedArea";
 import { PageContext } from "../Content/ProductPageContent";
+import { LangContext } from "../Layouts/Layout";
 
 const StyledProductDescription = styled.div<any>`
     max-width: ${props => props.maxWidth};
@@ -13,6 +13,8 @@ const StyledProductDescription = styled.div<any>`
 const ProductDescription = () => {
 
     const { description }: string | any = useContext(PageContext);
+    const language = useContext(LangContext);
+    const { PRODUCT_DESCRIPTION_TITLE } = require(`../../languages/${language}/languages`);
 
     const isMobile = useMobile();
 

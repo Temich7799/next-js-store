@@ -1,5 +1,5 @@
-import React from "react";
-import { ORDER_FINAL_BUTTON_DISABLED, ORDER_FINAL_BUTTON_SUBMIT } from "../../languages/ru/languages";
+import React, { useContext } from "react";
+import { LangContext } from "../Layouts/Layout";
 import LoadingSpinner from "../LoadingBars/LoadingSpinner";
 import Button from "./Button";
 
@@ -9,6 +9,9 @@ type SendOrderButtonProps = {
 }
 
 const SendOrderButton = (props: SendOrderButtonProps) => {
+
+    const language = useContext(LangContext);
+    const { ORDER_FINAL_BUTTON_DISABLED, ORDER_FINAL_BUTTON_SUBMIT } = require(`../../languages/${language}/languages`);
 
     const { isButtonDisabled, isOrderSending } = props;
 

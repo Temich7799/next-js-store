@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { useShoppingCartVar } from "../../../../services/hooks/useShoppingCartVar";
-import { ORDER_DETAILS_TITLE } from "../../../../languages/ru/languages";
 import OrderFinal from "./OrderFinal";
 import PurchasedProducts from "./PurchasedProducts";
+import { LangContext } from "../../../Layouts/Layout";
 
 type OrderDetailsProps = {
     isOrderSending?: boolean
@@ -49,6 +49,9 @@ const StyledOrderDetails = styled.form`
 `;
 
 const OrderDetails = (props: OrderDetailsProps) => {
+
+    const language = useContext(LangContext);
+    const { ORDER_DETAILS_TITLE } = require(`../../../../languages/${language}/languages`);
 
     const { isOrderSending } = props;
 

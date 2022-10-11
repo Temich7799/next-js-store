@@ -1,10 +1,10 @@
 import { useLazyQuery } from "@apollo/client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { GET_ALL_WP_PRODUCTS } from "../../graphql/queries/getAllWpProducts";
-import { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } from "../../languages/ru/languages";
 import ContainerCentered from "../../styles/ContainerCentered";
 import InfoLayout from "../Layouts/InfoLayout";
+import { LangContext } from "../Layouts/Layout";
 import LoadingBar from "../LoadingBars/LoadingBar";
 import ProductThumb from "../Products/Thumbs/ProductThumb";
 
@@ -46,6 +46,9 @@ const Content = styled.div`
 `;
 
 const ProductsPageContent = (props: ProductsPageContentProps) => {
+
+    const language = useContext(LangContext);
+    const { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } = require(`../../languages/${language}/languages`);
 
     const { gatsbyImages, categoryId } = props;
 

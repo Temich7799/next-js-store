@@ -8,6 +8,11 @@ type ProductsProps = {
     allWcProducts: {
       edges: [Product]
     }
+    allMultilangWcProducts: [
+      {
+        language: string
+      }
+    ]
   }
 }
 
@@ -33,7 +38,7 @@ type Product = {
 const ProductsPageLayout = (props: ProductsProps) => {
 
   const { data } = props;
-  
+
   const gatsbyImages = new Map<number, string>();
 
   data.allWcProducts.edges.forEach((edge: Product) => {
@@ -43,7 +48,7 @@ const ProductsPageLayout = (props: ProductsProps) => {
   });
 
   return (
-    <Layout>
+    <Layout language={data.allMultilangWcProducts[0].language}>
       <main>
         {
           data.allWcProducts.edges.length > 0 && <ProductsPageContent gatsbyImages={gatsbyImages} categoryId={data.allWcProducts.edges[0].node.categories[0].wordpress_id.toString()} />
@@ -56,8 +61,12 @@ const ProductsPageLayout = (props: ProductsProps) => {
 export default ProductsPageLayout
 
 export const query = graphql`
-  query getProductImages($categoryId: Int) {
-    
+  query getProductImages($categoryId: Int, $language: LanguagesEnum) {
+
+    allMultilangWcProducts(params: {per_page: 1}, language: $language) {
+      language
+    }
+
     allWcProducts(filter: {categories: {elemMatch: {wordpress_id: {eq: $categoryId}}}}){
       edges {
         node {

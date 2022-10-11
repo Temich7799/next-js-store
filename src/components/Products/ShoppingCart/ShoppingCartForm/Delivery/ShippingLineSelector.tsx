@@ -1,14 +1,17 @@
 import { gql, useQuery } from "@apollo/client";
-import React from "react"
-import { SHIPPING_LINE_SELECTOR_ERROR_MESSAGE, SHIPPING_LINE_SELECTOR_TITLE } from "../../../../../languages/ru/languages";
+import React, { useContext } from "react"
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
+import { LangContext } from "../../../../Layouts/Layout";
 
 type ShippingLineSelectorProps = {
     setSelectedShippingLine: React.Dispatch<React.SetStateAction<string>>
 }
 
 const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
+
+    const language = useContext(LangContext);
+    const { SHIPPING_LINE_SELECTOR_ERROR_MESSAGE, SHIPPING_LINE_SELECTOR_TITLE } = require(`../../../../../languages/${language}/languages`);
 
     const { setSelectedShippingLine } = props;
 

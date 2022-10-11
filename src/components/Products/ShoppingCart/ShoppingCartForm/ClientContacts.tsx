@@ -1,8 +1,16 @@
-import React from "react"
-import { CLIENT_CONTACTS_LAST_NAME_TITLE, CLIENT_CONTACTS_NAME_ERROR_MESSAGE, CLIENT_CONTACTS_NAME_TITLE, CLIENT_CONTACTS_PHONE_ERROR_MESSAGE, CLIENT_CONTACTS_PHONE_TITLE } from "../../../../languages/ru/languages";
+import React, { useContext } from "react"
 import InputField from "../../../Form/InputField";
+import { LangContext } from "../../../Layouts/Layout";
 
 const ClientContacts = () => {
+
+    const language = useContext(LangContext);
+    const {
+        CLIENT_CONTACTS_LAST_NAME_TITLE,
+        CLIENT_CONTACTS_NAME_ERROR_MESSAGE,
+        CLIENT_CONTACTS_NAME_TITLE,
+        CLIENT_CONTACTS_PHONE_ERROR_MESSAGE,
+        CLIENT_CONTACTS_PHONE_TITLE } = require(`../../../../languages/${language}/languages`);
 
     const validName = /[А-я]/;
 

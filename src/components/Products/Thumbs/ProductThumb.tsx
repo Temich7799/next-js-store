@@ -1,11 +1,11 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import ImageSVG from "../../ImageSVG";
 import Button from "../../Buttons/Button";
 import ProductPrice from "../ProductPrice";
-import { PRODUCT_SKU } from "../../../languages/ru/languages";
 import { useShoppingCartVar } from "../../../services/hooks/useShoppingCartVar";
 import { useLastProductPageVar } from "../../../services/hooks/useLastProductPageVar";
+import { LangContext } from "../../Layouts/Layout";
 
 type ProductProps = {
     data: Product
@@ -74,6 +74,9 @@ const ProductCaption = styled.div`
 `;
 
 const ProductThumb = (props: ProductProps) => {
+
+    const language = useContext(LangContext);
+    const { PRODUCT_SKU } = require(`../../../languages/${language}/languages`);
 
     const { data: propsData, gatsbyImage } = props;
     if (propsData.sku == '') propsData.sku = propsData.wordpress_id.toString();

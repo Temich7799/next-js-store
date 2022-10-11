@@ -25,6 +25,7 @@ type PageProps = {
       title: {
         rendered: string
       }
+      language: string
     }
   }
 }
@@ -32,9 +33,9 @@ type PageProps = {
 const PostPageLayout = (props: PageProps) => {
 
   const { data } = props;
-  
+
   return (
-    <Layout>
+    <Layout language={data.multilangWpPage.language}>
       <main>
         <PageTitle>{data.multilangWpPage.title.rendered}</PageTitle>
         {
@@ -58,6 +59,11 @@ query ($pageId: Int!, $language: LanguagesEnum) {
       content {
         rendered
       }
+      language
+    }
+
+    allMultilangWcProducts(params: {per_page: 1}, language: $language) {
+      language
     }
   } 
 `

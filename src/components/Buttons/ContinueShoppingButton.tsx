@@ -1,6 +1,6 @@
-import React from "react";
-import { ORDER_FINAL_BUTTON_BACK } from "../../languages/ru/languages";
+import React, { useContext } from "react";
 import { useLastProductPageVar } from "../../services/hooks/useLastProductPageVar";
+import { LangContext } from "../Layouts/Layout";
 import Button from "./Button";
 
 type ContinueShoppingButtonProps = {
@@ -8,6 +8,9 @@ type ContinueShoppingButtonProps = {
 }
 
 const ContinueShoppingButton = (props: ContinueShoppingButtonProps) => {
+
+    const language = useContext(LangContext);
+    const { ORDER_FINAL_BUTTON_BACK } = require(`../../languages/${language}/languages`);
 
     const { url: lastProductPageUrl } = useLastProductPageVar();
 

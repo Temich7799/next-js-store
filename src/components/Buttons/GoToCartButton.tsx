@@ -1,6 +1,6 @@
 import { Link } from "gatsby";
-import React from "react";
-import { ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_BUTTON_DISABLED, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } from "../../languages/ru/languages";
+import React, { useContext } from "react";
+import { LangContext } from "../Layouts/Layout";
 import Button from "./Button";
 
 type GoToCartButtonProps = {
@@ -9,6 +9,9 @@ type GoToCartButtonProps = {
 }
 
 const GoToCartButton = (props: GoToCartButtonProps) => {
+
+    const language = useContext(LangContext);
+    const { ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_BUTTON_DISABLED, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } = require(`../../languages/${language}/languages`);
 
     const { isButtonDisabled, isOutOfStock } = props;
 

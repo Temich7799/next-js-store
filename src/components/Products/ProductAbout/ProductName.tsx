@@ -1,9 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import ImageSVG from "../../ImageSVG";
 import CopyArea from "../../CopyArea";
-import { PRODUCT_SKU, PRODUCT_SKU_EMPTY } from "../../../languages/ru/languages";
 import { useProductAttributes } from "../../../services/hooks/useProductAttributes";
+import { LangContext } from "../../Layouts/Layout";
 
 type ProductNameProps = {
     name: string
@@ -37,6 +37,9 @@ const StyledHeightAttribute = styled.div`
 `;
 
 const ProductName = (props: ProductNameProps) => {
+
+    const language = useContext(LangContext);
+    const { PRODUCT_SKU, PRODUCT_SKU_EMPTY } = require(`../../../languages/${language}/languages`);
 
     const { name, sku, attributes } = props;
 

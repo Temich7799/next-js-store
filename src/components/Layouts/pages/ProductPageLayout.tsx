@@ -9,7 +9,6 @@ type ProductProps = {
         wcProducts: Product
     }
 }
-
 interface MultilangProduct {
     name: string
     description: string
@@ -21,7 +20,6 @@ interface MultilangProduct {
     ]
     language: string
 }
-
 interface Product extends MultilangProduct {
     sku: string
     price: string
@@ -52,7 +50,7 @@ interface Product extends MultilangProduct {
 const ProductPageLayout = (props: ProductProps) => {
 
     const { data } = props;
-    console.log(data)
+
     const wcProduct = {
         ...data.wcProducts,
         ...data.multilangWcProduct,
@@ -72,7 +70,7 @@ const ProductPageLayout = (props: ProductProps) => {
     });
 
     return (
-        <Layout>
+        <Layout language={data.multilangWcProduct.language}>
             <main>
                 <ProductPageContent data={wcProduct} gatsbyImages={gatsbyImages} />
             </main>
