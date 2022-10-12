@@ -5,9 +5,7 @@ import NotFoundPageContent from "../components/Content/NotFoundPageContent"
 const NotFoundPage = () => {
   return (
     <Layout>
-      <main>
-        <NotFoundPageContent />
-      </main>
+      <NotFoundPageContent />
     </Layout>
   )
 }

@@ -12,21 +12,6 @@ body ::-webkit-scrollbar {
     flex-direction: column;
 }
 
-main {
-    margin-top: 0;
-    flex: 1 0 auto;
-}
-
-@media (max-width: 820px) {
-    main {
-        margin-top: 125px;
-    }
-}
-
-footer {
-    flex: 0 0 auto;
-}
-
 h1,
 h2,
 h3,

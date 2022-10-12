@@ -20,16 +20,14 @@ const ProductClientPage = () => {
                 error
                     ? <NotFoundPage />
                     : <Layout language="en">
-                        <main>
-                            {
-                                loading
-                                    ?
-                                    <ContainerCentered>
-                                        <LoadingBar />
-                                    </ContainerCentered>
-                                    : <ProductPageContent data={data} relatedProductsIds={data.relatedProductsIds} />
-                            }
-                        </main>
+                        {
+                            loading
+                                ?
+                                <ContainerCentered>
+                                    <LoadingBar />
+                                </ContainerCentered>
+                                : <ProductPageContent data={data} relatedProductsIds={data.relatedProductsIds} />
+                        }
                     </Layout>
             }
         </>

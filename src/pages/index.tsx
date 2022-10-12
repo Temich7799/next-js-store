@@ -1,42 +1,15 @@
 import React from "react"
 import Layout from "../components/Layouts/Layout";
 import { graphql } from "gatsby"
-import styled from "styled-components";
-import useMobile from "../services/hooks/useMobile";
+import IndexPageContent from "../components/Content/IndexPageContent";
 
-const Main = styled.main<any>`
-  margin-top: ${props => props.isMobile ? "125px" : "0"};
-`;
-
-const Content = styled.div`
-    max-width: 1700px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 50px;
-    padding: 2.5%;
-`;
-
-type IndexProps = {
-  data: {
-    wpPage: {
-      content: string
-    }
-  }
-}
-
-const IndexPage = (props: IndexProps) => {
+const IndexPage = (props: any) => {
 
   const { data } = props;
 
-  const isMobile = useMobile();
-
   return (
     <Layout>
-      <Main isMobile={isMobile}>
-        {(data.wpPage.content) && <Content dangerouslySetInnerHTML={{ __html: data.wpPage.content }} />}
-      </Main>
+      <IndexPageContent data={data.wpPage} />
     </Layout>
   )
 }
@@ -44,11 +17,10 @@ const IndexPage = (props: IndexProps) => {
 export default IndexPage
 
 export const query = graphql`
-query getHomePage {
-  wpPage(slug: {eq: "home"}) {
-    content
-    title
+  query getHomePage {
+    wpPage(slug: {eq: "home"}) {
+      content
+      title
+    }
   }
-}
-
-`
+`;

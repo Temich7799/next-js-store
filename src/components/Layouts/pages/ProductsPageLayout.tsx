@@ -3,7 +3,7 @@ import Layout from "../Layout";
 import { graphql } from "gatsby";
 import ProductsPageContent from "../../Content/ProductsPageContent";
 
-type ProductsProps = {
+type ProductsPageLayoutProps = {
   data: {
     allWcProducts: {
       edges: [Product]
@@ -35,7 +35,7 @@ type Product = {
   }
 }
 
-const ProductsPageLayout = (props: ProductsProps) => {
+const ProductsPageLayout = (props: ProductsPageLayoutProps) => {
 
   const { data } = props;
 
@@ -49,11 +49,11 @@ const ProductsPageLayout = (props: ProductsProps) => {
 
   return (
     <Layout language={data.allMultilangWcProducts[0].language}>
-      <main>
+      <>
         {
           data.allWcProducts.edges.length > 0 && <ProductsPageContent gatsbyImages={gatsbyImages} categoryId={data.allWcProducts.edges[0].node.categories[0].wordpress_id.toString()} />
         }
-      </main>
+      </>
     </Layout>
   )
 }

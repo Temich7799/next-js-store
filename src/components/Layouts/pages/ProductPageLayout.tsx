@@ -3,7 +3,7 @@ import Layout from "../Layout";
 import { graphql } from "gatsby";
 import ProductPageContent from "../../Content/ProductPageContent";
 
-type ProductProps = {
+type ProductPageLayoutProps = {
     data: {
         multilangWcProduct: MultilangProduct
         wcProducts: Product
@@ -47,7 +47,7 @@ interface Product extends MultilangProduct {
     ]
 }
 
-const ProductPageLayout = (props: ProductProps) => {
+const ProductPageLayout = (props: ProductPageLayoutProps) => {
 
     const { data } = props;
 
@@ -71,9 +71,7 @@ const ProductPageLayout = (props: ProductProps) => {
 
     return (
         <Layout language={data.multilangWcProduct.language}>
-            <main>
-                <ProductPageContent data={wcProduct} gatsbyImages={gatsbyImages} />
-            </main>
+            <ProductPageContent data={wcProduct} gatsbyImages={gatsbyImages} />
         </Layout >
     )
 }

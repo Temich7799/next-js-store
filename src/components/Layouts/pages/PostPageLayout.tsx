@@ -6,17 +6,7 @@ import styled from "styled-components";
 import NotFoundPageContent from "../../Content/NotFoundPageContent";
 require('../../../styles/wp.css');
 
-const Content = styled.div`
-    max-width: 1700px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 50px;
-    padding: 2.5%;
-`;
-
-type PageProps = {
+type PostPageLayoutProps = {
   data: {
     multilangWpPage: {
       content: {
@@ -30,20 +20,30 @@ type PageProps = {
   }
 }
 
-const PostPageLayout = (props: PageProps) => {
+const Content = styled.div`
+    max-width: 1700px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 50px;
+    padding: 2.5%;
+`;
+
+const PostPageLayout = (props: PostPageLayoutProps) => {
 
   const { data } = props;
 
   return (
     <Layout language={data.multilangWpPage.language}>
-      <main>
+      <>
         <PageTitle>{data.multilangWpPage.title.rendered}</PageTitle>
         {
           (data.multilangWpPage.content.rendered)
             ? <Content dangerouslySetInnerHTML={{ __html: data.multilangWpPage.content.rendered }} />
             : <NotFoundPageContent />
         }
-      </main>
+      </>
     </Layout>
   )
 }

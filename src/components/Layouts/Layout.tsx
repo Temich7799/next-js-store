@@ -1,11 +1,27 @@
 import React, { createContext } from "react";
-import Header from "../Header/HeaderMenu/Header";
+import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BatchHttpLink } from "@apollo/client/link/batch-http";
+import styled from "styled-components";
 require('../../styles/global.css');
 
-const client = new ApolloClient({
+type LayoutProps = {
+    children: JSX.Element | string
+    language?: string
+}
+
+const Main = styled.main<any>`
+
+    @media (max-width: ${props => props.minDesktopWidth}px) {
+        margin-top: 125px;
+    }
+
+    margin-top: 0;
+    flex: 1 0 auto;
+`;
+
+const apolloClient = new ApolloClient({
     link: new BatchHttpLink({
         uri: process.env.GATSBY_APOLLO_SERVER_URL,
         batchMax: 5,
@@ -29,11 +45,6 @@ const client = new ApolloClient({
     ),
 });
 
-type LayoutProps = {
-    children: JSX.Element | string
-    language?: string
-}
-
 export const LangContext = createContext({
     language: 'ru',
     langPrefix: ''
@@ -49,16 +60,18 @@ const Layout = (props: LayoutProps) => {
     }
 
     return (
-        <ApolloProvider client={client} >
+        <ApolloProvider client={apolloClient} >
             <LangContext.Provider value={langContext}>
                 <Header />
-                {children}
+                <Main minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+                    {children}
+                </Main>
                 <Footer />
             </LangContext.Provider>
         </ApolloProvider>
     )
 }
 
-export default Layout
+export default Layout;
 
 

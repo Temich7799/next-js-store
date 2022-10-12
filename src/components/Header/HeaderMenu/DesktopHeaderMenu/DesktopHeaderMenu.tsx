@@ -11,8 +11,8 @@ type DesktopHeaderMenuProps = {
     data: [MenuItemType]
 }
 
-const StyledDesktopHeaderMenu = styled.nav`
-    @media (max-width: 820px) {
+const StyledDesktopHeaderMenu = styled.nav<any>`
+    @media (max-width: ${props => props.minDesktopWidth}px) {
         display: none;
     }
 `;
@@ -55,7 +55,7 @@ const DesktopHeaderMenu = (props: DesktopHeaderMenuProps) => {
     }
 
     return (
-        <StyledDesktopHeaderMenu>
+        <StyledDesktopHeaderMenu minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
             <DesktopHeaderMenuItems>
                 {
                     data.map(

@@ -1,11 +1,17 @@
 import React from "react"
-import HeaderMenu from "./HeaderMenu"
+import HeaderMenu from "./HeaderMenu/HeaderMenu"
 import styled from "styled-components"
-import HeaderShoppingCart from "../HeaderShoppingCart";
-import useMobile from "../../../services/hooks/useMobile";
+import HeaderShoppingCart from "./HeaderShoppingCart";
+import useMobile from "../../services/hooks/useMobile";
 
 const StyledHeader = styled.header<any>`
-    position: ${props => props.isMobile ? "fixed" : "static"};
+
+    @media (max-width: ${props => props.minDesktopWidth}px) {
+      position: fixed;
+      height: 100px;
+    }
+
+    position: static;
     top: 0;
     left: 0;
     font-family: 'Amatic SC';
@@ -14,11 +20,7 @@ const StyledHeader = styled.header<any>`
     line-height: 27px;
     background-color: white;
     color: #585858;
-    a {
-        color: #585858; 
-        text-decoration: none;
-    }
-    height: ${props => props.isMobile ? "100px" : "140px"};
+    height: 140px;
     width: calc(100% - 86px);
     padding: 12px 43px;
     display: grid;
@@ -27,6 +29,11 @@ const StyledHeader = styled.header<any>`
     grid-template-columns: 1fr 4fr 1fr;
     box-shadow: -1px 4px 5px -2px rgba(0,0,0,0.25);
     z-index: 1000;
+
+    a {
+        color: #585858; 
+        text-decoration: none;
+    }
 `;
 
 const Header = () => {
@@ -34,7 +41,7 @@ const Header = () => {
   const isMobile = useMobile();
 
   return (
-    <StyledHeader isMobile={isMobile}>
+    <StyledHeader minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
       <HeaderMenu isMobile={isMobile} />
       <HeaderShoppingCart />
     </StyledHeader >

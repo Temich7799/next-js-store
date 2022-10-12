@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import styled from "styled-components"
 import FooterMenu from "./FooterMenu";
 
@@ -18,6 +18,7 @@ const StyledFooter = styled.footer`
     justify-content: flex-start;
     align-items: center;
     background-color: #b5d8d8;
+    flex: 0 0 auto;
 `;
 
 
