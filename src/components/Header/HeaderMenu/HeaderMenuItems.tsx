@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from "react"
 import styled from "styled-components"
 import { useHeaderMenuItems } from "../../../services/hooks/gatsby/useHeaderMenuItems";
+import HideOnMobileWrapper from "../../../styles/HideOnMobileWrapper";
 import { MenuItemType } from "../../../types/MenuItemType";
 import { LangContext } from "../../Layouts/Layout";
 import HeaderLogo from "./HeaderLogo";
@@ -49,7 +50,7 @@ const HeaderMenuItems = () => {
                         (item: MenuItemType, index: number) =>
                             <Fragment key={index}>
                                 {
-                                    index == Math.floor(data.length / 2) && <HeaderLogo hideOnMobile={true} />
+                                    index == Math.floor(data.length / 2) && <HideOnMobileWrapper><HeaderLogo /></HideOnMobileWrapper>
                                 }
                                 <HeaderMenuItem data={item} />
                             </Fragment>

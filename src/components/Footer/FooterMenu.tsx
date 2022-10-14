@@ -29,10 +29,11 @@ const FooterMenu = () => {
                             {item.title}
                         </Link>
                         :
-                        <Fragment>
-                            <Link to={`/${langPrefix}${item.slug}`} key={index}>
+                        <Fragment key={index}>
+                            <Link to={`/${langPrefix}${item.slug}`}>
                                 {item.title}
-                            </Link> /
+                            </Link>
+                            {'/'}
                         </Fragment>
                 )
             }

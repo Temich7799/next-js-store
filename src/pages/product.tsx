@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Layout from "../components/Layouts/Layout";
 import LoadingBar from "../components/LoadingBars/LoadingBar";
 import ProductPageContent from "../components/Content/ProductPageContent";
@@ -8,7 +8,13 @@ import { useProductQuery } from "../services/hooks/graphql/useProductQuery";
 
 const ProductClientPage = () => {
 
-    const { data, loading, error } = useProductQuery(parseProductIdFromUrl());
+    const [productId, setProductId] = useState<number>(0);
+
+    const { data, loading, error } = useProductQuery(productId);
+
+    useEffect(() => {
+        setProductId(parseProductIdFromUrl())
+    }, [])
 
     function parseProductIdFromUrl(): number {
         return parseInt(window.document.location.search.split('=')[1]);

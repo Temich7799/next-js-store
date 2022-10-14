@@ -1,11 +1,10 @@
 import React from "react"
 import styled from "styled-components";
+import HideOnDesktopWrapper from "../../../styles/HideOnDesktopWrapper";
+import { HeaderMenuProps } from "../../../types/HeaderMenuPropsType";
+import LanguageSelector from "../../LanguageSelector";
 import SocialsList from "../../SocialsList";
 import HeaderMenuItems from "./HeaderMenuItems";
-
-type HeaderMenuProps = {
-  isMobileMenuOpened?: boolean
-}
 
 const StyledHeaderMenu = styled.nav<any>`
 
@@ -14,7 +13,7 @@ const StyledHeaderMenu = styled.nav<any>`
       top: ${props => props.isMobileMenuOpened ? '124px' : '-500px'};
       left: 0;
       width: 100%;
-      height: 425px;
+      height: 375px;
       padding-top: 50px;
       justify-content: space-between;
       flex-direction: column;
@@ -30,6 +29,22 @@ const StyledHeaderMenu = styled.nav<any>`
     text-align: center;
 `;
 
+const MobileHeaderMenuFooter = styled.div<any>`
+
+  @media (min-width: ${props => props.minDesktopWidth}px) {
+    display: none;
+  }
+
+  width: 100%;
+  padding: 8% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 25px;
+  background-color: rgb(248, 229, 255);
+`;
+
 const HeaderMenu = (props: HeaderMenuProps) => {
 
   const { isMobileMenuOpened } = props;
@@ -37,7 +52,10 @@ const HeaderMenu = (props: HeaderMenuProps) => {
   return (
     <StyledHeaderMenu isMobileMenuOpened={isMobileMenuOpened} minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
       <HeaderMenuItems />
-      <SocialsList hideOnDesktop={true} />
+      <MobileHeaderMenuFooter minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+        <SocialsList />
+        <LanguageSelector />
+      </MobileHeaderMenuFooter>
     </StyledHeaderMenu>
   )
 }

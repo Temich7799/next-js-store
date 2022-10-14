@@ -3,12 +3,12 @@ import styled from "styled-components"
 import { useIsMenuOpenedVar } from "../../services/hooks/apollo/useIsMenuOpenedVar";
 import { useShoppingCartVar } from "../../services/hooks/apollo/useShoppingCartVar";
 import toogle from "../../services/toogle";
-import Button from "../Buttons/Button";
+import Button from "./Button";
 import ImageSVG from "../ImageSVG";
 import PopUp from "../PopUp";
 import OrderDetails from "../Products/ShoppingCart/OrderDetails/OrderDetails";
 
-const StyledHeaderShoppingCart = styled.div`
+const StyledHeaderShoppingCartButton = styled.div`
     position: relative;
 `;
 
@@ -25,7 +25,7 @@ const PurchasesCount = styled.div`
     background-color: yellow;
 `;
 
-const HeaderShoppingCart = () => {
+const HeaderShoppingCartButton = () => {
 
     const [showPopUp, setShowPopUp] = useState<boolean>(false);
 
@@ -43,7 +43,7 @@ const HeaderShoppingCart = () => {
     }
 
     return (
-        <StyledHeaderShoppingCart>
+        <StyledHeaderShoppingCartButton>
             <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
                 <ImageSVG path="/svg/shopping_cart.svg" height="35px" width="35px" />
                 <PurchasesCount>
@@ -53,8 +53,8 @@ const HeaderShoppingCart = () => {
             <PopUp visible={showPopUp} setVisible={setShowPopUp} >
                 <OrderDetails />
             </PopUp>
-        </StyledHeaderShoppingCart>
+        </StyledHeaderShoppingCartButton>
     )
 }
 
-export default HeaderShoppingCart;
+export default HeaderShoppingCartButton;

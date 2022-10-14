@@ -11,6 +11,7 @@ type HeaderMenuItemProps = {
 
 const StyledHeaderMenuItem = styled.li`
     width: fit-content;
+    min-width: 40px;
     padding: 3px 15px 1px;
     &:hover {
         text-shadow: 0.25px 0 0 currentColor;

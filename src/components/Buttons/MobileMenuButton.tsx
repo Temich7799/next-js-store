@@ -2,13 +2,11 @@ import React from "react";
 import { useIsMenuOpenedVar } from "../../services/hooks/apollo/useIsMenuOpenedVar";
 import toogle from "../../services/toogle";
 import HideOnDesktopWrapper from "../../styles/HideOnDesktopWrapper";
+import { MobileMenuButtonProps } from "../../types/MobileMenuButtonPropsType";
 import ImageSVG from "../ImageSVG";
 import Button from "./Button";
 
-type MobileMenuButtonProps = {
-    setIsMobileMenuOpened: React.Dispatch<React.SetStateAction<boolean>>
-    isMobileMenuOpened: boolean
-}
+
 
 const MobileMenuButton = (props: MobileMenuButtonProps) => {
 

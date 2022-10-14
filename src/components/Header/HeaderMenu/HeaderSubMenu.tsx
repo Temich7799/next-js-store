@@ -58,7 +58,7 @@ const SubMenuItems = styled.ul<any>`
         font-size: 16px;
         ::-webkit-scrollbar { display: none }
         overflow-y: scroll;
-        }
+    }
 `;
 
 const SubMenuItem = styled.li`

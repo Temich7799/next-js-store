@@ -1,10 +1,8 @@
 import React, { useState } from "react"
-import HeaderMenu from "./HeaderMenu/HeaderMenu"
 import styled from "styled-components"
-import HeaderShoppingCart from "./HeaderShoppingCart";
-import HeaderLogo from "./HeaderMenu/HeaderLogo";
-import SocialsList from "../SocialsList";
-import MobileMenuButton from "../Buttons/MobileMenuButton";
+import HeaderColumnLeft from "./HeaderColumnLeft";
+import HeaderColumnRight from "./HeaderColumnRight";
+import HeaderColumnCenter from "./HeaderColumnCenter";
 
 const StyledHeader = styled.header<any>`
 
@@ -45,11 +43,9 @@ const Header = () => {
 
   return (
     <StyledHeader minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
-      <MobileMenuButton isMobileMenuOpened={isMobileMenuOpened} setIsMobileMenuOpened={setIsMobileMenuOpened} />
-      <HeaderLogo hideOnDesktop={true} />
-      <SocialsList hideOnDesktop={false} hideOnMobile={true} />
-      <HeaderMenu isMobileMenuOpened={isMobileMenuOpened} />
-      <HeaderShoppingCart />
+      <HeaderColumnLeft isMobileMenuOpened={isMobileMenuOpened} setIsMobileMenuOpened={setIsMobileMenuOpened} />
+      <HeaderColumnCenter isMobileMenuOpened={isMobileMenuOpened} />
+      <HeaderColumnRight />
     </StyledHeader >
   )
 }
