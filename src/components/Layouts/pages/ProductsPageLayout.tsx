@@ -43,7 +43,8 @@ const ProductsPageLayout = (props: ProductsPageLayoutProps) => {
 
   data.allWcProducts.edges.forEach((edge: Product) => {
     if (edge.node.status == 'publish' || edge.node.stock_status == 'instock') {
-      gatsbyImages.set(edge.node.wordpress_id, edge.node.images[0].localFile.childImageSharp.gatsbyImageData.images.fallback.src);
+      const localFile = edge.node.images[0].localFile;
+      localFile && localFile.childImageSharp && gatsbyImages.set(edge.node.wordpress_id, localFile.childImageSharp.gatsbyImageData.images.fallback.src);
     }
   });
 

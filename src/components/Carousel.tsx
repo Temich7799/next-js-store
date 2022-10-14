@@ -184,7 +184,7 @@ const Carousel = (props: CarouselProps) => {
                     ? --slider.current.positionIndex
                     : slider.current.positionIndex];
 
-        carouselSlider.current.style = `left: ${slider.current.position}px; transition: ${speed};`;
+        if (carouselSlider.current) carouselSlider.current.style = `left: ${slider.current.position}px; transition: ${speed};`;
     }
 
     function makePositionsMap(startFrom: number): Array<number> {

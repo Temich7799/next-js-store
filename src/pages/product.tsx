@@ -8,7 +8,7 @@ import { useProductQuery } from "../services/hooks/graphql/useProductQuery";
 
 const ProductClientPage = () => {
 
-    const [productId, setProductId] = useState<number>(0);
+    const [productId, setProductId] = useState<number>();
 
     const { data, loading, error } = useProductQuery(productId);
 

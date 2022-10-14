@@ -1,5 +1,5 @@
 import { Link } from "gatsby";
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
 import { formatCatalogChildItemUrl } from "../../../services/formatCatalogChildItemUrl";
 import useMobile from "../../../services/hooks/useMobile";
@@ -27,7 +27,7 @@ const SubMenuTitle = styled.div<any>`
 
 const SubMenuItems = styled.ul<any>`
 
-    display: flex;
+    display: ${props => props.isSubMenuOpened ? 'flex' : 'none'};
     flex-direction: column;
     align-items: center;
     list-style: none;
@@ -50,9 +50,6 @@ const SubMenuItems = styled.ul<any>`
         margin: 5px 0;
         font-family: "Comfortaa";
         padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         justify-content: center;
         gap: 15px;
         font-size: 16px;
@@ -79,12 +76,14 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
 
     const isMobile = useMobile();
 
+    const ref = useRef<any>();
+
     function onMouseOverHandler(): void {
         setIsSubMenuOpened(true);
     }
 
-    function onMouseLeaveHandler(): void {
-        setIsSubMenuOpened(false)
+    function onMouseLeaveHandler(mouseLeaveEvent: any): void {
+        mouseLeaveEvent.relatedTarget !== ref.current && setIsSubMenuOpened(false)
     }
 
     function onClickHandler(): void {
@@ -102,7 +101,7 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
                     </SubMenuTitle>
                     :
                     <Link to={data.slug === 'home' ? `/${langPrefix}` : `/${langPrefix}${data.slug}`}>
-                        <SubMenuTitle onMouseOver={() => onMouseOverHandler()} onMouseLeave={() => onMouseLeaveHandler()}>
+                        <SubMenuTitle onMouseOver={() => onMouseOverHandler()} onMouseLeave={(e: any) => onMouseLeaveHandler(e)}>
                             {data.title}
                             <SubMenuIcon isOpened={isSubMenuOpened} />
                         </SubMenuTitle>
@@ -110,8 +109,7 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
 
             }
             {
-                isSubMenuOpened &&
-                <SubMenuItems minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+                <SubMenuItems ref={ref} isSubMenuOpened={isSubMenuOpened} minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH} onMouseLeave={(e: any) => onMouseLeaveHandler(e)}>
                     {
                         isMobile &&
                         <SubMenuItem>

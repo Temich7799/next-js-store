@@ -96,37 +96,4 @@ const resolvers = {
     }
 };
 
-/*
-const images = ["https://localhost:8888/wordpress/wp-content/uploads/2022/09/3954484832_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3954469445_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3953920415_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3953062012_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3948023537_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3948020525_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3948013401_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3947996278_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3946729172_w280_h280_pups-vanilnij-nines.png", "https://localhost:8888/wordpress/wp-content/uploads/2022/09/3946725166_w280_h280_pups-vanilnij-nines.png"];
-const names = ["Испанский пупс Nines d Onil с запахом ванили 26 см", "Ванильный пупс 23 см Nines d Onil", "Испанская кукла Nines d Onil, ванильный пупс с волосами"]
-for (let i = 0; i < 50; i++) {
-    const data = {
-        name: names[Math.floor(Math.random() * names.length)],
-        type: "simple",
-        price: (Math.floor(Math.random() * (705 - 555) + 555)).toString,
-        description: "Пупсы Nines d Onil — новые популярные игрушки известного испанского бренда. <ul> <li>Материал: высококачественный бархатистый винил с ароматом ванили.</li> <li>Размер куклы: 26 см.</li> <li>Страна производства: Испания</li> </ul> <strong>Возможности:</strong> <ul> <li>Куколка со вкусом ванили.</li> <li>Включает в себя: всю одежду, показанную на фото (вся снята)</li> </ul> <em>Куколка с трогательным выражением лица — новинка от фабрики Nines d Onil. Куклы в наличии на складе интернет-магазина Потапович в Харькове.</em> <em>Доступный самовывоз ТЦ Континент</em> <em>Куколки поставляются в фирменной подарочной упаковке.</em> <em>Кукла Vanilla полностью изготовлена ​​из бархатного винила и имеет приятный запах ванили.</em> <strong>Руки, ноги и голова подвижны</strong> <em>Кукла является 100% оригинальным продуктом испанской фабрики Nines D Onil, имеет фирменное клеймо на спине и бирку на одежде.</em> <strong>Куколку можно купать! Аромат ванили никуда не делся!</strong>",
-        short_description: "Детские куклы Nines d Onil – это новые популярные игрушки известного Испанского бренда. С такой модницей приятно играть девочке всех возрастов. Пупс станет отличным подарком не только для детей, но и для любителей коллекционных кукол, которые по достоинству ценят качество и индивидуальность игрушки!",
-        categories: [
-            {
-                id: 94
-            }
-        ],
-        images: [
-            {
-                src: images[Math.floor(Math.random() * images.length)]
-            },
-            {
-                src: images[Math.floor(Math.random() * images.length)]
-            }
-        ]
-    };
-
-    wooCommerceQuery().post("products", data)
-        .then((response) => {
-            console.log('Oka');
-        });
-}
-
-*/
-
 module.exports = resolvers;

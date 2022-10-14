@@ -6,13 +6,13 @@ type ProductQueryResult = {
     error: boolean
 }
 
-export function useProductQuery(productId: number): ProductQueryResult {
+export function useProductQuery(productId: number | undefined): ProductQueryResult {
 
     const [data, setData] = useState();
     const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
-        fetch(process.env.GATSBY_APOLLO_SERVER_URL, {
+        productId && fetch(process.env.GATSBY_APOLLO_SERVER_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export function useProductQuery(productId: number): ProductQueryResult {
             .catch(() => {
                 setError(true);
             })
-    }, []);
+    }, [productId]);
 
     return {
         data,

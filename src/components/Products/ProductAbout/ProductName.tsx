@@ -50,8 +50,8 @@ const ProductName = (props: ProductNameProps) => {
     return (
         <StyledProductName>
             <div>
-                <CopyArea><h1>{name}</h1></CopyArea>
-                <CopyArea><p>{PRODUCT_SKU}: {sku != '' ? sku : PRODUCT_SKU_EMPTY}</p></CopyArea>
+                <h1>{name}</h1>
+                <p>{PRODUCT_SKU}: {sku != '' ? sku : PRODUCT_SKU_EMPTY}</p>
             </div>
             {
                 height !== undefined &&
