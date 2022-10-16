@@ -24,13 +24,10 @@ async function wooCommerceQuery(endpoint, params = {}, method = 'get', languageP
         ? callback(data)
         : data
 
-
     async function makeBatchQuery(limit = params.per_page, offset = params.offset, mergeArray = []) {
 
-        const remains = limit - offset;
-
         params.offset = offset;
-        params.per_page = remains < 100 ? remains : 100;
+        params.per_page = limit > 100 ? 100 : limit;
 
         return query[method](endpoint, params).then(response => {
 
@@ -38,9 +35,9 @@ async function wooCommerceQuery(endpoint, params = {}, method = 'get', languageP
 
                 mergeArray = [...mergeArray, ...response.data];
 
-                offset += 100;
+                offset += response.data.length;
 
-                return offset >= limit ? mergeArray : makeBatchQuery(limit, offset, mergeArray);
+                return offset >= limit ? mergeArray : makeBatchQuery(limit - offset, offset, mergeArray);
             }
             else return mergeArray.length > 0 ? mergeArray : response.data;
         });
