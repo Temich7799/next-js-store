@@ -1,6 +1,6 @@
 const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
 
-async function wooCommerceQuery(endpoint, params, method = 'get', languagePrefix = '', callback) {
+async function wooCommerceQuery(endpoint, params = {}, method = 'get', languagePrefix = '', callback) {
 
     if (!params.per_page) params.per_page = 10000;
     if (!params.offset) params.offset = 0;
@@ -42,7 +42,7 @@ async function wooCommerceQuery(endpoint, params, method = 'get', languagePrefix
 
                 return offset >= limit ? mergeArray : makeBatchQuery(limit, offset, mergeArray);
             }
-            else return mergeArray;
+            else return mergeArray.length > 0 ? mergeArray : response.data;
         });
     }
 }
