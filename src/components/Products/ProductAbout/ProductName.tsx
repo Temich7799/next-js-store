@@ -1,7 +1,6 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 import ImageSVG from "../../ImageSVG";
-import CopyArea from "../../CopyArea";
 import { useProductAttributes } from "../../../services/hooks/useProductAttributes";
 import { LangContext } from "../../Layouts/Layout";
 

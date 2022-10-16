@@ -5,23 +5,10 @@ import useUpdatedProduct from "../../../../services/hooks/useUpdatedProduct"
 import ProductPrice from "../../ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
 import { LangContext } from "../../../Layouts/Layout"
+import { ProductInCart } from "../../../../types/InterfaceProduct"
 
 type PurchasedProductProps = {
-    data: {
-        name: string
-        slug: string
-        sku: string
-        price: string
-        sale_price: string
-        stock_status: string
-        stock_quantity: number | null
-        image: {
-            alt: string
-            src: string
-        }
-        wordpress_id: number
-        quantity: number
-    }
+    data: ProductInCart
 }
 
 const StyledPurchasedProduct = styled.div`
@@ -61,20 +48,20 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
 
     const { data } = props;
 
-    const { loading: isDataLoading, updatedData, isOutOfStock } = useUpdatedProduct(data);
+    const { loading: isDataLoading, data: updatedData, isOutOfStock } = useUpdatedProduct(data);
     const { update, clear } = useShoppingCartVar();
 
     useEffect(() => {
-        updatedData && update(data.wordpress_id, updatedData);
+        updatedData && update(data.id, updatedData);
     }, [updatedData]);
-    useEffect(() => { isOutOfStock && clear(data.wordpress_id); }, [isOutOfStock]);
+    useEffect(() => { isOutOfStock && clear(data.id); }, [isOutOfStock]);
 
     return (
         <StyledPurchasedProduct>
-            <PurchasedProductThumb src={data.image.src} alt={data.image.alt} />
+            <PurchasedProductThumb src={data.images[0].src} alt={data.images[0].alt} />
             <ProductPrice price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} />
             <PurchasedProductName>
-                <p>{data.name}</p>
+                <p>{updatedData ? updatedData.name : data.name}</p>
                 <p>{PRODUCT_SKU}: {data.sku}</p>
             </PurchasedProductName>
             <PurchasedProductQuantity data={data} />

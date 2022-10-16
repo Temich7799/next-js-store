@@ -1,27 +1,11 @@
 import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
+import { ProductInCart } from "../../../../types/InterfaceProduct"
 import { LangContext } from "../../../Layouts/Layout"
 import PurchasedProduct from "./PurchasedProduct"
 
-type PurchasedProductProps = {
-    name: string
-    slug: string
-    sku: string
-    price: string
-    sale_price: string
-    stock_quantity: number | null
-    stock_status: string
-    image: {
-        alt: string
-        src: string
-    }
-    wordpress_id: number
-    id: string
-    quantity: number
-}
-
 type PurchasedProductsProps = {
-    data: Array<PurchasedProductProps>
+    data: Array<ProductInCart> | undefined
 }
 
 const StyledPurchasedProducts = styled.div`
@@ -37,15 +21,12 @@ const PurchasedProducts = (props: PurchasedProductsProps) => {
 
     const { data } = props;
 
-    const [shoppingCartProductsData, setShoppingCartProductsData] = useState<Array<PurchasedProductProps>>();
-    useEffect(() => { setShoppingCartProductsData(data) }, [data]);
-
     return (
         <StyledPurchasedProducts id="ordered_products">
             <hr />
             {
-                shoppingCartProductsData
-                    ? shoppingCartProductsData.map((product: PurchasedProductProps) => <PurchasedProduct data={product} key={product.wordpress_id} />)
+                data
+                    ? data.map((product: ProductInCart) => <PurchasedProduct data={product} key={product.id} />)
                     : <p>{ORDER_FINAL_BUTTON_DISABLED}</p>
             }
             <hr />

@@ -5,33 +5,9 @@ exports.createSchemaCustomization = ({ actions }) => {
 
   const { createTypes } = actions;
 
-  const WP_Page = require("./apollo_server/graphql/types/wordpress/WP_Page");
-  const WP_PageFilter = require("./apollo_server/graphql/types/wordpress/inputs/WP_PageFilter");
-  const WP_MenuItem = require("./apollo_server/graphql/types/wordpress/WP_MenuItem");
-  const WP_MenuItemFilter = require("./apollo_server/graphql/types/wordpress/inputs/WP_MenuItemFilter");
-  const WC_ShippingMethod = require("./apollo_server/graphql/types/woocommerce/types/WC_ShippingMethod");
-  const WC_PaymentMethod = require("./apollo_server/graphql/types/woocommerce/types/WC_PaymentMethod");
-  const WC_Product = require("./apollo_server/graphql/types/woocommerce/types/WC_Product");
-  const WC_ProductParams = require("./apollo_server/graphql/types/woocommerce/inputs/WC_ProductParams");
-  const WC_Category = require("./apollo_server/graphql/types/woocommerce/types/WC_Category");
-  const WC_ProductCategoryParams = require("./apollo_server/graphql/types/woocommerce/inputs/WC_ProductCategoryParams");
-  const LanguagesEnum = require('./apollo_server/graphql/enums/LanguagesEnum')
-  const StockStatusesEnum = require('./apollo_server/graphql/enums/StockStatusesEnum')
+  const typeDefs = require('./gatsby_node/typeDefs')
 
-  createTypes(`
-    ${WP_Page}
-    ${WP_PageFilter}
-    ${WP_MenuItem}
-    ${WP_MenuItemFilter}
-    ${WC_ShippingMethod}
-    ${WC_PaymentMethod}
-    ${WC_Product}
-    ${WC_ProductParams}
-    ${WC_Category}
-    ${WC_ProductCategoryParams}
-    ${LanguagesEnum}
-    ${StockStatusesEnum}
-  `);
+  createTypes(typeDefs);
 }
 
 exports.createResolvers = ({ createResolvers }) => {
@@ -54,22 +30,48 @@ exports.createResolvers = ({ createResolvers }) => {
   });
 }
 
-
 exports.createPages = async ({ actions, graphql }) => {
 
   const languages = getDirectories('./src/languages');
 
-  const { data: pagesData } = await graphql(`
-    query getPages {
-      allMultilangWpPages(filter: {exclude: {slug: ["home", "catalog"]}, include: {status: publish}}) {
-        id
+  const { data: allPagesData } = await graphql(`
+
+    query getAllMultilangWpPages {
+
+      ru: allMultilangWpPages(filter: {exclude: {slug: ["home", "catalog"]}, include: {status: publish}}) {
+        title {
+          rendered
+        }
+        content {
+          rendered
+        }
+        slug
+      }
+
+      uk: allMultilangWpPages(language: uk, filter: {exclude: {slug: ["home", "catalog"]}, include: {status: publish}}) {
+        title {
+          rendered
+        }
+        content {
+          rendered
+        }
+        slug
+      }
+
+      en: allMultilangWpPages(language: en, filter: {exclude: {slug: ["home", "catalog"]}, include: {status: publish}}) {
+        title {
+          rendered
+        }
+        content {
+          rendered
+        }
         slug
       }
     }
   `);
 
-  const { data: categoriesData } = await graphql(`
-    query getCategories {
+  const { data: allCategoriesData } = await graphql(`
+    query getAllWcCategories {
       allMultilangWcCategories(params: {hide_empty: true}) {
         id
         slug
@@ -77,58 +79,123 @@ exports.createPages = async ({ actions, graphql }) => {
     }
   `);
 
-  const { data: productsData } = await graphql(`
-    query getProducts {
-      allMultilangWcProducts(params: {stock_status: instock, status: publish}) {
-        id
+  const { data: allProductsData } = await graphql(`
+    query getAllWcProducts {
+      ru: allMultilangWcProducts(params: { stock_status: instock, status: publish }) {
+        name
         sku
+        price
+        sale_price
+        stock_quantity
+        description
+        related_ids
+        id
+        attributes {
+          options
+          name
+        }
+          images {
+          alt
+          src
+          localFile
+        }
         categories {
           slug
         }
       }
-    }
+
+      uk: allMultilangWcProducts(language: uk, params: { stock_status: instock, status: publish }) {
+        name
+        sku
+        price
+        sale_price
+        stock_quantity
+        description
+        related_ids
+        id
+        attributes {
+          options
+          name
+        }
+          images {
+          alt
+          src
+          localFile
+        }
+        categories {
+          slug
+        }
+      }
+
+      en: allMultilangWcProducts(language: en, params: { stock_status: instock, status: publish }) {
+        name
+        sku
+        price
+        sale_price
+        stock_quantity
+        description
+        related_ids
+        id
+        attributes {
+          options
+          name
+        }
+          images {
+          alt
+          src
+          localFile
+        }
+        categories {
+          slug
+        }
+      }
+    }      
   `);
+
+  const compImages = await getProductsGatsbyImages();
+
 
   languages.forEach((language) => {
 
     const langPrefix = language === 'ru' ? '' : `${language}/`; //make as default language
 
-    createPages(pagesData, language, langPrefix);
-    createProductsPages(categoriesData, language, langPrefix);
-    createProductPages(productsData, language, langPrefix);
+    createPages(allPagesData, language, langPrefix);
+    createProductsListPages(allCategoriesData, compImages, language, langPrefix);
+    createProductPages(allProductsData, compImages, language, langPrefix);
   });
 
   function createPages(data, language, langPrefix) {
 
-    data.allMultilangWpPages.forEach((wpPage) => {
+    data[language].forEach((wpPage) => {
       actions.createPage({
         path: `${langPrefix}${wpPage.slug}`,
         component: path.resolve(`./src/components/Layouts/pages/PostPageLayout.tsx`),
         context: {
-          pageId: parseInt(wpPage.id),
+          data: wpPage,
           language: language,
         },
       });
     });
   }
 
-  function createProductsPages(data, language, langPrefix) {
+  function createProductsListPages(data, compImages, language, langPrefix) {
 
     data.allMultilangWcCategories.forEach((wcCategory) => {
       actions.createPage({
         path: `${langPrefix}catalog/${wcCategory.slug}`,
-        component: path.resolve(`./src/components/Layouts/pages/ProductsPageLayout.tsx`),
+        component: path.resolve(`./src/components/Layouts/pages/ProductsListPageLayout.tsx`),
         context: {
-          categoryId: parseInt(wcCategory.id),
+          categoryId: wcCategory.id,
+          compImages: compImages,
           language: language,
         },
       });
     });
   }
 
-  function createProductPages(data, language, langPrefix) {
+  function createProductPages(data, compImages, language, langPrefix) {
 
-    data.allMultilangWcProducts.forEach((wcProduct) => {
+    data[language].forEach(wcProduct => {
 
       if (wcProduct.sku == '') wcProduct.sku = wcProduct.wordpress_id;
 
@@ -136,10 +203,44 @@ exports.createPages = async ({ actions, graphql }) => {
         path: `${langPrefix}catalog/${wcProduct.categories[0].slug}/${wcProduct.categories[0].slug}-${wcProduct.sku}`,
         component: path.resolve(`./src/components/Layouts/pages/ProductPageLayout.tsx`),
         context: {
-          productId: parseInt(wcProduct.id),
+          data: wcProduct,
+          compImages: compImages,
           language: language,
         },
       });
     });
+  }
+
+  async function getProductsGatsbyImages() {
+
+    const { data } = await graphql(`
+      query getProductsGatsbyImages {
+          allWcProducts(filter: {stock_status: {eq: "instock"}, status: {eq: "publish"}}){
+            edges {
+              node {
+                wordpress_id
+                images {
+                  localFile {
+                    childImageSharp {
+                      gatsbyImageData(webpOptions: {quality: 85}, height: 240, formats: WEBP)
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+    `);
+
+    const compImages = {};
+
+    data.allWcProducts.edges.forEach(edge => {
+      const localFile = edge.node.images[0].localFile;
+      if (localFile && localFile.childImageSharp) {
+        compImages[edge.node.wordpress_id] = localFile.childImageSharp.gatsbyImageData.images.fallback.src;
+      }
+    });
+
+    return compImages;
   }
 }

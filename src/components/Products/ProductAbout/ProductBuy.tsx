@@ -3,10 +3,11 @@ import styled from "styled-components"
 import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/apollo/useShoppingCartVar";
 import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct";
-import { PageContext } from "../../Content/ProductPageContent";
+import { ProductPageContext } from "../../Content/ProductPageContent";
 import ProductBuyButton from "../../Buttons/ProductBuyButton";
 import PurchasedProductQuantity from "../ShoppingCart/OrderDetails/PurchasedProductQuantity";
 import GoToCartButton from "../../Buttons/GoToCartButton";
+import { ProductGatsby } from "../../../types/InterfaceProduct";
 
 const StyledProductBuy = styled.div`
     width: fit-content;
@@ -18,49 +19,23 @@ const StyledProductBuy = styled.div`
     margin: 10px 0;
 `;
 
-type ProductBuy = {
-    name: string
-    slug: string
-    sku: string
-    image: {
-        alt: string
-        src: string
-    }
-    wordpress_id: number
-}
-
-type FetchedData = {
-    name: string
-    slug: string
-    sku: string
-    wordpress_id: number
-    price: string
-    stock_status: string
-    stock_quantity: number | null
-    sale_price: string
-    image: {
-        alt: string
-        src: string
-    }
-}
-
 const ProductBuy = () => {
 
-    const data: ProductBuy = useContext(PageContext);
+    const data: ProductGatsby = useContext(ProductPageContext);
 
-    const { loading: isDataLoading, updatedData, isOutOfStock } = useUpdatedProduct(data);
+    const { loading: isDataLoading, data: updatedData, isOutOfStock } = useUpdatedProduct(data);
 
     const { add, isInTheCart } = useShoppingCartVar();
 
     function buttonOnClickHandler() {
-        add(data.wordpress_id, updatedData);
+        updatedData && add(data.id, updatedData);
     }
 
     return (
         <StyledProductBuy>
-            <ProductPrice price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} />
+            <ProductPrice price={updatedData && updatedData.price} salePrice={updatedData && updatedData.sale_price} isPriceLoading={isDataLoading} />
             {
-                isInTheCart(data.wordpress_id)
+                isInTheCart(data.id)
                     ?
                     <StyledProductBuy>
                         <GoToCartButton isButtonDisabled={isDataLoading || isOutOfStock} />

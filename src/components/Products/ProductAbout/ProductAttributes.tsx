@@ -3,6 +3,15 @@ import styled from "styled-components"
 import { useProductAttributes } from "../../../services/hooks/useProductAttributes";
 import ImageSVG from "../../ImageSVG";
 
+type ProductAttributesProps = {
+    data: [
+        {
+            options: [string]
+            name: string
+        }
+    ]
+}
+
 const StyledProductAttributes = styled.div`
     width: 100%;
     max-height: 280px;
@@ -13,15 +22,6 @@ const StyledProductAttributes = styled.div`
     margin: 15px 0;
     overflow-y: scroll;
 `;
-
-type ProductAttributesProps = {
-    data: [
-        {
-            options: [string]
-            name: string
-        }
-    ]
-}
 
 const ProductAttributes = (props: ProductAttributesProps) => {
 

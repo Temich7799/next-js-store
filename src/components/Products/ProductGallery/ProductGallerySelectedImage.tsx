@@ -1,28 +1,24 @@
-import * as React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
+import { ProductPageContext } from "../../Content/ProductPageContent";
+
+type ProductGallerySelectedImageProps = {
+    selectedImage: number
+}
 
 const StyledProductGallerySelectedImage = styled.img`
     width:300px;
     height: 400px;
 `;
 
-type ProductGallerySelectedImageProps = {
-    data: [
-        {
-            alt: string
-            src: string
-        }
-    ]
-    selectedImage: number
-}
-
 const ProductGallerySelectedImage = (props: ProductGallerySelectedImageProps) => {
 
-    const { selectedImage, data } = props;
+    const { images } = useContext(ProductPageContext);
 
-    return (
-        <StyledProductGallerySelectedImage src={data[selectedImage].src} alt={data[selectedImage].alt} />
-    )
+    const { selectedImage } = props;
+
+    return <StyledProductGallerySelectedImage src={images[selectedImage].src} alt={images[selectedImage].alt} />
+
 }
 
 export default ProductGallerySelectedImage;

@@ -25,7 +25,7 @@ const apolloClient = new ApolloClient({
     link: new BatchHttpLink({
         uri: process.env.GATSBY_APOLLO_SERVER_URL,
         batchMax: 5,
-        batchInterval: 100
+        batchInterval: 25
     }),
     cache: new InMemoryCache(
         {

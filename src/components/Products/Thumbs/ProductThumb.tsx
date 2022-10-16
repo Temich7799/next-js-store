@@ -6,37 +6,11 @@ import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/apollo/useShoppingCartVar";
 import { useLastProductPageVar } from "../../../services/hooks/apollo/useLastProductPageVar";
 import { LangContext } from "../../Layouts/Layout";
+import { ProductFetched } from "../../../types/InterfaceProduct";
 
 type ProductProps = {
-    data: Product
-    gatsbyImage?: string | undefined
-}
-interface Product {
-    name: string
-    price: string
-    sku: string
-    stock_quantity: number | null
-    stock_status: string
-    sale_price: string
-    categories: [
-        {
-            slug: string
-        }
-    ]
-    images: [
-        {
-            alt: string;
-            src: string;
-        }
-    ]
-    wordpress_id: number
-}
-
-interface ExtendedProduct extends Product {
-    image: {
-        src: string
-        alt: string
-    }
+    data: ProductFetched
+    gatsbyImagePath?: object | undefined | any
 }
 
 const StyledProductThumb = styled.div`
@@ -78,26 +52,18 @@ const ProductThumb = (props: ProductProps) => {
     const { language, langPrefix } = useContext(LangContext);
     const { PRODUCT_SKU } = require(`../../../languages/${language}/languages`);
 
-    const { data: propsData, gatsbyImage } = props;
-    if (propsData.sku == '') propsData.sku = propsData.wordpress_id.toString();
+    const { data, gatsbyImagePath } = props;
+    if (data.sku == '') data.sku = data.id;
 
-    const data: ExtendedProduct = {
-        ...propsData,
-        image: {
-            src: gatsbyImage ? gatsbyImage : propsData.images[0].src,
-            alt: propsData.images[0].alt
-        }
-    };
-
-    const url = gatsbyImage
-        ? `${process.env.GATSBY_SITE_URL}/${langPrefix}catalog/${data.categories[0].slug}/${data.categories[0].slug}-${data.sku != '' ? data.sku : data.wordpress_id}`
-        : `${process.env.GATSBY_SITE_URL}/${langPrefix}product?id=${data.wordpress_id}`;
+    const url = gatsbyImagePath
+        ? `${process.env.GATSBY_SITE_URL}/${langPrefix}catalog/${data.categories[0].slug}/${data.categories[0].slug}-${data.sku != '' ? data.sku : data.id}`
+        : `${process.env.GATSBY_SITE_URL}/${langPrefix}product?id=${data.id}`;
 
     const { add: addToCart } = useShoppingCartVar();
     const { save: saveLastProductPage } = useLastProductPageVar();
 
     function buttonOnClickHandler(): void {
-        addToCart(data.wordpress_id, data);
+        addToCart(data.id, data);
         saveLastProductPage();
     }
 
@@ -108,7 +74,7 @@ const ProductThumb = (props: ProductProps) => {
     return (
         <StyledProductThumb onClick={thumbOnClickHandler}>
             <ProductLink href={url}>
-                <img src={data.image.src} alt={data.image.alt} />
+                <img src={gatsbyImagePath ? process.env.GATSBY_SITE_URL + gatsbyImagePath : data.images[0].src} alt={data.images[0].alt} />
             </ProductLink>
             <ProductCaption>
                 <div>

@@ -1,70 +1,55 @@
-import { gql, useLazyQuery } from "@apollo/client";
+import { ApolloError, gql, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
+import { ProductBase, ProductFetched } from "../../types/InterfaceProduct";
 
-type ProductProps = {
-    name: string
-    slug: string
-    sku: string
-    image: {
-        alt: string
-        src: string
-    }
-    wordpress_id: number
+type Result = {
+    data: ProductFetched
+    loading: boolean
+    error: ApolloError | undefined
+    isOutOfStock: boolean
 }
 
-type UpdatedProduct = {
-    name: string
-    slug: string
-    sku: string
-    wordpress_id: number
-    id?: number
-    price: string
-    stock_status: string
-    stock_quantity: number | null
-    sale_price: string
-    image: {
-        alt: string
-        src: string
-    }
-}
-
-export default function useUpdatedProduct(productToUpdate: ProductProps) {
+export default function useUpdatedProduct(productToUpdate: ProductBase): Result {
 
     const [isOutOfStock, setIsOutOfStock] = useState<boolean>(false);
-    const [updatedData, setUpdatedData] = useState<UpdatedProduct | ProductProps | any>(productToUpdate);
+    const [data, setData] = useState<ProductFetched | any>(productToUpdate);
 
     const [getProductFetchData, { loading, error }] = useLazyQuery(gql`
         query getProductFetchData($productId: Int!) {
             wpWcProduct(productId: $productId) {
+                name
                 price
                 sale_price
-                stock_status
                 stock_quantity
+                stock_status
+                status
             }
         }
     `);
 
     useEffect(() => {
-        getProductFetchData({ variables: { productId: productToUpdate.wordpress_id } })
+        getProductFetchData({ variables: { productId: parseInt(productToUpdate.id) } })
             .then((response) => {
+                
+                if (response.data) {
+                    setIsOutOfStock(
+                        response.data.wpWcProduct.stock_status === 'instock' || response.data.wpWcProduct.status === 'publish' || response.data.wpWcProduct.stock_quantity > 0
+                            ? false
+                            : true
+                    );
 
-                setIsOutOfStock(
-                    response.data.wpWcProduct.stock_status == 'instock' || response.data.wpWcProduct.stock_quantity > 0
-                        ? false
-                        : true
-                );
-
-                setUpdatedData({
-                    ...updatedData,
-                    ...response.data.wpWcProduct
-                })
+                    setData({
+                        ...productToUpdate,
+                        ...response.data.wpWcProduct
+                    })
+                }
             });
     }, []);
 
     return {
+        data,
         loading,
         error,
-        updatedData,
         isOutOfStock,
     }
 }

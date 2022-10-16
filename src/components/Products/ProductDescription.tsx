@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 import CopyProtectedArea from "../CopyProtectedArea";
-import { PageContext } from "../Content/ProductPageContent";
+import { ProductPageContext } from "../Content/ProductPageContent";
 import { LangContext } from "../Layouts/Layout";
 
 const StyledProductDescription = styled.div<any>`
@@ -16,7 +16,7 @@ const StyledProductDescription = styled.div<any>`
 
 const ProductDescription = () => {
 
-    const { description }: string | any = useContext(PageContext);
+    const { description }: string | any = useContext(ProductPageContext);
     const { language } = useContext(LangContext);
     const { PRODUCT_DESCRIPTION_TITLE } = require(`../../languages/${language}/languages`);
 

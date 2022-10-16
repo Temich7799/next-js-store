@@ -4,24 +4,11 @@ import ContinueShoppingButton from "../../../Buttons/ContinueShoppingButton";
 import SendOrderButton from "../../../Buttons/SendOrderButton";
 import GoToCartButton from "../../../Buttons/GoToCartButton";
 import { LangContext } from "../../../Layouts/Layout";
+import { ProductInCart } from "../../../../types/InterfaceProduct";
 
 type OrderFinalProps = {
-    data: Array<PurchasedProduct>
+    data: Array<ProductInCart> | undefined
     isOrderSending?: boolean
-}
-
-type PurchasedProduct = {
-    name: string
-    slug: string
-    sku: string
-    price: string
-    sale_price: string
-    images: [{
-        alt: string
-        localFile: any
-    }]
-    wordpress_id: number
-    quantity: number
 }
 
 const StyledOrderFinal = styled.div`
@@ -49,14 +36,21 @@ const OrderFinal = (props: OrderFinalProps) => {
     const [totalPrice, setTotalPrice] = useState<number>(0);
 
     useEffect(() => {
-        data && setIsButtonDisabled(data.length ? false : true);
-        setTotalPrice(calcTotalPrice(data));
+        if (data) {
+            setIsButtonDisabled(data.length ? false : true);
+            setTotalPrice(calcTotalPrice(data));
+        }
     }, [data]);
 
-    function calcTotalPrice(products: any): number {
+    function calcTotalPrice(products: Array<ProductInCart>): number {
+
         let price = 0;
-        products && products.forEach((product: PurchasedProduct) =>
-            price += (parseInt(product.sale_price ? product.sale_price : product.price)) * product.quantity);
+
+        products && products.forEach((product: ProductInCart) => {
+            const quantity = product.quantity ? product.quantity : 1;
+            price += (parseInt(product.sale_price ? product.sale_price : product.price)) * quantity;
+        });
+
         return price;
     }
 

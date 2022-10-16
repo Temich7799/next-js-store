@@ -2,36 +2,15 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { useQueryProductsOnScroll } from "../../services/hooks/graphql/useQueryProductsOnScroll";
 import ContainerCentered from "../../styles/ContainerCentered";
+import { ProductFetched } from "../../types/InterfaceProduct";
 import InfoLayout from "../Layouts/InfoLayout";
 import { LangContext } from "../Layouts/Layout";
 import LoadingBar from "../LoadingBars/LoadingBar";
 import ProductThumb from "../Products/Thumbs/ProductThumb";
 
-type ProductsPageContentProps = {
-    gatsbyImages: Map<number, string>
+type ProductsListPageContentProps = {
+    compImages: object | any
     categoryId: string
-}
-
-type FetchedProduct = {
-    name: string
-    slug: string
-    sku: string
-    price: string
-    sale_price: string
-    stock_quantity: number
-    stock_status: string
-    id: string
-    categories: [
-        {
-            slug: string
-        }
-    ]
-    images: [
-        {
-            alt: string
-            src: string
-        }
-    ]
 }
 
 const Content = styled.div`
@@ -44,14 +23,14 @@ const Content = styled.div`
     padding: 2.5%;
 `;
 
-const ProductsPageContent = (props: ProductsPageContentProps) => {
-
+const ProductsListPageContent = (props: ProductsListPageContentProps) => {
+    
     const { language } = useContext(LangContext);
     const { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } = require(`../../languages/${language}/languages`);
 
-    const { gatsbyImages, categoryId } = props;
-
-    const { data, loading, error } = useQueryProductsOnScroll(categoryId);
+    const { compImages, categoryId } = props;
+    
+    const { data, loading, error } = useQueryProductsOnScroll(categoryId.toString());
 
     return (
         <>
@@ -67,16 +46,11 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
                         <InfoLayout title={LOADING_ERROR_TITLE} description={LOADING_ERROR_DESCRIPTION} imagePath={""} />
                         : <Content>
                             {
-                                data && data.map((product: FetchedProduct) => {
+                                data && data.map((product: ProductFetched) => {
 
-                                    const productData = {
-                                        ...product,
-                                        wordpress_id: parseInt(product.id)
-                                    };
+                                    const gatsbyImagePath = compImages[parseInt(product.id)];
 
-                                    const gatsbyImage = gatsbyImages.get(productData.wordpress_id);
-
-                                    return <ProductThumb data={productData} gatsbyImage={gatsbyImage} key={product.id} />
+                                    return <ProductThumb data={product} gatsbyImagePath={gatsbyImagePath} key={product.id} />
                                 })
                             }
                         </Content>
@@ -85,4 +59,4 @@ const ProductsPageContent = (props: ProductsPageContentProps) => {
     )
 }
 
-export default ProductsPageContent;
+export default ProductsListPageContent;

@@ -1,27 +1,12 @@
 import React from "react"
 import styled from "styled-components"
 import { useShoppingCartVar } from "../../../../services/hooks/apollo/useShoppingCartVar"
+import { ProductInCart } from "../../../../types/InterfaceProduct"
 import Button from "../../../Buttons/Button"
 import ImageSVG from "../../../ImageSVG"
 
-type PurchasedProduct = {
-    name: string
-    slug: string
-    sku: string
-    price: string
-    stock_quantity: number | null
-    stock_status: string
-    sale_price: string
-    image: {
-        alt: string
-        src: string
-    }
-    wordpress_id: number
-    quantity: number
-}
-
 type PurchasedProductQuantityProps = {
-    data: PurchasedProduct
+    data: ProductInCart
 }
 
 const StyledPurchasedProductQuantity = styled.div`
@@ -43,19 +28,19 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
 
     return (
         <StyledPurchasedProductQuantity>
-            <p>x {data.quantity ? data.quantity : shoppingCartData ? shoppingCartData[data.wordpress_id].quantity : 0}</p>
+            <p>x {data.quantity ? data.quantity : shoppingCartData ? shoppingCartData[data.id].quantity : 0}</p>
             <div>
                 <Button buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
                         e.preventDefault();
-                        add(data.wordpress_id, data);
+                        add(data.id, data);
                     }}>
                     <ImageSVG path='/svg/increase.svg' height="25px" width="25px" />
                 </Button>
                 <Button buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
                         e.preventDefault();
-                        decrease(data.wordpress_id);
+                        decrease(data.id);
                     }}>
                     <ImageSVG path='/svg/decrease.svg' height="25px" width="25px" />
                 </Button>
@@ -63,7 +48,7 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
             <Button buttonSize="shrink" buttonStyle="transparent"
                 onClick={(e: any) => {
                     e.preventDefault();
-                    clear(data.wordpress_id);
+                    clear(data.id);
                 }}>
                 <ImageSVG path='/svg/clear_cart.svg' height="25px" width="25px" />
             </Button>

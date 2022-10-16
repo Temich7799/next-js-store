@@ -39,7 +39,7 @@ const LanguagesList = styled.ul<any>`
     }
 
     @media (min-width: ${props => props.minDesktopWidth}px) {
-        animation: ${SlideDownAnimation} 100ms forwards;
+        /*animation: ${SlideDownAnimation} 100ms forwards;*/
     }
     position: relative;
     display: flex;

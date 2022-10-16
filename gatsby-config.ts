@@ -23,7 +23,7 @@ const config: GatsbyConfig = {
       options: {
         "url": process.env.WP_GRAPHQL_URL,
         schema: {
-          timeout: 50000
+          timeout: 100000
         }
       }
     },

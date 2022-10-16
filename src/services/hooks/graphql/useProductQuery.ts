@@ -6,7 +6,7 @@ type ProductQueryResult = {
     error: boolean
 }
 
-export function useProductQuery(productId: number | undefined): ProductQueryResult {
+export function useProductQuery(productId: string | undefined): ProductQueryResult {
 
     const [data, setData] = useState();
     const [error, setError] = useState<boolean>(false);

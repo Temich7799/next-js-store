@@ -4,30 +4,10 @@ import { useShoppingCartVar } from "../../../../services/hooks/apollo/useShoppin
 import OrderFinal from "./OrderFinal";
 import PurchasedProducts from "./PurchasedProducts";
 import { LangContext } from "../../../Layouts/Layout";
+import { ProductInCart } from "../../../../types/InterfaceProduct";
 
 type OrderDetailsProps = {
     isOrderSending?: boolean
-}
-
-type PurchasedProduct = {
-    name: string
-    slug: string
-    sku: string
-    price: string
-    sale_price: string
-    stock_quantity: number | null
-    stock_status: string
-    image: {
-        alt: string
-        src: string
-    }
-    images: [{
-        alt: string
-        localFile: any
-    }]
-    wordpress_id: number
-    id: string
-    quantity: number
 }
 
 const StyledOrderDetails = styled.form`
@@ -57,8 +37,13 @@ const OrderDetails = (props: OrderDetailsProps) => {
 
     const { data } = useShoppingCartVar();
 
-    const [shoppingCartProductsData, setShoppingCartProductsData] = useState<object | any>();
-    useEffect(() => { data && setShoppingCartProductsData(Object.values(data)) }, [data]);
+    const [shoppingCartProductsData, setShoppingCartProductsData] = useState<Array<ProductInCart> | undefined>();
+    useEffect(() => {
+        if (data) {
+            const inCartProducts: Array<ProductInCart> = Object.values(data)
+            setShoppingCartProductsData(inCartProducts)
+        }
+    }, [data]);
 
     return (
         <StyledOrderDetails id="order_details">

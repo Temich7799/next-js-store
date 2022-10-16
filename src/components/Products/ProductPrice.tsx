@@ -4,8 +4,8 @@ import { LangContext } from "../Layouts/Layout";
 import LoadingSpinner from "../LoadingBars/LoadingSpinner";
 
 type ProductPriceProps = {
-    price: string
-    salePrice: string
+    price: string | undefined
+    salePrice: string | undefined | null
     isPriceLoading?: boolean
     showTitle?: boolean
 }
@@ -49,13 +49,10 @@ const ProductPrice = (props: ProductPriceProps) => {
                 isPriceLoading
                     ? <LoadingSpinner size="15%" />
                     :
-                    <>
-                        {
-                            salePrice.length > 0
-                                ? <p><OldPrice>{price}{" "}</OldPrice><SalePrice>{" "}{salePrice}</SalePrice> грн</p>
-                                : <p>{price} грн</p>
-                        }
-                    </>
+                    salePrice && salePrice.length > 0
+                        ? <p><OldPrice>{price}{" "}</OldPrice><SalePrice>{" "}{salePrice}</SalePrice> грн</p>
+                        : <p>{price} грн</p>
+
             }
         </StyledProductPrice>
     )

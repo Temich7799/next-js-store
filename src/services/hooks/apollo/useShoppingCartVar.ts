@@ -1,31 +1,26 @@
 import { makeVar, useReactiveVar } from "@apollo/client";
 import { useEffect } from "react";
-interface PurchasedProductProps {
-    name: string
-    sku: string
-    price: string
-    sale_price: string
-    stock_status: string
-    stock_quantity: number | null
-    image: {
-        alt: string
-        src: string
-    }
-    wordpress_id: number
-    id?: string
-    quantity?: number
+import { ProductFetched, ProductInCart } from "../../../types/InterfaceProduct";
+
+type Result = {
+    data: any
+    add: (productId: string, product: ProductFetched) => void
+    decrease: (productId: string) => void
+    clear: (productId: string) => void
+    update: (productId: string, product: ProductFetched) => void
+    isInTheCart(productId: string): boolean
 }
 
 export const shoppingCartVar: any = makeVar({});
 
-export function useShoppingCartVar() {
+export function useShoppingCartVar(): Result {
 
     useEffect(() => {
         const localStorage = window.localStorage.getItem('purchased-products');
         localStorage && shoppingCartVar(JSON.parse(localStorage));
     }, []);
 
-    const addToCart = (productId: number, product: PurchasedProductProps): void => {
+    const addToCart = (productId: string, product: ProductFetched): void => {
 
         const currentVar = { ...shoppingCartVar() };
 
@@ -46,9 +41,9 @@ export function useShoppingCartVar() {
         saveToLocalStorage();
     }
 
-    const decreaseQuantity = (productId: number): void => {
+    const decreaseQuantity = (productId: string): void => {
 
-        const newVar: any = { ...shoppingCartVar() };
+        const newVar = { ...shoppingCartVar() };
 
         if (newVar[productId].quantity > 1) {
             newVar[productId].quantity--;
@@ -58,7 +53,7 @@ export function useShoppingCartVar() {
         saveToLocalStorage();
     }
 
-    const clearCart = (productId: number): void => {
+    const clearCart = (productId: string): void => {
 
         const newVar: any = { ...shoppingCartVar() };
         delete newVar[productId];
@@ -67,7 +62,7 @@ export function useShoppingCartVar() {
         saveToLocalStorage();
     }
 
-    const updateCart = (productId: number, product: PurchasedProductProps) => {
+    const updateCart = (productId: string, product: ProductFetched) => {
 
         const newVar: any = { ...shoppingCartVar() };
 
@@ -80,7 +75,7 @@ export function useShoppingCartVar() {
         }
     }
 
-    const checkForTheProduct = (productId: number): boolean => {
+    function checkForTheProduct(productId: string): boolean {
         return shoppingCartVar().hasOwnProperty(productId);
     }
 
@@ -89,12 +84,12 @@ export function useShoppingCartVar() {
     }
 
     return {
+        data: useReactiveVar(shoppingCartVar),
         add: addToCart,
         decrease: decreaseQuantity,
         clear: clearCart,
         update: updateCart,
-        data: <any>useReactiveVar(shoppingCartVar),
-        isInTheCart: checkForTheProduct
+        isInTheCart: checkForTheProduct,
     }
 }
 

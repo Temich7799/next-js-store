@@ -1,15 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { ProductPageContext } from "../../Content/ProductPageContent"
 
 type ProductGalleryCarouselProps = {
-    data: [
-        {
-            alt: string
-            src: string
-            localFile?: any
-        }
-    ]
     selectedImage: number
     setSelectedImage: any
 }
@@ -58,15 +52,17 @@ const ProductGalleryCarouselImage = styled.div<any>`
 
 const ProductGalleryCarousel = (props: ProductGalleryCarouselProps) => {
 
-    const { data, setSelectedImage, selectedImage } = props;
+    const { images } = useContext(ProductPageContext);
+
+    const { setSelectedImage, selectedImage } = props;
 
     return (
         <StyledProductGalleryCarousel>
             {
-                data.map((image, index) =>
+                images.map((image, index) =>
                     <ProductGalleryCarouselImage
-                        isSelected={data.indexOf(image) == selectedImage && true}
-                        onClick={() => { setSelectedImage(data.indexOf(image)) }}
+                        isSelected={images.indexOf(image) == selectedImage && true}
+                        onClick={() => { setSelectedImage(images.indexOf(image)) }}
                         key={index}
                     >
                         {

@@ -1,8 +1,9 @@
 import { ApolloError, gql, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
+import { ProductFetched } from "../../../types/InterfaceProduct";
 
 type ProductQueryResult = {
-    data: any | undefined
+    data: [ProductFetched] | undefined
     loading: boolean
     error: ApolloError | undefined
 }
@@ -14,14 +15,13 @@ export function useQueryProductsOnScroll(categoryId: string): ProductQueryResult
 
     const [makeQuery, { loading, error, data, fetchMore }] = useLazyQuery(gql`
     
-        query getAllWpProducts($params: WC_ProductParams) {
+        query fetchWcProducts($params: WC_ProductParams) {
             allWcProducts(params: $params) {
                 name
                 id
                 price
                 sku
                 stock_quantity
-                stock_status
                 sale_price
                 images {
                     alt
@@ -36,7 +36,7 @@ export function useQueryProductsOnScroll(categoryId: string): ProductQueryResult
 
     useEffect(() => {
 
-        setFetchLimit(Math.floor((window.innerHeight * window.innerWidth) / 10000));
+        setFetchLimit(Math.floor((window.innerHeight * window.innerWidth) / 20000));
 
         makeQuery({
             variables: {
@@ -44,10 +44,10 @@ export function useQueryProductsOnScroll(categoryId: string): ProductQueryResult
                     category: categoryId,
                     stock_status: 'instock',
                     status: 'publish',
-                    per_page: Math.floor((window.innerHeight * window.innerWidth) / 10000),
+                    per_page: Math.floor((window.innerHeight * window.innerWidth) / 20000),
                     offset: fetchOffset
                 }
-            }
+            },
         }).then((response) => {
             setFetchOffset(response.data.allWcProducts.length + fetchOffset);
         });

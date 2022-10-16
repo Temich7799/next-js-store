@@ -7,16 +7,18 @@ import NotFoundPageContent from "../../Content/NotFoundPageContent";
 require('../../../styles/wp.css');
 
 type PostPageLayoutProps = {
-  data: {
-    multilangWpPage: {
-      content: {
-        rendered: string
-      }
-      title: {
-        rendered: string
-      }
-      language: string
-    }
+  pageContext: {
+    data: PostPageData,
+    language: string
+  }
+}
+
+type PostPageData = {
+  content: {
+    rendered: string
+  }
+  title: {
+    rendered: string
   }
 }
 
@@ -32,15 +34,15 @@ const Content = styled.div`
 
 const PostPageLayout = (props: PostPageLayoutProps) => {
 
-  const { data } = props;
+  const { data, language } = props.pageContext;
 
   return (
-    <Layout language={data.multilangWpPage.language}>
+    <Layout language={language}>
       <>
-        <PageTitle>{data.multilangWpPage.title.rendered}</PageTitle>
+        <PageTitle>{data.title.rendered}</PageTitle>
         {
-          (data.multilangWpPage.content.rendered)
-            ? <Content dangerouslySetInnerHTML={{ __html: data.multilangWpPage.content.rendered }} />
+          (data.content.rendered)
+            ? <Content dangerouslySetInnerHTML={{ __html: data.content.rendered }} />
             : <NotFoundPageContent />
         }
       </>
@@ -48,24 +50,6 @@ const PostPageLayout = (props: PostPageLayoutProps) => {
   )
 }
 
-export default PostPageLayout
-
-export const query = graphql`
-query ($pageId: Int!, $language: LanguagesEnum) {
-    multilangWpPage(pageId: $pageId, language: $language) {
-      title {
-        rendered
-      }
-      content {
-        rendered
-      }
-      language
-    }
-
-    allMultilangWcProducts(params: {per_page: 1}, language: $language) {
-      language
-    }
-  } 
-`
+export default PostPageLayout;
 
 
