@@ -1,6 +1,9 @@
 const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
 
-const wooCommerceQuery = (endpoint, params, method = 'get', languagePrefix = '', callback) => {
+async function wooCommerceQuery(endpoint, params, method = 'get', languagePrefix = '', callback) {
+
+    if (!params.per_page) params.per_page = 10000;
+    if (!params.offset) params.offset = 0;
 
     const query = new WooCommerceRestApi({
         url: `${process.env.WP_URL}/${languagePrefix}`,
@@ -9,18 +12,39 @@ const wooCommerceQuery = (endpoint, params, method = 'get', languagePrefix = '',
         version: process.env.WC_VERSION
     });
 
-    return query[method](endpoint, params).then((response) => {
+    const data = await makeBatchQuery();
 
-        Array.isArray(response.data)
-            ? response.data.forEach(key => {
-                key.language = languagePrefix ? languagePrefix : 'ru';
-            })
-            : response.data.language = languagePrefix ? languagePrefix : 'ru';
+    Array.isArray(data)
+        ? data.forEach(key => {
+            key.language = languagePrefix ? languagePrefix : 'ru';
+        })
+        : data.language = languagePrefix ? languagePrefix : 'ru';
 
-        return callback
-            ? callback(response.data)
-            : response.data
-    });
+    return callback
+        ? callback(data)
+        : data
+
+
+    async function makeBatchQuery(limit = params.per_page, offset = params.offset, mergeArray = []) {
+
+        const remains = limit - offset;
+
+        params.offset = offset;
+        params.per_page = remains < 100 ? remains : 100;
+
+        return query[method](endpoint, params).then(response => {
+
+            if (response.data && response.data.length > 0) {
+
+                mergeArray = [...mergeArray, ...response.data];
+
+                offset += 100;
+
+                return offset >= limit ? mergeArray : makeBatchQuery(limit, offset, mergeArray);
+            }
+            else return mergeArray;
+        });
+    }
 }
 
 module.exports = wooCommerceQuery;
