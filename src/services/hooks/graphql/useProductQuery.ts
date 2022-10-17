@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
+import { Product } from "../../../interfaces/InterfaceProduct";
 
 type ProductQueryResult = {
-    data: any
+    data: Product | undefined
     loading: boolean
     error: boolean
 }
 
-export function useProductQuery(productId: string | undefined): ProductQueryResult {
+export function useProductQuery(productId: number | undefined): ProductQueryResult {
 
     const [data, setData] = useState();
     const [error, setError] = useState<boolean>(false);

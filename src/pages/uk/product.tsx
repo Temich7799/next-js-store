@@ -32,7 +32,7 @@ const ProductClientPage = () => {
                                 <ContainerCentered>
                                     <LoadingBar />
                                 </ContainerCentered>
-                                : <ProductPageContent data={data} relatedProductsIds={data.relatedProductsIds} />
+                                : <ProductPageContent data={data} />
                         }
                     </Layout>
             }

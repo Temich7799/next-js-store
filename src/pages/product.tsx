@@ -13,8 +13,8 @@ const ProductClientPage = () => {
     const { data, loading, error } = useProductQuery(productId);
 
     useEffect(() => {
-        setProductId(parseProductIdFromUrl())
-    }, [])
+        setProductId(parseProductIdFromUrl());
+    }, []);
 
     function parseProductIdFromUrl(): number {
         return parseInt(window.document.location.search.split('=')[1]);
@@ -32,7 +32,7 @@ const ProductClientPage = () => {
                                 <ContainerCentered>
                                     <LoadingBar />
                                 </ContainerCentered>
-                                : <ProductPageContent data={data} relatedProductsIds={data.relatedProductsIds} />
+                                : <ProductPageContent data={data} />
                         }
                     </Layout>
             }
