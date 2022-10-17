@@ -8,6 +8,7 @@ const WC_Product = `#graphql
         description: String
         price: String
         sale_price: String
+        status: String
         stock_status: String
         stock_quantity: Int
         attributes: [wpWcProductAttributes]

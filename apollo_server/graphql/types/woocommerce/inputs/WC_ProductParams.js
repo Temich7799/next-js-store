@@ -3,7 +3,7 @@ const WC_ProductParams = `#graphql
         orderby: String
         offset: Int
         per_page: Int
-        include: [Int]
+        include: [String]
         stock_status: StockStatusesEnum
         status: PublishStatusesEnum
         category: String
