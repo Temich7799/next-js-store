@@ -4,7 +4,7 @@ import ContinueShoppingButton from "../../../Buttons/ContinueShoppingButton";
 import SendOrderButton from "../../../Buttons/SendOrderButton";
 import GoToCartButton from "../../../Buttons/GoToCartButton";
 import { LangContext } from "../../../Layouts/Layout";
-import { ProductInCart } from "../../../../types/InterfaceProduct";
+import { ProductInCart } from "../../../../interfaces/InterfaceProduct";
 
 type OrderFinalProps = {
     data: Array<ProductInCart> | undefined

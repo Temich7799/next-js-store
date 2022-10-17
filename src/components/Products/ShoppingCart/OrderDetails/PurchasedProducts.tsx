@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
-import { ProductInCart } from "../../../../types/InterfaceProduct"
+import { ProductInCart } from "../../../../interfaces/InterfaceProduct"
 import { LangContext } from "../../../Layouts/Layout"
 import PurchasedProduct from "./PurchasedProduct"
 

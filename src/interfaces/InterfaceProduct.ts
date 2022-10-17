@@ -6,7 +6,6 @@ export interface ProductBase {
         {
             src: string
             alt: string
-            localFile?: null | any
         }
     ]
     categories: [

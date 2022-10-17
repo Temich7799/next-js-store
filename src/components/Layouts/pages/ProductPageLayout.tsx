@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../Layout";
 import ProductPageContent from "../../Content/ProductPageContent";
-import { ProductGatsby } from "../../../types/InterfaceProduct";
+import { ProductGatsby } from "../../../interfaces/InterfaceProduct";
 
 type ProductPageLayoutProps = {
     pageContext: {

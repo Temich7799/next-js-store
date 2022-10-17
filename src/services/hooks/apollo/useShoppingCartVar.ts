@@ -1,6 +1,6 @@
 import { makeVar, useReactiveVar } from "@apollo/client";
 import { useEffect } from "react";
-import { ProductFetched, ProductInCart } from "../../../types/InterfaceProduct";
+import { ProductFetched, ProductInCart } from "../../../interfaces/InterfaceProduct";
 
 type Result = {
     data: any

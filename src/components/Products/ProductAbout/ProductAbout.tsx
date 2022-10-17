@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { ProductGatsby } from "../../../types/InterfaceProduct";
+import { ProductGatsby } from "../../../interfaces/InterfaceProduct";
 import { ProductPageContext } from "../../Content/ProductPageContent";
 import ProductAttributes from "./ProductAttributes";
 import ProductBuy from "./ProductBuy";

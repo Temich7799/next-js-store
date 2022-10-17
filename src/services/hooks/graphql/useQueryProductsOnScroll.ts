@@ -1,6 +1,6 @@
 import { ApolloError, gql, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { ProductFetched } from "../../../types/InterfaceProduct";
+import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 
 type ProductQueryResult = {
     data: [ProductFetched] | undefined

@@ -7,7 +7,7 @@ import Carousel from "../Carousel";
 import ProductThumb from "../Products/Thumbs/ProductThumb";
 import { LangContext } from "../Layouts/Layout";
 import { useRelatedProducts } from "../../services/hooks/graphql/useRelatedProducts";
-import { ProductFetched, ProductGatsby } from "../../types/InterfaceProduct";
+import { ProductFetched, ProductGatsby } from "../../interfaces/InterfaceProduct";
 
 type ProductPageContentProps = {
     data: ProductGatsby
@@ -38,7 +38,7 @@ const ProductPageContent = (props: ProductPageContentProps) => {
     return (
         <ProductPageContext.Provider value={data}>
             <StyledProductsListPageContent>
-                <ProductGallery />
+                <ProductGallery compImages={compImages} />
                 <ProductAbout />
                 <ProductDescription />
                 {

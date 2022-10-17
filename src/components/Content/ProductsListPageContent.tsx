@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { useQueryProductsOnScroll } from "../../services/hooks/graphql/useQueryProductsOnScroll";
 import ContainerCentered from "../../styles/ContainerCentered";
-import { ProductFetched } from "../../types/InterfaceProduct";
+import { ProductFetched } from "../../interfaces/InterfaceProduct";
 import InfoLayout from "../Layouts/InfoLayout";
 import { LangContext } from "../Layouts/Layout";
 import LoadingBar from "../LoadingBars/LoadingBar";

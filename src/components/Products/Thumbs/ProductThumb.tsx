@@ -6,7 +6,7 @@ import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/apollo/useShoppingCartVar";
 import { useLastProductPageVar } from "../../../services/hooks/apollo/useLastProductPageVar";
 import { LangContext } from "../../Layouts/Layout";
-import { ProductFetched } from "../../../types/InterfaceProduct";
+import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 
 type ProductProps = {
     data: ProductFetched

@@ -5,7 +5,7 @@ import useUpdatedProduct from "../../../../services/hooks/useUpdatedProduct"
 import ProductPrice from "../../ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
 import { LangContext } from "../../../Layouts/Layout"
-import { ProductInCart } from "../../../../types/InterfaceProduct"
+import { ProductInCart } from "../../../../interfaces/InterfaceProduct"
 
 type PurchasedProductProps = {
     data: ProductInCart

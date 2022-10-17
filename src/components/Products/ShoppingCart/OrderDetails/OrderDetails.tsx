@@ -4,7 +4,7 @@ import { useShoppingCartVar } from "../../../../services/hooks/apollo/useShoppin
 import OrderFinal from "./OrderFinal";
 import PurchasedProducts from "./PurchasedProducts";
 import { LangContext } from "../../../Layouts/Layout";
-import { ProductInCart } from "../../../../types/InterfaceProduct";
+import { ProductInCart } from "../../../../interfaces/InterfaceProduct";
 
 type OrderDetailsProps = {
     isOrderSending?: boolean

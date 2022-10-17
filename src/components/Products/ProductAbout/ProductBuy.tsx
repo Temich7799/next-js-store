@@ -7,7 +7,7 @@ import { ProductPageContext } from "../../Content/ProductPageContent";
 import ProductBuyButton from "../../Buttons/ProductBuyButton";
 import PurchasedProductQuantity from "../ShoppingCart/OrderDetails/PurchasedProductQuantity";
 import GoToCartButton from "../../Buttons/GoToCartButton";
-import { ProductGatsby } from "../../../types/InterfaceProduct";
+import { ProductGatsby } from "../../../interfaces/InterfaceProduct";
 
 const StyledProductBuy = styled.div`
     width: fit-content;
