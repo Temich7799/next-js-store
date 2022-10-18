@@ -1,9 +1,10 @@
+import { graphql, useStaticQuery } from "gatsby";
 import React from "react"
 import styled from "styled-components";
 import PageTitle from "../PageTitle";
 
-type IndexPageContentProps = {
-    data: {
+type IndexPageContentData = {
+    wpPage: {
         content: string
         title: string
     }
@@ -19,13 +20,19 @@ const StyledIndexPageContent = styled.div`
     padding: 2.5%;
 `;
 
-const IndexPageContent = (props: IndexPageContentProps) => {
+const IndexPageContent = () => {
 
-    const { data } = props;
+    const { wpPage: data }: IndexPageContentData = useStaticQuery(graphql`
+        query getHomePage {
+            wpPage(slug: {eq: "home"}) {
+                content
+                title
+            }
+        }
+    `);
 
     return (
         <>
-            <PageTitle>{data.title}</PageTitle>
             <StyledIndexPageContent dangerouslySetInnerHTML={{ __html: data.content }} />
         </>
     )

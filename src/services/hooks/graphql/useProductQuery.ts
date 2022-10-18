@@ -1,68 +1,53 @@
+import { ApolloError, gql, useLazyQuery, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { Product } from "../../../interfaces/InterfaceProduct";
 
 type ProductQueryResult = {
     data: Product | undefined
     loading: boolean
-    error: boolean
+    error: ApolloError | undefined
 }
 
 export function useProductQuery(productId: number | undefined): ProductQueryResult {
 
-    const [data, setData] = useState();
-    const [error, setError] = useState<boolean>(false);
+    const [getWcProduct, { data, loading, error }] = useLazyQuery(gql`
+        query getWcProduct($productId: Int!) {
+            wpWcProduct(productId: $productId) {
+                name
+                sku
+                price
+                sale_price
+                stock_quantity
+                stock_status    
+                description
+                related_ids
+                id
+                attributes {
+                    options
+                    name
+                }
+                images {
+                    alt
+                    src
+                }
+                categories {
+                    slug
+                }
+            }
+        }`,
+        {
+            variables: {
+                productId: productId
+            }
+        })
 
     useEffect(() => {
-        productId && fetch(process.env.GATSBY_APOLLO_SERVER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                query: `
-                    query getWpProduct($productId: Int!) {
-                        wpWcProduct(productId: $productId) {
-                            name
-                            sku
-                            price
-                            sale_price
-                            stock_quantity
-                            stock_status    
-                            description
-                            related_ids
-                            id
-                            attributes {
-                                options
-                                name
-                            }
-                            images {
-                                alt
-                                src
-                            }
-                            categories {
-                                slug
-                            }
-                        }
-                    }
-                `,
-                variables: {
-                    productId: productId
-                }
-            }),
-        })
-            .then((response) => response.json())
-            .then((result) => {
-                setData(result.data.wpWcProduct);
-                setError(false);
-            })
-            .catch(() => {
-                setError(true);
-            })
-    }, [productId]);
+        getWcProduct();
+    }, []);
 
     return {
-        data,
-        loading: !data && error === false ? true : false,
-        error,
+        data: data && data.wpWcProduct,
+        loading: loading,
+        error: error,
     }
 }

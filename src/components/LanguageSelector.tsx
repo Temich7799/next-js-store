@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import styled, { keyframes } from "styled-components";
 import ImageSVG from "./ImageSVG";
 import { LangContext } from "./Layouts/Layout";
@@ -62,18 +62,20 @@ const Language = styled.li<any>`
     }
 `;
 
-const LanguageSelector = () => {
+const LanguageSelector = (props: any) => {
 
     const languages = ['RU', 'UK', 'EN'];
     const { language, langPrefix } = useContext(LangContext);
     const selectedLanguage = language.toLocaleUpperCase();
-
+    
     function onClickHandler(language: string) {
 
         const origin = document.location.origin;
         const newPrefix = language === 'RU' ? '' : `/${language}`.toLowerCase();
+        const search = document.location.search;
         const path = langPrefix !== '' ? '/' + document.location.pathname.split(langPrefix)[1] : document.location.pathname;
-        document.location = origin + newPrefix + path;
+
+        document.location = origin + newPrefix + path + search;
     }
 
     return (

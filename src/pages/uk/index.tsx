@@ -3,24 +3,13 @@ import Layout from "../../components/Layouts/Layout";
 import { graphql } from "gatsby"
 import IndexPageContent from "../../components/Content/IndexPageContent";
 
-const IndexPage = (props: any) => {
-
-  const { data } = props;
+const IndexPage = () => {
 
   return (
     <Layout language="uk">
-      <IndexPageContent data={data.wpPage} />
+      <IndexPageContent />
     </Layout>
   )
 }
 
-export default IndexPage
-
-export const query = graphql`
-  query getHomePage {
-    wpPage(slug: {eq: "home"}) {
-      content
-      title
-    }
-  }
-`;
+export default IndexPage;

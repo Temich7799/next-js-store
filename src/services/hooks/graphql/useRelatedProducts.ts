@@ -8,7 +8,7 @@ type RelatedProductsQueryResult = {
     error: ApolloError | undefined
 }
 
-export function useRelatedProducts(relatedProductsIds: Array<string> | undefined): RelatedProductsQueryResult {
+export function useRelatedProducts(relatedProductsIds: Array<string>): RelatedProductsQueryResult {
 
     const [getAllWcRelatedProducts, { loading, error, data }] = useLazyQuery(gql`
         
@@ -32,7 +32,7 @@ export function useRelatedProducts(relatedProductsIds: Array<string> | undefined
     `);
 
     useEffect(() => {
-        relatedProductsIds && getAllWcRelatedProducts(
+        getAllWcRelatedProducts(
             {
                 variables: {
                     params: {
@@ -42,7 +42,7 @@ export function useRelatedProducts(relatedProductsIds: Array<string> | undefined
                     }
                 }
             })
-    }, [relatedProductsIds]);
+    }, []);
 
     return {
         data: data ? data.allWcProducts : data,

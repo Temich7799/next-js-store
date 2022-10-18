@@ -11,7 +11,7 @@ import { ProductFetched, ProductGatsby } from "../../interfaces/InterfaceProduct
 
 type ProductPageContentProps = {
     data: ProductGatsby
-    compImages: object | any
+    compImages?: any | undefined
 }
 
 const StyledProductsListPageContent = styled.div`
@@ -24,7 +24,7 @@ const StyledProductsListPageContent = styled.div`
     padding: 5%;
 `;
 
-export const ProductPageContext: React.Context<ProductGatsby> = createContext({});
+export const ProductPageContext: React.Context<ProductGatsby | undefined> = createContext({});
 
 const ProductPageContent = (props: ProductPageContentProps) => {
 
@@ -33,7 +33,7 @@ const ProductPageContent = (props: ProductPageContentProps) => {
 
     const { data, compImages } = props;
 
-    const { data: relatedProductsData, loading } = useRelatedProducts(data.related_ids);
+    const { data: relatedProductsData, loading } = useRelatedProducts(data && data.related_ids);
 
     return (
         <ProductPageContext.Provider value={data}>
@@ -42,12 +42,12 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                 <ProductAbout />
                 <ProductDescription />
                 {
-                    data.related_ids.length > 0 &&
+                    data && data.related_ids.length > 0 &&
                     <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} isDataFetching={loading} carouselItemMax={3}>
                         {
                             relatedProductsData !== undefined && relatedProductsData.map((product: ProductFetched) => {
 
-                                const gatsbyImagePath = compImages[parseInt(product.id)];
+                                const gatsbyImagePath = compImages ? compImages[parseInt(product.id)] : undefined;
 
                                 return <ProductThumb data={product} gatsbyImagePath={gatsbyImagePath} key={product.id} />
                             })
