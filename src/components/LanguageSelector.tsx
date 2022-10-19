@@ -14,12 +14,13 @@ const SlideDownAnimation = keyframes`
 `;
 
 const StyledLanguageSelector = styled.div<any>`
-
-    @media (min-width: ${props => props.minDesktopWidth}px) {
-        :hover {
-            ul {
-                visibility: visible;
-                animation: ${SlideFromUpAnimation} 100ms;
+    @media (hover: hover) and (pointer: fine) {
+        @media (min-width: ${props => props.minDesktopWidth}px) {
+            :hover {
+                ul {
+                    visibility: visible;
+                    animation: ${SlideFromUpAnimation} 100ms;
+                }
             }
         }
     }
@@ -57,8 +58,10 @@ const Language = styled.li<any>`
     `};
 
     list-style: none;
-    :hover {
-        cursor: pointer
+    @media (hover: hover) and (pointer: fine) {
+        :hover {
+            cursor: pointer
+        }
     }
 `;
 

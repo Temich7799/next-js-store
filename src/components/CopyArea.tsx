@@ -19,12 +19,14 @@ const StyledCopyArea = styled.div`
         border-radius: 15px;
         opacity:0;
     }
-    :hover {
-        .CopyAreaOnHover {
-            background-color: rgba(0,0,0,0.2);
-            opacity: 1;
-            transition: 250ms;
-            transform: scale(1.1);
+    @media (hover: hover) and (pointer: fine) {
+        :hover {
+            .CopyAreaOnHover {
+                background-color: rgba(0,0,0,0.2);
+                opacity: 1;
+                transition: 250ms;
+                transform: scale(1.1);
+            }
         }
     }
     :active {

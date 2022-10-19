@@ -8,9 +8,11 @@ const StyledSelectOption = styled.option<any>`
     padding: 7px 15px;
     color: #393939;
     border-bottom: #c7cbcf 1px solid;
-    :hover {
-        cursor: pointer;
-        background-color: #eeeded;
+    @media (hover: hover) and (pointer: fine) {
+        :hover {
+            cursor: pointer;
+            background-color: #eeeded;
+        }
     }
 `;
 

@@ -28,9 +28,11 @@ function buttonStylePropsHandler(style: string | undefined) {
             return `
             border: none;
             background: none;
-            :hover {
-                box-shadow: none;
-                transform: scale(1.1);
+            @media (hover: hover) and (pointer: fine) {
+                :hover {
+                    box-shadow: none;
+                    transform: scale(1.1);
+                }
             }
         `;
         case "accent":
@@ -55,13 +57,17 @@ const StyledButton = styled.button<any>`
     justify-content: space-around;
     align-items: center;
     cursor: pointer;
-    :hover {
-        box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
+    @media (hover: hover) and (pointer: fine) {
+        :hover {
+            box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
+        }
     }
     :disabled{
         filter: grayscale(100%);
-        :hover{
-            box-shadow: none;
+        @media (hover: hover) and (pointer: fine) {
+            :hover{
+                box-shadow: none;
+            }
         }
     }
     ${(props) => buttonSizePropsHandler(props.buttonSize)}
