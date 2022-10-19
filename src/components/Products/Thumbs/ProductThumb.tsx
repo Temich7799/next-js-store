@@ -43,6 +43,7 @@ const ProductCaption = styled.div`
     align-items: center;
     justify-content: space-around;
     p {
+        text-align: left;
         margin: 0;
     }
 `;

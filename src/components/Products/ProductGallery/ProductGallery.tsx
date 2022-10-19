@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import styled from "styled-components"
+import { ProductPageContext } from "../../Content/ProductPageContent";
 import ProductGalleryCarousel from "./ProductGalleryCarousel";
 import ProductGallerySelectedImage from "./ProductGallerySelectedImage";
 
@@ -17,6 +18,8 @@ const StyledProductGallery = styled.div`
 
 const ProductGallery = (props: ProductGalleryProps) => {
 
+    const { images, id } = useContext(ProductPageContext);
+
     const { compImages } = props;
 
     const [selectedImage, setSelectedImage] = useState(0);
@@ -24,7 +27,7 @@ const ProductGallery = (props: ProductGalleryProps) => {
     return (
         <StyledProductGallery>
             <ProductGallerySelectedImage selectedImage={selectedImage} />
-            <ProductGalleryCarousel data={compImages} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
+            <ProductGalleryCarousel data={images} productId={id} compImages={compImages} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
         </StyledProductGallery>
     )
 }

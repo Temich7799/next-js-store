@@ -1,9 +1,10 @@
-import React, { useContext } from "react"
+import React from "react"
 import styled from "styled-components"
-import { ProductPageContext } from "../../Content/ProductPageContent"
 
 type ProductGalleryCarouselProps = {
-    data?: any | undefined
+    data: Array<any>
+    productId: string
+    compImages: any | object | undefined
     selectedImage: number
     setSelectedImage: any
 }
@@ -49,20 +50,18 @@ const ProductGalleryCarouselImage = styled.div<any>`
 
 const ProductGalleryCarousel = (props: ProductGalleryCarouselProps) => {
 
-    const { images, id } = useContext(ProductPageContext);
-
-    const { data, setSelectedImage, selectedImage } = props;
+    const { data, productId, compImages, setSelectedImage, selectedImage } = props;
 
     return (
         <StyledProductGalleryCarousel>
             {
-                images.map((image, index) =>
+                data.map((image, index) =>
                     <ProductGalleryCarouselImage
-                        isSelected={images.indexOf(image) == selectedImage && true}
-                        onClick={() => { setSelectedImage(images.indexOf(image)) }}
+                        isSelected={data.indexOf(image) == selectedImage && true}
+                        onClick={() => { setSelectedImage(data.indexOf(image)) }}
                         key={index}
                     >
-                        <img src={data && data[id].length > 1 && data[id][index] ? data[id][index] : image.src} alt={image.alt} />
+                        <img src={compImages && compImages[productId] && compImages[productId].length > 1 && compImages[productId][index] ? compImages[productId][index] : image.src} alt={image.alt} />
                     </ProductGalleryCarouselImage>
                 )
             }
