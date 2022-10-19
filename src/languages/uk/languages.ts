@@ -9,8 +9,10 @@ export const PRODUCT_SKU = 'Артикул';
 export const PRODUCT_SKU_EMPTY = 'Не вказаний';
 export const PRODUCT_DESCRIPTION_TITLE = 'Опис';
 export const PRODUCT_PRICE_TITLE = 'Ціна';
+export const PRODUCT_PRICE_EMPTY = 'Не вказана';
 export const PRODUCT_BUY_BUTTON_TITLE = 'Купити';
 export const PRODUCT_OUT_OF_STOCK_BUTTON_TITLE = 'Нема в наявності';
+export const CURRENCY = 'грн';
 
 export const CATEGORY_THUMB_BUTTON = 'Дивитись всіх';
 

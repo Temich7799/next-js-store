@@ -34,8 +34,10 @@ const typeDefs = gql`#graphql
         allWcShippingZonesMethods(zoneId: Int): [WC_ShippingMethod!]!
         allWcPaymentMethods: [WC_PaymentMethod!]!
 
+        wpPage(pageId: Int!, language: LanguagesEnum): WP_Page!
+        wpPost(postId: Int!, language: LanguagesEnum): WP_Page!
         wpWcOrder(productId: Int!): WpWcOrder! ###########
-        wpWcProduct(productId: Int!): WC_Product! ###########
+        wpWcProduct(productId: Int!, language: LanguagesEnum): WC_Product! ###########
     }
 
     type Mutation {

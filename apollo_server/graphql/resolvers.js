@@ -87,8 +87,10 @@ const resolvers = {
                 return result;
             }),
 
+        wpPage: (_, { language, pageId }) => wordpressQuery(`pages/${pageId}`, { language: language }),
+        wpPost: (_, { language, postId }) => wordpressQuery(`posts/${postId}`, { language: language }),
         wpWcOrder: (_, { productId }) => wooCommerceQuery(`orders/${productId}`),
-        wpWcProduct: (_, { productId }) => wooCommerceQuery(`products/${productId}`),
+        wpWcProduct: (_, { productId, language }) => wooCommerceQuery(`products/${productId}`, undefined, 'get', language),
 
     },
     Mutation: {

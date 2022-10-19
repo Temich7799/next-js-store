@@ -36,9 +36,11 @@ const SalePrice = styled.span`
 const ProductPrice = (props: ProductPriceProps) => {
 
     const { language } = useContext(LangContext);
-    const { PRODUCT_PRICE_TITLE } = require(`../../languages/${language}/languages`);
+    const { PRODUCT_PRICE_TITLE, PRODUCT_PRICE_EMPTY, CURRENCY } = require(`../../languages/${language}/languages`);
 
     let { price, salePrice, isPriceLoading = false, showTitle = true } = props;
+
+    const emptyPrice = price === '' ? PRODUCT_PRICE_EMPTY : undefined;
 
     return (
         <StyledProductPrice showTitle={showTitle}>
@@ -50,8 +52,8 @@ const ProductPrice = (props: ProductPriceProps) => {
                     ? <LoadingSpinner size="15%" />
                     :
                     salePrice && salePrice.length > 0
-                        ? <p><OldPrice>{price}{" "}</OldPrice><SalePrice>{" "}{salePrice}</SalePrice> грн</p>
-                        : <p>{price} грн</p>
+                        ? <p><OldPrice>{!emptyPrice ? price : emptyPrice}{" "}</OldPrice><SalePrice>{" "}{salePrice}</SalePrice> {!emptyPrice && CURRENCY}</p>
+                        : <p>{!emptyPrice ? price : emptyPrice} {!emptyPrice && CURRENCY}</p>
 
             }
         </StyledProductPrice>

@@ -1,12 +1,14 @@
-import { graphql, useStaticQuery } from "gatsby";
-import React from "react"
+import { gql, useQuery } from "@apollo/client";
+import React, { useContext } from "react"
 import styled from "styled-components";
+import { LangContext } from "../Layouts/Layout";
 import PageTitle from "../PageTitle";
 
 type IndexPageContentData = {
     wpPage: {
-        content: string
-        title: string
+        content: {
+            rendered: string
+        }
     }
 }
 
@@ -22,18 +24,29 @@ const StyledIndexPageContent = styled.div`
 
 const IndexPageContent = () => {
 
-    const { wpPage: data }: IndexPageContentData = useStaticQuery(graphql`
-        query getHomePage {
-            wpPage(slug: {eq: "home"}) {
-                content
-                title
+    const { language } = useContext(LangContext);
+
+    const { data } = useQuery(gql`
+        query getHomePage($language: LanguagesEnum) {
+            wpPage(pageId: 25, language: $language) {
+                content {
+                    rendered
+                }
             }
         }
-    `);
+    `,
+        {
+            variables: {
+                language: language
+            }
+        }
+    );
 
     return (
         <>
-            <StyledIndexPageContent dangerouslySetInnerHTML={{ __html: data.content }} />
+            {
+                data && <StyledIndexPageContent dangerouslySetInnerHTML={{ __html: data.wpPage.content.rendered }} />
+            }
         </>
     )
 

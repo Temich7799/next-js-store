@@ -1,12 +1,12 @@
 const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
 
-async function wooCommerceQuery(endpoint, params = {}, method = 'get', languagePrefix = '', callback) {
+async function wooCommerceQuery(endpoint, params = {}, method = 'get', language = '', callback) {
 
     if (!params.per_page) params.per_page = 10000;
     if (!params.offset) params.offset = 0;
 
     const query = new WooCommerceRestApi({
-        url: `${process.env.GATSBY_WP_URL}/${languagePrefix}`,
+        url: `${process.env.GATSBY_WP_URL}/${language}`,
         consumerKey: process.env.GATSBY_WC_KEY,
         consumerSecret: process.env.GATSBY_WC_SECRET,
         version: process.env.GATSBY_WC_VERSION
@@ -16,9 +16,9 @@ async function wooCommerceQuery(endpoint, params = {}, method = 'get', languageP
 
     Array.isArray(data)
         ? data.forEach(key => {
-            key.language = languagePrefix ? languagePrefix : 'ru';
+            key.language = language ? language : 'ru';
         })
-        : data.language = languagePrefix ? languagePrefix : 'ru';
+        : data.language = language ? language : 'ru';
 
     return callback
         ? callback(data)

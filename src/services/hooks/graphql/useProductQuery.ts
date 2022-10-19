@@ -8,11 +8,11 @@ type ProductQueryResult = {
     error: ApolloError | undefined
 }
 
-export function useProductQuery(productId: number | undefined): ProductQueryResult {
+export function useProductQuery(productId: number | undefined, language: string = 'ru'): ProductQueryResult {
 
     const [getWcProduct, { data, loading, error }] = useLazyQuery(gql`
-        query getWcProduct($productId: Int!) {
-            wpWcProduct(productId: $productId) {
+        query getWcProduct($productId: Int! $language: LanguagesEnum) {
+            wpWcProduct(productId: $productId, language: $language) {
                 name
                 sku
                 price
@@ -37,7 +37,8 @@ export function useProductQuery(productId: number | undefined): ProductQueryResu
         }`,
         {
             variables: {
-                productId: productId
+                productId: productId,
+                language: language
             }
         })
 
