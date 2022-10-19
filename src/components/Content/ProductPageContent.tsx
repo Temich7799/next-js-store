@@ -24,7 +24,7 @@ const StyledProductsListPageContent = styled.div`
     padding: 5%;
 `;
 
-export const ProductPageContext: React.Context<ProductGatsby | undefined> = createContext({});
+export const ProductPageContext: React.Context<ProductGatsby> = createContext({});
 
 const ProductPageContent = (props: ProductPageContentProps) => {
 
@@ -46,8 +46,9 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                     <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} isDataFetching={loading} carouselItemMax={3}>
                         {
                             relatedProductsData !== undefined && relatedProductsData.map((product: ProductFetched) => {
-
-                                const gatsbyImagePath = compImages ? compImages[parseInt(product.id)] : undefined;
+                                
+                                const productCompImages = compImages && compImages[parseInt(product.id)];
+                                const gatsbyImagePath = productCompImages && productCompImages.length >= 1 && productCompImages[0];
 
                                 return <ProductThumb data={product} gatsbyImagePath={gatsbyImagePath} key={product.id} />
                             })

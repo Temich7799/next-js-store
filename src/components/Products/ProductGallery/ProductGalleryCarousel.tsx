@@ -1,33 +1,30 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { ProductPageContext } from "../../Content/ProductPageContent"
 
 type ProductGalleryCarouselProps = {
+    data?: any | undefined
     selectedImage: number
     setSelectedImage: any
 }
 
-const StyledProductGalleryCarousel = styled.div<any>`
+const StyledProductGalleryCarousel = styled.div`
     width: 100px;
     height: 400px;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    gap: 5px;
     overflow-x: hidden;
     overflow-y: scroll;
+
     @media (max-width: 450px) { 
         width: 300px;
         height: 100px;
-        flex-wrap: no-wrap;
+        display: -webkit-box;
         overflow-x: scroll;
         overflow-y: hidden;
     }
-    
 `;
 
 const ProductGalleryCarouselImage = styled.div<any>`
+    padding: 2.5px;
     width: 100px;
     height: 100px;
     img {
@@ -39,7 +36,7 @@ const ProductGalleryCarouselImage = styled.div<any>`
         switch (props.isSelected) {
             case true:
                 return `
-                filter: grayscale(85%);
+                filter: opacity(45%);
             `;
             default:
                 return `
@@ -52,9 +49,9 @@ const ProductGalleryCarouselImage = styled.div<any>`
 
 const ProductGalleryCarousel = (props: ProductGalleryCarouselProps) => {
 
-    const { images } = useContext(ProductPageContext);
+    const { images, id } = useContext(ProductPageContext);
 
-    const { setSelectedImage, selectedImage } = props;
+    const { data, setSelectedImage, selectedImage } = props;
 
     return (
         <StyledProductGalleryCarousel>
@@ -65,11 +62,7 @@ const ProductGalleryCarousel = (props: ProductGalleryCarouselProps) => {
                         onClick={() => { setSelectedImage(images.indexOf(image)) }}
                         key={index}
                     >
-                        {
-                            image.localFile
-                                ? <GatsbyImage image={getImage(image.localFile)} alt={image.alt} />
-                                : <img src={image.src} alt={image.alt} />
-                        }
+                        <img src={data && data[id].length > 1 && data[id][index] ? data[id][index] : image.src} alt={image.alt} />
                     </ProductGalleryCarouselImage>
                 )
             }

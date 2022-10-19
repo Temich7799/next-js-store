@@ -24,12 +24,12 @@ const Content = styled.div`
 `;
 
 const ProductsListPageContent = (props: ProductsListPageContentProps) => {
-    
+
     const { language } = useContext(LangContext);
     const { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } = require(`../../languages/${language}/languages`);
 
     const { compImages, categoryId } = props;
-    
+
     const { data, loading, error } = useQueryProductsOnScroll(categoryId.toString());
 
     return (
@@ -48,7 +48,8 @@ const ProductsListPageContent = (props: ProductsListPageContentProps) => {
                             {
                                 data && data.map((product: ProductFetched) => {
 
-                                    const gatsbyImagePath = compImages[parseInt(product.id)];
+                                    const productCompImages = compImages && compImages[parseInt(product.id)];
+                                    const gatsbyImagePath = productCompImages && productCompImages.length >= 1 && productCompImages[0];
 
                                     return <ProductThumb data={product} gatsbyImagePath={gatsbyImagePath} key={product.id} />
                                 })

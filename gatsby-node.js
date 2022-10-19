@@ -97,7 +97,6 @@ exports.createPages = async ({ actions, graphql }) => {
           images {
           alt
           src
-          localFile
         }
         categories {
           slug
@@ -120,7 +119,6 @@ exports.createPages = async ({ actions, graphql }) => {
           images {
           alt
           src
-          localFile
         }
         categories {
           slug
@@ -143,7 +141,6 @@ exports.createPages = async ({ actions, graphql }) => {
           images {
           alt
           src
-          localFile
         }
         categories {
           slug
@@ -235,10 +232,10 @@ exports.createPages = async ({ actions, graphql }) => {
     const compImages = {};
 
     data.allWcProducts.edges.forEach(edge => {
-      const localFile = edge.node.images[0].localFile;
-      if (localFile && localFile.childImageSharp) {
-        compImages[edge.node.wordpress_id] = localFile.childImageSharp.gatsbyImageData.images.fallback.src;
-      }
+
+      const productImages = edge.node.images.map(image => image.localFile && image.localFile.childImageSharp && image.localFile.childImageSharp.gatsbyImageData.images.fallback.src);
+
+      compImages[edge.node.wordpress_id] = productImages;
     });
 
     return compImages;
