@@ -8,7 +8,6 @@ import ProductThumb from "../Products/Thumbs/ProductThumb";
 import { LangContext } from "../Layouts/Layout";
 import { useRelatedProducts } from "../../services/hooks/graphql/useRelatedProducts";
 import { ProductFetched, ProductGatsby } from "../../interfaces/InterfaceProduct";
-import 'pepjs';
 
 type ProductPageContentProps = {
     data: ProductGatsby
