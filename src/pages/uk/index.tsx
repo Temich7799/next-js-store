@@ -1,13 +1,23 @@
 import React from "react"
 import Layout from "../../components/Layouts/Layout";
-import { graphql } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 import IndexPageContent from "../../components/Content/IndexPageContent";
 
 const IndexPage = () => {
 
+  const { multilangWpPage } = useStaticQuery(graphql`
+    query getHomePageUk {
+      multilangWpPage(pageId: 25, language: uk) {
+        content {
+          rendered
+        }
+      }
+    }
+  `);
+
   return (
     <Layout language="uk">
-      <IndexPageContent />
+      <IndexPageContent data={multilangWpPage} />
     </Layout>
   )
 }

@@ -1,11 +1,8 @@
-import { gql, useQuery } from "@apollo/client";
-import React, { useContext } from "react"
+import React from "react"
 import styled from "styled-components";
-import { LangContext } from "../Layouts/Layout";
-import PageTitle from "../PageTitle";
 
-type IndexPageContentData = {
-    wpPage: {
+type IndexPageContentProps = {
+    data: {
         content: {
             rendered: string
         }
@@ -22,31 +19,13 @@ const StyledIndexPageContent = styled.div`
     padding: 2.5%;
 `;
 
-const IndexPageContent = () => {
+const IndexPageContent = (props: IndexPageContentProps) => {
 
-    const { language } = useContext(LangContext);
-
-    const { data } = useQuery(gql`
-        query getHomePage($language: LanguagesEnum) {
-            wpPage(pageId: 25, language: $language) {
-                content {
-                    rendered
-                }
-            }
-        }
-    `,
-        {
-            variables: {
-                language: language
-            }
-        }
-    );
+    const { data } = props;
 
     return (
         <>
-            {
-                data && <StyledIndexPageContent dangerouslySetInnerHTML={{ __html: data.wpPage.content.rendered }} />
-            }
+            <StyledIndexPageContent dangerouslySetInnerHTML={{ __html: data.content.rendered }} />
         </>
     )
 
