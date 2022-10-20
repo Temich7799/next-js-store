@@ -25,8 +25,8 @@ const SocialsList = () => {
     return (
         <StyledSocialsList minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
             <ul>
-                <li><Link to="/facebook"><ImageSVG path="/svg/facebook.svg" height="20px" width="20px" /></Link></li>
-                <li> <Link to="/instagram"><ImageSVG path="/svg/instagram.svg" height="20px" width="20px" /></Link></li>
+                <li><a href="/facebook"><ImageSVG path="/svg/facebook.svg" height="20px" width="20px" /></a></li>
+                <li> <a href="https://www.instagram.com/malini.com.ua/"><ImageSVG path="/svg/instagram.svg" height="20px" width="20px" /></a></li>
             </ul>
         </StyledSocialsList>
     )

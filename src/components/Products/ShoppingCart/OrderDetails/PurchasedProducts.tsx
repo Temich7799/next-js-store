@@ -26,7 +26,7 @@ const PurchasedProducts = (props: PurchasedProductsProps) => {
             <hr />
             {
                 data
-                    ? data.map((product: ProductInCart) => <PurchasedProduct data={product} key={product.id} />)
+                    ? data.reverse().map((product: ProductInCart) => <PurchasedProduct data={product} key={product.id} />)
                     : <p>{ORDER_FINAL_BUTTON_DISABLED}</p>
             }
             <hr />

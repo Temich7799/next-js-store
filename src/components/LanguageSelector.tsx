@@ -40,6 +40,7 @@ const LanguagesList = styled.ul<any>`
     }
 
     @media (min-width: ${props => props.minDesktopWidth}px) {
+        visibility: hidden;
         /*animation: ${SlideDownAnimation} 100ms forwards;*/
     }
     position: relative;
@@ -70,7 +71,7 @@ const LanguageSelector = (props: any) => {
     const languages = ['RU', 'UK', 'EN'];
     const { language, langPrefix } = useContext(LangContext);
     const selectedLanguage = language.toLocaleUpperCase();
-    
+
     function onClickHandler(language: string) {
 
         const origin = document.location.origin;

@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from "react"
+import React, { useEffect } from "react"
 import styled from "styled-components"
 import { useShoppingCartVar } from "../../../../services/hooks/apollo/useShoppingCartVar"
 import useUpdatedProduct from "../../../../services/hooks/useUpdatedProduct"
 import ProductPrice from "../../ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
-import { LangContext } from "../../../Layouts/Layout"
 import { ProductInCart } from "../../../../interfaces/InterfaceProduct"
 
 type PurchasedProductProps = {
@@ -17,34 +16,30 @@ const StyledPurchasedProduct = styled.div`
     max-width: 430px;
     margin: 5px 0;
     display: grid;
-    grid-template-columns: auto 0.25fr auto 1fr;
+    grid-template-columns: auto 55px auto 1fr;
     justify-content: space-around;
     align-items: center;
     gap: 2%;
 `;
 
 const PurchasedProductThumb = styled.img`
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
 `;
 
 const PurchasedProductName = styled.div`
+    padding-right: 3.5px;
     p {
+        margin: 0;
+        font-size: 11px;
         display: inline-block;
         margin: 2.5% 0;
         font-weight: 700;
-        :nth-child(2n) {
-            font-weight: 400;
-            font-size: 12px;
-        }
     } 
 `;
 
 const PurchasedProduct = (props: PurchasedProductProps) => {
-
-    const { language } = useContext(LangContext);
-    const { PRODUCT_SKU } = require(`../../../../languages/${language}/languages`);
 
     const { data } = props;
 
@@ -62,7 +57,6 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
             <ProductPrice price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} />
             <PurchasedProductName>
                 <p>{updatedData ? updatedData.name : data.name}</p>
-                <p>{PRODUCT_SKU}: {data.sku}</p>
             </PurchasedProductName>
             <PurchasedProductQuantity data={data} />
         </StyledPurchasedProduct>
