@@ -8,6 +8,7 @@ import ProductThumb from "../Products/Thumbs/ProductThumb";
 import { LangContext } from "../Layouts/Layout";
 import { useRelatedProducts } from "../../services/hooks/graphql/useRelatedProducts";
 import { ProductFetched, ProductGatsby } from "../../interfaces/InterfaceProduct";
+import 'pepjs';
 
 type ProductPageContentProps = {
     data: ProductGatsby
@@ -46,7 +47,7 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                     <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} isDataFetching={loading} carouselItemMax={3}>
                         {
                             relatedProductsData !== undefined && relatedProductsData.map((product: ProductFetched) => {
-                                
+
                                 const productCompImages = compImages && compImages[parseInt(product.id)];
                                 const gatsbyImagePath = productCompImages && productCompImages.length >= 1 && productCompImages[0];
 
