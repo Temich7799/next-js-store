@@ -32,7 +32,7 @@ const HeaderMenuItem = (props: HeaderMenuItemProps) => {
                 data.child_items !== null
                     ? <HeaderSubMenu data={data} />
                     :
-                    <Link to={data.slug === 'home' ? `/${langPrefix}` : `/${langPrefix}${data.slug}`}>
+                    <Link to={data.path}>
                         {data.title}
                     </Link>
             }

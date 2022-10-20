@@ -8,33 +8,45 @@ export const useHeaderMenuItems = (language: string): [MenuItemType] => {
         query getAllMultilangHeaderMenuItems { 
 
             ru: allMultilangWpMenuItems(slug: "header", language: ru) { 
-                slug
+                url
                 title 
                 child_items { 
-                    slug 
+                    url 
                     title 
                 } 
             }
 
             uk: allMultilangWpMenuItems(slug: "header", language: uk) { 
-                slug
+                url
                 title 
                 child_items { 
-                    slug 
+                    url 
                     title 
                 } 
             } 
 
             en: allMultilangWpMenuItems(slug: "header", language: en) { 
-                slug
+                url
                 title 
                 child_items { 
-                    slug 
+                    url 
                     title 
                 } 
             } 
         }
     `);
+
+    Object.values(allMultilangWpMenuItems).forEach((data: [MenuItemType]) => {
+        makePathKey(data);
+    });
+
+    function makePathKey(items: [MenuItemType]) {
+        items.forEach((item: MenuItemType) => {
+            item.path = item.url.split('.com')[1].replace(/\/+$/, '');
+            item.child_items && makePathKey(item.child_items);
+        });
+    }
+
 
     return allMultilangWpMenuItems[language]
 }

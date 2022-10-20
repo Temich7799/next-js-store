@@ -1,5 +1,6 @@
 export type MenuItemType = {
+    path: string
     title: string
-    slug: string | null
+    url: string
     child_items: [MenuItemType] | null
 }

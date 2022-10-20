@@ -102,7 +102,7 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
                         <SubMenuIcon isOpened={isSubMenuOpened} />
                     </SubMenuTitle>
                     :
-                    <Link to={data.slug === 'home' ? `/${langPrefix}` : `/${langPrefix}${data.slug}`}>
+                    <Link to={data.path}>
                         <SubMenuTitle onMouseOver={() => onMouseOverHandler()} onMouseLeave={(e: any) => onMouseLeaveHandler(e)}>
                             {data.title}
                             <SubMenuIcon isOpened={isSubMenuOpened} />
@@ -115,15 +115,15 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
                     {
                         isMobile &&
                         <SubMenuItem>
-                            <Link to={`/${langPrefix}${data.slug}`}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
+                            <Link to={data.path}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
                         </SubMenuItem>
                     }
                     {
                         data.child_items.map((item: MenuItemType, index: number) =>
                             <SubMenuItem key={index}>
-                                <a href={formatCatalogChildItemUrl(`/${langPrefix}${item.slug}`)}>
+                                <Link to={item.path}>
                                     {item.title}
-                                </a>
+                                </Link>
                             </SubMenuItem>
                         )
                     }
