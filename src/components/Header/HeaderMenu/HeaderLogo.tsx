@@ -9,7 +9,7 @@ const HeaderLogo = () => {
 
   return (
     <Link to={`/${langPrefix}`}>
-      <StaticImage src="../../../images/logo.png" alt="Logo" placeholder="blurred" layout="fixed" width={100} height={100} />
+      <StaticImage src="../../../images/mobile_logo.svg" alt="Logo" placeholder="blurred" />
     </Link>
   )
 }
