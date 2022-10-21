@@ -42,7 +42,7 @@ export const useHeaderMenuItems = (language: string): [MenuItemType] => {
 
     function makePathKey(items: [MenuItemType]) {
         items.forEach((item: MenuItemType) => {
-            item.path = item.url.split('.com')[1].replace(/\/+$/, '');
+            item.path = item.url.split('.com')[1].replace('home', '').replace(/\/+$/, '');
             item.child_items && makePathKey(item.child_items);
         });
     }

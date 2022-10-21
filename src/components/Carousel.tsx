@@ -64,8 +64,10 @@ const Carousel = (props: CarouselProps) => {
         children,
     } = props;
 
-    let pointerType = useMobile() ? 'pointer' : 'mouse';
-    let eventEndType = useMobile() ? 'cancel' : 'up';
+    const isMobile = useMobile();
+
+    let pointerType = isMobile ? 'pointer' : 'mouse';
+    let eventEndType = isMobile ? 'cancel' : 'up';
 
     const [sliderClientWidth, setSliderClientWidth] = useState<number>(0);
     const [itemWidth, setItemWidth] = useState<number>(0);
@@ -79,6 +81,7 @@ const Carousel = (props: CarouselProps) => {
     slider.current = {
         isPointerDown: false,
         prevPosition: 0,
+        prevClientX: 0,
         position: 0,
         positionsMap: positions ? positions : [],
         positionIndex: 0,
@@ -129,7 +132,9 @@ const Carousel = (props: CarouselProps) => {
         }
     }, [itemsGap, sliderClientWidth]);
 
-    function onPointerDownHandler(): void {
+    function onPointerDownHandler(pointerDownEvent: any): void {
+
+        slider.current.prevClientX = pointerDownEvent.clientX;
 
         carouselWrapper.current.addEventListener(`${pointerType}move`, onPointerMoveHandler);
 
@@ -140,7 +145,7 @@ const Carousel = (props: CarouselProps) => {
 
         onPointerMoveEvent.cancelable && onPointerMoveEvent.preventDefault();
 
-        slider.current.position += onPointerMoveEvent.movementX;
+        slider.current.position += isMobile ? (onPointerMoveEvent.clientX - slider.current.prevClientX) / 25 : onPointerMoveEvent.movementX;
         carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
     }
 
