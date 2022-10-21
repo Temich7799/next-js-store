@@ -14,10 +14,17 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: [
     "gatsby-plugin-image",
-    "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-styled-components",
     "gatsby-plugin-breadcrumb",
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          quality: 85,
+        }
+      }
+    },
     {
       resolve: 'gatsby-source-wordpress',
       options: {
