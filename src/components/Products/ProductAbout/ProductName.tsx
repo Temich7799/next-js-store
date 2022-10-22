@@ -15,17 +15,19 @@ type ProductAttribute = {
     name: string
 }
 
-const StyledProductName = styled.div`
+const StyledProductName = styled.div<any>`
     display: flex;
     align-items: center;
     justify-content: space-between;
     h1 {
+        font-size: 28px;
         display: inline-block;
         margin: 2.5% 0;
     }
 `;
 
 const StyledHeightAttribute = styled.div`
+    margin-bottom: 10%;
     min-width: 50px;
     display: flex;
     flex-direction: column;
@@ -44,7 +46,7 @@ const ProductName = (props: ProductNameProps) => {
 
     const { getHeightAttribute } = useProductAttributes();
 
-    const height = getHeightAttribute(attributes);
+    const { options }: any = getHeightAttribute(attributes);
 
     return (
         <StyledProductName>
@@ -53,13 +55,13 @@ const ProductName = (props: ProductNameProps) => {
                 <p>{PRODUCT_SKU}: {sku != '' ? sku : PRODUCT_SKU_EMPTY}</p>
             </div>
             {
-                height !== undefined &&
-                <StyledHeightAttribute>
+                options[0] &&
+                <StyledHeightAttribute >
                     <ImageSVG path='/svg/height.svg' height="75px" width="25px" />
-                    <p>{height.options[0]}</p>
+                    <p>{options[0]}</p>
                 </StyledHeightAttribute>
             }
-        </StyledProductName>
+        </StyledProductName >
     )
 }
 

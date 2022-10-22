@@ -7,7 +7,7 @@ const StyledPost = styled.div`
     padding: 10px;
     color: #747474; 
     p {
-        font-family: "Laila";
+        font-family: "Didact Gothic";
     }
 `;
 
@@ -16,7 +16,7 @@ const PostTitle = styled.h4`
 `;
 
 const StyledDate = styled.div`
-    font-family: "Laila";
+    font-family: "Didact Gothic";
     font-size: 9px;
     margin: 1% 0;
     p{ 

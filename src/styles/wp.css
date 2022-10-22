@@ -43,19 +43,19 @@ p.has-x-large-font-size {
     align-items: center;
     width: 200px;
     height: 50px;
-    background-color: #F7F7F7;
-    background: linear-gradient(0deg, rgba(247, 247, 247, 1) 60%, rgba(255, 255, 255, 1) 100%);
+    color: white;
+    background-color: #9ed6e4;
     cursor: pointer;
 }
 
 button {
-    font-family: 'Amatic SC';
+    font-family: 'Noto Serif';
     font-size: 24px;
     width: 200px;
     height: 50px;
     border: none;
-    background-color: #F7F7F7;
-    background: linear-gradient(0deg, rgba(247, 247, 247, 1) 60%, rgba(255, 255, 255, 1) 100%);
+    color: white;
+    background-color: #9ed6e4;
     cursor: pointer;
 }
 @media (hover: hover) and (pointer: fine) {
@@ -69,7 +69,7 @@ button {
 }
 
 .wp-block-button__link {
-    font-family: 'Amatic SC';
+    font-family: 'Noto Serif';
     font-size: 24px;
     width: 100%;
     text-align: center;
@@ -103,7 +103,7 @@ button {
 }
 
 form {
-    font-family: "Amatic SC";
+    font-family: "Noto Serif";
     max-width: 430px;
     padding: 15px;
     background-color: rgb(230, 230, 230);

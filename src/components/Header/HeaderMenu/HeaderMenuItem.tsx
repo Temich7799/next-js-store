@@ -1,8 +1,7 @@
-import React, { useContext } from "react"
+import React from "react"
 import { Link } from "gatsby";
 import styled from "styled-components"
 import { MenuItemType } from "../../../types/MenuItemType";
-import { LangContext } from "../../Layouts/Layout";
 import HeaderSubMenu from "./HeaderSubMenu";
 
 type HeaderMenuItemProps = {
@@ -21,8 +20,6 @@ const StyledHeaderMenuItem = styled.li`
 `;
 
 const HeaderMenuItem = (props: HeaderMenuItemProps) => {
-
-    const { langPrefix } = useContext(LangContext);
 
     const { data } = props;
 

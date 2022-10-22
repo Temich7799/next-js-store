@@ -1,19 +1,28 @@
 import React from "react";
-import HideOnMobileWrapper from "../../styles/HideOnMobileWrapper";
+import styled from "styled-components";
 import { MobileMenuButtonProps } from "../../types/MobileMenuButtonPropsType";
 import MobileMenuButton from "../Buttons/MobileMenuButton";
-import SocialsList from "../SocialsList";
+import HeaderMenu from "./HeaderMenu/HeaderMenu";
+import LogoDesktop from "./HeaderMenu/LogoDesktop";
+
+const StyledHeaderColumnLeft = styled.div`
+    margin-left: 10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 2.5%;
+`;
 
 const HeaderColumnLeft = (props: MobileMenuButtonProps) => {
 
     const { isMobileMenuOpened, setIsMobileMenuOpened } = props;
+
     return (
-        <>
+        <StyledHeaderColumnLeft>
             <MobileMenuButton isMobileMenuOpened={isMobileMenuOpened} setIsMobileMenuOpened={setIsMobileMenuOpened} />
-            <HideOnMobileWrapper>
-                <SocialsList />
-            </HideOnMobileWrapper>
-        </>
+            <LogoDesktop />
+            <HeaderMenu isMobileMenuOpened={isMobileMenuOpened} />
+        </StyledHeaderColumnLeft>
     )
 }
 

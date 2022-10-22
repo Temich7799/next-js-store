@@ -10,7 +10,7 @@ const StyledHeaderMenu = styled.nav<any>`
 
     @media (max-width: ${props => props.minDesktopWidth}px) {
       position: absolute;
-      top: ${props => props.isMobileMenuOpened ? '124px' : '-500px'};
+      top: ${props => props.isMobileMenuOpened ? '82px' : '-500px'};
       left: 0;
       width: 100%;
       height: 375px;
@@ -18,7 +18,7 @@ const StyledHeaderMenu = styled.nav<any>`
       justify-content: space-between;
       flex-direction: column;
       transition: 250ms;
-      background-color: #f7dcf4;
+      background-color: #ffd5e6;
       overflow: scroll;
       //::-webkit-scrollbar { display: none }
     }
@@ -42,7 +42,7 @@ const MobileHeaderMenuFooter = styled.div<any>`
   align-items: center;
   justify-content: space-around;
   gap: 25px;
-  background-color: rgb(248, 229, 255);
+  background-color: #9ed6e4;
 `;
 
 const HeaderMenu = (props: HeaderMenuProps) => {

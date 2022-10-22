@@ -13,6 +13,7 @@ type OrderDetailsProps = {
 const StyledOrderDetails = styled.form`
     /* other form styles are in <src/styles/wp.css> */
     width: 90vw;
+    padding: 25px 10px;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -22,9 +23,8 @@ const StyledOrderDetails = styled.form`
     h1 {
         font-size: smaller;
     }
-     h4 {
-        margin: 0;
-        text-align: center;
+    h4 {
+        margin: 5px;
     }
 `;
 

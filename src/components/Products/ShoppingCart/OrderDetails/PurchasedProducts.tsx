@@ -9,6 +9,7 @@ type PurchasedProductsProps = {
 }
 
 const StyledPurchasedProducts = styled.div`
+    margin: 15px 0;
     max-height: 200px;
     width: 100%;
     overflow: scroll;
@@ -26,7 +27,7 @@ const PurchasedProducts = (props: PurchasedProductsProps) => {
             <hr />
             {
                 data
-                    ? data.reverse().map((product: ProductInCart) => <PurchasedProduct data={product} key={product.id} />)
+                    ? data.map((product: ProductInCart) => <PurchasedProduct data={product} key={product.id} />)
                     : <p>{ORDER_FINAL_BUTTON_DISABLED}</p>
             }
             <hr />

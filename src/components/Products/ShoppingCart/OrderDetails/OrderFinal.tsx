@@ -18,17 +18,21 @@ const StyledOrderFinal = styled.div`
         font-size: 20px;
     }
     div {  
+        margin-top: 25px;
         display: flex;
         justify-content: center;
-        flex-wrap: wrap;
+        flex-wrap: wrap-reverse;
         gap: 15px;
+    }
+    h5 {
+        text-align: center;
     }
 `;
 
 const OrderFinal = (props: OrderFinalProps) => {
 
     const { language } = useContext(LangContext);
-    const { ORDER_FINAL_TITLE } = require(`../../../../languages/${language}/languages`);
+    const { ORDER_FINAL_TITLE, CURRENCY } = require(`../../../../languages/${language}/languages`);
 
     const { data, isOrderSending } = props;
 
@@ -56,8 +60,8 @@ const OrderFinal = (props: OrderFinalProps) => {
 
     return (
         <StyledOrderFinal>
-            <h4>{ORDER_FINAL_TITLE} </h4>
-            <p>{totalPrice} $</p>
+            <h5>{ORDER_FINAL_TITLE}:</h5>
+            <p>{totalPrice} {CURRENCY}</p>
             <div>
                 <ContinueShoppingButton />
                 {

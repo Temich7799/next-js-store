@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 const StyledPostButton = styled.a`
-    font-family: 'Amatic SC';
+    font-family: 'Noto Serif';
     float: right;
     margin-right: 25px;
     color: #111111;

@@ -1,18 +1,16 @@
 import React from "react";
 import HideOnDesktopWrapper from "../../styles/HideOnDesktopWrapper";
-import { HeaderMenuProps } from "../../types/HeaderMenuPropsType";
-import HeaderLogo from "./HeaderMenu/HeaderLogo";
-import HeaderMenu from "./HeaderMenu/HeaderMenu";
+import HideOnMobileWrapper from "../../styles/HideOnMobileWrapper";
+import SocialsList from "../SocialsList";
+import LogoMobile from "./HeaderMenu/LogoMobile";
+const HeaderColumnCenter = () => {
 
-const HeaderColumnCenter = (props: HeaderMenuProps) => {
-
-    const { isMobileMenuOpened } = props;
     return (
         <>
-            <HideOnDesktopWrapper>
-                <HeaderLogo />
-            </HideOnDesktopWrapper>
-            <HeaderMenu isMobileMenuOpened={isMobileMenuOpened} />
+            <LogoMobile />
+            <HideOnMobileWrapper>
+                <SocialsList />
+            </HideOnMobileWrapper>
         </>
     )
 }

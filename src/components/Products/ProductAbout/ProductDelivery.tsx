@@ -38,7 +38,6 @@ const ProductDelivery = () => {
             <DeliveryIcons>
                 <ImageSVG path='/svg/nova_poshta.svg' height="35px" width="35px" />
                 <ImageSVG path='/svg/ukrposhta.svg' height="35px" width="35px" />
-                <ImageSVG path='/svg/justin_post.svg' height="35px" width="35px" />
             </DeliveryIcons>
         </StyledProductDelivery>
     )

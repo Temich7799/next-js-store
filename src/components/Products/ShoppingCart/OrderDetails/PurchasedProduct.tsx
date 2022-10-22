@@ -16,7 +16,7 @@ const StyledPurchasedProduct = styled.div`
     max-width: 430px;
     margin: 5px 0;
     display: grid;
-    grid-template-columns: auto 55px auto 1fr;
+    grid-template-columns: auto auto 55px 1fr;
     justify-content: space-around;
     align-items: center;
     gap: 2%;
@@ -35,7 +35,6 @@ const PurchasedProductName = styled.div`
         font-size: 11px;
         display: inline-block;
         margin: 2.5% 0;
-        font-weight: 700;
     } 
 `;
 
@@ -54,10 +53,10 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
     return (
         <StyledPurchasedProduct>
             <PurchasedProductThumb src={data.images[0].src} alt={data.images[0].alt} />
-            <ProductPrice price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} />
             <PurchasedProductName>
                 <p>{updatedData ? updatedData.name : data.name}</p>
             </PurchasedProductName>
+            <ProductPrice price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} showTitle={false}/>
             <PurchasedProductQuantity data={data} />
         </StyledPurchasedProduct>
     )

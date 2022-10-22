@@ -16,7 +16,8 @@ function buttonSizePropsHandler(size: string | undefined) {
         `;
         default:
             return `
-            width: 200px;
+            min-width: 150px;
+            width: fit-content;
             height: 50px;
         `;
     }
@@ -37,25 +38,26 @@ function buttonStylePropsHandler(style: string | undefined) {
         `;
         case "accent":
             return `
-            border-radius: 5px;
             color: #F7F7F7;
-            background: #8BDEC6;
+            background: #d888a9;
         `;
         default:
             return `
             border:none;
-            background-color: #F7F7F7;
-            background: linear-gradient(0deg, rgba(247,247,247,1) 60%, rgba(255,255,255,1) 100%);
+            color: white;
+            background-color: #9ed6e4;
         `;
     }
 }
 
 const StyledButton = styled.button<any>`
     padding: 5%;
-    font-family: 'Amatic SC';
+    font-family: 'Noto Serif';
+    font-size: 16px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    border-radius: 5px;
     cursor: pointer;
     @media (hover: hover) and (pointer: fine) {
         :hover {

@@ -22,7 +22,7 @@ const PurchasesCount = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color: yellow;
+    background-color: #ffd5e6;
 `;
 
 const HeaderShoppingCartButton = () => {

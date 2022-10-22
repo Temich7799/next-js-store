@@ -1,44 +1,42 @@
-import { StaticImage } from "gatsby-plugin-image";
-import * as React from "react"
+import React from "react"
 import styled from "styled-components"
-import getRandomColor from "../services/getRandomColor";
 import CopyProtectedArea from "./CopyProtectedArea";
 
-type StyledTitleProps = { backgroundColor: string }
+type PageTitleProps = { children: string }
 
-const StyledTitle = styled.div<StyledTitleProps>`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+const StyledPageTitle = styled.div`
     height: 115px;
-    background-color: ${props => props.backgroundColor};
-    overflow: hidden;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1.25%;
+    text-transform: uppercase;
     h1 {
-        position: absolute;
-        font-weight: 700;
-        font-size: 60px;
-        margin: 0;
-        z-index: 10;
-    }
-    img {
-        position: absolute;
+        text-align: center;
+        color: #9ed6e4;
+        font-size: 40px;
     }
 `;
 
-type TitleProps = { children: string }
+const Line = styled.div`
+    width: 100%;
+    border-top: 5px dashed #ffd5e6;;
+`;
 
-const PageTitle = (props: TitleProps) => {
+const PageTitle = (props: PageTitleProps) => {
 
     const { children } = props;
 
     return (
         <CopyProtectedArea>
-            <StyledTitle backgroundColor={getRandomColor()}>
-                <h1>{children}</h1>
-                <StaticImage src="../images/title-background.png" alt="Title" placeholder="blurred" />
-            </StyledTitle>
-        </CopyProtectedArea>
+            <StyledPageTitle>
+                <Line />
+                <h1>
+                    {children}
+                </h1>
+                <Line />
+            </StyledPageTitle>
+        </CopyProtectedArea >
     )
 }
 

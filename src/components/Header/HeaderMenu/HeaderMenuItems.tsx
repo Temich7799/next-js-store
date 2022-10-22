@@ -1,10 +1,8 @@
-import React, { Fragment, useContext } from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import { useHeaderMenuItems } from "../../../services/hooks/gatsby/useHeaderMenuItems";
-import HideOnMobileWrapper from "../../../styles/HideOnMobileWrapper";
 import { MenuItemType } from "../../../types/MenuItemType";
 import { LangContext } from "../../Layouts/Layout";
-import HeaderLogo from "./HeaderLogo";
 import HeaderMenuItem from "./HeaderMenuItem";
 
 const StyledHeaderMenuItems = styled.ul<any>`
@@ -16,12 +14,14 @@ const StyledHeaderMenuItems = styled.ul<any>`
     margin: 0;
     justify-content: flex-start;
     flex-direction: column;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 25px;
     list-style: none;
   }
 
     display: flex;
+    flex-wrap: wrap;
     justify-self: center;
     align-items: center;
     list-style: none;
@@ -46,15 +46,7 @@ const HeaderMenuItems = () => {
         <HeaderMenuWrapper>
             <StyledHeaderMenuItems minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
                 {
-                    data.map(
-                        (item: MenuItemType, index: number) =>
-                            <Fragment key={index}>
-                                {
-                                    index == Math.floor(data.length / 2) && <HideOnMobileWrapper><HeaderLogo /></HideOnMobileWrapper>
-                                }
-                                <HeaderMenuItem data={item} />
-                            </Fragment>
-                    )
+                    data.map((item: MenuItemType, index: number) => <HeaderMenuItem data={item} key={index} />)
                 }
             </StyledHeaderMenuItems>
         </HeaderMenuWrapper>

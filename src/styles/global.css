@@ -18,8 +18,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Amatic SC';
-    font-weight: 700;
+    font-family: 'Noto Serif';
     color: #111111;
 }
 
@@ -31,13 +30,13 @@ h2 {
 h3 {
     font-size: 30px;
     line-height: 45px;
-    color: #a8e7ca;
+    color: #9ed6e4;
 }
 
 h4 {
     font-size: 24px;
     line-height: 36px;
-    color: #73cfdb;
+    color: #73aadb;
 }
 
 a {
@@ -47,7 +46,7 @@ a {
 }
 
 p {
-    font-family: "Comfortaa";
+    font-family: "Didact Gothic";
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;

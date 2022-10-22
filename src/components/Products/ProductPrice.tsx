@@ -11,11 +11,12 @@ type ProductPriceProps = {
 }
 
 const StyledProductPrice = styled.div<any>`
+    text-align: center;
     ${props => props.showTitle && `
-       display: flex;
+        display: flex;
         align-items: center;
         gap: 5px;
-        flex-wrap: wrap; 
+        flex-wrap: wrap;
     `} 
     p {
         margin: 0;

@@ -21,7 +21,7 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-sharp`,
       options: {
         defaults: {
-          quality: 85,
+          quality: 90,
         }
       }
     },
@@ -64,7 +64,7 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         google: {
-          families: ['Amatic SC:400,700', 'Comfortaa:400,700', 'Laila']
+          families: ['Noto Serif:400,700', 'Didact Gothic:400,700']
         }
       }
     }

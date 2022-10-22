@@ -14,7 +14,7 @@ type LayoutProps = {
 const Main = styled.main<any>`
 
     @media (max-width: ${props => props.minDesktopWidth}px) {
-        margin-top: 125px;
+        margin-top: 75px;
     }
 
     margin-top: 0;

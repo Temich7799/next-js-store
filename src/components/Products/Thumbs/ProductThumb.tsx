@@ -35,7 +35,7 @@ const ProductLink = styled.a`
 `;
 
 const ProductCaption = styled.div`
-    font-family: 'Amatic SC';
+    font-family: 'Noto Serif';
     font-size: 20px;
     height: 55px;
     width: 100%;
@@ -83,7 +83,7 @@ const ProductThumb = (props: ProductProps) => {
                     <ProductPrice price={data.price} salePrice={data.sale_price} />
                 </div>
                 <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
-                    <ImageSVG path='/svg/add_to_cart.svg' height="25px" width="25px" />
+                    <ImageSVG path={`/svg/${data.sale_price ? 'discount_cart' : 'add_to_cart'}.svg`} height="25px" width="25px" />
                 </Button>
             </ProductCaption>
         </StyledProductThumb >

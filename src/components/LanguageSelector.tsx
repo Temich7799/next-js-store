@@ -25,6 +25,7 @@ const StyledLanguageSelector = styled.div<any>`
         }
     }
 
+    color: black;
     padding-right: 10px;
     display: flex;
     align-items: center;
@@ -53,12 +54,15 @@ const LanguagesList = styled.ul<any>`
 
 const Language = styled.li<any>`
 
+    color: #73aadb;
+    list-style: none;
+
     ${props => props.selected && `
+        color: #d888a9;
         text-decoration: underline;
         order: -1;
     `};
-
-    list-style: none;
+    
     @media (hover: hover) and (pointer: fine) {
         :hover {
             cursor: pointer

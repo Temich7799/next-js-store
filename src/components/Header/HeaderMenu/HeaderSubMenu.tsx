@@ -1,7 +1,6 @@
 import { Link } from "gatsby";
 import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
-import { formatCatalogChildItemUrl } from "../../../services/formatCatalogChildItemUrl";
 import useMobile from "../../../services/hooks/useMobile";
 import toogle from "../../../services/toogle";
 import { MenuItemType } from "../../../types/MenuItemType";
@@ -13,6 +12,10 @@ type HeaderSubMenuProps = {
 }
 
 const SubMenuTitle = styled.div<any>`
+    height: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
     @media (max-width: ${props => props.minDesktopWidth}px) {
         position: relative;
@@ -20,13 +23,11 @@ const SubMenuTitle = styled.div<any>`
         width: fit-content;
         margin: 0 auto;
     }
-    display: flex;
-    align-items: center;
-    gap: 10px;
 `;
 
 const SubMenuItems = styled.ul<any>`
 
+    font-family: "Didact Gothic";
     display: ${props => props.isSubMenuOpened ? 'flex' : 'none'};
     flex-direction: column;
     align-items: center;
@@ -34,8 +35,9 @@ const SubMenuItems = styled.ul<any>`
 
     @media (min-width: ${props => props.minDesktopWidth}px) {
         position: absolute;
-        top: 100px;
+        top: 55px;
         width: fit-content;
+        align-items: flex-start;
         min-height: 50px;
         padding: 1%;
         font-size: 16px;
@@ -48,8 +50,8 @@ const SubMenuItems = styled.ul<any>`
     @media (max-width: ${props => props.minDesktopWidth}px) {
         max-height: 200px;
         margin: 5px 0;
-        font-family: "Comfortaa";
         padding: 0;
+        padding-top: 20px;
         justify-content: center;
         gap: 15px;
         font-size: 16px;
@@ -59,6 +61,7 @@ const SubMenuItems = styled.ul<any>`
 `;
 
 const SubMenuItem = styled.li`
+    margin-bottom: 5px;
     text-shadow: none;
     @media (hover: hover) and (pointer: fine) {
         :hover {
@@ -69,7 +72,7 @@ const SubMenuItem = styled.li`
 
 const HeaderSubMenu = (props: HeaderSubMenuProps) => {
 
-    const { language, langPrefix } = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;

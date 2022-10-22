@@ -7,7 +7,6 @@ import styled from "styled-components";
 const StyledHeaderColumnRight = styled.div`
     display: flex;
     align-items: center;
-    gap: 50px;
 `;
 
 const HeaderColumnRight = () => {

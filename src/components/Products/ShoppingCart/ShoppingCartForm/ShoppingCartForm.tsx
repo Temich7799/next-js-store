@@ -33,12 +33,12 @@ const StyledShoppingCartForm = styled.form<any>`
         margin: 5px 0;
     }
     label {
-        font-family: "Comfortaa";
+        font-family: "Didact Gothic";
         font-size: 16px;
         margin-bottom: 8px;
         color:#393939
     }
-    input, textarea, select {:focus { border:#8BDEC6 1px solid; outline: none} }
+    input, textarea, select {:focus { border:#9ed6e4 1px solid; outline: none} }
     /* other form styles are in <src/styles/wp.css> */
 `;
 
