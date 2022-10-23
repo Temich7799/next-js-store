@@ -23,7 +23,7 @@ const ProductBuyButton = (props: ProductBuyButtonProps) => {
                     ? PRODUCT_OUT_OF_STOCK_BUTTON_TITLE
                     : PRODUCT_BUY_BUTTON_TITLE
             }
-            <ImageSVG path="/svg/add_to_cart.svg" height="25px" width="25px" />
+            <ImageSVG path="/svg/cart/add_to_cart.svg" height="25px" width="25px" />
         </Button>
     )
 }

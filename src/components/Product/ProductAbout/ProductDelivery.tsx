@@ -36,8 +36,8 @@ const ProductDelivery = () => {
                 <a>{DELIVERY_ABOUT_AFTERPAY_INFO}</a>
             </DeliveryAbout>
             <DeliveryIcons>
-                <ImageSVG path='/svg/nova_poshta.svg' height="35px" width="35px" />
-                <ImageSVG path='/svg/ukrposhta.svg' height="35px" width="35px" />
+                <ImageSVG path='/svg/delivery/nova_poshta.svg' height="35px" width="35px" />
+                <ImageSVG path='/svg/delivery/ukrposhta.svg' height="35px" width="35px" />
             </DeliveryIcons>
         </StyledProductDelivery>
     )

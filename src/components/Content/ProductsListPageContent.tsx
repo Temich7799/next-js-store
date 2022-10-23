@@ -6,7 +6,7 @@ import { ProductFetched } from "../../interfaces/InterfaceProduct";
 import InfoLayout from "../Layouts/InfoLayout";
 import { LangContext } from "../Layouts/Layout";
 import LoadingBar from "../LoadingBars/LoadingBar";
-import ProductThumb from "../Products/Thumbs/ProductThumb";
+import ProductThumb from "../Product/Thumbs/ProductThumb";
 
 type ProductsListPageContentProps = {
     compImages: object | any

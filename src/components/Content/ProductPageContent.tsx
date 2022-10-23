@@ -1,10 +1,10 @@
 import React, { createContext, useContext } from "react";
 import styled from "styled-components";
-import ProductAbout from "../Products/ProductAbout/ProductAbout";
-import ProductDescription from "../Products/ProductDescription";
-import ProductGallery from "../Products/ProductGallery/ProductGallery";
+import ProductAbout from "../Product/ProductAbout/ProductAbout";
+import ProductDescription from "../Product/ProductDescription";
+import ProductGallery from "../Product/ProductGallery/ProductGallery";
 import Carousel from "../Carousel";
-import ProductThumb from "../Products/Thumbs/ProductThumb";
+import ProductThumb from "../Product/Thumbs/ProductThumb";
 import { LangContext } from "../Layouts/Layout";
 import { useRelatedProducts } from "../../services/hooks/graphql/useRelatedProducts";
 import { ProductFetched, ProductGatsby } from "../../interfaces/InterfaceProduct";

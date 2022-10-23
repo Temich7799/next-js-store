@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components";
-import OrderDetails from "../Products/ShoppingCart/OrderDetails/OrderDetails";
-import ShoppingCartForm from "../Products/ShoppingCart/ShoppingCartForm/ShoppingCartForm";
+import OrderDetails from "../Product/ShoppingCart/OrderDetails/OrderDetails";
+import ShoppingCartForm from "../Product/ShoppingCart/ShoppingCartForm/ShoppingCartForm";
 
 type ShoppingCartContentProps = {
   setters: {

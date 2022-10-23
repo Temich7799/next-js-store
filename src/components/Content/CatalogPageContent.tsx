@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import styled from "styled-components";
-import CategoryThumb from "../../components/Products/Thumbs/CategoryThumb";
+import CategoryThumb from "../Product/Thumbs/CategoryThumb";
 import PageTitle from "../../components/PageTitle";
 import { LangContext } from "../Layouts/Layout";
 

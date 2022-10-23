@@ -83,7 +83,7 @@ const ProductThumb = (props: ProductProps) => {
                     <ProductPrice price={data.price} salePrice={data.sale_price} />
                 </div>
                 <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
-                    <ImageSVG path={`/svg/${data.sale_price ? 'discount_cart' : 'add_to_cart'}.svg`} height="25px" width="25px" />
+                    <ImageSVG path={`/svg/cart/${data.sale_price ? 'discount_cart' : 'add_to_cart'}.svg`} height="25px" width="25px" />
                 </Button>
             </ProductCaption>
         </StyledProductThumb >

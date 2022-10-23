@@ -57,7 +57,7 @@ const ProductName = (props: ProductNameProps) => {
             {
                 options[0] &&
                 <StyledHeightAttribute >
-                    <ImageSVG path='/svg/height.svg' height="75px" width="25px" />
+                    <ImageSVG path='/svg/product/attributes/height.svg' height="75px" width="25px" />
                     <p>{options[0]}</p>
                 </StyledHeightAttribute>
             }

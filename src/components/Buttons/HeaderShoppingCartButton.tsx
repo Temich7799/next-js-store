@@ -6,7 +6,7 @@ import toogle from "../../services/toogle";
 import Button from "./Button";
 import ImageSVG from "../ImageSVG";
 import PopUp from "../PopUp";
-import OrderDetails from "../Products/ShoppingCart/OrderDetails/OrderDetails";
+import OrderDetails from "../Product/ShoppingCart/OrderDetails/OrderDetails";
 
 const StyledHeaderShoppingCartButton = styled.div`
     position: relative;
@@ -45,7 +45,7 @@ const HeaderShoppingCartButton = () => {
     return (
         <StyledHeaderShoppingCartButton>
             <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
-                <ImageSVG path="/svg/shopping_cart.svg" height="35px" width="35px" />
+                <ImageSVG path="/svg/cart/shopping_cart.svg" height="35px" width="35px" />
                 <PurchasesCount>
                     <p>{purchasesCount}</p>
                 </PurchasesCount>
