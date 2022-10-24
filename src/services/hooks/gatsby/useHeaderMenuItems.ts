@@ -1,7 +1,7 @@
 import { graphql, useStaticQuery } from "gatsby"
 import { MenuItemType } from "../../../types/MenuItemType";
 
-export const useHeaderMenuItems = (language: string): [MenuItemType] => {
+export const useHeaderMenuItems = (language: string = 'ru'): [MenuItemType] => {
 
     const allMultilangWpMenuItems = useStaticQuery(graphql`
 
@@ -47,6 +47,5 @@ export const useHeaderMenuItems = (language: string): [MenuItemType] => {
         });
     }
 
-
-    return allMultilangWpMenuItems[language]
+    return allMultilangWpMenuItems[language];
 }

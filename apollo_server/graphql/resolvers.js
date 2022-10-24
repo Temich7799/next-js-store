@@ -31,12 +31,10 @@ const resolvers = {
         },
         allWcProducts: (_, { params }) => wooCommerceQuery('products', params),
         allWcProductsCategories: (_, { params }) => wooCommerceQuery('products/categories', params),
-        allWcShippingZonesMethods: (_, { zoneId }) => {
-            return wooCommerceQuery(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`);
-        },
+        allWcShippingZonesMethods: (_, { zoneId }) => wooCommerceQuery(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`, { per_page: 10 }),
         allWcPaymentMethods: () =>
 
-            wooCommerceQuery('payment_gateways', null, 'get', '', (data) => {
+            wooCommerceQuery('payment_gateways', { per_page: 10 }, 'get', '', (data) => {
                 const result = [];
 
                 data.forEach((paymentMethod) => {
