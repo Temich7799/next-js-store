@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components";
+import OnSaleProductsCarousel from "./Carousel/OnSaleProductsCarousel";
 
 type IndexPageContentProps = {
     data: {
@@ -25,6 +26,7 @@ const IndexPageContent = (props: IndexPageContentProps) => {
 
     return (
         <>
+            <OnSaleProductsCarousel />
             <StyledIndexPageContent dangerouslySetInnerHTML={{ __html: data.content.rendered }} />
         </>
     )

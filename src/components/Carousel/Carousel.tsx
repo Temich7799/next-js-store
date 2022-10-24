@@ -1,21 +1,11 @@
 import React, { useEffect, useRef, useState } from "react"
 import ResizeObserver from "resize-observer-polyfill";
 import styled from "styled-components"
-import useMobile from "../services/hooks/useMobile";
-import Button from "./Buttons/Button"
-import LoadingBar from "./LoadingBars/LoadingBar";
-
-type CarouselProps = {
-    title?: string
-    speed?: string
-    maxWidth?: string
-    carouselItemMax?: number
-    minGap?: number
-    showButtons?: boolean
-    showGap?: boolean
-    isDataFetching?: boolean
-    children: any
-}
+import useMobile from "../../services/hooks/useMobile";
+import { CarouselProps } from "../../types/CarouselPropsType";
+import Button from "../Buttons/Button"
+import CopyProtectedArea from "../CopyProtectedArea";
+import LoadingBar from "../LoadingBars/LoadingBar";
 
 const StyledCarousel = styled.div<any>`
     max-width: ${props => props.maxWidth};
@@ -206,7 +196,9 @@ const Carousel = (props: CarouselProps) => {
 
     return (
         <StyledCarousel maxWidth={maxWidth}>
-            {title ? <h3>{title}</h3> : <></>}
+            <CopyProtectedArea>
+                <h3>{title}</h3>
+            </CopyProtectedArea>
             <CarouselContent showButtons={showButtons}>
                 {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('left')}><b>{'<'}</b></Button>}
                 {

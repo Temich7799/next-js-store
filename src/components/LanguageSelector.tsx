@@ -72,15 +72,20 @@ const Language = styled.li<any>`
 
 const LanguageSelector = (props: any) => {
 
-    const languages = ['RU', 'UK', 'EN'];
+    const languages = ['RU', 'UA', 'EN'];
     const { language, langPrefix } = useContext(LangContext);
     const selectedLanguage = language.toLocaleUpperCase();
 
     function onClickHandler(language: string) {
 
         const origin = document.location.origin;
-        const newPrefix = language === 'RU' ? '' : `/${language}`.toLowerCase();
+
+        language = language === 'UA' ? 'UK' : language;
+
+        let newPrefix = language === 'RU' ? '' : `/${language}`.toLowerCase();
+
         const search = document.location.search;
+
         const path = langPrefix !== '' ? '/' + document.location.pathname.split(langPrefix)[1] : document.location.pathname;
 
         document.location = origin + newPrefix + path + search;

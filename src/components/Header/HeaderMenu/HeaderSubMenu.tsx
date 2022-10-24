@@ -72,7 +72,7 @@ const SubMenuItem = styled.li`
 
 const HeaderSubMenu = (props: HeaderSubMenuProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language, langPrefix } = useContext(LangContext);
     const { MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;
@@ -124,7 +124,7 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
                     {
                         data.child_items.map((item: MenuItemType, index: number) =>
                             <SubMenuItem key={index}>
-                                <Link to={item.path}>
+                                <Link to={langPrefix ? '/' + langPrefix.replace(/\/+$/, '') + item.path : item.path}>
                                     {item.title}
                                 </Link>
                             </SubMenuItem>

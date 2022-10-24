@@ -3,11 +3,9 @@ import styled from "styled-components";
 import ProductAbout from "../Product/ProductAbout/ProductAbout";
 import ProductDescription from "../Product/ProductDescription";
 import ProductGallery from "../Product/ProductGallery/ProductGallery";
-import Carousel from "../Carousel";
-import ProductThumb from "../Product/Thumbs/ProductThumb";
 import { LangContext } from "../Layouts/Layout";
-import { useRelatedProducts } from "../../services/hooks/graphql/useRelatedProducts";
-import { ProductFetched, ProductGatsby } from "../../interfaces/InterfaceProduct";
+import { ProductGatsby } from "../../interfaces/InterfaceProduct";
+import CarouselWithProducts from "../Carousel/CarouselWithProducts";
 
 type ProductPageContentProps = {
     data: ProductGatsby
@@ -33,8 +31,6 @@ const ProductPageContent = (props: ProductPageContentProps) => {
 
     const { data, compImages } = props;
 
-    const { data: relatedProductsData, loading } = useRelatedProducts(data && data.related_ids);
-
     return (
         <ProductPageContext.Provider value={data}>
             <StyledProductsListPageContent>
@@ -43,17 +39,11 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                 <ProductDescription />
                 {
                     data && data.related_ids.length > 0 &&
-                    <Carousel title={CAROUSEL_RELATED_PRODUCTS_TITLE} isDataFetching={loading} carouselItemMax={3}>
-                        {
-                            relatedProductsData !== undefined && relatedProductsData.map((product: ProductFetched) => {
-
-                                const productCompImages = compImages && compImages[parseInt(product.id)];
-                                const gatsbyImagePath = productCompImages && productCompImages.length >= 1 && productCompImages[0];
-
-                                return <ProductThumb data={product} gatsbyImagePath={gatsbyImagePath} key={product.id} />
-                            })
-                        }
-                    </Carousel>
+                    <CarouselWithProducts
+                        title={CAROUSEL_RELATED_PRODUCTS_TITLE}
+                        params={{ include: data && data.related_ids }}
+                        compImages={compImages}
+                    />
                 }
             </StyledProductsListPageContent >
         </ProductPageContext.Provider>

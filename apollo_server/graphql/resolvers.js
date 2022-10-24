@@ -29,34 +29,8 @@ const resolvers = {
                 ? 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE 1' + sqlLimit
                 : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + params.cityRef + '\' AND LOWER(' + warehouseRow + regex + `'` + ' ORDER BY CHAR_LENGTH(' + warehouseRow + ')' + sqlLimit);
         },
-        allWcProducts: (_, { params }) => {
-
-            const options = {};
-
-            if (params !== undefined) {
-                params.offset && (options.offset = params.offset);
-                params.per_page && (options.per_page = params.per_page);
-                params.status && (options.status = params.status);
-                params.orderby && (options.orderby = params.orderby);
-                params.stock_status && (options.stock_status = params.stock_status);
-                params.category && (options.category = params.category);
-                params.include && (options.include = params.include);
-            }
-
-            return wooCommerceQuery('products', options);
-        },
-        allWcProductsCategories: (_, { params }) => {
-
-            const options = {};
-
-            if (params !== undefined) {
-                params.hide_empty && (options.hide_empty = params.hide_empty);
-                params.product && (options.product = params.product);
-                params.slug && (options.slug = params.slug);
-            }
-
-            return wooCommerceQuery('products/categories', options);
-        },
+        allWcProducts: (_, { params }) => wooCommerceQuery('products', params),
+        allWcProductsCategories: (_, { params }) => wooCommerceQuery('products/categories', params),
         allWcShippingZonesMethods: (_, { zoneId }) => {
             return wooCommerceQuery(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`);
         },

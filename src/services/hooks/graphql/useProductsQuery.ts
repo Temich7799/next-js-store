@@ -2,17 +2,17 @@ import { ApolloError, gql, useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 
-type RelatedProductsQueryResult = {
+type ProductsQueryResult = {
     data: [ProductFetched] | undefined
     loading: boolean
     error: ApolloError | undefined
 }
 
-export function useRelatedProducts(relatedProductsIds: Array<string>): RelatedProductsQueryResult {
+export function useProductsQuery(options: any = undefined): ProductsQueryResult {
 
-    const [getAllWcRelatedProducts, { loading, error, data }] = useLazyQuery(gql`
+    const [getWcProducts, { loading, error, data }] = useLazyQuery(gql`
         
-        query getAllWcRelatedProducts($params: WC_ProductParams) {
+        query getWcProducts($params: WC_ProductParams) {
             allWcProducts(params: $params) {
                 id
                 sku
@@ -32,11 +32,11 @@ export function useRelatedProducts(relatedProductsIds: Array<string>): RelatedPr
     `);
 
     useEffect(() => {
-        getAllWcRelatedProducts(
+        getWcProducts(
             {
                 variables: {
                     params: {
-                        include: relatedProductsIds,
+                        ...options,
                         stock_status: 'instock',
                         status: 'publish'
                     }

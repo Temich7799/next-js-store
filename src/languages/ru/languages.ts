@@ -1,6 +1,7 @@
 export const MOBILE_HEADER_SUBMENU_SEE_ALL = 'Смотреть Всё';
 
 export const CAROUSEL_RELATED_PRODUCTS_TITLE = 'Похожие товары';
+export const CAROUSEL_PRODUCTS_ON_SALE_TITLE = 'Распродажа %';
 
 export const DELIVERY_ABOUT_DELIVERY_INFO = 'Условия доставки';
 export const DELIVERY_ABOUT_AFTERPAY_INFO = 'Наложенный платёж';

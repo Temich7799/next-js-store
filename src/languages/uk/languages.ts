@@ -1,6 +1,7 @@
 export const MOBILE_HEADER_SUBMENU_SEE_ALL = 'Дивитись Все';
 
 export const CAROUSEL_RELATED_PRODUCTS_TITLE = 'Схожі товари';
+export const CAROUSEL_PRODUCTS_ON_SALE_TITLE = 'Розпродаж';
 
 export const DELIVERY_ABOUT_DELIVERY_INFO = 'Умови доставки';
 export const DELIVERY_ABOUT_AFTERPAY_INFO = 'Накладений платіж';

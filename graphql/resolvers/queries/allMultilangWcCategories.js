@@ -6,17 +6,7 @@ const allMultilangWcCategories = {
         params: 'WC_ProductCategoryParams',
         language: 'LanguagesEnum',
     },
-    resolve: (_, { params, language }) => {
-
-        const options = {};
-        if (params !== undefined) {
-            params.hide_empty && (options.hide_empty = params.hide_empty);
-            params.product && (options.product = params.product);
-            params.slug && (options.slug = params.slug);
-        }
-
-        return wooCommerceQuery('products/categories', options, 'get', language)
-    }
+    resolve: (_, { params, language }) => wooCommerceQuery('products/categories', params, 'get', language)
 }
 
 module.exports = allMultilangWcCategories;
