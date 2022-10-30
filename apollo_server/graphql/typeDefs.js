@@ -16,11 +16,11 @@ const WC_ProductCategoryParams = require("./types/woocommerce/inputs/WC_ProductC
 const LanguagesEnum = require("./enums/LanguagesEnum");
 const PublishStatusesEnum = require("./enums/PublishStatusesEnum");
 const StockStatusesEnum = require("./enums/StockStatusesEnum");
-
-const { gql } = require('apollo-server');
 const WP_MenuItemFilter = require("./types/wordpress/inputs/WP_MenuItemFilter");
 const NP_CitiesParams = require("./types/wordpress/inputs/NP_CitiesParams");
 const NP_WarehousesParams = require("./types/wordpress/inputs/NP_WarehousesParams");
+
+const { gql } = require('apollo-server');
 
 const typeDefs = gql`#graphql
 

@@ -15,7 +15,7 @@ const resolvers = {
             const cityRow = params.language == 'uk' ? 'description' : 'description_ru';
             const sqlLimit = params.limit == undefined ? '' : ` LIMIT ${params.limit}`;
 
-            return sqlQuery(regExp == undefined
+            return sqlQuery(params.regExp == undefined
                 ? 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE 1' + sqlLimit
                 : 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE LOWER(' + cityRow + `) REGEXP '^` + params.regExp.toLowerCase() + `'` + ' ORDER BY CHAR_LENGTH(' + cityRow + ')' + sqlLimit);
         },

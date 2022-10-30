@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_NOVA_POSHTA_WAREHOUSES = gql`
-    query getNovaPoshtaWarehouses($cityRef: String!, $language: LanguagesEnum, $regExp: String, $limit: Int) {
-        allWpNovaPoshtaWarehouses(cityRef: $cityRef, language: $language, regExp: $regExp, limit: $limit) {
+    query getNovaPoshtaWarehouses($params: NP_WarehousesParams) {
+        allWpNovaPoshtaWarehouses(params: $params) {
             description_ru
         }
     }
