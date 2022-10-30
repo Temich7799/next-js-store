@@ -6,7 +6,6 @@ const WC_ShippingMethod = `#graphql
         method_title: String
         method_description: String
         enabled: Boolean
-        language: String
     }
 `;
 

@@ -13,7 +13,6 @@ const WC_Product = `#graphql
         stock_quantity: Int
         attributes: [wpWcProductAttributes]
         manage_stock: Boolean
-        language: String
         related_ids: [ID]
         categories: [WC_ProductCategory]
         images: [WC_ProductImage]

@@ -2,7 +2,7 @@ const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
 
 async function wooCommerceQuery(endpoint, params = {}, method = 'get', language = '', callback) {
 
-    if (!params.per_page) params.per_page = 10000;
+    if (!params.per_page) params.per_page = 100;
     if (!params.offset) params.offset = 0;
 
     const query = new WooCommerceRestApi({
@@ -12,13 +12,7 @@ async function wooCommerceQuery(endpoint, params = {}, method = 'get', language 
         version: process.env.WC_VERSION
     });
 
-    const data = await makeBatchQuery();
-
-    Array.isArray(data)
-        ? data.forEach(key => {
-            key.language = language ? language : 'ru';
-        })
-        : data.language = language ? language : 'ru';
+    const data = params.per_page <= 100 ? query[method](endpoint, params).then(response => response.data) : await makeBatchQuery();
 
     return callback
         ? callback(data)
@@ -37,7 +31,7 @@ async function wooCommerceQuery(endpoint, params = {}, method = 'get', language 
 
                 offset += response.data.length;
 
-                return offset >= limit ? mergeArray : makeBatchQuery(limit - offset, offset, mergeArray);
+                return offset >= limit || response.data.length === 0 ? mergeArray : makeBatchQuery(limit - offset, offset, mergeArray);
             }
             else return mergeArray.length > 0 ? mergeArray : response.data;
         });

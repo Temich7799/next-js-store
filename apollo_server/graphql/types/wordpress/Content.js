@@ -1,8 +1,7 @@
 const Content = `#graphql
     type Content {
         rendered: String!
-        protected: Boolean
-        
+        protected: Boolean   
     }
 `;
 

@@ -7,7 +7,6 @@ const WC_Category = `#graphql
         description: String
         menu_order: Int
         image: CategoryImage
-        language: String
     }
 
     type CategoryImage {

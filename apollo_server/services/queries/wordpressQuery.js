@@ -12,12 +12,6 @@ const wordpressQuery = (endpoint, filterArgs, dataPathArray, version = 'wp/v2/')
 
             const data = dataPathArray ? digObjectByPath(dataPathArray, response) : response;
 
-            data.length
-                ? data.forEach(key => {
-                    key.language = language ? language : 'ru';
-                })
-                : data.language = language ? language : 'ru';
-
             return filter !== undefined ? filterData(data, filter) : data
         });
 }
