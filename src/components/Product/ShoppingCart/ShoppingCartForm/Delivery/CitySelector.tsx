@@ -23,6 +23,8 @@ const CitySelector = (props: CitySelectorProps) => {
 
     const [getNovaPoshtaCities, { loading: novaPoshtaCitiesLoading }] = useLazyQuery(GET_NOVA_POSHTA_CITIES);
 
+    const placeHolder = !citiesData.length && CITY_SELECTOR__PLACEHOLDER;
+
     function selectOnInputHandler(onInputEvent: any): void {
 
         if (onInputEvent.target.value.length > 2) {
@@ -51,12 +53,12 @@ const CitySelector = (props: CitySelectorProps) => {
         <>
             {
                 selectedShippingLine === 'ukrposhta_shippping'
-                    ? <InputField name="city" onErrorMessage={CITY_SELECTOR_ERROR_MESSAGE} required>{CITY_SELECTOR_TITLE}</InputField>
+                    ? <InputField name="city" onErrorMessage={CITY_SELECTOR_ERROR_MESSAGE} placeholder={placeHolder} required>{CITY_SELECTOR_TITLE}</InputField>
                     : <Select
                         name="city"
                         label={CITY_SELECTOR_TITLE}
                         onErrorMessage={CITY_SELECTOR_ERROR_MESSAGE}
-                        placeHolder={!citiesData.length && CITY_SELECTOR__PLACEHOLDER}
+                        placeHolder={placeHolder}
                         isInputDisabled={!selectedShippingLine || selectedShippingLine === 'local_pickup'}
                         isSelectClosed={citiesData.length > 0}
                         isFetchPending={novaPoshtaCitiesLoading}

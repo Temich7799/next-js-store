@@ -24,6 +24,8 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
     const [getNovaPoshtaCityRef] = useLazyQuery(GET_NOVA_POSHTA_CITY_REF);
     const [getNovaPoshtaWarehouses, { loading: novaPoshtaWarehousesLoading }] = useLazyQuery(GET_NOVA_POSHTA_WAREHOUSES);
 
+    const placeHolder = !warehousesData.length && WAREHOUSE_SELECTOR_PLACEHOLDER;
+
     function selectOnInputHandler(onInputEvent: any) {
 
         if (onInputEvent.target.value.length > 0) {
@@ -53,12 +55,12 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
         <>
             {
                 selectedShippingLine === 'ukrposhta_shippping'
-                    ? <InputField name="address_1" onErrorMessage={WAREHOUSE_SELECTOR_ERROR_MESSAGE} required>{WAREHOUSE_SELECTOR_TITLE}</InputField>
+                    ? <InputField name="address_1" onErrorMessage={WAREHOUSE_SELECTOR_ERROR_MESSAGE} placeholder={placeHolder} required>{WAREHOUSE_SELECTOR_TITLE}</InputField>
                     : <Select
                         name="address_1"
                         label={WAREHOUSE_SELECTOR_TITLE}
                         onErrorMessage={WAREHOUSE_SELECTOR_ERROR_MESSAGE}
-                        placeHolder={!warehousesData.length && WAREHOUSE_SELECTOR_PLACEHOLDER}
+                        placeHolder={placeHolder}
                         isInputDisabled={(!selectedShippingLine || selectedShippingLine == 'local_pickup') || !selectedCity}
                         isSelectClosed={warehousesData.length > 0}
                         isFetchPending={novaPoshtaWarehousesLoading}
