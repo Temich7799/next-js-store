@@ -1,10 +1,11 @@
-import React, { useEffect } from "react"
+import React, { useContext, useEffect } from "react"
 import styled from "styled-components"
 import { useShoppingCartVar } from "../../../../services/hooks/apollo/useShoppingCartVar"
 import useUpdatedProduct from "../../../../services/hooks/useUpdatedProduct"
 import ProductPrice from "../../ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
 import { ProductInCart } from "../../../../interfaces/InterfaceProduct"
+import { LangContext } from "../../../Layouts/Layout"
 
 type PurchasedProductProps = {
     data: ProductInCart
@@ -40,10 +41,16 @@ const PurchasedProductName = styled.div`
 
 const PurchasedProduct = (props: PurchasedProductProps) => {
 
+    const { language } = useContext(LangContext);
+    const { NO_PRODUCT_IMAGE } = require(`../../../../languages/${language}/languages`);
+
     const { data } = props;
 
     const { loading: isDataLoading, data: updatedData, isOutOfStock } = useUpdatedProduct(data);
     const { update, clear } = useShoppingCartVar();
+
+    const imageSource = data.images.length > 0 ? data.images[0].src : 'https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png';
+    const imageAlt = data.images.length > 0 ? data.images[0].alt : NO_PRODUCT_IMAGE;
 
     useEffect(() => {
         updatedData && update(data.id, updatedData);
@@ -52,11 +59,11 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
 
     return (
         <StyledPurchasedProduct>
-            <PurchasedProductThumb src={data.images[0].src} alt={data.images[0].alt} />
+            <PurchasedProductThumb src={imageSource} alt={imageAlt} />
             <PurchasedProductName>
                 <p>{updatedData ? updatedData.name : data.name}</p>
             </PurchasedProductName>
-            <ProductPrice price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} showTitle={false}/>
+            <ProductPrice price={updatedData.price} salePrice={updatedData.sale_price} isPriceLoading={isDataLoading} showTitle={false} />
             <PurchasedProductQuantity data={data} />
         </StyledPurchasedProduct>
     )

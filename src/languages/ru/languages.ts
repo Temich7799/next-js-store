@@ -13,6 +13,7 @@ export const PRODUCT_PRICE_TITLE = 'Цена';
 export const PRODUCT_PRICE_EMPTY = 'Не указана';
 export const PRODUCT_BUY_BUTTON_TITLE = 'Купить';
 export const PRODUCT_OUT_OF_STOCK_BUTTON_TITLE = 'Нет в наличии';
+export const NO_PRODUCT_IMAGE = 'Отсутствует изображение товара';
 export const CURRENCY = 'грн';
 
 export const CATEGORY_THUMB_BUTTON = 'Смотреть всех';

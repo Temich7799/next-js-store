@@ -51,10 +51,13 @@ const ProductCaption = styled.div`
 const ProductThumb = (props: ProductProps) => {
 
     const { language, langPrefix } = useContext(LangContext);
-    const { PRODUCT_SKU } = require(`../../../languages/${language}/languages`);
+    const { PRODUCT_SKU, NO_PRODUCT_IMAGE } = require(`../../../languages/${language}/languages`);
 
     const { data, gatsbyImagePath } = props;
     if (data.sku == '') data.sku = data.id;
+
+    const imageSource = gatsbyImagePath ? process.env.GATSBY_SITE_URL + gatsbyImagePath : data.images.length > 0 ? data.images[0].src : 'https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png';
+    const imageAlt = data.images.length > 0 ? data.images[0].alt : NO_PRODUCT_IMAGE;
 
     const url = gatsbyImagePath
         ? `${process.env.GATSBY_SITE_URL}/${langPrefix}catalog/${data.categories[0].slug}/${data.categories[0].slug}-${data.sku != '' ? data.sku : data.id}`
@@ -75,7 +78,7 @@ const ProductThumb = (props: ProductProps) => {
     return (
         <StyledProductThumb onClick={thumbOnClickHandler}>
             <ProductLink href={url}>
-                <img src={gatsbyImagePath ? process.env.GATSBY_SITE_URL + gatsbyImagePath : data.images[0].src} alt={data.images[0].alt} />
+                <img src={imageSource} alt={imageAlt} />
             </ProductLink>
             <ProductCaption>
                 <div>
