@@ -31,33 +31,8 @@ const resolvers = {
         },
         allWcProducts: (_, { params }) => wooCommerceQuery('products', params),
         allWcProductsCategories: (_, { params }) => wooCommerceQuery('products/categories', params),
-        allWcShippingZonesMethods: (_, { zoneId }) => wooCommerceQuery(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`, { per_page: 10 }),
-        allWcPaymentMethods: () =>
-
-            wooCommerceQuery('payment_gateways', { per_page: 10 }, 'get', '', (data) => {
-                const result = [];
-
-                data.forEach((paymentMethod) => {
-                    if (paymentMethod.settings.enable_for_methods) {
-                        paymentMethod.enable_for_methods = [];
-
-                        Object.entries(paymentMethod.settings.enable_for_methods.options).forEach(enableMethods => {
-
-                            Object.entries(enableMethods[1]).forEach(method => {
-                                method.forEach(name => { paymentMethod.enable_for_methods.push(name) })
-                            })
-                        }
-                        );
-                        result.push(paymentMethod);
-                    }
-
-                    else {
-                        result.push(paymentMethod);
-                    }
-                })
-
-                return result;
-            }),
+        allWcShippingZonesMethods: (_, { zoneId, language, params }) => wooCommerceQuery(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`, { per_page: 10, ...params }, 'get', language),
+        allWcPaymentMethods: (_, { language, params }) => wooCommerceQuery('payment_gateways', { per_page: 10, ...params }, 'get', language),
 
         wpPage: (_, { language, pageId }) => wordpressQuery(`pages/${pageId}`, { language: language }),
         wpPost: (_, { language, postId }) => wordpressQuery(`posts/${postId}`, { language: language }),

@@ -19,7 +19,7 @@ exports.createResolvers = ({ createResolvers }) => {
       allMultilangWpPosts: require("./graphql/resolvers/queries/allMultilangWpPosts"),
       allMultilangWpMenuItems: require("./graphql/resolvers/queries/allMultilangWpMenuItems"),
       allMultilangWcShippingMethods: require("./graphql/resolvers/queries/allMultilangWcShippingMethods"),
-      allWcPaymentMethods: require("./graphql/resolvers/queries/allMultilangWcPaymentMethods"),
+      allMultilangWcPaymentMethods: require("./graphql/resolvers/queries/allMultilangWcPaymentMethods"),
       allMultilangWcProducts: require("./graphql/resolvers/queries/allMultilangWcProducts"),
       allMultilangWcCategories: require("./graphql/resolvers/queries/allMultilangWcCategories"),
 
@@ -81,7 +81,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
   const { data: allProductsData } = await graphql(`
     query getAllWcProducts {
-      ru: allMultilangWcProducts(params: { stock_status: instock, status: publish }) {
+      ru: allMultilangWcProducts(params: { stock_status: instock, status: publish, per_page: 2000 }) {
         name
         sku
         price
@@ -103,7 +103,7 @@ exports.createPages = async ({ actions, graphql }) => {
         }
       }
 
-      uk: allMultilangWcProducts(language: uk, params: { stock_status: instock, status: publish }) {
+      uk: allMultilangWcProducts(language: uk, params: { stock_status: instock, status: publish, per_page: 2000 }) {
         name
         sku
         price
@@ -125,7 +125,7 @@ exports.createPages = async ({ actions, graphql }) => {
         }
       }
 
-      en: allMultilangWcProducts(language: en, params: { stock_status: instock, status: publish }) {
+      en: allMultilangWcProducts(language: en, params: { stock_status: instock, status: publish, per_page: 2000 }) {
         name
         sku
         price
@@ -231,7 +231,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
     const compImages = {};
 
-    data.allWcProducts.edges.forEach(edge => {
+    data && data.allWcProducts.edges.forEach(edge => {
 
       const productImages = edge.node.images.map(image => image.localFile && image.localFile.childImageSharp && image.localFile.childImageSharp.gatsbyImageData.images.fallback.src);
 

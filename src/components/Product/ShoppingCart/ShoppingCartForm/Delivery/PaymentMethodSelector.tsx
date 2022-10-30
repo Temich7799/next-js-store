@@ -1,10 +1,10 @@
-import { gql, useQuery } from "@apollo/client";
 import React, { useContext } from "react"
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 import { LangContext } from "../../../../Layouts/Layout";
 
 type PaymentMethodSelectorProps = {
+    data: any | undefined
     selectedShippingLine: string
 }
 
@@ -20,18 +20,7 @@ const PaymentMethodSelector = (props: PaymentMethodSelectorProps) => {
     const { language } = useContext(LangContext);
     const { PAYMENT_METHOD_SELECTOR_ERROR_MESSAGE, PAYMENT_METHOD_SELECTOR_TITLE } = require(`../../../../../languages/${language}/languages`);
 
-    const { selectedShippingLine } = props;
-
-    const { data } = useQuery(gql`
-            query getAllPaymentMethods {
-                allWpWcPaymentMethods {
-                    title
-                    description
-                    enabled
-                    id
-                }
-            }
-        `);
+    const { data, selectedShippingLine } = props;
 
     return (
         <Select
@@ -41,7 +30,7 @@ const PaymentMethodSelector = (props: PaymentMethodSelectorProps) => {
             isInputDisabled={!selectedShippingLine}
         >
             {
-                data && data.allWpWcPaymentMethods.map((paymentMethod: PaymentMethod) =>
+                data && data.map((paymentMethod: PaymentMethod) =>
                     paymentMethod.enabled && <SelectOption value={paymentMethod.id}>{paymentMethod.title}</SelectOption>
                 )
             }

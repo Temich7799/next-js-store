@@ -1,33 +1,23 @@
-import { gql, useQuery } from "@apollo/client";
 import React, { useContext } from "react"
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 import { LangContext } from "../../../../Layouts/Layout";
 
-type ShippingLineSelectorProps = {
+type ShippingMethodSelectorProps = {
+    data: any | undefined
     setSelectedShippingLine: React.Dispatch<React.SetStateAction<string>>
 }
 
-const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
+const ShippingMethodSelector = (props: ShippingMethodSelectorProps) => {
 
     const { language } = useContext(LangContext);
     const { SHIPPING_LINE_SELECTOR_ERROR_MESSAGE, SHIPPING_LINE_SELECTOR_TITLE } = require(`../../../../../languages/${language}/languages`);
 
-    const { setSelectedShippingLine } = props;
+    const { data, setSelectedShippingLine } = props;
 
     function selectOnChangeHandler(onChangeEvent: any) {
         setSelectedShippingLine(onChangeEvent.target.value);
     }
-
-    const { data } = useQuery(gql`
-            query getAllShippingZonesMethods($zoneId: Int) {
-                allWpShippingZonesMethods(zoneId: $zoneId) {
-                    method_id
-                    method_title
-                    method_description
-                }
-            }
-        `, { variables: { zoneId: 1 } });
 
     return (
         <Select
@@ -37,7 +27,7 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
             onChangeHandler={selectOnChangeHandler}
         >
             {
-                data && data.allWpShippingZonesMethods.map((method: any, index: number) =>
+                data && data.map((method: any, index: number) =>
                     <SelectOption value={method.method_id} key={index}>
                         {method.method_title}
                     </SelectOption>)
@@ -46,4 +36,4 @@ const ShippingLineSelector = (props: ShippingLineSelectorProps) => {
     )
 }
 
-export default ShippingLineSelector;
+export default ShippingMethodSelector;

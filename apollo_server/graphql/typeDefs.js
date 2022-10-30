@@ -9,6 +9,8 @@ const WpWcOrder = require("./types/woocommerce/types/WpWcOrder");
 const WC_PaymentMethod = require("./types/woocommerce/types/WC_PaymentMethod");
 const WC_ShippingMethod = require("./types/woocommerce/types/WC_ShippingMethod");
 const WC_ProductParams = require("./types/woocommerce/inputs/WC_ProductParams");
+const WC_ShippingMethodParams = require("./types/woocommerce/inputs/WC_ShippingMethodParams");
+const WC_PaymentMethodParams = require("./types/woocommerce/inputs/WC_PaymentMethodParams");
 const OrderDataInput = require("./types/woocommerce/inputs/OrderDataInput");
 const WC_ProductCategoryParams = require("./types/woocommerce/inputs/WC_ProductCategoryParams");
 const LanguagesEnum = require("./enums/LanguagesEnum");
@@ -31,8 +33,8 @@ const typeDefs = gql`#graphql
         allWpNovaPoshtaWarehouses(params: NP_WarehousesParams): [WpNovaPoshtaWarehouse!]!
         allWcProducts(params: WC_ProductParams): [WC_Product!]!
         allWcProductsCategories(params: WC_ProductCategoryParams): [WC_Category!]! ###########
-        allWcShippingZonesMethods(zoneId: Int): [WC_ShippingMethod!]!
-        allWcPaymentMethods: [WC_PaymentMethod!]!
+        allWcShippingZonesMethods(zoneId: Int, language: LanguagesEnum, params: WC_ShippingMethodParams): [WC_ShippingMethod!]!
+        allWcPaymentMethods(language: LanguagesEnum, params: WC_PaymentMethodParams): [WC_PaymentMethod!]!
 
         wpPage(pageId: Int!, language: LanguagesEnum): WP_Page!
         wpPost(postId: Int!, language: LanguagesEnum): WP_Page!
@@ -61,6 +63,8 @@ const typeDefs = gql`#graphql
     ${WP_MenuItemFilter}
     ${NP_CitiesParams}
     ${NP_WarehousesParams}
+    ${WC_PaymentMethodParams}
+    ${WC_ShippingMethodParams}
 #############----------Enums--------------####################
     ${LanguagesEnum}
     ${PublishStatusesEnum}
