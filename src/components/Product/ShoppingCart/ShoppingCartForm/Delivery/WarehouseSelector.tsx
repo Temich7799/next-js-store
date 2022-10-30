@@ -2,6 +2,7 @@ import { useLazyQuery } from "@apollo/client";
 import React, { useContext } from "react"
 import { GET_NOVA_POSHTA_CITY_REF } from "../../../../../graphql/queries/nova_poshta/getNovaPoshtaCityRef";
 import { GET_NOVA_POSHTA_WAREHOUSES } from "../../../../../graphql/queries/nova_poshta/getNovaPoshtaWarehouses";
+import InputField from "../../../../Form/InputField";
 import Select from "../../../../Form/Select/Select";
 import SelectOption from "../../../../Form/Select/SelectOption";
 import { LangContext } from "../../../../Layouts/Layout";
@@ -27,13 +28,15 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
 
         if (onInputEvent.target.value.length > 0) {
 
-            getNovaPoshtaCityRef({ variables: { regExp: selectedCity } })
+            getNovaPoshtaCityRef({ variables: { params: { regExp: selectedCity } } })
                 .then((response) => {
                     getNovaPoshtaWarehouses({
                         variables: {
-                            cityRef: response.data.allWpNovaPoshtaCities[0].ref,
-                            regExp: onInputEvent.target.value,
-                            limit: 4
+                            params: {
+                                cityRef: response.data.allWpNovaPoshtaCities[0].ref,
+                                regExp: onInputEvent.target.value,
+                                limit: 4
+                            }
                         }
                     })
                         .then((response) => {
@@ -47,24 +50,30 @@ const WarehouseSelector = (props: WarehouseSelectorProps) => {
     }
 
     return (
-        <Select
-            name="address_1"
-            label={WAREHOUSE_SELECTOR_TITLE}
-            onErrorMessage={WAREHOUSE_SELECTOR_ERROR_MESSAGE}
-            placeHolder={!warehousesData.length && WAREHOUSE_SELECTOR_PLACEHOLDER}
-            isInputDisabled={(!selectedShippingLine || selectedShippingLine == 'local_pickup') || !selectedCity}
-            isSelectClosed={warehousesData.length > 0}
-            isFetchPending={novaPoshtaWarehousesLoading}
-            onInputHandler={selectOnInputHandler}
-            dependencies={[selectedShippingLine, warehousesData]}
-        >
+        <>
             {
-                warehousesData.length && warehousesData.map((city: object | any, index: number) =>
-                    <SelectOption key={index}>
-                        {city.description_ru}
-                    </SelectOption>)
+                selectedShippingLine === 'ukrposhta_shippping'
+                    ? <InputField name="address_1" onErrorMessage={WAREHOUSE_SELECTOR_ERROR_MESSAGE} required>{WAREHOUSE_SELECTOR_TITLE}</InputField>
+                    : <Select
+                        name="address_1"
+                        label={WAREHOUSE_SELECTOR_TITLE}
+                        onErrorMessage={WAREHOUSE_SELECTOR_ERROR_MESSAGE}
+                        placeHolder={!warehousesData.length && WAREHOUSE_SELECTOR_PLACEHOLDER}
+                        isInputDisabled={(!selectedShippingLine || selectedShippingLine == 'local_pickup') || !selectedCity}
+                        isSelectClosed={warehousesData.length > 0}
+                        isFetchPending={novaPoshtaWarehousesLoading}
+                        onInputHandler={selectOnInputHandler}
+                        dependencies={[selectedShippingLine, warehousesData]}
+                    >
+                        {
+                            warehousesData.length && warehousesData.map((city: object | any, index: number) =>
+                                <SelectOption key={index}>
+                                    {city.description_ru}
+                                </SelectOption>)
+                        }
+                    </Select>
             }
-        </Select>
+        </>
     )
 }
 
