@@ -54,7 +54,7 @@ const ProductThumb = (props: ProductProps) => {
     const { PRODUCT_SKU, NO_PRODUCT_IMAGE } = require(`../../../languages/${language}/languages`);
 
     const { data, gatsbyImagePath } = props;
-    if (data.sku == '') data.sku = data.id;
+    const sku = data.sku === '' ? data.id : data.sku;
 
     const imageSource = gatsbyImagePath ? process.env.GATSBY_SITE_URL + gatsbyImagePath : data.images.length > 0 ? data.images[0].src : 'https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png';
     const imageAlt = data.images.length > 0 ? data.images[0].alt : NO_PRODUCT_IMAGE;
@@ -82,7 +82,7 @@ const ProductThumb = (props: ProductProps) => {
             </ProductLink>
             <ProductCaption>
                 <div>
-                    <p>{PRODUCT_SKU}: {data.sku}</p>
+                    <p>{PRODUCT_SKU}: {sku}</p>
                     <ProductPrice price={data.price} salePrice={data.sale_price} />
                 </div>
                 <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>

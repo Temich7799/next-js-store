@@ -46,7 +46,7 @@ const ProductName = (props: ProductNameProps) => {
 
     const { getHeightAttribute } = useProductAttributes();
 
-    const { options }: any = getHeightAttribute(attributes);
+    const heightAttribute: any = getHeightAttribute(attributes);
 
     return (
         <StyledProductName>
@@ -55,10 +55,10 @@ const ProductName = (props: ProductNameProps) => {
                 <p>{PRODUCT_SKU}: {sku != '' ? sku : PRODUCT_SKU_EMPTY}</p>
             </div>
             {
-                options[0] &&
+                heightAttribute && heightAttribute.options[0] &&
                 <StyledHeightAttribute >
                     <ImageSVG path='/svg/product/attributes/height.svg' height="75px" width="25px" />
-                    <p>{options[0]}</p>
+                    <p>{heightAttribute.options[0]}</p>
                 </StyledHeightAttribute>
             }
         </StyledProductName >
