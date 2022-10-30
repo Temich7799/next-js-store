@@ -25,20 +25,25 @@ const CarouselWithProducts = (props: CarouselWithProductsProps) => {
 
     const { compImages, title, params } = props;
 
-    const { data, loading } = useProductsQuery(params);
+    const { data } = useProductsQuery(params);
 
     return (
-        <Carousel title={title} isDataFetching={loading} carouselItemMax={3}>
+        <>
             {
-                data !== undefined && data.map((product: ProductFetched) => {
+                data && data.length > 0 &&
+                <Carousel title={title} carouselItemMax={3}>
+                    {
+                        data.map((product: ProductFetched) => {
 
-                    const productCompImages = compImages && compImages[parseInt(product.id)];
-                    const gatsbyImagePath = productCompImages && productCompImages.length >= 1 && productCompImages[0];
+                            const productCompImages = compImages && compImages[parseInt(product.id)];
+                            const gatsbyImagePath = productCompImages && productCompImages.length >= 1 && productCompImages[0];
 
-                    return <ProductThumb data={product} gatsbyImagePath={gatsbyImagePath} key={product.id} />
-                })
+                            return <ProductThumb data={product} gatsbyImagePath={gatsbyImagePath} key={product.id} />
+                        })
+                    }
+                </Carousel>
             }
-        </Carousel>
+        </>
     )
 }
 
