@@ -57,6 +57,10 @@ const ImageCaption = styled.figcaption<ImageCaptionProps>`
     }    
 `;
 
+const NoImage = styled.img`
+    transform: translateY(-50px);
+`;
+
 const Caption = styled.div`
     
     width: 100%;
@@ -77,7 +81,7 @@ const Line = styled.div`
 
 const CategoryThumb = (props: CategoryThumbProps) => {
 
-    const { language, langPrefix } = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { CATEGORY_THUMB_BUTTON } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;
@@ -86,9 +90,11 @@ const CategoryThumb = (props: CategoryThumbProps) => {
         <StyledCategoryThumb>
             <ImageFigure>
                 <Link to={data.slug}>
-                    <InteractiveImage>
-                        {data.image && <img src={data.image.src} alt={data.image.alt} />}
-                    </InteractiveImage>
+                    {
+                        data.image
+                            ? <InteractiveImage><img src={data.image.src} alt={data.image.alt} /></InteractiveImage>
+                            : <NoImage src="https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png" />
+                    }
                 </Link>
                 <ImageCaption captionColor={getRandomColor()}>
                     <Line />
