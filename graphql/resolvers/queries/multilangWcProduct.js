@@ -6,7 +6,7 @@ const multilangWcProduct = {
         productId: 'Int!',
         language: 'LanguagesEnum',
     },
-    resolve: (_, { productId, language }) => wooCommerceQuery(`products/${productId}`, null, 'get', language)
+    resolve: (_, { productId, language }) => wooCommerceQuery(`products/${productId}`, undefined, 'get', language)
 }
 
 module.exports = multilangWcProduct;
