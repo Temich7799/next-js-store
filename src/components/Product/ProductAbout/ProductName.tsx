@@ -20,6 +20,7 @@ const StyledProductName = styled.div<any>`
     align-items: center;
     justify-content: space-between;
     h1 {
+        text-align: left;
         font-size: 28px;
         display: inline-block;
         margin: 2.5% 0;

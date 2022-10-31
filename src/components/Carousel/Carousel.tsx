@@ -200,7 +200,7 @@ const Carousel = (props: CarouselProps) => {
                 <h3>{title}</h3>
             </CopyProtectedArea>
             <CarouselContent showButtons={showButtons}>
-                {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('left')}><b>{'<'}</b></Button>}
+                {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('left')}>{'<'}</Button>}
                 {
                     isDataFetching
                         ?
@@ -216,7 +216,7 @@ const Carousel = (props: CarouselProps) => {
                             }
                         </CarouselSliderWrapper>
                 }
-                {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('right')}><b>{'>'}</b></Button>}
+                {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('right')}>{'>'}</Button>}
             </CarouselContent>
         </StyledCarousel >
     )

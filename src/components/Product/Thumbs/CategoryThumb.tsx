@@ -21,9 +21,10 @@ type CategoryThumbProps = {
 const StyledCategoryThumb = styled.div`
     height: 490px;
     width: 335px;
+    padding-bottom: 50px;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    justify-content: space-between;
     box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
 `;
 
@@ -47,13 +48,14 @@ const ImageCaption = styled.figcaption<ImageCaptionProps>`
     bottom: 0;
     display: flex;
     align-items: center;
+    text-align: center;
     justify-content: space-around;
     width: 100%;
     height: 40px;
     background-color: ${props => props.captionColor};
     p {
         font-family: 'Comfortaa';
-        font-size: 24px;
+        font-size: 22px;
     }    
 `;
 
@@ -64,13 +66,15 @@ const NoImage = styled.img`
 const Caption = styled.div`
     
     width: 100%;
+    height: 32.5%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     p {
-        font-family: 'Amatic SC';
-        font-size: 30px;
+        text-align: center;
+        font-family: 'Noto Serif';
+        overflow: scroll;
     }
 `;
 

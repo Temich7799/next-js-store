@@ -28,7 +28,8 @@ const Content = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    gap: 50px;
+    row-gap: 7.5px;
+    column-gap: 50px;
     padding: 2.5%;
 `;
 

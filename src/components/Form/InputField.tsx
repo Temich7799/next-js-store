@@ -9,6 +9,7 @@ const StyledLabel = styled.div`
 `;
 
 const ErrorMessage = styled.p`
+    width: auto;    
     margin: 0;
     font-size: 12px;
     color: red;

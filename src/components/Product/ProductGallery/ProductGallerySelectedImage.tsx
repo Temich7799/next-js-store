@@ -8,6 +8,7 @@ type ProductGallerySelectedImageProps = {
 }
 
 const StyledProductGallerySelectedImage = styled.img`
+    object-fit: contain;
     width:300px;
     height: 400px;
 `;

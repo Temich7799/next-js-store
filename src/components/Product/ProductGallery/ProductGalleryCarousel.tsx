@@ -14,7 +14,8 @@ const StyledProductGalleryCarousel = styled.div`
     height: 400px;
     overflow-x: hidden;
     overflow-y: scroll;
-
+    box-shadow: -1px 4px 5px -2px rgb(0 0 0 / 25%);
+    
     @media (max-width: 450px) { 
         width: 300px;
         height: 100px;

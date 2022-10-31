@@ -18,8 +18,10 @@ h3,
 h4,
 h5,
 h6 {
+    width: 100%;
+    margin: 10px 0;
+    text-align: center;
     font-family: 'Noto Serif';
-    color: #111111;
 }
 
 h2 {
@@ -46,6 +48,8 @@ a {
 }
 
 p {
+    width: 100%;
+    margin: 10px 0;
     font-family: "Didact Gothic";
     font-weight: 400;
     font-size: 14px;

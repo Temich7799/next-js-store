@@ -27,6 +27,8 @@ function buttonStylePropsHandler(style: string | undefined) {
     switch (style) {
         case "transparent":
             return `
+            color: black;
+            font-size: 25px;
             border: none;
             background: none;
             @media (hover: hover) and (pointer: fine) {

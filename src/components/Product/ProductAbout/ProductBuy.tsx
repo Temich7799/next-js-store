@@ -9,14 +9,19 @@ import PurchasedProductQuantity from "../ShoppingCart/OrderDetails/PurchasedProd
 import GoToCartButton from "../../Buttons/GoToCartButton";
 import { ProductGatsby } from "../../../interfaces/InterfaceProduct";
 
-const StyledProductBuy = styled.div`
+const StyledProductBuy = styled.div<any>`
     width: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
     flex-wrap: wrap;
-    margin: 10px 0;
+    margin: 15px auto;
+    column-gap: 15px;
+
+    @media (min-width: ${props => props.minDesktopWidth}px) {
+        column-gap: 50px;
+        margin: 25px 0;
+  }
 `;
 
 const ProductBuy = () => {
@@ -32,7 +37,7 @@ const ProductBuy = () => {
     }
 
     return (
-        <StyledProductBuy>
+        <StyledProductBuy minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
             <ProductPrice price={updatedData && updatedData.price} salePrice={updatedData && updatedData.sale_price} isPriceLoading={isDataLoading} />
             {
                 isInTheCart(data.id)
