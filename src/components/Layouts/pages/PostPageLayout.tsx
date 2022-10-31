@@ -30,6 +30,7 @@ const Content = styled.div`
     justify-content: space-around;
     row-gap: 7.5px;
     column-gap: 50px;
+    row-gap: 25px;
     padding: 2.5%;
 `;
 
