@@ -28,7 +28,7 @@ const ProductGallery = (props: ProductGalleryProps) => {
         <StyledProductGallery>
             <ProductGallerySelectedImage selectedImage={selectedImage} />
             {
-                images.length > 0 && <ProductGalleryCarousel data={images} productId={id} compImages={compImages} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
+                images.length > 1 && <ProductGalleryCarousel data={images} productId={id} compImages={compImages} selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
             }
         </StyledProductGallery>
     )
