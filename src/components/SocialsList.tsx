@@ -23,10 +23,11 @@ const StyledSocialsList = styled.div<any>`
 const SocialsList = () => {
 
     return (
-        <StyledSocialsList minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+        <StyledSocialsList>
             <ul>
-                <li><a href="/facebook"><ImageSVG path="/svg/socials/facebook.svg" height="20px" width="20px" /></a></li>
-                <li> <a href="https://www.instagram.com/malini.com.ua/"><ImageSVG path="/svg/socials/instagram.svg" height="20px" width="20px" /></a></li>
+                <li><a href="https://t.me/MaliniKids" target="_blank"><ImageSVG path="/svg/socials/telegram.svg" height="20px" width="20px" /></a></li>
+                <li><a href="viber://chat?number=%2B380939734756" target="_blank"><ImageSVG path="/svg/socials/viber.svg" height="20px" width="20px" /></a></li>
+                <li> <a href="https://www.instagram.com/malini.com.ua" target="_blank"><ImageSVG path="/svg/socials/instagram.svg" height="20px" width="20px" /></a></li>
             </ul>
         </StyledSocialsList>
     )
