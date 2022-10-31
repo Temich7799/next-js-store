@@ -17,7 +17,7 @@ const StyledPurchasedProduct = styled.div`
     max-width: 430px;
     margin: 5px 0;
     display: grid;
-    grid-template-columns: auto auto 55px 1fr;
+    grid-template-columns: auto 1fr 65px 1fr;
     justify-content: space-around;
     align-items: center;
     gap: 2%;

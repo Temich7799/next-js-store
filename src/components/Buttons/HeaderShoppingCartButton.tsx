@@ -4,10 +4,10 @@ import { useIsMenuOpenedVar } from "../../services/hooks/apollo/useIsMenuOpenedV
 import { useShoppingCartVar } from "../../services/hooks/apollo/useShoppingCartVar";
 import toogle from "../../services/toogle";
 import Button from "./Button";
-import ImageSVG from "../ImageSVG";
 import PopUp from "../PopUp";
 import OrderDetails from "../Product/ShoppingCart/OrderDetails/OrderDetails";
 import { PurchasesCount } from "../../styles/PurchasesCount";
+import { StaticImage } from "gatsby-plugin-image";
 
 const StyledHeaderShoppingCartButton = styled.div`
     position: relative;
@@ -33,7 +33,7 @@ const HeaderShoppingCartButton = () => {
     return (
         <StyledHeaderShoppingCartButton>
             <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
-                <ImageSVG path="/svg/cart/shopping_cart.svg" height="35px" width="35px" />
+                <StaticImage src="../../images/cart/shopping_cart.svg" alt="shopping-cart-icon" width={35} height={35} layout="fixed" placeholder="blurred" />
                 <PurchasesCount>
                     <p>{purchasesCount}</p>
                 </PurchasesCount>

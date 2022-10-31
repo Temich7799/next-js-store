@@ -1,3 +1,4 @@
+import { StaticImage } from "gatsby-plugin-image";
 import React, { useContext, useEffect } from "react"
 import styled, { keyframes } from "styled-components";
 import ImageSVG from "./ImageSVG";
@@ -93,7 +94,7 @@ const LanguageSelector = (props: any) => {
 
     return (
         <StyledLanguageSelector minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
-            <ImageSVG path="/svg/language.svg" width="25px" height="25px" />
+            <StaticImage src="../images/language.svg" alt="decrease-quantity-icon" width={25} height={25} layout="fixed" placeholder="blurred" />
             <LanguagesList minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
                 {
                     languages.map((language: string, index: number) =>

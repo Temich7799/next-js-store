@@ -1,6 +1,5 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import ImageSVG from "../../ImageSVG";
 import Button from "../../Buttons/Button";
 import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/apollo/useShoppingCartVar";
@@ -8,6 +7,8 @@ import { useLastProductPageVar } from "../../../services/hooks/apollo/useLastPro
 import { LangContext } from "../../Layouts/Layout";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 import { PurchasesCount } from "../../../styles/PurchasesCount";
+import { StaticImage } from "gatsby-plugin-image";
+import ImageSVG from "../../ImageSVG";
 
 type ProductProps = {
     data: ProductFetched
@@ -89,7 +90,7 @@ const ProductThumb = (props: ProductProps) => {
                     <ProductPrice price={data.price} salePrice={data.sale_price} />
                 </div>
                 <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
-                    <ImageSVG path={`/svg/cart/${data.sale_price ? 'discount_cart' : 'add_to_cart'}.svg`} height="25px" width="25px" />
+                    <ImageSVG path={`/svg/cart/${data.sale_price ? 'discount_cart' : 'add_to_cart'}.svg`} width="25px" height="25px" />
                     {
                         quantityInCart &&
                         <PurchasesCount>

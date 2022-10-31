@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const PurchasesCount = styled.div`
     position: absolute;
-    width: 25px;
-    height: 25px;
-    top: 0;
-    left: 50%;
+    width: 22px;
+    height: 22px;
+    top: -20%;
+    left: 60%;
     display: flex;
     justify-content: center;
     align-items: center;

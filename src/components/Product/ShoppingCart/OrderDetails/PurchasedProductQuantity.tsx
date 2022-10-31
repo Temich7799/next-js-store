@@ -4,6 +4,7 @@ import { useShoppingCartVar } from "../../../../services/hooks/apollo/useShoppin
 import { ProductInCart } from "../../../../interfaces/InterfaceProduct"
 import Button from "../../../Buttons/Button"
 import ImageSVG from "../../../ImageSVG"
+import { StaticImage } from "gatsby-plugin-image"
 
 type PurchasedProductQuantityProps = {
     data: ProductInCart
@@ -55,7 +56,7 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
                     clear(data.id);
                 }}
             >
-                <ImageSVG path='/svg/cart/clear_cart.svg' height="25px" width="25px" />
+                <StaticImage src="../../../../images/cart/clear_cart.svg" alt="clear-cart-icon" width={25} height={25} layout="fixed" placeholder="blurred" />
             </Button>
         </StyledPurchasedProductQuantity >
     )

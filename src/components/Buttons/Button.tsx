@@ -53,7 +53,6 @@ function buttonStylePropsHandler(style: string | undefined) {
 }
 
 const StyledButton = styled.button<any>`
-    padding: 5%;
     position: relative;
     font-family: 'Noto Serif';
     font-size: 16px;
