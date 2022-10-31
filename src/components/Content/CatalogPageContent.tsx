@@ -9,15 +9,13 @@ type CatalogPageContentProps = {
 }
 
 type CatalogItem = {
-    node: {
-        image: {
-            alt: string
-            src: string
-        }
-        slug: string
-        name: string
-        description: string
+    image: {
+        alt: string
+        src: string
     }
+    slug: string
+    name: string
+    description: string
 }
 
 const Content = styled.div`
@@ -44,7 +42,7 @@ const CatalogPageContent = (props: CatalogPageContentProps) => {
             <Content>
                 {
                     data.map((item: CatalogItem, index: number) =>
-                        <CategoryThumb data={item.node} key={index} />)
+                        <CategoryThumb data={item} key={index} />)
                 }
             </Content>
         </>

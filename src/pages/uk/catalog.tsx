@@ -9,7 +9,7 @@ const CatalogPage = (props: any) => {
 
   return (
     <Layout language="uk">
-      <CatalogPageContent data={data.allWcProductsCategories.edges} />
+      <CatalogPageContent data={data.allMultilangWcCategories} />
     </Layout>
   )
 }
@@ -18,18 +18,14 @@ export default CatalogPage;
 
 export const query = graphql`
   query getAllCategories {
-    allWcProductsCategories(filter: {products: {elemMatch: {stock_status: {eq: "instock"}, status: {eq: "publish"}}}}) {
-      edges {
-        node {
-          image {
-            alt
-            src
-          }
-          slug
-          name
-          description
-        }
+    allMultilangWcCategories(params: {hide_empty: true}, language: uk) {
+      image {
+        alt
+        src
       }
+      slug
+      name
+      description
     }
   }
 `;
