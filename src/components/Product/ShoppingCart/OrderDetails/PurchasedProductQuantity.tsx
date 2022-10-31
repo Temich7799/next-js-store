@@ -34,14 +34,17 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
                     onClick={(e: any) => {
                         e.preventDefault();
                         add(data.id, data);
-                    }}>
+                    }}
+                    
+                >
                     <ImageSVG path='/svg/cart/increase.svg' height="25px" width="25px" />
                 </Button>
                 <Button buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
                         e.preventDefault();
                         decrease(data.id);
-                    }}>
+                    }}
+                >
                     <ImageSVG path='/svg/cart/decrease.svg' height="25px" width="25px" />
                 </Button>
             </div>
@@ -49,7 +52,8 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
                 onClick={(e: any) => {
                     e.preventDefault();
                     clear(data.id);
-                }}>
+                }}
+            >
                 <ImageSVG path='/svg/cart/clear_cart.svg' height="25px" width="25px" />
             </Button>
         </StyledPurchasedProductQuantity >

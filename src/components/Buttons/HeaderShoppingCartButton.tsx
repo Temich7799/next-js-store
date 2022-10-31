@@ -7,22 +7,10 @@ import Button from "./Button";
 import ImageSVG from "../ImageSVG";
 import PopUp from "../PopUp";
 import OrderDetails from "../Product/ShoppingCart/OrderDetails/OrderDetails";
+import { PurchasesCount } from "../../styles/PurchasesCount";
 
 const StyledHeaderShoppingCartButton = styled.div`
     position: relative;
-`;
-
-const PurchasesCount = styled.div`
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    top: 0;
-    left: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background-color: #ffd5e6;
 `;
 
 const HeaderShoppingCartButton = () => {

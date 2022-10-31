@@ -7,6 +7,7 @@ import { useShoppingCartVar } from "../../../services/hooks/apollo/useShoppingCa
 import { useLastProductPageVar } from "../../../services/hooks/apollo/useLastProductPageVar";
 import { LangContext } from "../../Layouts/Layout";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
+import { PurchasesCount } from "../../../styles/PurchasesCount";
 
 type ProductProps = {
     data: ProductFetched
@@ -64,8 +65,9 @@ const ProductThumb = (props: ProductProps) => {
         ? `${process.env.GATSBY_SITE_URL}/${langPrefix}catalog/${data.categories[0].slug}/${data.categories[0].slug}-${data.sku != '' ? data.sku : data.id}`
         : `${process.env.GATSBY_SITE_URL}/${langPrefix}product?id=${data.id}`;
 
-    const { add: addToCart } = useShoppingCartVar();
+    const { data: inCartProducts, add: addToCart } = useShoppingCartVar();
     const { save: saveLastProductPage } = useLastProductPageVar();
+    const quantityInCart = inCartProducts[data.id] && inCartProducts[data.id].quantity;
 
     function buttonOnClickHandler(): void {
         addToCart(data.id, data);
@@ -88,6 +90,12 @@ const ProductThumb = (props: ProductProps) => {
                 </div>
                 <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
                     <ImageSVG path={`/svg/cart/${data.sale_price ? 'discount_cart' : 'add_to_cart'}.svg`} height="25px" width="25px" />
+                    {
+                        quantityInCart &&
+                        <PurchasesCount>
+                            <p>{quantityInCart}</p>
+                        </PurchasesCount>
+                    }
                 </Button>
             </ProductCaption>
         </StyledProductThumb >
