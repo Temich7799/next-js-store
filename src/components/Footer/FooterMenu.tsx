@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
+import { Link } from "gatsby"
 import styled from "styled-components"
 import { LangContext } from "../Layouts/Layout";
 import { useFooterMenuItems } from "../../services/hooks/gatsby/useFooterMenuItems";

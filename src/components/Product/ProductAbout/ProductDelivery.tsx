@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 import { StaticImage } from "gatsby-plugin-image";
 import styled from "styled-components"
 import { LangContext } from "../../Layouts/Layout";
+import { Link } from "gatsby";
 
 const StyledProductDelivery = styled.div`
     display: flex;
@@ -26,14 +27,14 @@ const DeliveryIcons = styled.div`
 
 const ProductDelivery = () => {
 
-    const { language } = useContext(LangContext);
+    const { language, langPrefix } = useContext(LangContext);
     const { DELIVERY_ABOUT_AFTERPAY_INFO, DELIVERY_ABOUT_DELIVERY_INFO } = require(`../../../languages/${language}/languages`);
 
     return (
         <StyledProductDelivery>
             <DeliveryAbout>
-                <a>{DELIVERY_ABOUT_DELIVERY_INFO}</a>
-                <a>{DELIVERY_ABOUT_AFTERPAY_INFO}</a>
+                <Link to={`/${langPrefix}shipping-and-payment`}>{DELIVERY_ABOUT_DELIVERY_INFO}</Link>
+                <Link to={`/${langPrefix}shipping-and-payment`}>{DELIVERY_ABOUT_AFTERPAY_INFO}</Link>
             </DeliveryAbout>
             <DeliveryIcons>
                 <StaticImage src="../../../images/delivery/nova_poshta.svg" alt="nova-poshta-icon" width={30} height={30} layout="fixed" placeholder="blurred" />
