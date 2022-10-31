@@ -1,1 +1,1 @@
-https://test.malinikids.com/catalog
+https://test.malinikids.com/en/catalog
