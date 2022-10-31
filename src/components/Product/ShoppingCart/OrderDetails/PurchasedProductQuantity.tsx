@@ -35,7 +35,7 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
                         e.preventDefault();
                         add(data.id, data);
                     }}
-                    
+                    disabled={shoppingCartData[data.id] && shoppingCartData[data.id].quantity === data.stock_quantity}
                 >
                     <ImageSVG path='/svg/cart/increase.svg' height="25px" width="25px" />
                 </Button>
@@ -44,6 +44,7 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
                         e.preventDefault();
                         decrease(data.id);
                     }}
+                    disabled={shoppingCartData[data.id] && shoppingCartData[data.id].quantity === 1}
                 >
                     <ImageSVG path='/svg/cart/decrease.svg' height="25px" width="25px" />
                 </Button>
