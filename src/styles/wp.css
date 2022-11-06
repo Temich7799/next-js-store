@@ -103,21 +103,14 @@ button {
     width: fit-content;
 }
 
-.wp-container-5, .wp-container-10 {
+.wp-block-gallery {
+    width: 90%;
     width: 100%;
     display: flex;
     gap: 25px;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-}
-
-.wp-container-6 {
-    width: 50%;
-}
-
-.wp-block-gallery {
-    width: 90%;
 }
 
 .about-us-video {
