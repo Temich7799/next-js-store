@@ -6,7 +6,7 @@ require("dotenv").config({
 const config: GatsbyConfig = {
   siteMetadata: {
     title: process.env.SITE_TITLE,
-    siteUrl: process.env.SITE_URL
+    siteUrl: process.env.GATSBY_SITE_URL
   },
   flags: {
     DEV_SSR: true

@@ -1,9 +1,11 @@
 import React from "react";
 import Layout from "../Layout";
-import { graphql } from "gatsby";
 import PageTitle from "../../PageTitle";
 import styled from "styled-components";
 import NotFoundPageContent from "../../Content/NotFoundPageContent";
+import MetaData from "../MetaData";
+import type { HeadProps } from "gatsby"
+import useYoastMetaData from "../../../services/hooks/useYoastMetaData";
 require('../../../styles/wp.css');
 
 type PostPageLayoutProps = {
@@ -53,5 +55,25 @@ const PostPageLayout = (props: PostPageLayoutProps) => {
 }
 
 export default PostPageLayout;
+
+export const Head = (props: HeadProps) => {
+
+  const { data }: any = props.pageContext;
+
+  const { metaData, openGraphData } = useYoastMetaData(`pages?slug=${data.slug}`, {
+    openGraphData: {
+      og_url: `${process.env.GATSBY_SITE_URL}/${data.slug}`
+    }
+  });
+
+  const linkedData = {
+    context: '',
+    type: '',
+    name: ''
+  };
+
+  return <MetaData data={metaData} linkedData={linkedData} openGraphData={openGraphData} />
+}
+
 
 
