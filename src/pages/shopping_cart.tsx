@@ -1,4 +1,3 @@
-import { HeadProps } from "gatsby";
 import React, { useState } from "react"
 import styled from "styled-components";
 import Layout from "../components/Layouts/Layout";
@@ -38,18 +37,12 @@ const ShoppingCartPage = () => {
 
 export default ShoppingCartPage;
 
-export const Head = (props: HeadProps) => {
+export const Head = () => {
 
   const metaData = {
     title: 'Корзина - Malini Kids',
     description: ''
   };
 
-  const linkedData = {
-    context: '',
-    type: '',
-    name: ''
-  };
-
-  return <MetaData data={metaData} linkedData={linkedData} />
+  return <MetaData data={metaData} />
 }

@@ -21,7 +21,9 @@ function useYoastMetaData(contentEndpoint: string, options?: MetaDataOptions) {
                 ...options?.metaData
             });
 
-            const graph: any = {};
+            const graph: any = {
+                
+            };
 
             setOpenGraph({
                 ...graph,
