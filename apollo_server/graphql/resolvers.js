@@ -6,9 +6,9 @@ const sqlQuery = require("../services/queries/sqlQuery");
 
 const resolvers = {
     Query: {
-        allWpPages: (_, { language, filter }) => wordpressQuery('pages', { language: language, filter: filter }),
-        allWpPosts: (_, { language, filter }) => wordpressQuery('posts', { language: language, filter: filter }),
-        allWpMenuItems: (_, { language, slug, filter }) => wordpressQuery(`menus/v1/menus/${slug}`, { language: language, filter: filter }, ['items'], 'none'),
+        allWpPages: (_, { language, filter, params }) => wordpressQuery('pages', { language: language, filter: filter, params: params }),
+        allWpPosts: (_, { language, filter, params }) => wordpressQuery('posts', { language: language, filter: filter, params: params }),
+        allWpMenuItems: (_, { language, slug, filter, params }) => wordpressQuery(`menus/v1/menus/${slug}`, { language: language, filter: filter, params: params }, ['items'], 'none'),
         allWpWcOrders: () => wooCommerceQuery('orders'),
         allWpNovaPoshtaCities: (_, { params }) => {
 
@@ -33,7 +33,7 @@ const resolvers = {
         allWcProductsCategories: (_, { params }) => wooCommerceQuery('products/categories', params),
         allWcShippingZonesMethods: (_, { zoneId, language, params }) => wooCommerceQuery(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`, { per_page: 10, ...params }, 'get', language),
         allWcPaymentMethods: (_, { language, params }) => wooCommerceQuery('payment_gateways', { per_page: 10, ...params }, 'get', language),
-        allWpMetaData: (_, { endpoint, language }) => wordpressQuery(endpoint, { language: language }).then((res) => res.map((page) => page.yoast_head_json)),
+        allWpMetaData: (_, { endpoint, language, params }) => wordpressQuery(endpoint, { language: language, params: params }).then((res) => res.map((page) => page.yoast_head_json)),
 
         wpPage: (_, { language, pageId }) => wordpressQuery(`pages/${pageId}`, { language: language }),
         wpPost: (_, { language, postId }) => wordpressQuery(`posts/${postId}`, { language: language }),
