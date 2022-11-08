@@ -12,7 +12,7 @@ const wordpressQuery = (endpoint, filterArgs, dataPathArray, version = 'wp/v2/')
             const json = JSON.parse(response.replace(/@/g, ''));
             const data = dataPathArray ? digObjectByPath(dataPathArray, json) : json;
 
-            return filter !== undefined ? filterData(json, filter) : json
+            return filter !== undefined ? filterData(data, filter) : data
         });
 }
 
