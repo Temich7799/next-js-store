@@ -33,11 +33,13 @@ const resolvers = {
         allWcProductsCategories: (_, { params }) => wooCommerceQuery('products/categories', params),
         allWcShippingZonesMethods: (_, { zoneId, language, params }) => wooCommerceQuery(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`, { per_page: 10, ...params }, 'get', language),
         allWcPaymentMethods: (_, { language, params }) => wooCommerceQuery('payment_gateways', { per_page: 10, ...params }, 'get', language),
+        allWpMetaData: (_, { endpoint, language }) => wordpressQuery(endpoint, { language: language }).then((res) => res.map((page) => page.yoast_head_json)),
 
         wpPage: (_, { language, pageId }) => wordpressQuery(`pages/${pageId}`, { language: language }),
         wpPost: (_, { language, postId }) => wordpressQuery(`posts/${postId}`, { language: language }),
         wpWcOrder: (_, { productId }) => wooCommerceQuery(`orders/${productId}`),
         wpWcProduct: (_, { productId, language }) => wooCommerceQuery(`products/${productId}`, undefined, 'get', language),
+        wpMetaData: (_, { endpoint, language, pageId }) => wordpressQuery(`${endpoint}?id=${pageId}`, { language: language }).then((res) => res[0].yoast_head_json),
 
     },
     Mutation: {

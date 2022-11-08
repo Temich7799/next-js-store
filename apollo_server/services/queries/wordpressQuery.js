@@ -7,12 +7,12 @@ const wordpressQuery = (endpoint, filterArgs, dataPathArray, version = 'wp/v2/')
     const { language, filter } = filterArgs;
 
     return fetch(`${process.env.WP_URL}/${language ? `${language}/` : ''}wp-json/${version === 'none' ? '' : version}${endpoint}`)
-        .then(response => response.json())
+        .then(response => response.text())
         .then(response => {
+            const json = JSON.parse(response.replace(/@/g, ''));
+            const data = dataPathArray ? digObjectByPath(dataPathArray, json) : json;
 
-            const data = dataPathArray ? digObjectByPath(dataPathArray, response) : response;
-
-            return filter !== undefined ? filterData(data, filter) : data
+            return filter !== undefined ? filterData(json, filter) : json
         });
 }
 

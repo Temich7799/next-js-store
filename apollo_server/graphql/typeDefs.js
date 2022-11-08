@@ -15,10 +15,12 @@ const OrderDataInput = require("./types/woocommerce/inputs/OrderDataInput");
 const WC_ProductCategoryParams = require("./types/woocommerce/inputs/WC_ProductCategoryParams");
 const LanguagesEnum = require("./enums/LanguagesEnum");
 const PublishStatusesEnum = require("./enums/PublishStatusesEnum");
+const RestEndpointsEnum = require("./enums/RestEndpointsEnum");
 const StockStatusesEnum = require("./enums/StockStatusesEnum");
 const WP_MenuItemFilter = require("./types/wordpress/inputs/WP_MenuItemFilter");
 const NP_CitiesParams = require("./types/wordpress/inputs/NP_CitiesParams");
 const NP_WarehousesParams = require("./types/wordpress/inputs/NP_WarehousesParams");
+const WP_MetaData = require("./types/wordpress/WP_MetaData");
 
 const { gql } = require('apollo-server');
 
@@ -35,11 +37,13 @@ const typeDefs = gql`#graphql
         allWcProductsCategories(params: WC_ProductCategoryParams): [WC_Category!]! ###########
         allWcShippingZonesMethods(zoneId: Int, language: LanguagesEnum, params: WC_ShippingMethodParams): [WC_ShippingMethod!]!
         allWcPaymentMethods(language: LanguagesEnum, params: WC_PaymentMethodParams): [WC_PaymentMethod!]!
+        allWpMetaData(endpoint: RestEndpointsEnum!, language: LanguagesEnum): [WP_MetaData!]!
 
         wpPage(pageId: Int!, language: LanguagesEnum): WP_Page!
         wpPost(postId: Int!, language: LanguagesEnum): WP_Page!
         wpWcOrder(productId: Int!): WpWcOrder! ###########
         wpWcProduct(productId: Int!, language: LanguagesEnum): WC_Product! ###########
+        wpMetaData(endpoint: RestEndpointsEnum!, pageId: Int!, language: LanguagesEnum): WP_MetaData!
     }
 
     type Mutation {
@@ -55,6 +59,7 @@ const typeDefs = gql`#graphql
     ${WpNovaPoshtaWarehouse}
     ${WC_PaymentMethod}
     ${WC_ShippingMethod}
+    ${WP_MetaData}
 #############----------Inputs--------------####################
     ${WC_ProductParams}
     ${OrderDataInput}
@@ -69,6 +74,7 @@ const typeDefs = gql`#graphql
     ${LanguagesEnum}
     ${PublishStatusesEnum}
     ${StockStatusesEnum}
+    ${RestEndpointsEnum}
 `;
 
 module.exports = typeDefs;

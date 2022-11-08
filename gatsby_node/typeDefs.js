@@ -1,5 +1,6 @@
 const typeDefs = `
     ${require("../apollo_server/graphql/types/wordpress/WP_Page")}
+    ${require("../apollo_server/graphql/types/wordpress/WP_MetaData")}
     ${require("../apollo_server/graphql/types/wordpress/inputs/WP_PageFilter")}
     ${require("../apollo_server/graphql/types/wordpress/WP_MenuItem")}
     ${require("../apollo_server/graphql/types/wordpress/inputs/WP_MenuItemFilter")}
@@ -13,6 +14,7 @@ const typeDefs = `
     ${require("../apollo_server/graphql/types/woocommerce/inputs/WC_ProductCategoryParams")}
     ${require('../apollo_server/graphql/enums/LanguagesEnum')}
     ${require('../apollo_server/graphql/enums/StockStatusesEnum')}
+    ${require('../apollo_server/graphql/enums/RestEndpointsEnum')}
 `
 
 module.exports = typeDefs;
