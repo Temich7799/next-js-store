@@ -1,5 +1,5 @@
 import React from "react";
-import { useIsMenuOpenedVar } from "../../services/hooks/apollo/useIsMenuOpenedVar";
+import { useIsMenuOpenedVar } from "../../services/hooks/apollo_vars/useIsMenuOpenedVar";
 import toogle from "../../services/toogle";
 import HideOnDesktopWrapper from "../../styles/HideOnDesktopWrapper";
 import { MobileMenuButtonProps } from "../../types/MobileMenuButtonPropsType";

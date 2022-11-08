@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useLastProductPageVar } from "../../services/hooks/apollo/useLastProductPageVar";
+import { useLastProductPageVar } from "../../services/hooks/apollo_vars/useLastProductPageVar";
 import { LangContext } from "../Layouts/Layout";
 import Button from "./Button";
 

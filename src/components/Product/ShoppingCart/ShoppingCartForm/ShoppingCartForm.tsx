@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Delivery from "./Delivery/Delivery";
 import ClientContacts from "./ClientContacts";
-import { useShoppingCartVar } from "../../../../services/hooks/apollo/useShoppingCartVar";
+import { useShoppingCartVar } from "../../../../services/hooks/apollo_vars/useShoppingCartVar";
 import { useSendOrder } from "../../../../services/hooks/useSendOrder";
 
 type ShoppingCartFormProps = {
