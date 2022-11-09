@@ -8,7 +8,7 @@ import ProductBuyButton from "../../Buttons/ProductBuyButton";
 import PurchasedProductQuantity from "../ShoppingCart/OrderDetails/PurchasedProductQuantity";
 import GoToCartButton from "../../Buttons/GoToCartButton";
 import { ProductGatsby } from "../../../interfaces/InterfaceProduct";
-import PopUpWindow from "../../PopUpWindow";
+import PopUpWindow from "../../PopUp/PopUpWindow";
 import OrderDetails from "../ShoppingCart/OrderDetails/OrderDetails";
 import { useLastProductPageVar } from "../../../services/hooks/apollo_vars/useLastProductPageVar";
 

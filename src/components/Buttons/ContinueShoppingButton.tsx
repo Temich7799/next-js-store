@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useLastProductPageVar } from "../../services/hooks/apollo_vars/useLastProductPageVar";
 import { LangContext } from "../Layouts/Layout";
-import { PopUpWindowContext } from "../PopUpWindow";
+import { PopUpWindowContext } from "../PopUp/PopUpWindow";
 import Button from "./Button";
 
 type ContinueShoppingButtonProps = {

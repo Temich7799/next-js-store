@@ -4,7 +4,7 @@ import { useIsMenuOpenedVar } from "../../services/hooks/apollo_vars/useIsMenuOp
 import { useShoppingCartVar } from "../../services/hooks/apollo_vars/useShoppingCartVar";
 import toogle from "../../services/toogle";
 import Button from "./Button";
-import PopUpWindow from "../PopUpWindow";
+import PopUpWindow from "../PopUp/PopUpWindow";
 import OrderDetails from "../Product/ShoppingCart/OrderDetails/OrderDetails";
 import { PurchasesCount } from "../../styles/PurchasesCount";
 import { StaticImage } from "gatsby-plugin-image";

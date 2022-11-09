@@ -10,7 +10,7 @@ import { PurchasesCount } from "../../../styles/PurchasesCount";
 import { ProductInCart } from "../../../interfaces/InterfaceProduct";
 import toast, { Toaster } from 'react-hot-toast';
 import ImageSVG from "../../ImageSVG";
-import PopUpWindow from "../../PopUpWindow";
+import PopUpWindow from "../../PopUp/PopUpWindow";
 import OrderDetails from "../ShoppingCart/OrderDetails/OrderDetails";
 
 type ProductProps = {

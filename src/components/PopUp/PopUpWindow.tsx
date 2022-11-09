@@ -1,8 +1,8 @@
 import React, { createContext } from "react"
 import styled, { keyframes } from "styled-components"
-import toogle from "../services/toogle";
-import Button from "./Buttons/Button";
-import ImageSVG from "./ImageSVG";
+import toogle from "../../services/toogle";
+import Button from "../Buttons/Button";
+import ImageSVG from "../ImageSVG";
 
 type PopUpWindowProps = {
     children: JSX.Element
