@@ -65,7 +65,9 @@ const SubMenuItem = styled.li`
     text-shadow: none;
     @media (hover: hover) and (pointer: fine) {
         :hover {
-            text-shadow: 0.25px 0 0 currentColor;
+            a {
+                color: #d888a9;
+            }
         }
     }
 `;
