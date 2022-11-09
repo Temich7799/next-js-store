@@ -1,14 +1,13 @@
 import React from "react";
 import Layout from "../Layout";
-import { HeadProps } from "gatsby";
 import ProductPageContent from "../../Content/ProductPageContent";
 import { ProductGatsby } from "../../../interfaces/InterfaceProduct";
 import MetaData from "../MetaData";
-import useYoastMetaData from "../../../services/hooks/useYoastMetaData";
+import { parsePageMetaData } from "../../../services/parsePageMetaData";
 
 type ProductPageLayoutProps = {
     pageContext: {
-        data: ProductGatsby
+        productData: ProductGatsby
         language: string
         compImages: object | any
     }
@@ -16,32 +15,20 @@ type ProductPageLayoutProps = {
 
 const ProductPageLayout = (props: ProductPageLayoutProps) => {
 
-    const { data, language, compImages } = props.pageContext;
+    const { productData, language, compImages } = props.pageContext;
 
     return (
         <Layout language={language}>
-            <ProductPageContent data={data} compImages={compImages} />
+            <ProductPageContent data={productData} compImages={compImages} />
         </Layout >
     )
 }
 
 export default ProductPageLayout;
 
-export const Head = (props: HeadProps) => {
+export const Head = (props: any) => {
 
-    const { data }: any = props.pageContext;
+    const { metaData, openGraphData } = parsePageMetaData(props.pageContext.productData.yoast_head_json);
 
-    const { metaData, openGraphData } = useYoastMetaData(`product?id=${data.id}`, {
-        openGraphData: {
-            og_url: process.env.GATSBY_SITE_URL
-        }
-    });
-
-    const linkedData = {
-        context: '',
-        type: '',
-        name: ''
-    };
-
-    return <MetaData data={metaData} linkedData={linkedData} openGraphData={openGraphData} />
+    return <MetaData data={metaData} openGraphData={openGraphData} />
 }

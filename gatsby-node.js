@@ -24,6 +24,7 @@ exports.createResolvers = ({ createResolvers }) => {
       allMultilangWcCategories: require("./graphql/resolvers/queries/allMultilangWcCategories"),
 
       multilangWpPage: require("./graphql/resolvers/queries/multilangWpPage"),
+      multilangWpMetaData: require("./graphql/resolvers/queries/multilangWpMetaData"),
       multilangWpPost: require("./graphql/resolvers/queries/multilangWpPost"),
       multilangWcProduct: require("./graphql/resolvers/queries/multilangWcProduct"),
     }
@@ -46,6 +47,15 @@ exports.createPages = async ({ actions, graphql }) => {
           rendered
         }
         slug
+        yoast_head_json {
+          title
+          description
+          og_title
+          og_type
+          og_locale
+          og_site_name
+          og_description
+        }
       }
 
       uk: allMultilangWpPages(language: uk, filter: {exclude: {slug: ["home", "catalog"]}, include: {status: publish}}) {
@@ -56,6 +66,15 @@ exports.createPages = async ({ actions, graphql }) => {
           rendered
         }
         slug
+        yoast_head_json {
+          title
+          description
+          og_title
+          og_type
+          og_locale
+          og_site_name
+          og_description
+        }
       }
 
       en: allMultilangWpPages(language: en, filter: {exclude: {slug: ["home", "catalog"]}, include: {status: publish}}) {
@@ -66,15 +85,62 @@ exports.createPages = async ({ actions, graphql }) => {
           rendered
         }
         slug
+        yoast_head_json {
+          title
+          description
+          og_title
+          og_type
+          og_locale
+          og_site_name
+          og_description
+        }
       }
     }
   `);
 
   const { data: allCategoriesData } = await graphql(`
     query getAllWcCategories {
-      allMultilangWcCategories(params: {hide_empty: true}) {
+
+      ru: allMultilangWcCategories(params: {hide_empty: true}) {
         id
         slug
+        yoast_head_json {
+          title
+          description
+          og_title
+          og_type
+          og_locale
+          og_site_name
+          og_description
+        }
+      }
+
+      uk: allMultilangWcCategories(language: uk, params: {hide_empty: true}) {
+        id
+        slug
+        yoast_head_json {
+          title
+          description
+          og_title
+          og_type
+          og_locale
+          og_site_name
+          og_description
+        }
+      }
+
+      en: allMultilangWcCategories(language: en, params: {hide_empty: true}) {
+        id
+        slug
+        yoast_head_json {
+          title
+          description
+          og_title
+          og_type
+          og_locale
+          og_site_name
+          og_description
+        }
       }
     }
   `);
@@ -101,6 +167,15 @@ exports.createPages = async ({ actions, graphql }) => {
         categories {
           slug
         }
+        yoast_head_json {
+          title
+          description
+          og_title
+          og_type
+          og_locale
+          og_site_name
+          og_description
+        }
       }
 
       uk: allMultilangWcProducts(language: uk, params: { stock_status: instock, status: publish, per_page: 2000 }) {
@@ -123,6 +198,15 @@ exports.createPages = async ({ actions, graphql }) => {
         categories {
           slug
         }
+        yoast_head_json {
+          title
+          description
+          og_title
+          og_type
+          og_locale
+          og_site_name
+          og_description
+        }
       }
 
       en: allMultilangWcProducts(language: en, params: { stock_status: instock, status: publish, per_page: 2000 }) {
@@ -144,6 +228,15 @@ exports.createPages = async ({ actions, graphql }) => {
         }
         categories {
           slug
+        }
+        yoast_head_json {
+          title
+          description
+          og_title
+          og_type
+          og_locale
+          og_site_name
+          og_description
         }
       }
     }      
@@ -168,7 +261,7 @@ exports.createPages = async ({ actions, graphql }) => {
         path: `${langPrefix}${wpPage.slug}`,
         component: path.resolve(`./src/components/Layouts/pages/PostPageLayout.tsx`),
         context: {
-          data: wpPage,
+          pageData: wpPage,
           language: language,
         },
       });
@@ -177,12 +270,12 @@ exports.createPages = async ({ actions, graphql }) => {
 
   function createProductsListPages(data, compImages, language, langPrefix) {
 
-    data.allMultilangWcCategories.forEach((wcCategory) => {
+    data[language].forEach((wcCategory) => {
       actions.createPage({
         path: `${langPrefix}catalog/${wcCategory.slug}`,
         component: path.resolve(`./src/components/Layouts/pages/ProductsListPageLayout.tsx`),
         context: {
-          categoryId: wcCategory.id,
+          pageData: wcCategory,
           compImages: compImages,
           language: language,
         },
@@ -200,7 +293,7 @@ exports.createPages = async ({ actions, graphql }) => {
         path: `${langPrefix}catalog/${wcProduct.categories[0].slug}/${wcProduct.categories[0].slug}-${wcProduct.sku}`,
         component: path.resolve(`./src/components/Layouts/pages/ProductPageLayout.tsx`),
         context: {
-          data: wcProduct,
+          productData: wcProduct,
           compImages: compImages,
           language: language,
         },

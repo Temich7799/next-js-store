@@ -63,14 +63,14 @@ const MetaData = (props: MetaDataProps) => {
             <title>{data.title}</title>
             <meta name="description" content={data.description} />
             {
-                openGraphData && Object.keys(openGraphData).map((openGraphDataKey: any) =>
+                openGraphData && Object.keys(openGraphData).map((openGraphDataKey: any, index: number) =>
                     Array.isArray(openGraphData[openGraphDataKey])
                         ? openGraphData[openGraphDataKey].map((arrayItem: object | any) =>
-                            Object.keys(arrayItem).map((itemKey: any) =>
-                                <meta property={formatOpenGraphTag(`${openGraphDataKey}:${itemKey}`)} content={arrayItem[itemKey]} />
+                            Object.keys(arrayItem).map((itemKey: any, index: number) =>
+                                <meta property={formatOpenGraphTag(`${openGraphDataKey}:${itemKey}`)} content={arrayItem[itemKey]} key={index} />
                             )
                         )
-                        : <meta property={formatOpenGraphTag(openGraphDataKey)} content={openGraphData[openGraphDataKey]} />
+                        : <meta property={formatOpenGraphTag(openGraphDataKey)} content={openGraphData[openGraphDataKey]} key={index} />
                 )
             }
             {

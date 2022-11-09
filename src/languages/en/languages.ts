@@ -64,3 +64,5 @@ export const ORDER_SUCCESS_DESCRIPTION = 'After our manager processes your order
 
 export const LOADING_ERROR_TITLE = 'An error occurred while loading';
 export const LOADING_ERROR_DESCRIPTION = 'Try reloading the page or check your internet connection.';
+
+export const SHOPPING_CART_PAGE_META_TITLE = 'Shopping cart | Malini Kids';

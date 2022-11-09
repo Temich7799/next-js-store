@@ -39,8 +39,12 @@ export default ShoppingCartPage;
 
 export const Head = () => {
 
+  const language = 'ru';
+
+  const { SHOPPING_CART_PAGE_META_TITLE } = require(`../languages/${language}/languages`);
+
   const metaData = {
-    title: 'Корзина - Malini Kids',
+    title: SHOPPING_CART_PAGE_META_TITLE,
     description: ''
   };
 

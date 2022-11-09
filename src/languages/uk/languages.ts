@@ -64,3 +64,5 @@ export const ORDER_SUCCESS_DESCRIPTION = 'Після того, як наш ме�
 
 export const LOADING_ERROR_TITLE = 'Під час завантаження сталася помилка';
 export const LOADING_ERROR_DESCRIPTION = 'Спробуйте перезавантажити сторінку або перевірте підключення до Інтернету.';
+
+export const SHOPPING_CART_PAGE_META_TITLE = 'Кошик | Malini Kids';

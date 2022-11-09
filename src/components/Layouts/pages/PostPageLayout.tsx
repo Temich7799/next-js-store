@@ -4,13 +4,12 @@ import PageTitle from "../../PageTitle";
 import styled from "styled-components";
 import NotFoundPageContent from "../../Content/NotFoundPageContent";
 import MetaData from "../MetaData";
-import type { HeadProps } from "gatsby"
-import useYoastMetaData from "../../../services/hooks/useYoastMetaData";
+import { parsePageMetaData } from "../../../services/parsePageMetaData";
 require('../../../styles/wp.css');
 
 type PostPageLayoutProps = {
   pageContext: {
-    data: PostPageData,
+    pageData: PostPageData
     language: string
   }
 }
@@ -38,15 +37,15 @@ const Content = styled.div`
 
 const PostPageLayout = (props: PostPageLayoutProps) => {
 
-  const { data, language } = props.pageContext;
+  const { pageData, language } = props.pageContext;
 
   return (
     <Layout language={language}>
       <>
-        <PageTitle>{data.title.rendered}</PageTitle>
+        <PageTitle>{pageData.title.rendered}</PageTitle>
         {
-          (data.content.rendered)
-            ? <Content dangerouslySetInnerHTML={{ __html: data.content.rendered }} />
+          (pageData.content.rendered)
+            ? <Content dangerouslySetInnerHTML={{ __html: pageData.content.rendered }} />
             : <NotFoundPageContent />
         }
       </>
@@ -56,24 +55,11 @@ const PostPageLayout = (props: PostPageLayoutProps) => {
 
 export default PostPageLayout;
 
-export const Head = (props: HeadProps) => {
+export const Head = (props: any) => {
 
-  const { data }: any = props.pageContext;
+  const { metaData, openGraphData } = parsePageMetaData(props.pageContext.pageData.yoast_head_json);
 
-  const { metaData, openGraphData } = useYoastMetaData(`pages?slug=${data.slug}`, {
-    openGraphData: {
-      og_url: `${process.env.GATSBY_SITE_URL}/${data.slug}`
-    }
-  });
-
-  const linkedData = {
-    context: '',
-    type: '',
-    name: ''
-  };
-
-  return <MetaData data={metaData} linkedData={linkedData} openGraphData={openGraphData} />
+  return <MetaData data={metaData} openGraphData={openGraphData} />
 }
-
 
 

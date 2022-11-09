@@ -1,9 +1,9 @@
 import React from "react"
-import { graphql, HeadProps } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 import Layout from "../../components/Layouts/Layout";
 import CatalogPageContent from "../../components/Content/CatalogPageContent";
-import useYoastMetaData from "../../services/hooks/useYoastMetaData";
 import MetaData from "../../components/Layouts/MetaData";
+import { parsePageMetaData } from "../../services/parsePageMetaData";
 
 const CatalogPage = (props: any) => {
 
@@ -18,25 +18,15 @@ const CatalogPage = (props: any) => {
 
 export default CatalogPage;
 
-export const Head = (props: HeadProps) => {
+export const Head = (props: any) => {
 
-  const { metaData, openGraphData } = useYoastMetaData('pages?slug=catalog', {
-    openGraphData: {
-      og_url: `${process.env.GATSBY_SITE_URL}/catalog`
-    }
-  });
+  const { metaData, openGraphData } = parsePageMetaData(props.data.multilangWpMetaData);
 
-  const linkedData = {
-    context: '',
-    type: '',
-    name: ''
-  };
-
-  return <MetaData data={metaData} linkedData={linkedData} openGraphData={openGraphData} />
+  return <MetaData data={metaData} openGraphData={openGraphData} />
 }
 
 export const query = graphql`
-  query getAllCategories {
+  query getCatalogPageDataEn {
     allMultilangWcCategories(params: {hide_empty: true}, language: en) {
       image {
         alt
@@ -46,5 +36,15 @@ export const query = graphql`
       name
       description
     }
+  
+    multilangWpMetaData(pageId: 271, endpoint: pages, language: en) {
+        title
+        description
+        og_title
+        og_type
+        og_locale
+        og_site_name
+        og_description
+      }
   }
 `;

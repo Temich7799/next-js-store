@@ -1,21 +1,13 @@
 import React from "react"
 import Layout from "../../components/Layouts/Layout";
-import { graphql, HeadProps, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 import IndexPageContent from "../../components/Content/IndexPageContent";
-import useYoastMetaData from "../../services/hooks/useYoastMetaData";
 import MetaData from "../../components/Layouts/MetaData";
+import { parsePageMetaData } from "../../services/parsePageMetaData";
 
-const IndexPage = () => {
+const IndexPage = (props: any) => {
 
-  const { multilangWpPage } = useStaticQuery(graphql`
-    query getHomePageEn {
-      multilangWpPage(pageId: 25, language: en) {
-        content {
-          rendered
-        }
-      }
-    }
-  `);
+  const { multilangWpPage } = props.data;
 
   return (
     <Layout language="en">
@@ -26,19 +18,29 @@ const IndexPage = () => {
 
 export default IndexPage;
 
-export const Head = (props: HeadProps) => {
+export const Head = (props: any) => {
 
-  const { metaData, openGraphData } = useYoastMetaData('pages?slug=home', {
-    openGraphData: {
-      og_url: process.env.GATSBY_SITE_URL
-    }
-  });
+  const { metaData, openGraphData } = parsePageMetaData(props.data.multilangWpPage.yoast_head_json);
 
-  const linkedData = {
-    context: '',
-    type: '',
-    name: ''
-  };
-
-  return <MetaData data={metaData} linkedData={linkedData} openGraphData={openGraphData} />
+  return <MetaData data={metaData} openGraphData={openGraphData} />
 }
+
+export const query = graphql`
+  query getHomePageDataEn {
+    
+    multilangWpPage(pageId: 25, language: en) {
+      content {
+        rendered
+      }
+      yoast_head_json {
+        title
+        description
+        og_title
+        og_type
+        og_locale
+        og_site_name
+        og_description
+      }
+    }    
+  }
+`;
