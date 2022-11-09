@@ -11,7 +11,7 @@ export const PRODUCT_SKU_EMPTY = 'Не указан';
 export const PRODUCT_DESCRIPTION_TITLE = 'Описание';
 export const PRODUCT_PRICE_TITLE = 'Цена';
 export const PRODUCT_PRICE_EMPTY = 'Не указана';
-export const PRODUCT_BUY_BUTTON_TITLE = 'Купить';
+export const PRODUCT_BUY_BUTTON_TITLE = 'В корзину';
 export const PRODUCT_OUT_OF_STOCK_BUTTON_TITLE = 'Нет в наличии';
 export const NO_PRODUCT_IMAGE = 'Отсутствует изображение товара';
 export const CURRENCY = 'грн';
@@ -49,7 +49,7 @@ export const ORDER_DETAILS_TITLE = 'Ваш Заказ';
 export const ORDER_FINAL_TITLE = 'Итого';
 export const ORDER_FINAL_BUTTON_BACK = 'Вернуться к покупкам';
 export const ORDER_FINAL_BUTTON_HOME = 'На главную';
-export const ORDER_FINAL_BUTTON_CONTINUE = 'В корзину';
+export const ORDER_FINAL_BUTTON_CONTINUE = 'Купить';
 export const ORDER_FINAL_BUTTON_SUBMIT = 'Оформить заказ';
 export const ORDER_FINAL_BUTTON_DISABLED = 'Корзина пуста';
 

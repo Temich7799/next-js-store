@@ -11,7 +11,7 @@ export const PRODUCT_SKU_EMPTY = 'Не вказаний';
 export const PRODUCT_DESCRIPTION_TITLE = 'Опис';
 export const PRODUCT_PRICE_TITLE = 'Ціна';
 export const PRODUCT_PRICE_EMPTY = 'Не вказана';
-export const PRODUCT_BUY_BUTTON_TITLE = 'Купити';
+export const PRODUCT_BUY_BUTTON_TITLE = 'У кошик';
 export const PRODUCT_OUT_OF_STOCK_BUTTON_TITLE = 'Нема в наявності';
 export const NO_PRODUCT_IMAGE = 'Відсутнє зображення товару';
 export const CURRENCY = 'грн';
@@ -49,7 +49,7 @@ export const ORDER_DETAILS_TITLE = 'Ваше замовлення';
 export const ORDER_FINAL_TITLE = 'Разом';
 export const ORDER_FINAL_BUTTON_BACK = 'Повернутись до покупок';
 export const ORDER_FINAL_BUTTON_HOME = 'На головну';
-export const ORDER_FINAL_BUTTON_CONTINUE = 'У кошик';
+export const ORDER_FINAL_BUTTON_CONTINUE = 'Купити';
 export const ORDER_FINAL_BUTTON_SUBMIT = 'Оформити замовлення';
 export const ORDER_FINAL_BUTTON_DISABLED = 'Кошик порожній';
 

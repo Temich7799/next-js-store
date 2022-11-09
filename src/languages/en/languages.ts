@@ -11,7 +11,7 @@ export const PRODUCT_SKU_EMPTY = 'Not specified';
 export const PRODUCT_DESCRIPTION_TITLE = 'Description';
 export const PRODUCT_PRICE_TITLE = 'Price';
 export const PRODUCT_PRICE_EMPTY = 'Not specified';
-export const PRODUCT_BUY_BUTTON_TITLE = 'Buy';
+export const PRODUCT_BUY_BUTTON_TITLE = 'Add to Cart';
 export const PRODUCT_OUT_OF_STOCK_BUTTON_TITLE = 'Out of stock';
 export const NO_PRODUCT_IMAGE = 'No product image';
 export const CURRENCY = '₴';
@@ -49,7 +49,7 @@ export const ORDER_DETAILS_TITLE = 'Your Order';
 export const ORDER_FINAL_TITLE = 'Total';
 export const ORDER_FINAL_BUTTON_BACK = 'Back to shopping';
 export const ORDER_FINAL_BUTTON_HOME = 'Home';
-export const ORDER_FINAL_BUTTON_CONTINUE = 'Add to cart';
+export const ORDER_FINAL_BUTTON_CONTINUE = 'Buy';
 export const ORDER_FINAL_BUTTON_SUBMIT = 'Checkout';
 export const ORDER_FINAL_BUTTON_DISABLED = 'Cart is empty';
 
