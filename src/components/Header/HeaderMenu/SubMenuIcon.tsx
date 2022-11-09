@@ -6,9 +6,12 @@ type SubMenuIconProps = {
 }
 
 const StyledSubMenuIcon = styled.p<SubMenuIconProps>`
+    width: 25px;
+    height: 25px;
     font-size: 20px;
-    transition: 250ms;
-    transform: rotate(${props => props.isOpened ? '90deg' : '-90deg'});
+    color: ${props => props.isOpened ? '#d888a9' : '#585858'};
+    transition: 150ms;
+    transform: rotate(${props => props.isOpened ? '-90deg' : '90deg'});
 `;
 
 const SubMenuIcon = (props: SubMenuIconProps) => {

@@ -15,7 +15,7 @@ const SubMenuTitle = styled.div<any>`
     height: 25px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 2.5px;
 
     @media (max-width: ${props => props.minDesktopWidth}px) {
         position: relative;
