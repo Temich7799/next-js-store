@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react"
+import React, { createContext, useContext, useEffect, useRef, useState } from "react"
 import styled from "styled-components";
 import { LangContext } from "../../Layouts/Layout";
 import InputField from "../InputField";
@@ -7,13 +7,13 @@ const StyledSelectWrapper = styled.div`
     position: relative;
 `;
 
-const StyledSelect = styled.select<any>`
+const StyledSelect = styled.div<any>`
     position: absolute;
     display: none;
-    width: 100%;
-    height: 125px !important;
+    width: 98%;
+    max-height: 200px;
     background-color: hsl(0,0%,99.6078431372549%);
-    border: 1px solid #818a91;
+    border: 1px solid #8ed8e6;
     box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
     z-index: 100;
 `;
@@ -34,34 +34,32 @@ type SelectProps = {
     children: any | undefined
 }
 
+export const SelectElementContext: any = createContext({});
+
 const Select = (props: SelectProps) => {
 
     const { language } = useContext(LangContext);
     const { SELECT_PLACEHOLDER } = require(`../../../languages/${language}/languages`);
 
     const {
-        name,
-        label,
-        onErrorMessage,
-        placeHolder,
+        name, label, onErrorMessage, placeHolder,
         isInputDisabled = false,
         isSelectClosed = true,
         isFetchPending = false,
-        resetOptionsData,
-        onChangeHandler,
-        onInputHandler,
-        dependencies,
-        children
+        resetOptionsData, onChangeHandler, onInputHandler, dependencies, children
     } = props;
 
     let { isInputBlocked = true } = props;
     if (onInputHandler) isInputBlocked = false;
 
     const [inputValue, setInputValue] = useState<string>('');
+    const [selectElementValue, setSelectElementValue] = useState<string | number | undefined>(undefined);
 
     const onInvalidEvent = new Event('invalid');
 
-    const selectRef = useRef<any>();
+    const selectRef = useRef<any>({
+        value: selectElementValue
+    });
     const inputRef = useRef<any>();
 
     dependencies && useEffect(() => {
@@ -70,9 +68,30 @@ const Select = (props: SelectProps) => {
     }, dependencies)
 
     useEffect(() => {
+
         inputRef.current.addEventListener('focus', inputOnFocusHandler);
-        inputRef.current.addEventListener('focusout', (e: any) => inputOnFocusOutHandler(e));
+        inputRef.current.addEventListener('focusout', inputOnFocusOutHandler);
+        selectRef.current.addEventListener('focus', selectOnFocusHandler);
+        selectRef.current.addEventListener('change', selectOnChangeHandler);
+
+        return () => {
+            if (inputRef.current) {
+                inputRef.current.removeEventListener('focus', inputOnFocusHandler);
+                inputRef.current.removeEventListener('focusout', inputOnFocusOutHandler);
+            }
+            if (selectRef.current) {
+                selectRef.current.removeEventListener('focus', selectOnFocusHandler);
+                selectRef.current.removeEventListener('change', selectOnChangeHandler);
+            }
+        }
     }, []);
+
+    useEffect(() => {
+        if (selectElementValue) {
+            selectRef.current.value = selectElementValue;
+            selectRef.current.dispatchEvent(new Event('change'));
+        }
+    }, [selectElementValue]);
 
     const [isSelectShown, setIsSelectShown] = useState<boolean>(false);
     useEffect(() => {
@@ -81,11 +100,18 @@ const Select = (props: SelectProps) => {
     }, [isSelectClosed]);
 
     function inputOnFocusHandler() {
-        selectRef.current.style.display = selectRef.current.children.length > 0 ? "block" : "none"
+        selectRef.current.style.display = selectRef.current.children.length > 0 ? "block" : "none";
     }
 
-    function inputOnFocusOutHandler(onFocusOutEvent: any) {
-        if (onFocusOutEvent.relatedTarget != selectRef.current) selectRef.current.style.display = "none";
+    function inputOnFocusOutHandler() {
+        window.addEventListener('click', onClickHandler);
+    }
+
+    function onClickHandler(clickedElement: any) {
+        if (clickedElement !== selectRef.current) {
+            selectRef.current.style.display = "none";
+        }
+        window.removeEventListener('click', onClickHandler);
     }
 
     function selectOnFocusHandler(onFocusEvent: React.FocusEvent<HTMLSelectElement>) {
@@ -98,37 +124,28 @@ const Select = (props: SelectProps) => {
         onInvalidEvent.preventDefault();
     }
 
-    function onClickHandler(onClickEvent: any) {
-        const option = onClickEvent.target.closest('option');
-        if (option) setInputValue(option.innerText);
-    }
-
     return (
-        <StyledSelectWrapper>
-            <InputField
-                ref={inputRef}
-                name={name}
-                placeholder={placeHolder ? placeHolder : SELECT_PLACEHOLDER}
-                valueFromProps={inputValue}
-                onErrorMessage={onErrorMessage}
-                isInputBlocked={isInputBlocked}
-                isInputDisabled={isInputDisabled}
-                isFetchPending={isFetchPending}
-                onInputHandlerProps={onInputHandler}
-                required
-            >
-                {label}
-            </InputField>
-            <StyledSelect
-                ref={selectRef}
-                size={10}
-                onFocus={(e: React.FocusEvent<HTMLSelectElement>) => selectOnFocusHandler(e)}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => selectOnChangeHandler(e)}
-                onClick={(e: React.MouseEvent<HTMLSelectElement>) => onClickHandler(e)}
-            >
-                {children}
-            </StyledSelect>
-        </StyledSelectWrapper >
+        <SelectElementContext.Provider value={{ setSelectElementValue: setSelectElementValue, setInputValue: setInputValue }}>
+            <StyledSelectWrapper>
+                <InputField
+                    ref={inputRef}
+                    name={name}
+                    placeholder={placeHolder ? placeHolder : SELECT_PLACEHOLDER}
+                    valueFromProps={inputValue}
+                    onErrorMessage={onErrorMessage}
+                    isInputBlocked={isInputBlocked}
+                    isInputDisabled={isInputDisabled}
+                    isFetchPending={isFetchPending}
+                    onInputHandlerProps={onInputHandler}
+                    required
+                >
+                    {label}
+                </InputField>
+                <StyledSelect ref={selectRef}>
+                    {children}
+                </StyledSelect>
+            </StyledSelectWrapper>
+        </SelectElementContext.Provider>
     )
 }
 

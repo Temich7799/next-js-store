@@ -1,11 +1,17 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components";
+import { SelectElementContext } from "./Select";
 
-const StyledSelectOption = styled.option<any>`
-    vertical-align: middle;
-    width: 387px;
+type SelectOptionProps = {
+    value?: any
+    children: any
+};
+
+const StyledSelectOption = styled.div<any>`
     margin: 0;
     padding: 7px 15px;
+    font-family: 'Didact Gothic';
+    font-size: 15px;
     color: #393939;
     border-bottom: #c7cbcf 1px solid;
     @media (hover: hover) and (pointer: fine) {
@@ -16,12 +22,19 @@ const StyledSelectOption = styled.option<any>`
     }
 `;
 
-const SelectOption = (props: any) => {
+const SelectOption = (props: SelectOptionProps) => {
 
-    const { children } = props;
+    const { setSelectElementValue, setInputValue }: any = useContext(SelectElementContext);
+
+    const { value = null, children } = props;
+
+    function onClickHandler() {
+        setInputValue(children);
+        setSelectElementValue(value);
+    }
 
     return (
-        <StyledSelectOption {...props}>
+        <StyledSelectOption id="option" onClick={onClickHandler}>
             {children}
         </StyledSelectOption>
     )
