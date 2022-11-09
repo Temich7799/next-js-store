@@ -2,14 +2,14 @@ const fetch = require('cross-fetch');
 const filterData = require('../filterData');
 const digObjectByPath = require('../digObjectByPath');
 
-const wordpressQuery = (endpoint, options = {}, dataPathArray, version = 'wp/v2/') => {
+const wordpressQuery = async (endpoint, options = {}, dataPathArray, version = 'wp/v2/') => {
 
     const { language, params, filter } = options;
 
     const per_page = params && params.per_page ? params.per_page : 100;
     const offset = params && params.offset ? params.offset : 0;
 
-    const data = per_page <= 100 ? fetchPageData() : makeBatchQuery();
+    const data = per_page <= 100 ? await fetchPageData() : await makeBatchQuery();
 
     async function fetchPageData() {
         return await fetch(`${process.env.WP_URL}/${language ? `${language}/` : ''}wp-json/${version === 'none' ? '' : version}${endpoint}?per_page=${per_page}&offset=${offset}`)
