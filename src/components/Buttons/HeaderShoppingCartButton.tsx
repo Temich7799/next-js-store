@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { useIsMenuOpenedVar } from "../../services/hooks/apollo_vars/useIsMenuOpenedVar";
 import { useShoppingCartVar } from "../../services/hooks/apollo_vars/useShoppingCartVar";
@@ -8,6 +8,9 @@ import PopUpWindow from "../PopUp/PopUpWindow";
 import OrderDetails from "../Product/ShoppingCart/OrderDetails/OrderDetails";
 import { PurchasesCount } from "../../styles/PurchasesCount";
 import { StaticImage } from "gatsby-plugin-image";
+import PopUpToaster from "../PopUp/PopUpToaster";
+import toast from 'react-hot-toast';
+import { LangContext } from "../Layouts/Layout";
 
 const StyledHeaderShoppingCartButton = styled.div`
     position: relative;
@@ -15,19 +18,24 @@ const StyledHeaderShoppingCartButton = styled.div`
 
 const HeaderShoppingCartButton = () => {
 
+    const { language } = useContext(LangContext);
+    const { ORDER_FINAL_BUTTON_DISABLED } = require(`../../languages/${language}/languages`);
+
     const [showPopUpWindow, setShowPopUpWindow] = useState<boolean>(false);
 
     const { isMenuOpenedVar } = useIsMenuOpenedVar();
 
     const { data } = useShoppingCartVar();
-    const purchasesCount = data ? Object.values(data).length : '0';
+    const purchasesCount = data ? Object.values(data).length : 0;
 
     useEffect(() => {
         isMenuOpenedVar === true && setShowPopUpWindow(false);
     }, [isMenuOpenedVar]);
 
     function buttonOnClickHandler() {
-        setShowPopUpWindow(toogle(showPopUpWindow));
+        purchasesCount > 0
+            ? setShowPopUpWindow(toogle(showPopUpWindow))
+            : toast(ORDER_FINAL_BUTTON_DISABLED, { duration: 1000 });
     }
 
     return (
@@ -41,6 +49,7 @@ const HeaderShoppingCartButton = () => {
             <PopUpWindow visible={showPopUpWindow} setVisible={setShowPopUpWindow} >
                 <OrderDetails />
             </PopUpWindow>
+            <PopUpToaster />
         </StyledHeaderShoppingCartButton>
     )
 }
