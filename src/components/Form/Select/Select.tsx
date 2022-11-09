@@ -15,6 +15,7 @@ const StyledSelect = styled.div<any>`
     background-color: hsl(0,0%,99.6078431372549%);
     border: 1px solid #8ed8e6;
     box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
+    overflow-y: scroll;
     z-index: 100;
 `;
 
