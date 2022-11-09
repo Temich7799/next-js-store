@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useLastProductPageVar } from "../../services/hooks/apollo_vars/useLastProductPageVar";
 import { LangContext } from "../Layouts/Layout";
+import { PopUpWindowContext } from "../PopUpWindow";
 import Button from "./Button";
 
 type ContinueShoppingButtonProps = {
@@ -12,11 +13,20 @@ const ContinueShoppingButton = (props: ContinueShoppingButtonProps) => {
     const { language } = useContext(LangContext);
     const { ORDER_FINAL_BUTTON_BACK } = require(`../../languages/${language}/languages`);
 
+    const { setVisible }: any = useContext(PopUpWindowContext);
+
     const { url: lastProductPageUrl } = useLastProductPageVar();
 
     function onClickHandler(onButtonClickEvent: any): void {
+
         onButtonClickEvent.preventDefault();
-        window.document.location.href = lastProductPageUrl;
+
+        if (window.document.location.href !== lastProductPageUrl) {
+            window.document.location.href = lastProductPageUrl
+        }
+        else {
+            setVisible(false);
+        }
     }
 
     return (

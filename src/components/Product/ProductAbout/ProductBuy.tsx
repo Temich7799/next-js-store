@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import styled from "styled-components"
 import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShoppingCartVar";
@@ -8,6 +8,9 @@ import ProductBuyButton from "../../Buttons/ProductBuyButton";
 import PurchasedProductQuantity from "../ShoppingCart/OrderDetails/PurchasedProductQuantity";
 import GoToCartButton from "../../Buttons/GoToCartButton";
 import { ProductGatsby } from "../../../interfaces/InterfaceProduct";
+import PopUpWindow from "../../PopUpWindow";
+import OrderDetails from "../ShoppingCart/OrderDetails/OrderDetails";
+import { useLastProductPageVar } from "../../../services/hooks/apollo_vars/useLastProductPageVar";
 
 const StyledProductBuy = styled.div<any>`
     width: fit-content;
@@ -30,10 +33,16 @@ const ProductBuy = () => {
 
     const { loading: isDataLoading, data: updatedData, isOutOfStock } = useUpdatedProduct(data);
 
+    const [showPopUpWindow, setShowPopUpWindow] = useState<boolean>(false);
+
     const { add, isInTheCart } = useShoppingCartVar();
+
+    const { save: saveLastProductPage } = useLastProductPageVar();
 
     function buttonOnClickHandler() {
         updatedData && add(data.id, updatedData);
+        saveLastProductPage();
+        setShowPopUpWindow(true);
     }
 
     return (
@@ -48,6 +57,9 @@ const ProductBuy = () => {
                     </StyledProductBuy>
                     : <ProductBuyButton onClickHandler={buttonOnClickHandler} isDataLoading={isDataLoading} isOutOfStock={isOutOfStock} />
             }
+            <PopUpWindow visible={showPopUpWindow} setVisible={setShowPopUpWindow} >
+                <OrderDetails />
+            </PopUpWindow>
         </StyledProductBuy >
     )
 }

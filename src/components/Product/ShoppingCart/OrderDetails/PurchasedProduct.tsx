@@ -23,10 +23,12 @@ const StyledPurchasedProduct = styled.div`
     gap: 2%;
 `;
 
-const PurchasedProductThumb = styled.img`
+const PurchasedProductThumb = styled.div`
+   img {
     width: 60px;
-    height: 60px;
+    height: 60px !important;
     object-fit: cover;
+   }
 `;
 
 const PurchasedProductName = styled.div`
@@ -59,7 +61,9 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
 
     return (
         <StyledPurchasedProduct>
-            <PurchasedProductThumb src={imageSource} alt={imageAlt} />
+            <PurchasedProductThumb>
+                <img src={imageSource} alt={imageAlt} />
+            </PurchasedProductThumb>
             <PurchasedProductName>
                 <p>{updatedData ? updatedData.name : data.name}</p>
             </PurchasedProductName>

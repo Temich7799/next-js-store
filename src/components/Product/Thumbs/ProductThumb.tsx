@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import styled from "styled-components"
 import Button from "../../Buttons/Button";
 import ProductPrice from "../ProductPrice";
@@ -7,8 +7,11 @@ import { useLastProductPageVar } from "../../../services/hooks/apollo_vars/useLa
 import { LangContext } from "../../Layouts/Layout";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 import { PurchasesCount } from "../../../styles/PurchasesCount";
+import { ProductInCart } from "../../../interfaces/InterfaceProduct";
 import toast, { Toaster } from 'react-hot-toast';
 import ImageSVG from "../../ImageSVG";
+import PopUpWindow from "../../PopUpWindow";
+import OrderDetails from "../ShoppingCart/OrderDetails/OrderDetails";
 
 type ProductProps = {
     data: ProductFetched
@@ -59,6 +62,8 @@ const ProductThumb = (props: ProductProps) => {
     const { data, gatsbyImagePath } = props;
     const sku = data.sku === '' ? data.id : data.sku;
 
+    const [showPopUpWindow, setShowPopUpWindow] = useState<boolean>(false);
+
     const imageSource = gatsbyImagePath ? process.env.GATSBY_SITE_URL + gatsbyImagePath : data.images.length > 0 ? data.images[0].src : 'https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png';
     const imageAlt = data.images.length > 0 ? data.images[0].alt : NO_PRODUCT_IMAGE;
 
@@ -71,9 +76,16 @@ const ProductThumb = (props: ProductProps) => {
     const quantityInCart = inCartProducts[data.id] && inCartProducts[data.id].quantity;
 
     function buttonOnClickHandler(): void {
+
+        const shoppingCart: Array<ProductInCart> = Object.values(inCartProducts);
+
         addToCart(data.id, data);
         saveLastProductPage();
-        toast(toastMessage(), {
+
+        if (shoppingCart.length < 1 || shoppingCart[0].quantity && shoppingCart[0].quantity < 1) {
+            setShowPopUpWindow(true)
+        }
+        else toast(toastMessage(), {
             duration: 1500
         });
     }
@@ -126,6 +138,9 @@ const ProductThumb = (props: ProductProps) => {
                     },
                 }}
             />
+            <PopUpWindow visible={showPopUpWindow} setVisible={setShowPopUpWindow} >
+                <OrderDetails />
+            </PopUpWindow>
         </StyledProductThumb >
     )
 }

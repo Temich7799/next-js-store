@@ -49,7 +49,7 @@ export const CLIENT_CONTACTS_PHONE_ERROR_MESSAGE = 'Enter number in correct form
 export const ORDER_DETAILS_TITLE = 'Your Order';
 
 export const ORDER_FINAL_TITLE = 'Total';
-export const ORDER_FINAL_BUTTON_BACK = 'Back to shopping';
+export const ORDER_FINAL_BUTTON_BACK = 'Continue shopping';
 export const ORDER_FINAL_BUTTON_HOME = 'Home';
 export const ORDER_FINAL_BUTTON_CONTINUE = 'Buy';
 export const ORDER_FINAL_BUTTON_SUBMIT = 'Checkout';

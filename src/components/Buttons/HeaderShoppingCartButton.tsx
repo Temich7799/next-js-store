@@ -4,7 +4,7 @@ import { useIsMenuOpenedVar } from "../../services/hooks/apollo_vars/useIsMenuOp
 import { useShoppingCartVar } from "../../services/hooks/apollo_vars/useShoppingCartVar";
 import toogle from "../../services/toogle";
 import Button from "./Button";
-import PopUp from "../PopUp";
+import PopUpWindow from "../PopUpWindow";
 import OrderDetails from "../Product/ShoppingCart/OrderDetails/OrderDetails";
 import { PurchasesCount } from "../../styles/PurchasesCount";
 import { StaticImage } from "gatsby-plugin-image";
@@ -15,7 +15,7 @@ const StyledHeaderShoppingCartButton = styled.div`
 
 const HeaderShoppingCartButton = () => {
 
-    const [showPopUp, setShowPopUp] = useState<boolean>(false);
+    const [showPopUpWindow, setShowPopUpWindow] = useState<boolean>(false);
 
     const { isMenuOpenedVar } = useIsMenuOpenedVar();
 
@@ -23,11 +23,11 @@ const HeaderShoppingCartButton = () => {
     const purchasesCount = data ? Object.values(data).length : '0';
 
     useEffect(() => {
-        isMenuOpenedVar === true && setShowPopUp(false);
+        isMenuOpenedVar === true && setShowPopUpWindow(false);
     }, [isMenuOpenedVar]);
 
     function buttonOnClickHandler() {
-        setShowPopUp(toogle(showPopUp));
+        setShowPopUpWindow(toogle(showPopUpWindow));
     }
 
     return (
@@ -38,9 +38,9 @@ const HeaderShoppingCartButton = () => {
                     <p>{purchasesCount}</p>
                 </PurchasesCount>
             </Button>
-            <PopUp visible={showPopUp} setVisible={setShowPopUp} >
+            <PopUpWindow visible={showPopUpWindow} setVisible={setShowPopUpWindow} >
                 <OrderDetails />
-            </PopUp>
+            </PopUpWindow>
         </StyledHeaderShoppingCartButton>
     )
 }

@@ -56,7 +56,7 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
                     clear(data.id);
                 }}
             >
-                <StaticImage src="../../../../images/cart/clear_cart.svg" alt="clear-cart-icon" width={25} height={25} layout="fixed" placeholder="blurred" />
+                <ImageSVG path="/svg/cart/clear_cart.svg" width="25px" height="25px" />
             </Button>
         </StyledPurchasedProductQuantity >
     )

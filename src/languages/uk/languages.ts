@@ -49,7 +49,7 @@ export const CLIENT_CONTACTS_PHONE_ERROR_MESSAGE = 'Введіть номер у
 export const ORDER_DETAILS_TITLE = 'Ваше замовлення';
 
 export const ORDER_FINAL_TITLE = 'Разом';
-export const ORDER_FINAL_BUTTON_BACK = 'Повернутись до покупок';
+export const ORDER_FINAL_BUTTON_BACK = 'Продовжити покупки';
 export const ORDER_FINAL_BUTTON_HOME = 'На головну';
 export const ORDER_FINAL_BUTTON_CONTINUE = 'Купити';
 export const ORDER_FINAL_BUTTON_SUBMIT = 'Оформити замовлення';
