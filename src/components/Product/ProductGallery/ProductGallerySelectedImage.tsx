@@ -18,14 +18,14 @@ const StyledProductGallerySelectedImage = styled.img`
 const ProductGallerySelectedImage = (props: ProductGallerySelectedImageProps) => {
 
     const { language } = useContext(LangContext);
-    const { NO_PRODUCT_IMAGE } = require(`../../../languages/${language}/languages`);
+    //const { NO_PRODUCT_IMAGE } = require(`../../../languages/${language}/languages`);
 
     const { images } = useContext(ProductPageContext);
 
     const { selectedImage } = props;
 
     const imageSource = images.length > 0 ? images[selectedImage].src : 'https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png';
-    const imageAlt = images.length > 0 ? images[selectedImage].alt : NO_PRODUCT_IMAGE;
+    //const imageAlt = images.length > 0 ? images[selectedImage].alt : NO_PRODUCT_IMAGE;
 
     return <InnerImageZoom src={imageSource} zoomType={'hover'} width={300} height={400} />
 }
