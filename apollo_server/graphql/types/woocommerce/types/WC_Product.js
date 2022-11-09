@@ -1,3 +1,5 @@
+const WP_MetaData = require("../../wordpress/WP_MetaData");
+
 const WC_Product = `#graphql
 
     type WC_Product {
@@ -16,6 +18,7 @@ const WC_Product = `#graphql
         related_ids: [ID]
         categories: [WC_ProductCategory]
         images: [WC_ProductImage]
+        yoast_head_json: WP_MetaData
     }
 
     type wpWcProductAttributes {
@@ -34,6 +37,8 @@ const WC_Product = `#graphql
         src: String
         alt: String
     }
+
+    ${WP_MetaData}
 `;
 
 module.exports = WC_Product;
