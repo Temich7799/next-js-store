@@ -13,6 +13,8 @@ export const PRODUCT_PRICE_TITLE = 'Price';
 export const PRODUCT_PRICE_EMPTY = 'Not specified';
 export const PRODUCT_BUY_BUTTON_TITLE = 'Add to Cart';
 export const PRODUCT_OUT_OF_STOCK_BUTTON_TITLE = 'Out of stock';
+export const PRODUCT_NOT_ENOUGH_IN_STOCK = 'Not enough in stock';
+export const PRODUCT_ADDED_TO_CART = 'Added to the cart';
 export const NO_PRODUCT_IMAGE = 'No product image';
 export const CURRENCY = '₴';
 

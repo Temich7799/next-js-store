@@ -7,7 +7,7 @@ import { useLastProductPageVar } from "../../../services/hooks/apollo_vars/useLa
 import { LangContext } from "../../Layouts/Layout";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 import { PurchasesCount } from "../../../styles/PurchasesCount";
-import { StaticImage } from "gatsby-plugin-image";
+import toast, { Toaster } from 'react-hot-toast';
 import ImageSVG from "../../ImageSVG";
 
 type ProductProps = {
@@ -54,7 +54,7 @@ const ProductCaption = styled.div`
 const ProductThumb = (props: ProductProps) => {
 
     const { language, langPrefix } = useContext(LangContext);
-    const { PRODUCT_SKU, NO_PRODUCT_IMAGE } = require(`../../../languages/${language}/languages`);
+    const { PRODUCT_SKU, NO_PRODUCT_IMAGE, PRODUCT_ADDED_TO_CART, PRODUCT_NOT_ENOUGH_IN_STOCK } = require(`../../../languages/${language}/languages`);
 
     const { data, gatsbyImagePath } = props;
     const sku = data.sku === '' ? data.id : data.sku;
@@ -73,6 +73,18 @@ const ProductThumb = (props: ProductProps) => {
     function buttonOnClickHandler(): void {
         addToCart(data.id, data);
         saveLastProductPage();
+        toast(toastMessage(), {
+            duration: 1500
+        });
+    }
+
+    function toastMessage() {
+        const quantity = quantityInCart ? quantityInCart : 0;
+        return data.stock_quantity
+            ? quantity + 1 <= data.stock_quantity
+                ? PRODUCT_ADDED_TO_CART + ' ✅'
+                : PRODUCT_NOT_ENOUGH_IN_STOCK + ' 🚫'
+            : PRODUCT_ADDED_TO_CART + ' ✅';
     }
 
     function thumbOnClickHandler(): void {
@@ -99,6 +111,21 @@ const ProductThumb = (props: ProductProps) => {
                     }
                 </Button>
             </ProductCaption>
+            <Toaster
+                position="top-right"
+
+                toastOptions={{
+                    style: {
+                        padding: '5px',
+                        fontFamily: 'Didact Gothic',
+                        fontSize: '15px',
+                        borderRadius: '5px',
+                        border: 'none',
+                        backgroundColor: 'white',
+                        boxShadow: '0px 0px 12px -2px rgba(0,0,0,0.25)'
+                    },
+                }}
+            />
         </StyledProductThumb >
     )
 }

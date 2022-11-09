@@ -13,6 +13,8 @@ export const PRODUCT_PRICE_TITLE = 'Цена';
 export const PRODUCT_PRICE_EMPTY = 'Не указана';
 export const PRODUCT_BUY_BUTTON_TITLE = 'В корзину';
 export const PRODUCT_OUT_OF_STOCK_BUTTON_TITLE = 'Нет в наличии';
+export const PRODUCT_NOT_ENOUGH_IN_STOCK = 'Недостаточно на складе';
+export const PRODUCT_ADDED_TO_CART = 'Товар добавлен в Корзину';
 export const NO_PRODUCT_IMAGE = 'Отсутствует изображение товара';
 export const CURRENCY = 'грн';
 
