@@ -30,8 +30,8 @@ const PaymentMethodSelector = (props: PaymentMethodSelectorProps) => {
             isInputDisabled={!selectedShippingLine}
         >
             {
-                data && data.map((paymentMethod: PaymentMethod) =>
-                    paymentMethod.enabled && <SelectOption value={paymentMethod.id}>{paymentMethod.title}</SelectOption>
+                data && data.map((paymentMethod: PaymentMethod, index: number) =>
+                    paymentMethod.enabled && <SelectOption value={paymentMethod.id} key={index}>{paymentMethod.title}</SelectOption>
                 )
             }
         </Select >
