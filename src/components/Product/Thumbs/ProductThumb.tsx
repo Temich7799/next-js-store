@@ -8,10 +8,11 @@ import { LangContext } from "../../Layouts/Layout";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 import { PurchasesCount } from "../../../styles/PurchasesCount";
 import { ProductInCart } from "../../../interfaces/InterfaceProduct";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import ImageSVG from "../../ImageSVG";
 import PopUpWindow from "../../PopUp/PopUpWindow";
 import OrderDetails from "../ShoppingCart/OrderDetails/OrderDetails";
+import PopUpToaster from "../../PopUp/PopUpToaster";
 
 type ProductProps = {
     data: ProductFetched
@@ -123,21 +124,7 @@ const ProductThumb = (props: ProductProps) => {
                     }
                 </Button>
             </ProductCaption>
-            <Toaster
-                position="top-right"
-
-                toastOptions={{
-                    style: {
-                        padding: '5px',
-                        fontFamily: 'Didact Gothic',
-                        fontSize: '15px',
-                        borderRadius: '5px',
-                        border: 'none',
-                        backgroundColor: 'white',
-                        boxShadow: '0px 0px 12px -2px rgba(0,0,0,0.25)'
-                    },
-                }}
-            />
+            <PopUpToaster />
             <PopUpWindow visible={showPopUpWindow} setVisible={setShowPopUpWindow} >
                 <OrderDetails />
             </PopUpWindow>
