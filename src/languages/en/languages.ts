@@ -26,7 +26,7 @@ export const SELECT_PLACEHOLDER = 'Select from list';
 
 export const CITY_SELECTOR_TITLE = 'City';
 export const CITY_SELECTOR__PLACEHOLDER = 'Start typing city name';
-export const CITY_SELECTOR_ERROR_MESSAGE = 'Select a city from the list';
+export const CITY_SELECTOR_ERROR_MESSAGE = 'Specify the city';
 
 export const SHIPPING_LINE_SELECTOR_TITLE = 'Shipping Service';
 export const SHIPPING_LINE_SELECTOR_ERROR_MESSAGE = 'Select a shipping service from the list';
@@ -36,7 +36,7 @@ export const PAYMENT_METHOD_SELECTOR_ERROR_MESSAGE = 'Please select a payment me
 
 export const WAREHOUSE_SELECTOR_TITLE = 'Warehouse';
 export const WAREHOUSE_SELECTOR_PLACEHOLDER = 'Start typing the Warehouse number or address';
-export const WAREHOUSE_SELECTOR_ERROR_MESSAGE = 'Select an available branch from the list';
+export const WAREHOUSE_SELECTOR_ERROR_MESSAGE = 'Select an available address or number of warehouse';
 
 export const CLIENT_CONTACTS_NAME_TITLE = 'Name';
 export const CLIENT_CONTACTS_NAME_ERROR_MESSAGE = 'Invalid character';

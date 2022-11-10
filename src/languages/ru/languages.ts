@@ -26,7 +26,7 @@ export const SELECT_PLACEHOLDER = 'Выбрать из списка';
 
 export const CITY_SELECTOR_TITLE = 'Город';
 export const CITY_SELECTOR__PLACEHOLDER = 'Начинайте вводить название города';
-export const CITY_SELECTOR_ERROR_MESSAGE = 'Выберите город из списка';
+export const CITY_SELECTOR_ERROR_MESSAGE = 'Укажите населённый пункт';
 
 export const SHIPPING_LINE_SELECTOR_TITLE = 'Служба доставки';
 export const SHIPPING_LINE_SELECTOR_ERROR_MESSAGE = 'Выберите службу доставки из списка';
@@ -36,7 +36,7 @@ export const PAYMENT_METHOD_SELECTOR_ERROR_MESSAGE = 'Укажите спосо�
 
 export const WAREHOUSE_SELECTOR_TITLE = 'Отделение';
 export const WAREHOUSE_SELECTOR_PLACEHOLDER = 'Начинайте вводить номер отделения или адрес';
-export const WAREHOUSE_SELECTOR_ERROR_MESSAGE = 'Выберите доступное отделение из списка';
+export const WAREHOUSE_SELECTOR_ERROR_MESSAGE = 'Выберите доступный адрес или номер отделения';
 
 export const CLIENT_CONTACTS_NAME_TITLE = 'Имя';
 export const CLIENT_CONTACTS_NAME_ERROR_MESSAGE = 'Недопустимый символ';
