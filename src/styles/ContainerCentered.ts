@@ -5,7 +5,7 @@ type ContainerCenteredProps = {
 };
 
 const ContainerCentered = styled.div<ContainerCenteredProps>`
-    height: 50vh;
+    height: 70vh;
     width: 80%;
     margin: 2.5% auto;
     display: flex;

@@ -11,7 +11,7 @@ const StyledProductAbout = styled.div`
     position: relative;
     width: fit-content;
     max-width: 450px;
-    height: 400px;
+    max-height: 400px;
 `;
 
 const ProductAbout = () => {

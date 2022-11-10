@@ -27,6 +27,7 @@ function buttonStylePropsHandler(style: string | undefined) {
     switch (style) {
         case "transparent":
             return `
+            padding: 2px;
             color: black;
             font-size: 25px;
             border: none;

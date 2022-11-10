@@ -28,7 +28,7 @@ const StyledPopUpWindow = styled.div<any>`
 
 const CloseButton = styled(Button)`
     position: absolute;
-    right: 5px;
+    right: 10px;
     top: 5px;
 `;
 

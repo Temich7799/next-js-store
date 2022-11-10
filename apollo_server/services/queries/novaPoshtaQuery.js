@@ -10,7 +10,10 @@ const novaPoshtaQuery = async (calledMethod, body) => {
             calledMethod: calledMethod,
             methodProperties: body
         })
-    }).then(response => response.json()).then(response => calledMethod === 'getWarehouses' ? response.data : response.data[0].Addresses);
+    })
+        .then(response => response.json())
+        .then(response => calledMethod === 'getWarehouses' ? response.data : response.data[0].Addresses)
+        .catch(() => []);
 }
 
 module.exports = novaPoshtaQuery;

@@ -62,6 +62,8 @@ const MetaData = (props: MetaDataProps) => {
         <>
             <title>{data.title}</title>
             <meta name="description" content={data.description} />
+            <meta name="theme-color" content="#9ed6e4"></meta>
+            <meta name="viewport" content="width=device-width, user-scalable=no" />
             {
                 openGraphData && Object.keys(openGraphData).map((openGraphDataKey: any, index: number) =>
                     Array.isArray(openGraphData[openGraphDataKey])
