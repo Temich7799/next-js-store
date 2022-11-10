@@ -1,12 +1,9 @@
 import React, { useContext } from "react"
+import { usePaymentMethods } from "../../../../services/hooks/graphql/usePaymentMethods";
 import Select from "../../../Form/Select/Select";
 import SelectOption from "../../../Form/Select/SelectOption";
 import { LangContext } from "../../../Layouts/Layout";
-
-type PaymentMethodSelectorProps = {
-    data: any | undefined
-    selectedShippingLine: string
-}
+import { DeliveryFormContext } from "./Delivery";
 
 type PaymentMethod = {
     title: String
@@ -15,19 +12,21 @@ type PaymentMethod = {
     id: string
 }
 
-const PaymentMethodSelector = (props: PaymentMethodSelectorProps) => {
+const PaymentMethodSelector = () => {
 
     const { language } = useContext(LangContext);
-    const { PAYMENT_METHOD_SELECTOR_ERROR_MESSAGE, PAYMENT_METHOD_SELECTOR_TITLE } = require(`../../../../../languages/${language}/languages`);
+    const { PAYMENT_METHOD_SELECTOR_ERROR_MESSAGE, PAYMENT_METHOD_SELECTOR_TITLE } = require(`../../../../languages/${language}/languages`);
 
-    const { data, selectedShippingLine } = props;
+    const { selectedShippingLine } = useContext(DeliveryFormContext);
+
+    const { data } = usePaymentMethods(language);
 
     return (
         <Select
             name="payment_method"
             label={PAYMENT_METHOD_SELECTOR_TITLE}
             onErrorMessage={PAYMENT_METHOD_SELECTOR_ERROR_MESSAGE}
-            isInputDisabled={!selectedShippingLine}
+            isInputDisabled={!selectedShippingLine.get}
         >
             {
                 data && data.map((paymentMethod: PaymentMethod, index: number) =>

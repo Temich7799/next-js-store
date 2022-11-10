@@ -44,7 +44,7 @@ const PurchasedProductName = styled.div`
 const PurchasedProduct = (props: PurchasedProductProps) => {
 
     const { language } = useContext(LangContext);
-    const { NO_PRODUCT_IMAGE } = require(`../../../../languages/${language}/languages`);
+    const { NO_PRODUCT_IMAGE } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;
 

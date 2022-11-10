@@ -30,7 +30,7 @@ const SelectOption = (props: SelectOptionProps) => {
 
     function onClickHandler() {
         setInputValue(children);
-        setSelectElementValue(value);
+        setSelectElementValue(value ? value : children);
     }
 
     return (

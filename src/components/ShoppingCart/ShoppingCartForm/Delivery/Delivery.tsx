@@ -1,30 +1,55 @@
-import React, { useContext, useState } from "react"
-import { usePaymentMethods } from "../../../../services/hooks/graphql/usePaymentMethods"
-import { useShippingMethods } from "../../../../services/hooks/gatsby/useShippingMethods"
-import { LangContext } from "../../../Layouts/Layout"
+import React, { createContext, useState } from "react"
 import CitySelector from "./CitySelector"
 import PaymentMethodSelector from "./PaymentMethodSelector"
 import ShippingMethodSelector from "./ShippingMethodSelector"
 import WarehouseSelector from "./WarehouseSelector"
+import { WarehousesData } from "../../../../types/warehousesDataType"
+
+type DeliveryFormContextType = {
+    selectedShippingLine: {
+        get: string;
+        set: React.Dispatch<React.SetStateAction<string>>;
+    };
+    selectedCity: {
+        get: string;
+        set: React.Dispatch<React.SetStateAction<string>>;
+    };
+    warehousesData: {
+        get: WarehousesData;
+        set: React.Dispatch<React.SetStateAction<WarehousesData>>;
+    };
+}
+
+export const DeliveryFormContext = createContext<DeliveryFormContextType>({});
 
 const Delivery = () => {
 
-    const { language } = useContext(LangContext);
-
     const [selectedShippingLine, setSelectedShippingLine] = useState<string>("");
     const [selectedCity, setSelectedCity] = useState<string>("");
-    const [warehousesData, setWarehousesData] = useState<Array<string>>([]);
+    const [warehousesData, setWarehousesData] = useState<WarehousesData>({ SettlementRef: '', data: [] });
 
-    const shippingMethodsData = useShippingMethods(language);
-    const { data: paymentMethodsData } = usePaymentMethods(language);
+    const contextValue = {
+        selectedShippingLine: {
+            get: selectedShippingLine,
+            set: setSelectedShippingLine,
+        },
+        selectedCity: {
+            get: selectedCity,
+            set: setSelectedCity,
+        },
+        warehousesData: {
+            get: warehousesData,
+            set: setWarehousesData,
+        }
+    };
 
     return (
-        <>
-            <ShippingMethodSelector data={shippingMethodsData} setSelectedShippingLine={setSelectedShippingLine} />
-            <PaymentMethodSelector data={paymentMethodsData} selectedShippingLine={selectedShippingLine} />
-            <CitySelector selectedShippingLine={selectedShippingLine} setSelectedCity={setSelectedCity} setWarehousesData={setWarehousesData} />
-            <WarehouseSelector selectedShippingLine={selectedShippingLine} selectedCity={selectedCity} warehousesData={warehousesData} setWarehousesData={setWarehousesData} />
-        </>
+        <DeliveryFormContext.Provider value={contextValue}>
+            <ShippingMethodSelector />
+            <PaymentMethodSelector />
+            <CitySelector />
+            <WarehouseSelector />
+        </DeliveryFormContext.Provider>
     )
 }
 

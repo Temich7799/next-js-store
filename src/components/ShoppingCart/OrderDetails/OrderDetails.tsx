@@ -31,7 +31,7 @@ const StyledOrderDetails = styled.form`
 const OrderDetails = (props: OrderDetailsProps) => {
 
     const { language } = useContext(LangContext);
-    const { ORDER_DETAILS_TITLE } = require(`../../../../languages/${language}/languages`);
+    const { ORDER_DETAILS_TITLE } = require(`../../../languages/${language}/languages`);
 
     const { isOrderSending } = props;
 

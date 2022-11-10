@@ -1,22 +1,21 @@
 import React, { useContext } from "react"
+import { useShippingMethods } from "../../../../services/hooks/gatsby/useShippingMethods";
 import Select from "../../../Form/Select/Select";
 import SelectOption from "../../../Form/Select/SelectOption";
 import { LangContext } from "../../../Layouts/Layout";
+import { DeliveryFormContext } from "./Delivery";
 
-type ShippingMethodSelectorProps = {
-    data: any | undefined
-    setSelectedShippingLine: React.Dispatch<React.SetStateAction<string>>
-}
-
-const ShippingMethodSelector = (props: ShippingMethodSelectorProps) => {
+const ShippingMethodSelector = () => {
 
     const { language } = useContext(LangContext);
-    const { SHIPPING_LINE_SELECTOR_ERROR_MESSAGE, SHIPPING_LINE_SELECTOR_TITLE } = require(`../../../../../languages/${language}/languages`);
+    const { SHIPPING_LINE_SELECTOR_ERROR_MESSAGE, SHIPPING_LINE_SELECTOR_TITLE } = require(`../../../../languages/${language}/languages`);
 
-    const { data, setSelectedShippingLine } = props;
+    const { selectedShippingLine } = useContext(DeliveryFormContext);
 
-    function selectOnChangeHandler(onChangeEvent: any) {
-        setSelectedShippingLine(onChangeEvent.target.value);
+    const data = useShippingMethods(language);
+
+    function selectOnChangeHandler(onChangeEvent: any): void {
+        selectedShippingLine.set(onChangeEvent.target.value);
     }
 
     return (

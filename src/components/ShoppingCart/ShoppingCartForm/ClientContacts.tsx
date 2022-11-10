@@ -10,7 +10,7 @@ const ClientContacts = () => {
         CLIENT_CONTACTS_NAME_ERROR_MESSAGE,
         CLIENT_CONTACTS_NAME_TITLE,
         CLIENT_CONTACTS_PHONE_ERROR_MESSAGE,
-        CLIENT_CONTACTS_PHONE_TITLE } = require(`../../../../languages/${language}/languages`);
+        CLIENT_CONTACTS_PHONE_TITLE } = require(`../../../languages/${language}/languages`);
 
     const validName = /[А-я]/;
 
