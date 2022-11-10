@@ -9,15 +9,14 @@ type ProductGallerySelectedImageProps = {
     selectedImage: number
 }
 
-const StyledProductGallerySelectedImage = styled.img`
-    object-fit: contain;
+const StyledProductGallerySelectedImage = styled.div`
     width:300px;
     height: 400px;
 `;
 
 const ProductGallerySelectedImage = (props: ProductGallerySelectedImageProps) => {
 
-    const { language } = useContext(LangContext);
+    //const { language } = useContext(LangContext);
     //const { NO_PRODUCT_IMAGE } = require(`../../../languages/${language}/languages`);
 
     const { images } = useContext(ProductPageContext);
@@ -27,7 +26,11 @@ const ProductGallerySelectedImage = (props: ProductGallerySelectedImageProps) =>
     const imageSource = images.length > 0 ? images[selectedImage].src : 'https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png';
     //const imageAlt = images.length > 0 ? images[selectedImage].alt : NO_PRODUCT_IMAGE;
 
-    return <InnerImageZoom src={imageSource} zoomType={'hover'} width={300} height={400} />
+    return (
+        <StyledProductGallerySelectedImage>
+            <InnerImageZoom src={imageSource} zoomType={'hover'} width={300} height={400} />
+        </StyledProductGallerySelectedImage>
+    )
 }
 
 export default ProductGallerySelectedImage;
