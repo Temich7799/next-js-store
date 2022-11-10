@@ -121,6 +121,7 @@ const Select = (props: SelectProps) => {
 
     function selectOnChangeHandler(onChangeEvent: React.ChangeEvent<HTMLSelectElement>) {
         onChangeHandler && onChangeHandler(onChangeEvent);
+        inputRef.current.setAttribute('selected-value', onChangeEvent.target.value)
         onChangeEvent.target.style.display = "none";
         onInvalidEvent.preventDefault();
     }
@@ -142,7 +143,7 @@ const Select = (props: SelectProps) => {
                 >
                     {label}
                 </InputField>
-                <StyledSelect ref={selectRef}>
+                <StyledSelect ref={selectRef} >
                     {children}
                 </StyledSelect>
             </StyledSelectWrapper>

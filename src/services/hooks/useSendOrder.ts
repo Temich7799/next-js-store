@@ -23,6 +23,8 @@ export function useSendOrder() {
 
         setIsSending(true);
 
+        const formData = new FormData(formElement);
+
         return fetch(process.env.GATSBY_APOLLO_SERVER_URL, {
             method: 'POST',
             headers: {
@@ -32,22 +34,23 @@ export function useSendOrder() {
                 query: 'mutation createOrder($data: OrderDataInput!) { wpWcCreateOrder(data: $data) { id }}',
                 variables: {
                     data: {
-                        payment_method: formElement.elements[6].value,
+                        payment_method: formElement.payment_method.getAttribute('selected-value'),
                         shipping: {
-                            first_name: formElement.elements[0].value,
-                            last_name: formElement.elements[1].value,
-                            address_1: formElement.elements[10].value ? formElement.elements[10].value : 'Самовывоз',
-                            city: formElement.elements[8].value,
-                            phone: formElement.elements[2].value
+                            first_name: formData.get('first_name'),
+                            last_name: formData.get('last_name'),
+                            address_1: formData.get('address_1') ? formData.get('address_1') : 'Самовывоз',
+                            city: formData.get('city'),
+                            phone: formData.get('phone'),
                         },
                         billing: {
-                            first_name: formElement.elements[0].value,
-                            last_name: formElement.elements[1].value,
-                            phone: formElement.elements[2].value
+                            first_name: formData.get('first_name'),
+                            last_name: formData.get('last_name'),
+                            phone: formData.get('phone'),
                         },
                         shipping_lines: [
                             {
-                                method_id: formElement.elements[4].value,
+                                method_id: formElement.method_title.getAttribute('selected-value'),
+                                method_title: formData.get('method_title')
                             }
                         ],
                         line_items: getLineItemsData(orderedProducts),
@@ -56,10 +59,9 @@ export function useSendOrder() {
             }),
         })
             .then((response) => response.json())
-            .then((result) => {
-                setIsSending(false);
-                return result.data.wpWcCreateOrder;
-            });
+            .then((result) => result.data.wpWcCreateOrder)
+            .catch((error) => { console.log(error) })
+            .finally(() => { setIsSending(false); })
     }
 
     function getLineItemsData(orderedProducts: object | any): Array<LineItem> {
@@ -67,7 +69,7 @@ export function useSendOrder() {
         let lineItems: Array<LineItem> = [];
 
         Object.values(orderedProducts).forEach((product: | any) =>
-            lineItems.push({ 'product_id': product.wordpress_id, 'quantity': product.quantity }));
+            lineItems.push({ 'product_id': parseInt(product.id), 'quantity': product.quantity }));
 
         return lineItems;
     }

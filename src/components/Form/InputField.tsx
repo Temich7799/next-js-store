@@ -127,6 +127,7 @@ const InputField = forwardRef((props: InputFieldProps, inputRef: any) => {
                 ref={inputRef}
                 value={isInputBlocked ? valueFromProps : inputValue}
                 name={name}
+                id={name}
                 type={inputType}
                 required={required}
                 placeholder={placeholder}

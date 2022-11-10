@@ -17,7 +17,7 @@ const SuccessOrderContent = (props: SuccessOrderContentProps) => {
     const { orderId } = props;
 
     return (
-        <InfoLayout title={ORDER_SUCCESS_TITLE} description={ORDER_SUCCESS_DESCRIPTION} details={`<b>${ORDER_SUCCESS_DETAILS}: </b>${orderId}`} imagePath="/svg/baby_ok.svg">
+        <InfoLayout title={ORDER_SUCCESS_TITLE + '!'} description={ORDER_SUCCESS_DESCRIPTION} details={`${ORDER_SUCCESS_DETAILS}: ${orderId}`} imagePath="/svg/baby_ok.svg">
             <ContainerCentered direction="row">
                 <ContinueShoppingButton />
                 <GoToHomepageButton />

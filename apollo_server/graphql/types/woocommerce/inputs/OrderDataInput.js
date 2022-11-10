@@ -22,6 +22,7 @@ const OrderDataInput = `#graphql
 
     input ShippingLineInput {
         method_id: String!
+        method_title: String
     }
 `;
 
