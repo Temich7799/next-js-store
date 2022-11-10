@@ -1,7 +1,8 @@
 const WP_Page = require("./types/wordpress/WP_Page");
 const WP_MenuItem = require("./types/wordpress/WP_MenuItem");
-const WpNovaPoshtaCity = require("./types/wordpress/WpNovaPoshtaCity");
-const WpNovaPoshtaWarehouse = require("./types/wordpress/WpNovaPoshtaWarehouse");
+const NP_City = require("./types/nova_poshta/NP_City");
+const NP_Street = require("./types/nova_poshta/NP_Street");
+const NP_Warehouse = require("./types/nova_poshta/NP_Warehouse");
 const WP_PageFilter = require("./types/wordpress/inputs/WP_PageFilter");
 const WP_PageParams = require("./types/wordpress/inputs/WP_PageParams");
 const WC_Product = require("./types/woocommerce/types/WC_Product");
@@ -19,8 +20,9 @@ const PublishStatusesEnum = require("./enums/PublishStatusesEnum");
 const RestEndpointsEnum = require("./enums/RestEndpointsEnum");
 const StockStatusesEnum = require("./enums/StockStatusesEnum");
 const WP_MenuItemFilter = require("./types/wordpress/inputs/WP_MenuItemFilter");
-const NP_CitiesParams = require("./types/wordpress/inputs/NP_CitiesParams");
-const NP_WarehousesParams = require("./types/wordpress/inputs/NP_WarehousesParams");
+const NP_CityParams = require("./types/nova_poshta/inputs/NP_CityParams");
+const NP_StreetParams = require("./types/nova_poshta/inputs/NP_StreetParams");
+const NP_WarehouseParams = require("./types/nova_poshta/inputs/NP_WarehouseParams");
 const WP_MetaData = require("./types/wordpress/WP_MetaData");
 
 const { gql } = require('apollo-server');
@@ -32,8 +34,9 @@ const typeDefs = gql`#graphql
         allWpPosts(language: LanguagesEnum, filter: WP_PageFilter, params: WP_PageParams): [WP_Page!]!
         allWpMenuItems(slug: String!, language: LanguagesEnum, filter: WP_MenuItemFilter, params: WP_PageParams): [WP_MenuItem!]!
         allWpWcOrders: [WpWcOrder!]! ###########
-        allWpNovaPoshtaCities(params: NP_CitiesParams): [WpNovaPoshtaCity!]!
-        allWpNovaPoshtaWarehouses(params: NP_WarehousesParams): [WpNovaPoshtaWarehouse!]!
+        allNovaPoshtaCities(params: NP_CityParams): [NP_City]!
+        allNovaPoshtaStreets(params: NP_StreetParams): [NP_Street]!
+        allNovaPoshtaWarehouses(params: NP_WarehouseParams): [NP_Warehouse]!
         allWcProducts(params: WC_ProductParams): [WC_Product!]!
         allWcProductsCategories(params: WC_ProductCategoryParams): [WC_Category!]! ###########
         allWcShippingZonesMethods(zoneId: Int, language: LanguagesEnum, params: WC_ShippingMethodParams): [WC_ShippingMethod!]!
@@ -56,8 +59,9 @@ const typeDefs = gql`#graphql
     ${WP_MenuItem}
     ${WC_Category}
     ${WpWcOrder}
-    ${WpNovaPoshtaCity}
-    ${WpNovaPoshtaWarehouse}
+    ${NP_City}
+    ${NP_Street}
+    ${NP_Warehouse}
     ${WC_PaymentMethod}
     ${WC_ShippingMethod}
     ${WP_MetaData}
@@ -68,8 +72,9 @@ const typeDefs = gql`#graphql
     ${WC_ProductCategoryParams}
     ${WP_PageFilter}
     ${WP_MenuItemFilter}
-    ${NP_CitiesParams}
-    ${NP_WarehousesParams}
+    ${NP_CityParams}
+    ${NP_StreetParams}
+    ${NP_WarehouseParams}
     ${WC_PaymentMethodParams}
     ${WC_ShippingMethodParams}
 #############----------Enums--------------####################

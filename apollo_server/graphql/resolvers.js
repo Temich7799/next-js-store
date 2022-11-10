@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const wooCommerceQuery = require("../services/queries/wooCommerceQuery");
 const wordpressQuery = require("../services/queries/wordpressQuery");
-const sqlQuery = require("../services/queries/sqlQuery");
+const novaPoshtaQuery = require('../services/queries/novaPoshtaQuery');
 
 const resolvers = {
     Query: {
@@ -10,25 +10,24 @@ const resolvers = {
         allWpPosts: (_, { language, filter, params }) => wordpressQuery('posts', { language: language, filter: filter, params: params }),
         allWpMenuItems: (_, { language, slug, filter, params }) => wordpressQuery(`menus/v1/menus/${slug}`, { language: language, filter: filter, params: params }, ['items'], 'none'),
         allWpWcOrders: () => wooCommerceQuery('orders'),
-        allWpNovaPoshtaCities: (_, { params }) => {
-
-            const cityRow = params.language == 'uk' ? 'description' : 'description_ru';
-            const sqlLimit = params.limit == undefined ? '' : ` LIMIT ${params.limit}`;
-
-            return sqlQuery(params.regExp == undefined
-                ? 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE 1' + sqlLimit
-                : 'SELECT `ref`,`' + cityRow + '` FROM `wp_nova_poshta_city` WHERE LOWER(' + cityRow + `) REGEXP '^` + params.regExp.toLowerCase() + `'` + ' ORDER BY CHAR_LENGTH(' + cityRow + ')' + sqlLimit);
-        },
-        allWpNovaPoshtaWarehouses: (_, { params }) => {
-
-            const warehouseRow = params.language == 'uk' ? 'description' : 'description_ru';
-            const sqlLimit = params.limit == undefined ? '' : ` LIMIT ${params.imit}`;
-            const regex = params.regExp == undefined ? '' : `) REGEXP '` + params.regExp.toLowerCase();
-
-            return sqlQuery(params.cityRef == undefined
-                ? 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE 1' + sqlLimit
-                : 'SELECT `parent_ref`,`' + warehouseRow + '` FROM `wp_nova_poshta_warehouse` WHERE parent_ref = \'' + params.cityRef + '\' AND LOWER(' + warehouseRow + regex + `'` + ' ORDER BY CHAR_LENGTH(' + warehouseRow + ')' + sqlLimit);
-        },
+        allNovaPoshtaCities: (_, { params }) => novaPoshtaQuery('searchSettlements', {
+            CityName: params.CityName,
+            Limit: params.Limit ? params.Limit : 10,
+            Page: params.Page ? params.Page : 1,
+        }),
+        allNovaPoshtaStreets: (_, { params }) => novaPoshtaQuery('searchSettlementStreets', {
+            StreetName: params.StreetName,
+            SettlementRef: params.SettlementRef,
+            Limit: params.Limit ? params.Limit : 15
+        }),
+        allNovaPoshtaWarehouses: (_, { params }) => novaPoshtaQuery('getWarehouses', {
+            CityName: params.CityName && params.CityName,
+            SettlementRef: params.SettlementRef,
+            Page: params.Page ? params.Page : 1,
+            Limit: params.Limit ? params.Limit : 15,
+            FindByString: params.FindByString && params.FindByString,
+            
+        }),
         allWcProducts: (_, { params }) => wooCommerceQuery('products', params),
         allWcProductsCategories: (_, { params }) => wooCommerceQuery('products/categories', params),
         allWcShippingZonesMethods: (_, { zoneId, language, params }) => wooCommerceQuery(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`, { per_page: 10, ...params }, 'get', language),
