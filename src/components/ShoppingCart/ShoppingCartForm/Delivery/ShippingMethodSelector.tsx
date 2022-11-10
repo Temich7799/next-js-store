@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
-import Select from "../../../../Form/Select/Select";
-import SelectOption from "../../../../Form/Select/SelectOption";
-import { LangContext } from "../../../../Layouts/Layout";
+import Select from "../../../Form/Select/Select";
+import SelectOption from "../../../Form/Select/SelectOption";
+import { LangContext } from "../../../Layouts/Layout";
 
 type ShippingMethodSelectorProps = {
     data: any | undefined

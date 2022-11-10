@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
-import { useShoppingCartVar } from "../../../../services/hooks/apollo_vars/useShoppingCartVar"
-import { ProductInCart } from "../../../../interfaces/InterfaceProduct"
-import Button from "../../../Buttons/Button"
-import ImageSVG from "../../../ImageSVG"
+import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShoppingCartVar"
+import { ProductInCart } from "../../../interfaces/InterfaceProduct"
+import Button from "../../Buttons/Button"
+import ImageSVG from "../../ImageSVG"
 import { StaticImage } from "gatsby-plugin-image"
 
 type PurchasedProductQuantityProps = {

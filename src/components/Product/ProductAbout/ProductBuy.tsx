@@ -5,11 +5,11 @@ import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShopp
 import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct";
 import { ProductPageContext } from "../../Content/ProductPageContent";
 import ProductBuyButton from "../../Buttons/ProductBuyButton";
-import PurchasedProductQuantity from "../ShoppingCart/OrderDetails/PurchasedProductQuantity";
+import PurchasedProductQuantity from "../../ShoppingCart/OrderDetails/PurchasedProductQuantity";
 import GoToCartButton from "../../Buttons/GoToCartButton";
 import { ProductGatsby } from "../../../interfaces/InterfaceProduct";
 import PopUpWindow from "../../PopUp/PopUpWindow";
-import OrderDetails from "../ShoppingCart/OrderDetails/OrderDetails";
+import OrderDetails from "../../ShoppingCart/OrderDetails/OrderDetails";
 import { useLastProductPageVar } from "../../../services/hooks/apollo_vars/useLastProductPageVar";
 
 const StyledProductBuy = styled.div<any>`

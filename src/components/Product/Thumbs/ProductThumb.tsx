@@ -11,7 +11,7 @@ import { ProductInCart } from "../../../interfaces/InterfaceProduct";
 import toast from 'react-hot-toast';
 import ImageSVG from "../../ImageSVG";
 import PopUpWindow from "../../PopUp/PopUpWindow";
-import OrderDetails from "../ShoppingCart/OrderDetails/OrderDetails";
+import OrderDetails from "../../ShoppingCart/OrderDetails/OrderDetails";
 import PopUpToaster from "../../PopUp/PopUpToaster";
 
 type ProductProps = {

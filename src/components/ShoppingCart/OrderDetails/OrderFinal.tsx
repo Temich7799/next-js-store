@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
-import ContinueShoppingButton from "../../../Buttons/ContinueShoppingButton";
-import SendOrderButton from "../../../Buttons/SendOrderButton";
-import GoToCartButton from "../../../Buttons/GoToCartButton";
-import { LangContext } from "../../../Layouts/Layout";
-import { ProductInCart } from "../../../../interfaces/InterfaceProduct";
+import ContinueShoppingButton from "../../Buttons/ContinueShoppingButton";
+import SendOrderButton from "../../Buttons/SendOrderButton";
+import GoToCartButton from "../../Buttons/GoToCartButton";
+import { LangContext } from "../../Layouts/Layout";
+import { ProductInCart } from "../../../interfaces/InterfaceProduct";
 
 type OrderFinalProps = {
     data: Array<ProductInCart> | undefined

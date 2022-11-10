@@ -2,10 +2,10 @@ import { useLazyQuery } from "@apollo/client";
 import React, { useContext } from "react"
 import { GET_NOVA_POSHTA_CITY_REF } from "../../../../../graphql/queries/nova_poshta/getNovaPoshtaCityRef";
 import { GET_NOVA_POSHTA_WAREHOUSES } from "../../../../../graphql/queries/nova_poshta/getNovaPoshtaWarehouses";
-import InputField from "../../../../Form/InputField";
-import Select from "../../../../Form/Select/Select";
-import SelectOption from "../../../../Form/Select/SelectOption";
-import { LangContext } from "../../../../Layouts/Layout";
+import InputField from "../../../Form/InputField";
+import Select from "../../../Form/Select/Select";
+import SelectOption from "../../../Form/Select/SelectOption";
+import { LangContext } from "../../../Layouts/Layout";
 
 type WarehouseSelectorProps = {
     selectedShippingLine: string

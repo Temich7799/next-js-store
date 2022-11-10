@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
-import InputField from "../../../Form/InputField";
-import { LangContext } from "../../../Layouts/Layout";
+import InputField from "../../Form/InputField";
+import { LangContext } from "../../Layouts/Layout";
 
 const ClientContacts = () => {
 

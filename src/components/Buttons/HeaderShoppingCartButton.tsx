@@ -5,7 +5,7 @@ import { useShoppingCartVar } from "../../services/hooks/apollo_vars/useShopping
 import toogle from "../../services/toogle";
 import Button from "./Button";
 import PopUpWindow from "../PopUp/PopUpWindow";
-import OrderDetails from "../Product/ShoppingCart/OrderDetails/OrderDetails";
+import OrderDetails from "../ShoppingCart/OrderDetails/OrderDetails";
 import { PurchasesCount } from "../../styles/PurchasesCount";
 import { StaticImage } from "gatsby-plugin-image";
 import PopUpToaster from "../PopUp/PopUpToaster";

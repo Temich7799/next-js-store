@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { ProductInCart } from "../../../../interfaces/InterfaceProduct"
-import { LangContext } from "../../../Layouts/Layout"
+import { ProductInCart } from "../../../interfaces/InterfaceProduct"
+import { LangContext } from "../../Layouts/Layout"
 import PurchasedProduct from "./PurchasedProduct"
 
 type PurchasedProductsProps = {

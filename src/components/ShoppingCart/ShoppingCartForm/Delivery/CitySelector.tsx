@@ -1,10 +1,10 @@
 import { useLazyQuery } from "@apollo/client";
 import React, { useContext, useState } from "react"
-import { GET_NOVA_POSHTA_CITIES } from "../../../../../graphql/queries/nova_poshta/getNovaPoshtaCities";
-import InputField from "../../../../Form/InputField";
-import Select from "../../../../Form/Select/Select";
-import SelectOption from "../../../../Form/Select/SelectOption";
-import { LangContext } from "../../../../Layouts/Layout";
+import { GET_NOVA_POSHTA_CITIES } from "../../../../gql/getAllNovaPoshtaCities";
+import InputField from "../../../Form/InputField";
+import Select from "../../../Form/Select/Select";
+import SelectOption from "../../../Form/Select/SelectOption";
+import { LangContext } from "../../../Layouts/Layout";
 
 type CitySelectorProps = {
     selectedShippingLine: string

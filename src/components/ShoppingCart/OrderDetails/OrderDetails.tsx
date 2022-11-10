@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
-import { useShoppingCartVar } from "../../../../services/hooks/apollo_vars/useShoppingCartVar";
+import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShoppingCartVar";
 import OrderFinal from "./OrderFinal";
 import PurchasedProducts from "./PurchasedProducts";
-import { LangContext } from "../../../Layouts/Layout";
-import { ProductInCart } from "../../../../interfaces/InterfaceProduct";
+import { LangContext } from "../../Layouts/Layout";
+import { ProductInCart } from "../../../interfaces/InterfaceProduct";
 
 type OrderDetailsProps = {
     isOrderSending?: boolean

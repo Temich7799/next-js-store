@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react"
 import styled from "styled-components"
-import { useShoppingCartVar } from "../../../../services/hooks/apollo_vars/useShoppingCartVar"
-import useUpdatedProduct from "../../../../services/hooks/useUpdatedProduct"
-import ProductPrice from "../../ProductPrice"
+import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShoppingCartVar"
+import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct"
+import ProductPrice from "../../Product/ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
-import { ProductInCart } from "../../../../interfaces/InterfaceProduct"
-import { LangContext } from "../../../Layouts/Layout"
+import { ProductInCart } from "../../../interfaces/InterfaceProduct"
+import { LangContext } from "../../Layouts/Layout"
 
 type PurchasedProductProps = {
     data: ProductInCart
