@@ -2,6 +2,7 @@ export const MOBILE_HEADER_SUBMENU_SEE_ALL = 'See All';
 
 export const CAROUSEL_RELATED_PRODUCTS_TITLE = 'Related Products';
 export const CAROUSEL_PRODUCTS_ON_SALE_TITLE = 'Sale %';
+export const CAROUSEL_BRANDS_TITLE = 'Brands';
 
 export const DELIVERY_ABOUT_DELIVERY_INFO = 'Delivery terms';
 export const DELIVERY_ABOUT_AFTERPAY_INFO = 'Cash on delivery';
