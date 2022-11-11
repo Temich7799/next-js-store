@@ -8,19 +8,24 @@ import LoadingBar from "../LoadingBars/LoadingBar";
 
 const StyledCarousel = styled.div<any>`
     max-width: ${props => props.maxWidth};
+    margin: 5% auto;
     text-align: center;
 `;
 
 const CarouselContent = styled.div<any>`
+    width: fit-content;
+    margin: 0 auto;
     ${props => props.showButtons && `
         display: grid;
-        grid-template-columns: 0.5fr 4fr 0.5fr;
+        grid-template-columns: 1fr auto 1fr;
         justify-items:center;
         align-items: center;
+        gap: 5px;
     `}
 `;
 
 const CarouselSliderWrapper = styled.div`
+    margin: 15px 0;
     width: 100%;
     overflow: hidden;
 `;
@@ -95,8 +100,9 @@ const Carousel = (props: CarouselProps) => {
     }, [children]);
 
     useEffect(() => {
+
         itemWidth && setItemsGap(
-            carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
+            carouselSlider.current.clientWidth <= carouselSlider.current.scrollWidth
                 ? calcItemsGap(carouselSlider.current.clientWidth, itemWidth, maxItemsPerSlide)
                 : minGap
         )

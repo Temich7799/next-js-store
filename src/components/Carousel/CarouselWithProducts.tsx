@@ -3,6 +3,7 @@ import { ProductFetched } from "../../interfaces/InterfaceProduct";
 import { useProductsQuery } from "../../services/hooks/graphql/useProductsQuery";
 import Carousel from "./Carousel";
 import ProductThumb from "../Product/Thumbs/ProductThumb";
+import { CarouselOptions } from "../../types/CarouselPropsType";
 
 type CarouselWithProductsProps = {
     title: string
@@ -27,7 +28,7 @@ const CarouselWithProducts = (props: CarouselWithProductsProps) => {
 
     const { data } = useProductsQuery(params);
 
-    const options = {
+    const options: CarouselOptions = {
         maxItemsPerSlide: 3
     }
 
@@ -35,7 +36,7 @@ const CarouselWithProducts = (props: CarouselWithProductsProps) => {
         <>
             {
                 data && data.length > 0 &&
-                <Carousel title={title} options={options}>
+                <Carousel title={title} maxWidth="800px" options={options}>
                     {
                         data.map((product: ProductFetched) => {
 
