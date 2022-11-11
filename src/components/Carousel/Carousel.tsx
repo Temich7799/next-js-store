@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react";
 import ResizeObserver from "resize-observer-polyfill";
-import styled from "styled-components"
-import useMobile from "../../services/hooks/useMobile";
+import styled from "styled-components";
 import { CarouselProps } from "../../types/CarouselPropsType";
-import Button from "../Buttons/Button"
+import Button from "../Buttons/Button";
 import CopyProtectedArea from "../CopyProtectedArea";
 import LoadingBar from "../LoadingBars/LoadingBar";
 
@@ -27,6 +26,7 @@ const CarouselSliderWrapper = styled.div`
 `;
 
 const CarouselSlider = styled.div<any>`
+    touch-action: pan-y;
     position: relative;
     display: flex;
     column-gap: ${props => props.gap}px;
@@ -56,11 +56,6 @@ const Carousel = (props: CarouselProps) => {
         minGap = 24,
         showButtons = true,
     } = options;
-
-    const isMobile = useMobile();
-
-    let pointerType = isMobile ? 'pointer' : 'mouse';
-    let eventEndType = isMobile ? 'cancel' : 'up';
 
     const [sliderClientWidth, setSliderClientWidth] = useState<number>(0);
     const [itemWidth, setItemWidth] = useState<number>(0);
@@ -94,8 +89,7 @@ const Carousel = (props: CarouselProps) => {
 
             sliderClientWidthObserver.observe(carouselSlider.current);
 
-            carouselWrapper.current.addEventListener(`${pointerType}down`, onPointerDownHandler);
-            window.addEventListener(`${pointerType}${eventEndType}`, onPointerUpHandler);
+            carouselWrapper.current.addEventListener('pointerdown', onPointerDownHandler);
         }
         //return () => carouselWrapper.current.removeEventListener(`${pointerType}down`, onPointerDownHandler);
     }, [children]);
@@ -123,22 +117,35 @@ const Carousel = (props: CarouselProps) => {
 
     function onPointerDownHandler(pointerDownEvent: any): void {
 
+        pointerDownEvent.stopPropagation();
+        pointerDownEvent.preventDefault();
+
         slider.current.prevClientX = pointerDownEvent.clientX;
 
-        carouselWrapper.current.addEventListener(`${pointerType}move`, onPointerMoveHandler);
+        carouselWrapper.current.addEventListener('pointermove', onPointerMoveHandler);
+        window.addEventListener('pointerup', onPointerUpHandler, { once: true });
+        carouselWrapper.current.addEventListener('pointercancel', onPointerUpHandler, { once: true });
 
         slider.current.prevPosition = slider.current.position;
     }
 
     function onPointerMoveHandler(onPointerMoveEvent: any): void {
 
+        onPointerMoveEvent.stopPropagation();
         onPointerMoveEvent.cancelable && onPointerMoveEvent.preventDefault();
 
-        slider.current.position += isMobile ? (onPointerMoveEvent.clientX - slider.current.prevClientX) / 25 : onPointerMoveEvent.movementX;
+        const movementX = onPointerMoveEvent.clientX - slider.current.prevClientX;
+
+        slider.current.position += movementX;
+        slider.current.prevClientX = onPointerMoveEvent.clientX;
+
         carouselSlider.current.style = `left: ${slider.current.position}px; transition: none;`;
     }
 
-    function onPointerUpHandler(): void {
+    function onPointerUpHandler(onPointerUpEvent: any): void {
+
+        onPointerUpEvent.stopPropagation();
+        onPointerUpEvent.preventDefault();
 
         if (slider.current.position !== slider.current.prevPosition) {
             makeSwipe(slider.current.position > slider.current.prevPosition ? 'left' : 'right');
@@ -147,7 +154,7 @@ const Carousel = (props: CarouselProps) => {
 
         if (carouselSlider.current !== null) carouselSlider.current.style.transition = `${animationSpeed}`;
 
-        carouselWrapper.current !== null && carouselWrapper.current.removeEventListener(`${pointerType}move`, onPointerMoveHandler);
+        carouselWrapper.current !== null && carouselWrapper.current.removeEventListener('pointermove', onPointerMoveHandler);
     }
 
     function calcItemsGap(sliderWidth: number, itemWidth: number, itemsCount: number): number {
