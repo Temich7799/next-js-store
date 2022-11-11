@@ -44,15 +44,18 @@ const Carousel = (props: CarouselProps) => {
 
     const {
         title,
-        speed = '750ms',
         maxWidth = '100%',
-        carouselItemMax = 10,
-        minGap = 24,
-        showButtons = true,
-        showGap = true,
         isDataFetching = false,
+        options = {},
         children,
     } = props;
+
+    const {
+        animationSpeed = '750ms',
+        maxItemsPerSlide = 10,
+        minGap = 24,
+        showButtons = true,
+    } = options;
 
     const isMobile = useMobile();
 
@@ -98,15 +101,11 @@ const Carousel = (props: CarouselProps) => {
     }, [children]);
 
     useEffect(() => {
-
-        showGap == true
-            ? itemWidth && setItemsGap(
-                carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
-                    ? calcItemsGap(carouselSlider.current.clientWidth, itemWidth, carouselItemMax)
-                    : minGap
-            )
-            : itemsGap;
-
+        itemWidth && setItemsGap(
+            carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
+                ? calcItemsGap(carouselSlider.current.clientWidth, itemWidth, maxItemsPerSlide)
+                : minGap
+        )
     }, [itemWidth, sliderClientWidth]);
 
     useEffect(() => {
@@ -146,7 +145,7 @@ const Carousel = (props: CarouselProps) => {
             slider.current.prevPosition = 0;
         }
 
-        if (carouselSlider.current !== null) carouselSlider.current.style.transition = `${speed}`;
+        if (carouselSlider.current !== null) carouselSlider.current.style.transition = `${animationSpeed}`;
 
         carouselWrapper.current !== null && carouselWrapper.current.removeEventListener(`${pointerType}move`, onPointerMoveHandler);
     }
@@ -179,7 +178,7 @@ const Carousel = (props: CarouselProps) => {
                     ? --slider.current.positionIndex
                     : slider.current.positionIndex];
 
-        if (carouselSlider.current) carouselSlider.current.style = `left: ${slider.current.position}px; transition: ${speed};`;
+        if (carouselSlider.current) carouselSlider.current.style = `left: ${slider.current.position}px; transition: ${animationSpeed};`;
     }
 
     function makePositionsMap(startFrom: number): Array<number> {

@@ -27,11 +27,15 @@ const CarouselWithProducts = (props: CarouselWithProductsProps) => {
 
     const { data } = useProductsQuery(params);
 
+    const options = {
+        maxItemsPerSlide: 3
+    }
+
     return (
         <>
             {
                 data && data.length > 0 &&
-                <Carousel title={title} carouselItemMax={3}>
+                <Carousel title={title} options={options}>
                     {
                         data.map((product: ProductFetched) => {
 

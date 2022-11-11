@@ -1,11 +1,14 @@
 export type CarouselProps = {
     title?: string
-    speed?: string
     maxWidth?: string
-    carouselItemMax?: number
+    isDataFetching?: boolean
+    options?: CarouselOptions
+    children?: any
+}
+
+export type CarouselOptions = {
+    animationSpeed?: string
+    maxItemsPerSlide?: number
     minGap?: number
     showButtons?: boolean
-    showGap?: boolean
-    isDataFetching?: boolean
-    children?: any
 }
