@@ -1,10 +1,10 @@
 import { StaticImage } from "gatsby-plugin-image";
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { CarouselOptions } from "../../../types/CarouselPropsType";
-import Carousel from "../../Carousel/Carousel";
-import CarouselWithProducts from "../../Carousel/CarouselWithProducts";
-import { LangContext } from "../../Layouts/Layout";
+import { CarouselOptions } from "../../../../types/CarouselPropsType";
+import Carousel from "../../../Carousel/Carousel";
+import CarouselWithProducts from "../../../Carousel/CarouselWithProducts";
+import { LangContext } from "../../../Layouts/Layout";
 
 const BrandThumb = styled.div`
     width: 100px;

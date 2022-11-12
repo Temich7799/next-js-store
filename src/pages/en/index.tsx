@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../../components/Layouts/Layout";
 import { graphql } from "gatsby"
-import IndexPageContent from "../../components/Content/IndexPageContent";
+import HomePageContent from "../../components/Content/HomePageContent";
 import MetaData from "../../components/Layouts/MetaData";
 import { parsePageMetaData } from "../../services/parsePageMetaData";
 
@@ -11,7 +11,7 @@ const IndexPage = (props: any) => {
 
   return (
     <Layout language="en">
-      <IndexPageContent data={multilangWpPage} />
+      <HomePageContent data={multilangWpPage} />
     </Layout>
   )
 }
