@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components";
-import BrandsCarousel from "./Carousel/BrandsCarousel";
-import OnSaleProductsCarousel from "./Carousel/OnSaleProductsCarousel";
+import BrandsCarousel from "../Carousel/BrandsCarousel";
+import OnSaleProductsCarousel from "../Carousel/OnSaleProductsCarousel";
 
 type HomePageContentProps = {
     data: {
