@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { useQueryProductsOnScroll } from "../../services/hooks/graphql/useQueryProductsOnScroll";
-import ContainerCentered from "../../styles/ContainerCentered";
+import ContainerCenteredWrapper from "../Wrappers/ContainerCenteredWrapper";
 import { ProductFetched } from "../../interfaces/InterfaceProduct";
 import InfoLayout from "../Layouts/InfoLayout";
 import { LangContext } from "../Layouts/Layout";
@@ -37,9 +37,9 @@ const ProductsListPageContent = (props: ProductsListPageContentProps) => {
             {
                 loading
                     ?
-                    <ContainerCentered>
+                    <ContainerCenteredWrapper>
                         <LoadingBar />
-                    </ContainerCentered>
+                    </ContainerCenteredWrapper>
                     :
                     error
                         ?

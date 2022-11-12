@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ContainerCentered from "../../styles/ContainerCentered";
+import ContainerCenteredWrapper from "../Wrappers/ContainerCenteredWrapper";
 import ImageSVG from "../ImageSVG";
 
 type InfoLayoutProps = {
@@ -21,7 +21,7 @@ const InfoLayout = (props: InfoLayoutProps) => {
 
     return (
         <StyledInfoLayout>
-            <ContainerCentered>
+            <ContainerCenteredWrapper>
                 <h3>{title}</h3>
                 {
                     details && <p>{details}</p>
@@ -29,7 +29,7 @@ const InfoLayout = (props: InfoLayoutProps) => {
                 <ImageSVG path={imagePath} width="50%" height="50%" />
                 <p>{description}</p>
                 {children && children}
-            </ContainerCentered>
+            </ContainerCenteredWrapper>
         </StyledInfoLayout>
     )
 }

@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components";
-import HideOnDesktopWrapper from "../../../styles/HideOnDesktopWrapper";
 import { HeaderMenuProps } from "../../../types/HeaderMenuPropsType";
 import LanguageSelector from "../../LanguageSelector";
 import SocialsList from "../../SocialsList";

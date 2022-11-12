@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useProductQuery } from "../../services/hooks/graphql/useProductQuery";
-import ContainerCentered from "../../styles/ContainerCentered";
+import ContainerCenteredWrapper from "../Wrappers/ContainerCenteredWrapper";
 import { LangContext } from "../Layouts/Layout";
 import LoadingBar from "../LoadingBars/LoadingBar";
 import NotFoundPageContent from "./NotFoundPageContent";
@@ -25,9 +25,9 @@ const ProductClientPageContent = (props: ProductClientPageContentProps) => {
                     ? <NotFoundPageContent />
                     : loading
                         ?
-                        <ContainerCentered>
+                        <ContainerCenteredWrapper>
                             <LoadingBar />
-                        </ContainerCentered>
+                        </ContainerCenteredWrapper>
                         : data && <ProductPageContent data={data} />
             }
         </>

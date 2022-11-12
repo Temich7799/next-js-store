@@ -1,6 +1,5 @@
 import React from "react";
-import HideOnDesktopWrapper from "../../styles/HideOnDesktopWrapper";
-import HideOnMobileWrapper from "../../styles/HideOnMobileWrapper";
+import HideOnMobileWrapper from "../Wrappers/HideOnMobileWrapper";
 import SocialsList from "../SocialsList";
 import LogoMobile from "./HeaderMenu/LogoMobile";
 const HeaderColumnCenter = () => {

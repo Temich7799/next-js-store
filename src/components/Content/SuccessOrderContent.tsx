@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import ContainerCentered from "../../styles/ContainerCentered";
+import ContainerCenteredWrapper from "../Wrappers/ContainerCenteredWrapper";
 import ContinueShoppingButton from "../Buttons/ContinueShoppingButton";
 import GoToHomepageButton from "../Buttons/GoToHomepageButton";
 import InfoLayout from "../Layouts/InfoLayout";
@@ -18,10 +18,10 @@ const SuccessOrderContent = (props: SuccessOrderContentProps) => {
 
     return (
         <InfoLayout title={ORDER_SUCCESS_TITLE + '!'} description={ORDER_SUCCESS_DESCRIPTION} details={`${ORDER_SUCCESS_DETAILS}: ${orderId}`} imagePath="/svg/baby_ok.svg">
-            <ContainerCentered direction="row">
+            <ContainerCenteredWrapper direction="row">
                 <ContinueShoppingButton />
                 <GoToHomepageButton />
-            </ContainerCentered>
+            </ContainerCenteredWrapper>
         </InfoLayout>
     )
 }

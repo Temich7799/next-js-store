@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import React, { useContext } from "react";
-import HideOnDesktopWrapper from "../../../styles/HideOnDesktopWrapper";
+import HideOnDesktopWrapper from "../../Wrappers/HideOnDesktopWrapper";
 import { LangContext } from "../../Layouts/Layout";
 
 const LogoMobile = () => {

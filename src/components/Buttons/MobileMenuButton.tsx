@@ -1,7 +1,7 @@
 import React from "react";
 import { useIsMenuOpenedVar } from "../../services/hooks/apollo_vars/useIsMenuOpenedVar";
 import toogle from "../../services/toogle";
-import HideOnDesktopWrapper from "../../styles/HideOnDesktopWrapper";
+import HideOnDesktopWrapper from "../Wrappers/HideOnDesktopWrapper";
 import { MobileMenuButtonProps } from "../../types/MobileMenuButtonPropsType";
 import ImageSVG from "../ImageSVG";
 import Button from "./Button";

@@ -1,7 +1,7 @@
 import React from "react";
 import LanguageSelector from "../LanguageSelector";
 import HeaderShoppingCartButton from "../Buttons/HeaderShoppingCartButton";
-import HideOnMobileWrapper from "../../styles/HideOnMobileWrapper";
+import HideOnMobileWrapper from "../Wrappers/HideOnMobileWrapper";
 import styled from "styled-components";
 
 const StyledHeaderColumnRight = styled.div`

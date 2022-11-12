@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-type ContainerCenteredProps = {
+type ContainerCenteredWrapperProps = {
     direction?: string
 };
 
-const ContainerCentered = styled.div<ContainerCenteredProps>`
+const ContainerCenteredWrapper = styled.div<ContainerCenteredWrapperProps>`
     height: 70vh;
     width: 80%;
     margin: 2.5% auto;
@@ -15,4 +15,4 @@ const ContainerCentered = styled.div<ContainerCenteredProps>`
     justify-content: space-around;
 `;
 
-export default ContainerCentered;
+export default ContainerCenteredWrapper;
