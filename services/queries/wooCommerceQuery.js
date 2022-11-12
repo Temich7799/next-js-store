@@ -31,7 +31,7 @@ async function wooCommerceQuery(endpoint, params = {}, method = 'get', language 
 
                 offset += response.data.length;
 
-                return offset >= limit || response.data.length === 0 ? mergeArray : makeBatchQuery(limit - offset, offset, mergeArray);
+                return offset >= limit || response.data.length === 0 ? mergeArray : makeBatchQuery(limit - response.data.length, offset, mergeArray);
             }
             else return mergeArray.length > 0 ? mergeArray : response.data;
         });
