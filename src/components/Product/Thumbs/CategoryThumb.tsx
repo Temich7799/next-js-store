@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import styled from "styled-components"
 import Button from "../../Buttons/Button";
 import getRandomColor from "../../../services/getRandomColor";
-import InteractiveImage from "../../InteractiveImage";
+import InteractiveImageWrapper from "../../Wrappers/InteractiveImageWrapper";
 import { LangContext } from "../../Layouts/Layout";
 
 type CategoryThumbProps = {
@@ -96,7 +96,7 @@ const CategoryThumb = (props: CategoryThumbProps) => {
                 <Link to={data.slug}>
                     {
                         data.image
-                            ? <InteractiveImage><img src={data.image.src} alt={data.image.alt} /></InteractiveImage>
+                            ? <InteractiveImageWrapper><img src={data.image.src} alt={data.image.alt} /></InteractiveImageWrapper>
                             : <NoImage src="https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png" />
                     }
                 </Link>

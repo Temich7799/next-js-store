@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "styled-components";
 
-const StyledInteractiveImage = styled.div`
+const StyledInteractiveImageWrapper = styled.div`
     @media (hover: hover) and (pointer: fine) {
         img {
             :hover{
@@ -12,15 +12,15 @@ const StyledInteractiveImage = styled.div`
     }
 `;
 
-const InteractiveImage = (props: any) => {
+const InteractiveImageWrapper = (props: any) => {
 
     const { children } = props;
 
     return (
-        <StyledInteractiveImage>
+        <StyledInteractiveImageWrapper>
             {children}
-        </StyledInteractiveImage>
+        </StyledInteractiveImageWrapper>
     )
 }
 
-export default InteractiveImage;
+export default InteractiveImageWrapper;
