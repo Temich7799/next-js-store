@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import CopyProtectedArea from "../CopyProtectedArea";
+import CopyProtectedWrapper from "../Wrappers/CopyProtectedWrapper";
 import { ProductPageContext } from "../Content/ProductPageContent";
 import { LangContext } from "../Layouts/Layout";
 
@@ -22,10 +22,10 @@ const ProductDescription = () => {
 
     return (
         <StyledProductDescription minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
-            <CopyProtectedArea>
+            <CopyProtectedWrapper>
                 <h3>{PRODUCT_DESCRIPTION_TITLE}</h3>
                 <div dangerouslySetInnerHTML={{ __html: description }} />
-            </CopyProtectedArea>
+            </CopyProtectedWrapper>
         </StyledProductDescription>
     )
 }

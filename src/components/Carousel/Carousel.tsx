@@ -3,7 +3,7 @@ import ResizeObserver from "resize-observer-polyfill";
 import styled from "styled-components";
 import { CarouselProps } from "../../types/CarouselPropsType";
 import Button from "../Buttons/Button";
-import CopyProtectedArea from "../CopyProtectedArea";
+import CopyProtectedWrapper from "../Wrappers/CopyProtectedWrapper";
 import LoadingBar from "../LoadingBars/LoadingBar";
 
 const StyledCarousel = styled.div<any>`
@@ -208,9 +208,9 @@ const Carousel = (props: CarouselProps) => {
 
     return (
         <StyledCarousel maxWidth={maxWidth}>
-            <CopyProtectedArea>
+            <CopyProtectedWrapper>
                 <h3>{title}</h3>
-            </CopyProtectedArea>
+            </CopyProtectedWrapper>
             <CarouselContent showButtons={showButtons}>
                 {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('left')}>{'<'}</Button>}
                 {

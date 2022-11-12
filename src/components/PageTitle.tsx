@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import CopyProtectedArea from "./CopyProtectedArea";
+import CopyProtectedWrapper from "./Wrappers/CopyProtectedWrapper";
 
 type PageTitleProps = { children: string }
 
@@ -28,7 +28,7 @@ const PageTitle = (props: PageTitleProps) => {
     const { children } = props;
 
     return (
-        <CopyProtectedArea>
+        <CopyProtectedWrapper>
             <StyledPageTitle>
                 <Line />
                 <h1>
@@ -36,7 +36,7 @@ const PageTitle = (props: PageTitleProps) => {
                 </h1>
                 <Line />
             </StyledPageTitle>
-        </CopyProtectedArea >
+        </CopyProtectedWrapper >
     )
 }
 
