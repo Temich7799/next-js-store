@@ -59,7 +59,10 @@ export function useSendOrder() {
             }),
         })
             .then((response) => response.json())
-            .then((result) => result.data.wpWcCreateOrder)
+            .then((result) => {
+                localStorage.removeItem('purchased-products');
+                result.data.wpWcCreateOrder;
+            })
             .catch((error) => { console.log(error) })
             .finally(() => { setIsSending(false); })
     }
