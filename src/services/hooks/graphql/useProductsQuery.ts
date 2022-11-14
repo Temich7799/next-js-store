@@ -8,7 +8,7 @@ type ProductsQueryResult = {
     error: ApolloError | undefined
 }
 
-export function useProductsQuery(options: any = undefined): ProductsQueryResult {
+export function useProductsQuery(language: string = 'ru', options: any = undefined): ProductsQueryResult {
 
     const [getWcProducts, { loading, error, data }] = useLazyQuery(gql`
         
@@ -35,6 +35,7 @@ export function useProductsQuery(options: any = undefined): ProductsQueryResult 
         getWcProducts(
             {
                 variables: {
+                    language: language,
                     params: {
                         ...options,
                         stock_status: 'instock',

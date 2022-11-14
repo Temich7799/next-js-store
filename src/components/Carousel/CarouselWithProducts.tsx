@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ProductFetched } from "../../interfaces/InterfaceProduct";
 import { useProductsQuery } from "../../services/hooks/graphql/useProductsQuery";
 import Carousel from "./Carousel";
 import ProductThumb from "../Product/Thumbs/ProductThumb";
 import { CarouselOptions } from "../../types/CarouselPropsType";
+import { LangContext } from "../Layouts/Layout";
 
 type CarouselWithProductsProps = {
     title: string
@@ -24,9 +25,11 @@ type QueryParams = {
 
 const CarouselWithProducts = (props: CarouselWithProductsProps) => {
 
+    const { language } = useContext(LangContext);
+
     const { compImages, title, params } = props;
 
-    const { data } = useProductsQuery(params);
+    const { data } = useProductsQuery(language, params);
 
     const options: CarouselOptions = {
         maxItemsPerSlide: 3
