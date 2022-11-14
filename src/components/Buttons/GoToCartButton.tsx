@@ -28,7 +28,7 @@ const GoToCartButton = (props: GoToCartButtonProps) => {
                         }
                     </Button>
                     :
-                    <Link to={`/${langPrefix}shopping_cart`}>
+                    <Link to={`/${langPrefix}shopping-cart`}>
                         <Button buttonStyle="accent" disabled={isButtonDisabled}>
                             {ORDER_FINAL_BUTTON_CONTINUE}
                         </Button>
