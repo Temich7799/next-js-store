@@ -26,9 +26,9 @@ const resolvers = {
             Page: params.Page ? params.Page : 1,
             Limit: params.Limit ? params.Limit : 15,
             FindByString: params.FindByString && params.FindByString,
-            
+
         }),
-        allWcProducts: (_, { params }) => wooCommerceQuery('products', params),
+        allWcProducts: (_, { language, params }) => wooCommerceQuery('products', params, 'get', language),
         allWcProductsCategories: (_, { params }) => wooCommerceQuery('products/categories', params),
         allWcShippingZonesMethods: (_, { zoneId, language, params }) => wooCommerceQuery(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`, { per_page: 10, ...params }, 'get', language),
         allWcPaymentMethods: (_, { language, params }) => wooCommerceQuery('payment_gateways', { per_page: 10, ...params }, 'get', language),

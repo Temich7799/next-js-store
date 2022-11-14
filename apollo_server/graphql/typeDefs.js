@@ -37,7 +37,7 @@ const typeDefs = gql`#graphql
         allNovaPoshtaCities(params: NP_CityParams): [NP_City]!
         allNovaPoshtaStreets(params: NP_StreetParams): [NP_Street]!
         allNovaPoshtaWarehouses(params: NP_WarehouseParams): [NP_Warehouse]!
-        allWcProducts(params: WC_ProductParams): [WC_Product!]!
+        allWcProducts(language: LanguagesEnum, params: WC_ProductParams): [WC_Product!]!
         allWcProductsCategories(params: WC_ProductCategoryParams): [WC_Category!]! ###########
         allWcShippingZonesMethods(zoneId: Int, language: LanguagesEnum, params: WC_ShippingMethodParams): [WC_ShippingMethod!]!
         allWcPaymentMethods(language: LanguagesEnum, params: WC_PaymentMethodParams): [WC_PaymentMethod!]!
