@@ -4,9 +4,10 @@ async function wooCommerceQuery(endpoint, params = {}, method = 'get', language 
 
     if (!params.per_page) params.per_page = 100;
     if (!params.offset) params.offset = 0;
+    params.lang = language;
 
     const query = new WooCommerceRestApi({
-        url: `${process.env.GATSBY_WP_URL}/${language}`,
+        url: process.env.GATSBY_WP_URL,
         consumerKey: process.env.GATSBY_WC_KEY,
         consumerSecret: process.env.GATSBY_WC_SECRET,
         version: process.env.GATSBY_WC_VERSION

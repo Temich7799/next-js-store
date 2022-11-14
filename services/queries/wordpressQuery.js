@@ -4,7 +4,7 @@ const digObjectByPath = require('../digObjectByPath');
 
 const wordpressQuery = async (endpoint, options = {}, dataPathArray, version = 'wp/v2/') => {
 
-    const { language, params, filter } = options;
+    const { language = 'ru', params, filter } = options;
 
     const per_page = params && params.per_page ? params.per_page : 100;
     const offset = params && params.offset ? params.offset : 0;
@@ -12,7 +12,7 @@ const wordpressQuery = async (endpoint, options = {}, dataPathArray, version = '
     const data = per_page <= 100 ? await fetchPageData() : await makeBatchQuery();
 
     async function fetchPageData() {
-        return await fetch(`${process.env.GATSBY_WP_URL}/${language ? `${language}/` : ''}wp-json/${version === 'none' ? '' : version}${endpoint}?per_page=${per_page}&offset=${offset}`)
+        return await fetch(`${process.env.GATSBY_WP_URL}/wp-json/${version === 'none' ? '' : version}${endpoint}?per_page=${per_page}&offset=${offset}&lang=${language}`)
             .then(response => response.text())
             .then(response => {
                 const json = JSON.parse(response.replace(/@/g, ''));
