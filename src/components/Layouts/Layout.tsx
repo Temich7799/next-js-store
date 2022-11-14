@@ -33,7 +33,7 @@ const apolloClient = new ApolloClient({
                 Query: {
                     fields: {
                         allWcProducts: {
-                            keyArgs: ["params", ["category", "include"]],
+                            keyArgs: ["params", ["category", "include", "after", "on_sale"]],
                             merge(existing = [], incoming) {
                                 return [...existing, ...incoming]
                             }

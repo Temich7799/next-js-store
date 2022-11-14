@@ -69,3 +69,9 @@ export const LOADING_ERROR_TITLE = 'Во время загрузки произ�
 export const LOADING_ERROR_DESCRIPTION = 'Попробуйте перезагрузить страницу, либо проверьте интернет-соединение.';
 
 export const SHOPPING_CART_PAGE_META_TITLE = 'Корзина | Malini Kids';
+
+export const BLOCK_NEW_ARRIVALS_TITLE = 'Новинки';
+export const BLOCK_NEW_ARRIVALS_DETAILS = 'Новых поступлений:';
+
+export const BLOCK_SALE_TITLE = 'Распродажа!';
+export const BLOCK_SALE_DETAILS = 'Товаров со скидкой';

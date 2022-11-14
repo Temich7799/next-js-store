@@ -69,3 +69,9 @@ export const LOADING_ERROR_TITLE = 'Під час завантаження ст�
 export const LOADING_ERROR_DESCRIPTION = 'Спробуйте перезавантажити сторінку або перевірте підключення до Інтернету.';
 
 export const SHOPPING_CART_PAGE_META_TITLE = 'Кошик | Malini Kids';
+
+export const BLOCK_NEW_ARRIVALS_TITLE = 'Новинки';
+export const BLOCK_NEW_ARRIVALS_DETAILS = 'Нових надходжень:';
+
+export const BLOCK_SALE_TITLE = 'Розпродаж!';
+export const BLOCK_SALE_DETAILS = 'Товарів зі знижкою';

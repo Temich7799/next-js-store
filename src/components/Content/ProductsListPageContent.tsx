@@ -9,8 +9,9 @@ import LoadingBar from "../LoadingBars/LoadingBar";
 import ProductThumb from "../Product/Thumbs/ProductThumb";
 
 type ProductsListPageContentProps = {
-    compImages: object | any
-    categoryId: string
+    compImages?: object | any
+    categoryId?: string
+    data?: [ProductFetched]
 }
 
 const Content = styled.div`
@@ -28,9 +29,9 @@ const ProductsListPageContent = (props: ProductsListPageContentProps) => {
     const { language } = useContext(LangContext);
     const { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } = require(`../../languages/${language}/languages`);
 
-    const { compImages, categoryId } = props;
+    const { data, compImages, categoryId = 0 } = props;
 
-    const { data, loading, error } = useQueryProductsOnScroll(categoryId.toString());
+    const { data: fetchedData, loading, error } = data ? { data: data, loading: false, error: false } : useQueryProductsOnScroll(categoryId.toString());
 
     return (
         <>
@@ -46,7 +47,7 @@ const ProductsListPageContent = (props: ProductsListPageContentProps) => {
                         <InfoLayout title={LOADING_ERROR_TITLE} description={LOADING_ERROR_DESCRIPTION} imagePath={""} />
                         : <Content>
                             {
-                                data && data.map((product: ProductFetched) => {
+                                fetchedData && fetchedData.map((product: ProductFetched) => {
 
                                     const productCompImages = compImages && compImages[parseInt(product.id)];
                                     const gatsbyImagePath = productCompImages && productCompImages.length >= 1 && productCompImages[0];

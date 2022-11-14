@@ -69,3 +69,9 @@ export const LOADING_ERROR_TITLE = 'An error occurred while loading';
 export const LOADING_ERROR_DESCRIPTION = 'Try reloading the page or check your internet connection.';
 
 export const SHOPPING_CART_PAGE_META_TITLE = 'Shopping cart | Malini Kids';
+
+export const BLOCK_NEW_ARRIVALS_TITLE = 'New';
+export const BLOCK_NEW_ARRIVALS_DETAILS = 'New Arrivals:';
+
+export const BLOCK_SALE_TITLE = 'Sale!';
+export const BLOCK_SALE_DETAILS = 'Products on sale';

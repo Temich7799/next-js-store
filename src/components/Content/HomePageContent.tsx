@@ -1,7 +1,9 @@
 import React from "react"
 import styled from "styled-components";
+import NewArrivalsBlock from "../Blocks/NewArrivalsBlock";
+import SaleBlock from "../Blocks/SaleBlock";
 import BrandsCarousel from "../Carousel/BrandsCarousel";
-import OnSaleProductsCarousel from "../Carousel/OnSaleProductsCarousel";
+import TileBlockMenuWrapper from "../Wrappers/TileBlockMenuWrapper";
 
 type HomePageContentProps = {
     data: {
@@ -27,8 +29,12 @@ const HomePageContent = (props: HomePageContentProps) => {
 
     return (
         <>
+            <TileBlockMenuWrapper>
+                <NewArrivalsBlock />
+                <SaleBlock />
+            </TileBlockMenuWrapper>
             <BrandsCarousel />
-            <OnSaleProductsCarousel />
+            
         </>
     )
 
