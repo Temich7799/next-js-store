@@ -19,6 +19,9 @@ export interface ProductFetched extends ProductBase {
     price: string
     sale_price: string
     stock_quantity: number | null
+    yoast_head_json: {
+        og_url: string
+    }
 }
 
 export interface ProductInCart extends ProductFetched {

@@ -1,5 +1,6 @@
 const path = require(`path`);
 const getDirectories = require('./services/getDirectories');
+const formatPathFromHref = require('./services/formatPathFromHref');
 
 exports.createSchemaCustomization = ({ actions }) => {
 
@@ -173,6 +174,7 @@ exports.createPages = async ({ actions, graphql }) => {
           og_title
           og_type
           og_locale
+          og_url
           og_site_name
           og_description
         }
@@ -204,6 +206,7 @@ exports.createPages = async ({ actions, graphql }) => {
           og_title
           og_type
           og_locale
+          og_url
           og_site_name
           og_description
         }
@@ -234,6 +237,7 @@ exports.createPages = async ({ actions, graphql }) => {
           description
           og_title
           og_type
+          og_url
           og_locale
           og_site_name
           og_description
@@ -251,7 +255,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
     createPages(allPagesData, language, langPrefix);
     createProductsListPages(allCategoriesData, compImages, language, langPrefix);
-    createProductPages(allProductsData, compImages, language, langPrefix);
+    createProductPages(allProductsData, compImages, language);
   });
 
   function createPages(data, language, langPrefix) {
@@ -283,14 +287,14 @@ exports.createPages = async ({ actions, graphql }) => {
     });
   }
 
-  function createProductPages(data, compImages, language, langPrefix) {
+  function createProductPages(data, compImages, language) {
 
     data[language].forEach(wcProduct => {
 
       if (wcProduct.sku == '') wcProduct.sku = wcProduct.wordpress_id;
 
       actions.createPage({
-        path: `${langPrefix}catalog/${wcProduct.categories[0].slug}/${wcProduct.categories[0].slug}-${wcProduct.sku}`,
+        path: formatPathFromHref(wcProduct.yoast_head_json.og_url, language),
         component: path.resolve(`./src/components/Layouts/pages/ProductPageLayout.tsx`),
         context: {
           productData: wcProduct,
