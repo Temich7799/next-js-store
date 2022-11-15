@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ProductFetched } from "../../interfaces/InterfaceProduct";
-import { useProductsQuery } from "../../services/hooks/graphql/useProductsQuery";
+import { useFetchProducts } from "../../services/hooks/graphql/useFetchProducts";
 import Carousel from "./Carousel";
 import ProductThumb from "../Product/Thumbs/ProductThumb";
 import { CarouselOptions } from "../../types/CarouselPropsType";
@@ -29,7 +29,7 @@ const CarouselWithProducts = (props: CarouselWithProductsProps) => {
 
     const { compImages, title, params } = props;
 
-    const { data } = useProductsQuery(language, params);
+    const { data } = useFetchProducts(language, params);
 
     const options: CarouselOptions = {
         maxItemsPerSlide: 3

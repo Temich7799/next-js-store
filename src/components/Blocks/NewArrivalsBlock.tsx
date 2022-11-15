@@ -1,6 +1,6 @@
 import { Link } from "gatsby"
 import React, { useContext } from "react"
-import { useProductsQuery } from "../../services/hooks/graphql/useProductsQuery"
+import { useFetchProducts } from "../../services/hooks/graphql/useFetchProducts"
 import useActualDate from "../../services/hooks/useActualDate"
 import { LangContext } from "../Layouts/Layout"
 import BlockContent from "./BlockContent"
@@ -12,7 +12,7 @@ const NewArrivalsBlock = () => {
     const { BLOCK_NEW_ARRIVALS_TITLE, BLOCK_NEW_ARRIVALS_DETAILS, MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../languages/${language}/languages`);
 
     const date = useActualDate();
-    const { data } = useProductsQuery(language, { after: date });
+    const { data } = useFetchProducts(language, { after: date });
 
     return (
         <TileBlock color="#c2ef80">

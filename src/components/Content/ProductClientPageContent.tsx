@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { useProductQuery } from "../../services/hooks/graphql/useProductQuery";
+import { useFetchProduct } from "../../services/hooks/graphql/useFetchProduct";
 import ContainerCenteredWrapper from "../Wrappers/ContainerCenteredWrapper";
 import { LangContext } from "../Layouts/Layout";
 import LoadingBar from "../LoadingBars/LoadingBar";
@@ -16,7 +16,7 @@ const ProductClientPageContent = (props: ProductClientPageContentProps) => {
 
     const productId = parseInt(props.search.split('=')[1]);
 
-    const { data, loading, error } = useProductQuery(productId, language);
+    const { data, loading, error } = useFetchProduct(productId, language);
 
     return (
         <>

@@ -1,5 +1,6 @@
 import { ApolloError, gql, useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
+import { FETCH_WC_PRODUCTS } from "../../../components/apollo/gql/getAllWcProducts";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 
 type ProductsQueryResult = {
@@ -8,28 +9,9 @@ type ProductsQueryResult = {
     error: ApolloError | undefined
 }
 
-export function useProductsQuery(language: string = 'ru', options: any = undefined): ProductsQueryResult {
+export function useFetchProducts(language: string = 'ru', options: any = undefined): ProductsQueryResult {
 
-    const [getWcProducts, { loading, error, data }] = useLazyQuery(gql`
-        
-        query getWcProducts($params: WC_ProductParams) {
-            allWcProducts(params: $params) {
-                id
-                sku
-                name
-                price
-                sale_price
-                stock_quantity
-                images {
-                    alt
-                    src
-                }
-                categories {
-                    slug
-                } 
-            }
-        }
-    `);
+    const [getWcProducts, { loading, error, data }] = useLazyQuery(FETCH_WC_PRODUCTS);
 
     useEffect(() => {
         getWcProducts(

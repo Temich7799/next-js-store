@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { useQueryProductsOnScroll } from "../../services/hooks/graphql/useQueryProductsOnScroll";
+import { useFetchProductsOnScroll } from "../../services/hooks/graphql/useFetchProductsOnScroll";
 import ContainerCenteredWrapper from "../Wrappers/ContainerCenteredWrapper";
 import { ProductFetched } from "../../interfaces/InterfaceProduct";
 import InfoLayout from "../Layouts/InfoLayout";
@@ -31,7 +31,7 @@ const ProductsListPageContent = (props: ProductsListPageContentProps) => {
 
     const { data, compImages, categoryId = 0 } = props;
 
-    const { data: fetchedData, loading, error } = data ? { data: data, loading: false, error: false } : useQueryProductsOnScroll(categoryId.toString());
+    const { data: fetchedData, loading, error } = data ? { data: data, loading: false, error: false } : useFetchProductsOnScroll(categoryId.toString());
 
     return (
         <>

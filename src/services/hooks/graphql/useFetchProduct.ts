@@ -8,7 +8,7 @@ type ProductQueryResult = {
     error: ApolloError | undefined
 }
 
-export function useProductQuery(productId: number | undefined, language: string = 'ru'): ProductQueryResult {
+export function useFetchProduct(productId: number | undefined, language: string = 'ru'): ProductQueryResult {
 
     const [getWcProduct, { data, loading, error }] = useLazyQuery(gql`
         query getWcProduct($productId: Int! $language: LanguagesEnum) {
