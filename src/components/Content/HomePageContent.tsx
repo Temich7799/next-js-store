@@ -34,7 +34,7 @@ const HomePageContent = (props: HomePageContentProps) => {
                 <SaleBlock />
             </TileBlockMenuWrapper>
             <BrandsCarousel />
-            
+            <StyledHomePageContent dangerouslySetInnerHTML={{ __html: data.content.rendered }} />
         </>
     )
 
