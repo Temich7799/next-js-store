@@ -5,7 +5,7 @@ import ProductDescription from "../Product/ProductDescription";
 import ProductGallery from "../Product/ProductGallery/ProductGallery";
 import { LangContext } from "../Layouts/Layout";
 import { ProductGatsby } from "../../interfaces/InterfaceProduct";
-import CarouselWithProducts from "../Carousel/CarouselWithProducts";
+import CarouselWithProducts from "../Carousel/CarouselWithFetchedProducts";
 
 type ProductPageContentProps = {
     data: ProductGatsby

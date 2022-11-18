@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import CarouselWithProducts from "./CarouselWithProducts";
+import CarouselWithProducts from "./CarouselWithFetchedProducts";
 import { LangContext } from "../Layouts/Layout";
 
 const OnSaleProductsCarousel = () => {

@@ -2,6 +2,7 @@ export const MOBILE_HEADER_SUBMENU_SEE_ALL = 'Смотреть Всё';
 
 export const CAROUSEL_RELATED_PRODUCTS_TITLE = 'Похожие товары';
 export const CAROUSEL_PRODUCTS_ON_SALE_TITLE = 'Распродажа %';
+export const CAROUSEL_LAST_SEEN_PRODUCTS_TITLE = 'Недавно просмотрено';
 export const CAROUSEL_BRANDS_TITLE = 'Бренды';
 
 export const DELIVERY_ABOUT_DELIVERY_INFO = 'Условия доставки';

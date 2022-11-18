@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShoppingCartVar";
@@ -11,6 +11,7 @@ import { ProductGatsby } from "../../../interfaces/InterfaceProduct";
 import PopUpWindow from "../../PopUp/PopUpWindow";
 import OrderDetails from "../../ShoppingCart/OrderDetails/OrderDetails";
 import { useLastProductPageVar } from "../../../services/hooks/apollo_vars/useLastProductPageVar";
+import { useLastSeenProductsVar } from "../../../services/hooks/apollo_vars/useLastSeenProductsVar";
 
 const StyledProductBuy = styled.div<any>`
     width: fit-content;
@@ -35,15 +36,20 @@ const ProductBuy = () => {
 
     const [showPopUpWindow, setShowPopUpWindow] = useState<boolean>(false);
 
-    const { add, isInTheCart } = useShoppingCartVar();
+    const { add: addToCart, isInTheCart } = useShoppingCartVar();
 
     const { save: saveLastProductPage } = useLastProductPageVar();
 
     function buttonOnClickHandler() {
-        updatedData && add(data.id, updatedData);
+        updatedData && addToCart(data.id, updatedData);
         saveLastProductPage();
         setShowPopUpWindow(true);
     }
+
+    const { add: addToLastSeen } = useLastSeenProductsVar();
+    useEffect(() => {
+        updatedData && addToLastSeen(data.id, updatedData);
+    }, [updatedData]);
 
     return (
         <StyledProductBuy minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>

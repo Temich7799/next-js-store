@@ -4,6 +4,7 @@ import NewArrivalsBlock from "../Blocks/NewArrivalsBlock";
 import SaleBlock from "../Blocks/SaleBlock";
 import BannerHomePage from "../Carousel/BannerHomePage";
 import BrandsCarousel from "../Carousel/BrandsCarousel";
+import LastSeenProductsCarousel from "../Carousel/LastSeenProductsCarousel";
 import TileBlockMenuWrapper from "../Wrappers/TileBlockMenuWrapper";
 
 type HomePageContentProps = {
@@ -35,6 +36,7 @@ const HomePageContent = (props: HomePageContentProps) => {
                 <NewArrivalsBlock />
                 <SaleBlock />
             </TileBlockMenuWrapper>
+            <LastSeenProductsCarousel />
             <BrandsCarousel />
             <StyledHomePageContent dangerouslySetInnerHTML={{ __html: data.content.rendered }} />
         </>
