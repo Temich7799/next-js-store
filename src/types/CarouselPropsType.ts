@@ -10,5 +10,5 @@ export type CarouselOptions = {
     animationSpeed?: string
     maxItemsPerSlide?: number
     minGap?: number
-    showButtons?: boolean
+    mode?: string
 }

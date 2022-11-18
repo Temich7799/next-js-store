@@ -8,8 +8,9 @@ import LoadingBar from "../LoadingBars/LoadingBar";
 
 const StyledCarousel = styled.div<any>`
     max-width: ${props => props.maxWidth};
-    margin: 5% auto;
+    margin: ${props => props.mode === 'fullSize' ? 0 : '5%'} auto;
     text-align: center;
+    overflow: hidden;
 `;
 
 const CarouselContent = styled.div<any>`
@@ -24,8 +25,8 @@ const CarouselContent = styled.div<any>`
     `}
 `;
 
-const CarouselSliderWrapper = styled.div`
-    margin: 15px 0;
+const CarouselSliderWrapper = styled.div<any>`
+    margin: ${props => props.mode === 'fullSize' ? 0 : '15px 0'};
     width: 100%;
     overflow: hidden;
 `;
@@ -58,14 +59,16 @@ const Carousel = (props: CarouselProps) => {
     const {
         animationSpeed = '750ms',
         maxItemsPerSlide = 10,
-        minGap = 24,
-        showButtons = true,
+        mode,
+        minGap = mode === 'fullSize' ? 0 : 24,
     } = options;
 
     const [sliderClientWidth, setSliderClientWidth] = useState<number>(0);
     const [itemWidth, setItemWidth] = useState<number>(0);
     const [itemsGap, setItemsGap] = useState<number>(0);
     const [positions, setPositions] = useState<Array<number>>([]);
+
+    const showButtons = mode === 'fullSize' ? false : true;
 
     const carouselSlider = useRef<any>();
     const carouselWrapper = useRef<any>();
@@ -198,19 +201,30 @@ const Carousel = (props: CarouselProps) => {
 
         let array = [];
 
-        do {
-            array.push(startFrom);
-            startFrom -= carouselSlider.current.clientWidth;
-        } while (carouselSlider.current.clientWidth && startFrom > 0 - carouselSlider.current.scrollWidth);
+        if (mode === 'fullSize') {
+            children.forEach((item: any) => {
+                array.push(startFrom);
+                startFrom -= carouselSlider.current.firstChild.clientWidth;
+            });
+        }
+        else {
+            do {
+                array.push(startFrom);
+                startFrom -= carouselSlider.current.clientWidth;
+            } while (carouselSlider.current.clientWidth && startFrom > 0 - carouselSlider.current.scrollWidth);
+        }
 
         return array;
     }
 
     return (
-        <StyledCarousel maxWidth={maxWidth}>
-            <CopyProtectedWrapper>
-                <h3>{title}</h3>
-            </CopyProtectedWrapper>
+        <StyledCarousel maxWidth={maxWidth} mode={mode}>
+            {
+                title &&
+                <CopyProtectedWrapper>
+                    <h3>{title}</h3>
+                </CopyProtectedWrapper>
+            }
             <CarouselContent showButtons={showButtons}>
                 {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('left')}>{'<'}</Button>}
                 {
@@ -220,7 +234,7 @@ const Carousel = (props: CarouselProps) => {
                             <LoadingBar size="50%" />
                         </LoaderWrapper>
                         :
-                        <CarouselSliderWrapper ref={carouselWrapper}>
+                        <CarouselSliderWrapper ref={carouselWrapper} mode={mode}>
                             {
                                 <CarouselSlider ref={carouselSlider} gap={itemsGap}>
                                     {children}
