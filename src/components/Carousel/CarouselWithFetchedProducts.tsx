@@ -10,6 +10,7 @@ type CarouselWithFetchedProductsProps = {
     title: string
     params?: QueryParams | undefined
     compImages?: object | any
+    options?: CarouselOptions
 }
 
 type QueryParams = {
@@ -27,13 +28,9 @@ const CarouselWithFetchedProducts = (props: CarouselWithFetchedProductsProps) =>
 
     const { language } = useContext(LangContext);
 
-    const { compImages, title, params } = props;
+    const { compImages, title, params, options } = props;
 
     const { data: fetchedData } = useFetchProducts(language, params);
-
-    const options: CarouselOptions = {
-        maxItemsPerSlide: 3
-    }
 
     return (
         <>

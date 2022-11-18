@@ -10,17 +10,13 @@ const BrandThumb = styled.div`
     height: 100px;
 `;
 
-const BrandsCarousel = () => {
+const BrandsCarousel = (props: CarouselOptions) => {
 
     const { language } = useContext(LangContext);
     const { CAROUSEL_BRANDS_TITLE } = require(`../../languages/${language}/languages`);
 
-    const options: CarouselOptions = {
-        maxItemsPerSlide: 3
-    }
-
     return (
-        <Carousel title={CAROUSEL_BRANDS_TITLE} maxWidth="850px" options={options}>
+        <Carousel title={CAROUSEL_BRANDS_TITLE} maxWidth="850px" options={props}>
             <BrandThumb>
                 <StaticImage src="../../images/brands/cry_babies.jpg" alt="Cry Babies logo" width={100} height={100} placeholder="blurred" layout='fixed' />
             </BrandThumb>

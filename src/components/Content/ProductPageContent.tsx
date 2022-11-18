@@ -1,13 +1,12 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext } from "react";
 import styled from "styled-components";
 import ProductAbout from "../Product/ProductAbout/ProductAbout";
 import ProductDescription from "../Product/ProductDescription";
 import ProductGallery from "../Product/ProductGallery/ProductGallery";
-import { LangContext } from "../Layouts/Layout";
 import { ProductGatsby } from "../../interfaces/InterfaceProduct";
-import CarouselWithProducts from "../Carousel/CarouselWithFetchedProducts";
 import LastSeenProductsCarousel from "../Carousel/LastSeenProductsCarousel";
 import OnSaleProductsCarousel from "../Carousel/OnSaleProductsCarousel";
+import RelatedProductsCarousel from "../Carousel/RelatedProductsCarousel";
 
 type ProductPageContentProps = {
     data: ProductGatsby
@@ -28,9 +27,6 @@ export const ProductPageContext: React.Context<ProductGatsby> = createContext({}
 
 const ProductPageContent = (props: ProductPageContentProps) => {
 
-    const { language } = useContext(LangContext);
-    const { CAROUSEL_RELATED_PRODUCTS_TITLE } = require(`../../languages/${language}/languages`);
-
     const { data, compImages } = props;
 
     return (
@@ -39,16 +35,9 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                 <ProductGallery compImages={compImages} />
                 <ProductAbout />
                 <ProductDescription />
-                <OnSaleProductsCarousel />
+                <OnSaleProductsCarousel maxItemsPerSlide={3} />
                 <LastSeenProductsCarousel maxItemsPerSlide={3} />
-                {
-                    data && data.related_ids.length > 0 &&
-                    <CarouselWithProducts
-                        title={CAROUSEL_RELATED_PRODUCTS_TITLE}
-                        params={{ include: data && data.related_ids }}
-                        compImages={compImages}
-                    />
-                }
+                <RelatedProductsCarousel data={data} compImages={compImages} options={{ maxItemsPerSlide: 3 }} />
             </StyledProductsListPageContent >
         </ProductPageContext.Provider>
     )

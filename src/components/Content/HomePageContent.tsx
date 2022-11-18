@@ -37,7 +37,7 @@ const HomePageContent = (props: HomePageContentProps) => {
                 <SaleBlock />
             </TileBlockMenuWrapper>
             <LastSeenProductsCarousel maxItemsPerSlide={4} />
-            <BrandsCarousel />
+            <BrandsCarousel maxItemsPerSlide={3} />
             <StyledHomePageContent dangerouslySetInnerHTML={{ __html: data.content.rendered }} />
         </>
     )
