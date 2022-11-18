@@ -18,7 +18,7 @@ const LastSeenProductsCarousel = () => {
             {
                 products && products.length > 0 && <Carousel title={CAROUSEL_LAST_SEEN_PRODUCTS_TITLE} >
                     {
-                        products.map((product: ProductFetched) => <ProductThumb data={product} />)
+                        products.map((product: ProductFetched) => <ProductThumb data={product} key={product.id}/>)
                     }
                 </Carousel >
             }
