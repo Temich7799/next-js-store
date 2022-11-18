@@ -39,7 +39,7 @@ const CarouselWithFetchedProducts = (props: CarouselWithFetchedProductsProps) =>
         <>
             {
                 fetchedData && fetchedData.length > 0 &&
-                <Carousel title={title} maxWidth="800px" options={options}>
+                <Carousel title={title} options={options}>
                     {
                         fetchedData.map((product: ProductFetched) => {
 
