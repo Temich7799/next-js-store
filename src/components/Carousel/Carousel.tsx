@@ -53,6 +53,7 @@ const CarouselSlider = styled.div<any>`
     touch-action: pan-y;
     position: relative;
     display: flex;
+    align-items: center;
     column-gap: ${props => props.gap}px;
 `;
 
@@ -220,7 +221,7 @@ const Carousel = (props: CarouselProps) => {
         let array = [];
 
         if (mode === 'fullSize') {
-            children.forEach((item: any) => {
+            Array.isArray(children) && children.forEach(() => {
                 array.push(startFrom);
                 startFrom -= carouselSlider.current.firstChild.clientWidth;
             });
