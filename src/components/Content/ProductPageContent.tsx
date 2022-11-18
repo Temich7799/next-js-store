@@ -6,6 +6,8 @@ import ProductGallery from "../Product/ProductGallery/ProductGallery";
 import { LangContext } from "../Layouts/Layout";
 import { ProductGatsby } from "../../interfaces/InterfaceProduct";
 import CarouselWithProducts from "../Carousel/CarouselWithFetchedProducts";
+import LastSeenProductsCarousel from "../Carousel/LastSeenProductsCarousel";
+import OnSaleProductsCarousel from "../Carousel/OnSaleProductsCarousel";
 
 type ProductPageContentProps = {
     data: ProductGatsby
@@ -37,6 +39,8 @@ const ProductPageContent = (props: ProductPageContentProps) => {
                 <ProductGallery compImages={compImages} />
                 <ProductAbout />
                 <ProductDescription />
+                <OnSaleProductsCarousel />
+                <LastSeenProductsCarousel maxItemsPerSlide={3} />
                 {
                     data && data.related_ids.length > 0 &&
                     <CarouselWithProducts
