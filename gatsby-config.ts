@@ -18,6 +18,12 @@ const config: GatsbyConfig = {
     "gatsby-plugin-styled-components",
     "gatsby-plugin-breadcrumb",
     {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        icon: 'src/images/logo/mobile_logo.svg',
+      },
+    },
+    {
       resolve: `gatsby-plugin-sharp`,
       options: {
         defaults: {

@@ -24,6 +24,7 @@
     "gatsby-plugin-breadcrumb": "^12.3.1",
     "gatsby-plugin-google-analytics": "^4.19.0",
     "gatsby-plugin-image": "^2.19.0",
+    "gatsby-plugin-manifest": "^5.0.0",
     "gatsby-plugin-sharp": "^4.19.0",
     "gatsby-plugin-styled-components": "^5.19.0",
     "gatsby-plugin-web-font-loader": "^1.0.4",
