@@ -7,11 +7,10 @@ import { LangContext } from "../Layouts/Layout";
 const StyledProductDescription = styled.div<any>`
 
     @media (max-width: ${props => props.minDesktopWidth}px) {
-        max-width: 95%;
+        width: 95vw;
     }
 
-    max-width: 55%;
-    min-width: 50%;
+    width: 60vw;
 `;
 
 const ProductDescription = () => {
