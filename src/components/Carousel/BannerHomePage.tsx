@@ -6,7 +6,7 @@ import Carousel from "./Carousel"
 
 const BannerSlide = styled.div`
     width: 100vw;
-    height: 65vh;
+    max-height: 65vh;
 `
 
 const BannerHomePage = () => {

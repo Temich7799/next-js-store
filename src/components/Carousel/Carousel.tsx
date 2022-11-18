@@ -16,13 +16,31 @@ const StyledCarousel = styled.div<any>`
 const CarouselContent = styled.div<any>`
     width: fit-content;
     margin: 0 auto;
-    ${props => props.showButtons && `
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        justify-items:center;
-        align-items: center;
-        gap: 5px;
-    `}
+    ${props => props.mode !== 'fullSize'
+        ?
+        `
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            justify-items:center;
+            align-items: center;
+            gap: 5px;
+        `
+        :
+        `
+            position: relative;
+            button {
+                position: absolute;
+                top: 50%;
+                z-index: 100;
+                left: 97.5vw;
+                :nth-child(1) {
+                    left: 1vw;
+                }
+                @media (max-width: 820px) {
+                    display: none;
+                }
+            }
+        `}
 `;
 
 const CarouselSliderWrapper = styled.div<any>`
@@ -68,7 +86,7 @@ const Carousel = (props: CarouselProps) => {
     const [itemsGap, setItemsGap] = useState<number>(0);
     const [positions, setPositions] = useState<Array<number>>([]);
 
-    const showButtons = mode === 'fullSize' ? false : true;
+    const showButtons = true;
 
     const carouselSlider = useRef<any>();
     const carouselWrapper = useRef<any>();
@@ -225,7 +243,7 @@ const Carousel = (props: CarouselProps) => {
                     <h3>{title}</h3>
                 </CopyProtectedWrapper>
             }
-            <CarouselContent showButtons={showButtons}>
+            <CarouselContent mode={mode}>
                 {showButtons && <Button buttonStyle="transparent" buttonSize="shrink" onClick={() => makeSwipe('left')}>{'<'}</Button>}
                 {
                     isDataFetching
