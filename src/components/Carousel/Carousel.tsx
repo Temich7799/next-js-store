@@ -8,7 +8,7 @@ import LoadingBar from "../LoadingBars/LoadingBar";
 
 const StyledCarousel = styled.div<any>`
     max-width: ${props => props.maxWidth};
-    margin: ${props => props.mode === 'fullSize' ? 0 : '5%'} auto;
+    margin: ${props => props.mode === 'fullSize' ? 0 : '1.5%'} auto;
     text-align: center;
     overflow: hidden;
 `;
@@ -44,7 +44,7 @@ const CarouselContent = styled.div<any>`
 `;
 
 const CarouselSliderWrapper = styled.div<any>`
-    margin: ${props => props.mode === 'fullSize' ? 0 : '15px 0'};
+    margin: ${props => props.mode === 'fullSize' ? 0 : '25px 0'};
     width: 100%;
     overflow: hidden;
 `;
