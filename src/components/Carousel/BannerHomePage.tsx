@@ -17,10 +17,8 @@ const BannerHomePage = () => {
 
     return (
         <Carousel options={options}>
-            <BannerSlide><StaticImage src='../../images/banners/slide-1.webp' alt="Slide-1" placeholder="blurred" layout="constrained" /></BannerSlide>
-            <BannerSlide><StaticImage src='../../images/banners/slide-2.webp' alt="Slide-2" placeholder="blurred" layout="constrained" /></BannerSlide>
-            <BannerSlide><StaticImage src='../../images/banners/slide-3.webp' alt="Slide-3" placeholder="blurred" layout="constrained" /></BannerSlide>
-            <BannerSlide><StaticImage src='../../images/banners/slide-4.webp' alt="Slide-4" placeholder="blurred" layout="constrained" /></BannerSlide>
+            <BannerSlide><StaticImage src='../../images/banners/slide-1.webp' alt="Slide-1" placeholder="blurred" layout="constrained"  /></BannerSlide>
+            <BannerSlide><StaticImage src='../../images/banners/slide-4.webp' alt="Slide-2" placeholder="blurred" layout="constrained" /></BannerSlide>
         </Carousel>
     )
 }
