@@ -109,7 +109,7 @@ const Carousel = (props: CarouselProps) => {
 
             const sliderClientWidthObserver = new ResizeObserver((entries) => {
                 for (let entry of entries) {
-                    setSliderClientWidth(entry.contentRect.width);
+                    carouselSlider.current && entry.contentRect.width <= carouselSlider.current.scrollWidth && setSliderClientWidth(entry.contentRect.width);
                 }
             });
 
