@@ -5,7 +5,9 @@ import useMobile from "../../../services/hooks/useMobile";
 import toogle from "../../../services/toogle";
 import { MenuItemType } from "../../../types/MenuItemType";
 import { LangContext } from "../../Layouts/Layout";
+import CatalogSubMenuItems from "./CatalogSubMenuItems";
 import SubMenuIcon from "./SubMenuIcon";
+import { SubMenuItem } from "./SubMenuItem";
 
 type HeaderSubMenuProps = {
     data: MenuItemType | any
@@ -48,7 +50,7 @@ const SubMenuItems = styled.ul<any>`
     }
 
     @media (max-width: ${props => props.minDesktopWidth}px) {
-        max-height: 200px;
+        /*max-height: 200px;*/
         margin: 5px 0;
         padding: 0;
         padding-top: 20px;
@@ -60,21 +62,9 @@ const SubMenuItems = styled.ul<any>`
     }
 `;
 
-const SubMenuItem = styled.li`
-    margin-bottom: 5px;
-    text-shadow: none;
-    @media (hover: hover) and (pointer: fine) {
-        :hover {
-            a {
-                color: #d888a9;
-            }
-        }
-    }
-`;
-
 const HeaderSubMenu = (props: HeaderSubMenuProps) => {
 
-    const { language, langPrefix } = useContext(LangContext);
+    const { language } = useContext(LangContext);
     const { MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;
@@ -124,13 +114,15 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
                         </SubMenuItem>
                     }
                     {
-                        data.child_items.map((item: MenuItemType, index: number) =>
-                            <SubMenuItem key={index}>
-                                <Link to={item.path}>
-                                    {item.title}
-                                </Link>
-                            </SubMenuItem>
-                        )
+                        data.slug === 'catalog'
+                            ? <CatalogSubMenuItems />
+                            : data.child_items.map((item: MenuItemType, index: number) => {
+                                <SubMenuItem key={index}>
+                                    <Link to={item.path}>
+                                        {item.title}
+                                    </Link>
+                                </SubMenuItem>
+                            })
                     }
                 </SubMenuItems>
             }

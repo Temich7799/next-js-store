@@ -9,7 +9,8 @@ export const useHeaderMenuItems = (language: string = 'ru'): [MenuItemType] => {
 
             ru: allMultilangWpMenuItems(slug: "header", language: ru) { 
                 url
-                title 
+                title
+                slug 
                 child_items { 
                     url 
                     title 
@@ -19,6 +20,7 @@ export const useHeaderMenuItems = (language: string = 'ru'): [MenuItemType] => {
             uk: allMultilangWpMenuItems(slug: "header", language: uk) { 
                 url
                 title 
+                slug
                 child_items { 
                     url 
                     title 
@@ -28,6 +30,7 @@ export const useHeaderMenuItems = (language: string = 'ru'): [MenuItemType] => {
             en: allMultilangWpMenuItems(slug: "header", language: en) { 
                 url
                 title 
+                slug
                 child_items { 
                     url 
                     title 
@@ -36,14 +39,14 @@ export const useHeaderMenuItems = (language: string = 'ru'): [MenuItemType] => {
         }
     `);
 
-    Object.values(allMultilangWpMenuItems).forEach((data: [MenuItemType]) => {
-        makePathKey(data);
+    Object.values(allMultilangWpMenuItems).forEach((data: any) => {
+        makePath(data);
     });
 
-    function makePathKey(items: [MenuItemType]) {
+    function makePath(items: [MenuItemType]) {
         items.forEach((item: MenuItemType) => {
             item.path = item.url.split('.com')[1].replace(/\/+$/, '').replace('home', '');
-            item.child_items && makePathKey(item.child_items);
+            item.child_items && makePath(item.child_items);
         });
     }
 
