@@ -26,7 +26,7 @@ const HeaderMenuItem = (props: HeaderMenuItemProps) => {
     return (
         <StyledHeaderMenuItem>
             {
-                data.child_items !== null
+                data.child_items !== null || data.slug === 'catalog'
                     ? <HeaderSubMenu data={data} />
                     :
                     <Link to={data.path}>
