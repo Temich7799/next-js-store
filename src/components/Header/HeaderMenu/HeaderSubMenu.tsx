@@ -126,7 +126,7 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
                     {
                         data.child_items.map((item: MenuItemType, index: number) =>
                             <SubMenuItem key={index}>
-                                <Link to={langPrefix ? '/' + langPrefix.replace(/\/+$/, '') + item.path : item.path}>
+                                <Link to={item.path}>
                                     {item.title}
                                 </Link>
                             </SubMenuItem>
