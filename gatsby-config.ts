@@ -17,7 +17,6 @@ const config: GatsbyConfig = {
     "gatsby-transformer-sharp",
     "gatsby-plugin-styled-components",
     "gatsby-plugin-sitemap",
-    "gatsby-plugin-breadcrumb",
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -44,7 +43,7 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
-        "trackingId": "none"
+        "trackingId": process.env.GATSBY_GOOGLE_TRACKING_ID
       }
     },
     {
