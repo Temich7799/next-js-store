@@ -16,6 +16,7 @@ const config: GatsbyConfig = {
     "gatsby-plugin-image",
     "gatsby-transformer-sharp",
     "gatsby-plugin-styled-components",
+    "gatsby-plugin-sitemap",
     "gatsby-plugin-breadcrumb",
     {
       resolve: 'gatsby-plugin-manifest',
