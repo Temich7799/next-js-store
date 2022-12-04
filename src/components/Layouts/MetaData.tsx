@@ -84,6 +84,7 @@ const MetaData = (props: MetaDataProps) => {
                 </script>
             }
             {children}
+            <meta name="google-site-verification" content={process.env.GATSBY_GOOGLE_SITE_VERIFICATION_CONTENT} />
         </>
     )
 }
