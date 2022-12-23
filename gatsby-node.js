@@ -294,7 +294,7 @@ exports.createPages = async ({ actions, graphql }) => {
       if (wcProduct.sku == '') wcProduct.sku = wcProduct.wordpress_id;
 
       actions.createPage({
-        path: formatPathFromHref(wcProduct.yoast_head_json.og_url, language),
+        path: formatPathFromHref(wcProduct.categories[0].slug, wcProduct.yoast_head_json.og_url, language),
         component: path.resolve(`./src/components/Layouts/pages/ProductPageLayout.tsx`),
         context: {
           productData: wcProduct,

@@ -70,7 +70,7 @@ const ProductThumb = (props: ProductProps) => {
     const imageAlt = data.images.length > 0 ? data.images[0].alt : NO_PRODUCT_IMAGE;
 
     const url = gatsbyImagePath
-        ? `${process.env.GATSBY_SITE_URL}/${makeProductUrlFromOgUrl(data.yoast_head_json.og_url, language)}`
+        ? `${process.env.GATSBY_SITE_URL}/${makeProductUrlFromOgUrl(data.categories[0].slug, data.yoast_head_json.og_url, language)}`
         : `${process.env.GATSBY_SITE_URL}/${langPrefix}product?id=${data.id}`;
 
     const { data: inCartProducts, add: addToCart } = useShoppingCartVar();
