@@ -1,46 +1,57 @@
 import React from "react"
 import Layout from "../../public//components/Layouts/Layout";
-import { graphql } from "gatsby"
+import { gql } from "@apollo/client";
+import client from "../../apollo-client";
 import HomePageContent from "../../public//components/Content/HomePageContent";
 import MetaData from "../../public//components/Layouts/MetaData";
 import { parsePageMetaData } from "../../public//services/parsePageMetaData";
 
-const IndexPage = (props: any) => {
+const IndexPage = ({ homePageDataEn }) => {
 
-  const { multilangWpPage } = props.data;
+  const { wpPage } = homePageDataEn;
 
   return (
     <Layout language="en">
-      <HomePageContent data={multilangWpPage} />
+      <HomePageContent data={wpPage} />
     </Layout>
   )
 }
 
 export default IndexPage;
 
-export const Head = (props: any) => {
+export const Head = ({ homePageDataEn }) => {
 
-  const { metaData, openGraphData } = parsePageMetaData(props.data.multilangWpPage.yoast_head_json);
+  const { metaData, openGraphData } = parsePageMetaData(homePageDataEn.wpPage.yoast_head_json);
 
   return <MetaData data={metaData} openGraphData={openGraphData} />
 }
 
-export const query = graphql`
-  query getHomePageDataEn {
-    
-    multilangWpPage(pageId: 25, language: en) {
-      content {
-        rendered
+export async function getStaticProps() {
+
+  const { data } = await client.query({
+    query: gql`
+      query getHomePageDataEn {
+        wpPage(pageId: 25, language: en) {
+          content {
+            rendered
+          }
+          yoast_head_json {
+            title
+            description
+            og_title
+            og_type
+            og_locale
+            og_site_name
+            og_description
+          }
+        }    
       }
-      yoast_head_json {
-        title
-        description
-        og_title
-        og_type
-        og_locale
-        og_site_name
-        og_description
-      }
-    }    
-  }
-`;
+    `,
+  });
+
+  return {
+    props: {
+      homePageDataEn: data,
+    },
+  };
+}

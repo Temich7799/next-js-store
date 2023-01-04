@@ -1,9 +1,10 @@
-import { graphql, useStaticQuery } from "gatsby";
+import { gql } from "@apollo/client";
+import client from "../../../../apollo-client";
 
-export const useShippingMethods = (language: string = 'ru') => {
+export const useShippingMethods = async (language: string = 'ru') => {
 
-    const allMultilangWcShippingMethods = useStaticQuery(graphql`
-
+    const { data } = await client.query({
+        query: gql`
             query getAllShippingZonesMethods {
 
                 ru: allMultilangWcShippingMethods(zoneId: 1) {
@@ -24,7 +25,8 @@ export const useShippingMethods = (language: string = 'ru') => {
                     method_description
                 }
             }
-        `);
+        `
+    });
 
-    return allMultilangWcShippingMethods[language];
+    return data[language];
 }

@@ -1,13 +1,31 @@
-import { graphql, Link, useStaticQuery } from "gatsby";
+import { gql } from "@apollo/client";
+import client from "../../../../apollo-client";
+import Link from 'next/link'
 import React, { useContext } from "react";
 import { LangContext } from "../../Layouts/Layout";
 import { SubMenuItem } from "./SubMenuItem";
 
-const CatalogSubMenuItems = () => {
+const CatalogSubMenuItems = ({ allCategoryItems }) => {
 
     const { language, langPrefix } = useContext(LangContext);
 
-    const data = useStaticQuery(graphql`
+    const data = allCategoryItems;
+
+    return data[language].map((item: any, index: number) =>
+        <SubMenuItem key={index}>
+            <Link href={`/${langPrefix}catalog/${item.slug}`}>
+                {item.name}
+            </Link>
+        </SubMenuItem>
+    );
+}
+
+export default CatalogSubMenuItems;
+
+export async function getStaticProps() {
+
+    const { data } = await client.query({
+        query: gql`
         query getAllCategoryItems {
             ru: allMultilangWcCategories(params: {hide_empty: true}) {
                 name
@@ -22,15 +40,12 @@ const CatalogSubMenuItems = () => {
                 slug
             }
         }
-    `);
+      `,
+    });
 
-    return data[language].map((item: any, index: number) =>
-        <SubMenuItem key={index}>
-            <Link href={`/${langPrefix}catalog/${item.slug}`}>
-                {item.name}
-            </Link>
-        </SubMenuItem>
-    );
+    return {
+        props: {
+            allCategoryItems: data,
+        },
+    };
 }
-
-export default CatalogSubMenuItems;

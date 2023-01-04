@@ -1,40 +1,42 @@
-import { graphql, useStaticQuery } from "gatsby"
+import { gql } from "@apollo/client";
+import client from "../../../../apollo-client";
 import { MenuItemType } from "../../../types/MenuItemType";
 
-export const useFooterMenuItems = (language: string = 'ru'): [MenuItemType] => {
+export const useFooterMenuItems = async (language: string = 'ru'): [MenuItemType] => {
 
-    const allMultilangWpMenuItems = useStaticQuery(graphql`
+    const { data } = await client.query({
+        query: gql`
+            query getAllMultilangFooterMenuItems { 
 
-        query getAllMultilangFooterMenuItems { 
-
-            ru: allMultilangWpMenuItems(slug: "footer", language: ru) { 
-                slug
-                title 
-                child_items { 
-                    slug 
+                ru: allMultilangWpMenuItems(slug: "footer", language: ru) { 
+                    slug
                     title 
+                    child_items { 
+                        slug 
+                        title 
+                    } 
+                }
+
+                uk: allMultilangWpMenuItems(slug: "footer", language: uk) { 
+                    slug
+                    title 
+                    child_items { 
+                        slug 
+                        title 
+                    } 
+                } 
+
+                en: allMultilangWpMenuItems(slug: "footer", language: en) { 
+                    slug
+                    title 
+                    child_items { 
+                        slug 
+                        title 
+                    } 
                 } 
             }
+        `,
+    });
 
-            uk: allMultilangWpMenuItems(slug: "footer", language: uk) { 
-                slug
-                title 
-                child_items { 
-                    slug 
-                    title 
-                } 
-            } 
-
-            en: allMultilangWpMenuItems(slug: "footer", language: en) { 
-                slug
-                title 
-                child_items { 
-                    slug 
-                    title 
-                } 
-            } 
-        }
-    `);
-
-    return allMultilangWpMenuItems[language]
+    return data[language]
 }

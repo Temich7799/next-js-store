@@ -1,45 +1,47 @@
-import { graphql, useStaticQuery } from "gatsby"
+import { gql } from "@apollo/client";
+import client from "../../../../apollo-client";
 import { MenuItemType } from "../../../types/MenuItemType";
 
-export const useHeaderMenuItems = (language: string = 'ru'): [MenuItemType] => {
+export const useHeaderMenuItems = async (language: string = 'ru'): [MenuItemType] => {
 
-    const allMultilangWpMenuItems = useStaticQuery(graphql`
+    const { data } = await client.query({
+        query: gql`
+            query getAllMultilangHeaderMenuItems { 
 
-        query getAllMultilangHeaderMenuItems { 
+                ru: allMultilangWpMenuItems(slug: "header", language: ru) { 
+                    url
+                    title
+                    slug 
+                    child_items { 
+                        url 
+                        title 
+                    } 
+                }
 
-            ru: allMultilangWpMenuItems(slug: "header", language: ru) { 
-                url
-                title
-                slug 
-                child_items { 
-                    url 
+                uk: allMultilangWpMenuItems(slug: "header", language: uk) { 
+                    url
                     title 
+                    slug
+                    child_items { 
+                        url 
+                        title 
+                    } 
+                } 
+
+                en: allMultilangWpMenuItems(slug: "header", language: en) { 
+                    url
+                    title 
+                    slug
+                    child_items { 
+                        url 
+                        title 
+                    } 
                 } 
             }
+        `
+    });
 
-            uk: allMultilangWpMenuItems(slug: "header", language: uk) { 
-                url
-                title 
-                slug
-                child_items { 
-                    url 
-                    title 
-                } 
-            } 
-
-            en: allMultilangWpMenuItems(slug: "header", language: en) { 
-                url
-                title 
-                slug
-                child_items { 
-                    url 
-                    title 
-                } 
-            } 
-        }
-    `);
-
-    Object.values(allMultilangWpMenuItems).forEach((data: any) => {
+    Object.values(data).forEach((data: any) => {
         makePath(data);
     });
 
@@ -50,5 +52,5 @@ export const useHeaderMenuItems = (language: string = 'ru'): [MenuItemType] => {
         });
     }
 
-    return allMultilangWpMenuItems[language];
+    return data[language];
 }
