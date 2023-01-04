@@ -16,7 +16,7 @@ export default NotFoundPage;
 export const Head = () => {
 
   const { language } = useContext(LangContext);
-  const { PAGE_NOT_FOUND_TITLE, PAGE_NOT_FOUND_DESCRIPTION } = require(`../languages/${language}/languages`);
+  const { PAGE_NOT_FOUND_TITLE, PAGE_NOT_FOUND_DESCRIPTION } = require(`../public/languages/${language}/languages`);
 
   const metaData = {
     title: PAGE_NOT_FOUND_TITLE,
