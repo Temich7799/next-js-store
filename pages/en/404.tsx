@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
-import Layout, { LangContext } from "../src/../components/Layouts/Layout"
-import NotFoundPageContent from "../src/../components/Content/NotFoundPageContent"
-import MetaData from "../src/../components/Layouts/MetaData"
+import Layout, { LangContext } from "../../public//components/Layouts/Layout"
+import NotFoundPageContent from "../../public//components/Content/NotFoundPageContent"
+import MetaData from "../../public//components/Layouts/MetaData"
 
 const NotFoundPage = () => {
   return (

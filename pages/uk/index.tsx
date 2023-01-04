@@ -1,9 +1,9 @@
 import React from "react"
-import Layout from "../src/../components/Layouts/Layout";
+import Layout from "../../public//components/Layouts/Layout";
 import { graphql, useStaticQuery } from "gatsby"
-import HomePageContent from "../src/../components/Content/HomePageContent";
-import MetaData from "../src/../components/Layouts/MetaData";
-import { parsePageMetaData } from "../src/../services/parsePageMetaData";
+import HomePageContent from "../../public//components/Content/HomePageContent";
+import MetaData from "../../public//components/Layouts/MetaData";
+import { parsePageMetaData } from "../../public//services/parsePageMetaData";
 
 const IndexPage = (props: any) => {
 

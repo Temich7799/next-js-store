@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import styled from "styled-components";
-import Layout from "../src/../components/Layouts/Layout";
-import ShoppingCartContent from "../src/../components/Content/ShoppingCartContent";
-import SuccessOrderContent from "../src/../components/Content/SuccessOrderContent";
-import MetaData from "../src/../components/Layouts/MetaData";
+import Layout from "../../public//components/Layouts/Layout";
+import ShoppingCartContent from "../../public//components/Content/ShoppingCartContent";
+import SuccessOrderContent from "../../public//components/Content/SuccessOrderContent";
+import MetaData from "../../public//components/Layouts/MetaData";
 
 const StyledShoppingCartPage = styled.main`
     max-width: 1700px;

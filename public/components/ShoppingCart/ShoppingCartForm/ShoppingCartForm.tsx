@@ -39,7 +39,7 @@ const StyledShoppingCartForm = styled.form<any>`
         color:#393939
     }
     input, textarea, select {:focus { border:#9ed6e4 1px solid; outline: none} }
-    /* other form styles are in <src/styles/wp.css> */
+    /* other form styles are in <public/styles/wp.css> */
 `;
 
 const ShoppingCartForm = (props: ShoppingCartFormProps) => {

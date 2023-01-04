@@ -1,7 +1,7 @@
 import React from "react"
-import Layout from "../src/components/Layouts/Layout";
-import ProductClientPageContent from "../src/components/Content/ProductClientPageContent";
-import { GatsbyRouteLocation } from "../src/types/GatsbyRouteLocation";
+import Layout from "../public/components/Layouts/Layout";
+import ProductClientPageContent from "../public/components/Content/ProductClientPageContent";
+import { GatsbyRouteLocation } from "../public/types/GatsbyRouteLocation";
 
 type ProductClientPageProps = {
     location: GatsbyRouteLocation

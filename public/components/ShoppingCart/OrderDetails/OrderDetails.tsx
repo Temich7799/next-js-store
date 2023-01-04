@@ -11,7 +11,7 @@ type OrderDetailsProps = {
 }
 
 const StyledOrderDetails = styled.form`
-    /* other form styles are in <src/styles/wp.css> */
+    /* other form styles are in <public/styles/wp.css> */
     width: 90vw;
     padding: 25px 10px;
     display: flex;

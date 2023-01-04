@@ -34,7 +34,7 @@ exports.createResolvers = ({ createResolvers }) => {
 
 exports.createPages = async ({ actions, graphql }) => {
 
-  const languages = getDirectories('./src/languages');
+  const languages = getDirectories('./public/languages');
 
   const { data: allPagesData } = await graphql(`
 
@@ -263,7 +263,7 @@ exports.createPages = async ({ actions, graphql }) => {
     data[language].forEach((wpPage) => {
       actions.createPage({
         path: `${langPrefix}${wpPage.slug}`,
-        component: path.resolve(`./src/components/Layouts/pages/PostPageLayout.tsx`),
+        component: path.resolve(`./public/components/Layouts/pages/PostPageLayout.tsx`),
         context: {
           pageData: wpPage,
           language: language,
@@ -277,7 +277,7 @@ exports.createPages = async ({ actions, graphql }) => {
     data[language].forEach((wcCategory) => {
       actions.createPage({
         path: `${langPrefix}catalog/${wcCategory.slug}`,
-        component: path.resolve(`./src/components/Layouts/pages/ProductsListPageLayout.tsx`),
+        component: path.resolve(`./public/components/Layouts/pages/ProductsListPageLayout.tsx`),
         context: {
           pageData: wcCategory,
           compImages: compImages,
@@ -295,7 +295,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
       actions.createPage({
         path: formatPathFromHref(wcProduct.categories[0].slug, wcProduct.yoast_head_json.og_url, language),
-        component: path.resolve(`./src/components/Layouts/pages/ProductPageLayout.tsx`),
+        component: path.resolve(`./public/components/Layouts/pages/ProductPageLayout.tsx`),
         context: {
           productData: wcProduct,
           compImages: compImages,

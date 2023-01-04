@@ -20,7 +20,7 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        icon: 'src/images/logo/mobile_logo.svg',
+        icon: 'public/images/logo/mobile_logo.svg',
       },
     },
     {
@@ -50,7 +50,7 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-source-filesystem',
       options: {
         "name": "images",
-        "path": "./src/images/"
+        "path": "./public/images/"
       },
       __key: "images"
     },

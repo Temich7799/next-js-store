@@ -1,9 +1,9 @@
 import { graphql, useStaticQuery } from "gatsby";
 import React from "react"
-import Layout from "../src/components/Layouts/Layout";
-import CatalogPageContent from "../src/components/Content/CatalogPageContent";
-import MetaData from "../src/components/Layouts/MetaData";
-import { parsePageMetaData } from "../src/services/parsePageMetaData";
+import Layout from "../public/components/Layouts/Layout";
+import CatalogPageContent from "../public/components/Content/CatalogPageContent";
+import MetaData from "../public/components/Layouts/MetaData";
+import { parsePageMetaData } from "../public/services/parsePageMetaData";
 
 const CatalogPage = (props: any) => {
 

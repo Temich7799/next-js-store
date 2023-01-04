@@ -1,6 +1,6 @@
 node_modules/
 .env
 .next
-src/gatsby-types.d.ts
+public/gatsby-types.d.ts
 .env.production
 .env.development

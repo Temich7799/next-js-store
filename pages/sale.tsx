@@ -1,6 +1,6 @@
 import React from "react"
-import SalePageContent from "../src/components/Content/SalePageContent";
-import Layout from "../src/components/Layouts/Layout";
+import SalePageContent from "../public/components/Content/SalePageContent";
+import Layout from "../public/components/Layouts/Layout";
 
 const SalePage = () => {
 

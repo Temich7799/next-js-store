@@ -93,7 +93,7 @@
     "isolatedModules": true
   },
   "include": [
-    "./src/**/*",
+    "./public/**/*",
     "./gatsby-node.js",
     "./gatsby-config.ts",
     "./plugins/**/*"
