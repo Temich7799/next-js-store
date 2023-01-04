@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { StaticImage } from "gatsby-plugin-image";
+import Image from 'next/image';
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { LangContext } from "../../Layouts/Layout";
@@ -20,7 +20,7 @@ const LogoDesktop = () => {
   return (
     <StyledLogoDesktop minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
       <Link href={`/${langPrefix}`}>
-        <StaticImage src="../../../images/logo/desktop_logo.svg" alt="Logo" placeholder="blurred" />
+        <Image src="../../../images/logo/desktop_logo.svg" alt="Logo" placeholder="blur" />
       </Link>
     </StyledLogoDesktop>
   )

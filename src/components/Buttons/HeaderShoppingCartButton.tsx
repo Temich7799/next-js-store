@@ -7,7 +7,7 @@ import Button from "./Button";
 import PopUpWindow from "../PopUp/PopUpWindow";
 import OrderDetails from "../ShoppingCart/OrderDetails/OrderDetails";
 import { PurchasesCount } from "../../styles/PurchasesCount";
-import { StaticImage } from "gatsby-plugin-image";
+import Image from 'next/image';
 import PopUpToaster from "../PopUp/PopUpToaster";
 import toast from 'react-hot-toast';
 import { LangContext } from "../Layouts/Layout";
@@ -41,7 +41,7 @@ const HeaderShoppingCartButton = () => {
     return (
         <StyledHeaderShoppingCartButton>
             <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
-                <StaticImage src="../../images/cart/shopping_cart.svg" alt="shopping-cart-icon" width={35} height={35} layout="fixed" placeholder="blurred" />
+                <Image src="../../images/cart/shopping_cart.svg" alt="shopping-cart-icon" width={35} height={35} layout="fixed" placeholder="blur" />
                 <PurchasesCount>
                     <p>{purchasesCount}</p>
                 </PurchasesCount>

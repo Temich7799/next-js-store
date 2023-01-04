@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { StaticImage } from "gatsby-plugin-image";
+import Image from 'next/image';
 import styled from "styled-components"
 import { LangContext } from "../../Layouts/Layout";
 import Link from 'next/link';
@@ -37,8 +37,8 @@ const ProductDelivery = () => {
                 <Link href={`/${langPrefix}shipping-and-payment`}>{DELIVERY_ABOUT_AFTERPAY_INFO}</Link>
             </DeliveryAbout>
             <DeliveryIcons>
-                <StaticImage src="../../../images/delivery/nova_poshta.svg" alt="nova-poshta-icon" width={30} height={30} layout="fixed" placeholder="blurred" />
-                <StaticImage src="../../../images/delivery/ukrposhta.svg" alt="ukrposhta-icon" width={30} height={30} layout="fixed" placeholder="blurred" />
+                <Image src="../../../images/delivery/nova_poshta.svg" alt="nova-poshta-icon" width={30} height={30} layout="fixed" placeholder="blur" />
+                <Image src="../../../images/delivery/ukrposhta.svg" alt="ukrposhta-icon" width={30} height={30} layout="fixed" placeholder="blur" />
             </DeliveryIcons>
         </StyledProductDelivery>
     )

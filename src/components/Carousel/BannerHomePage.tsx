@@ -1,4 +1,4 @@
-import { StaticImage } from "gatsby-plugin-image"
+import Image from 'next/image';
 import React from "react"
 import styled from "styled-components"
 import { CarouselOptions } from "../../types/CarouselPropsType"
@@ -17,8 +17,8 @@ const BannerHomePage = () => {
 
     return (
         <Carousel options={options}>
-            <BannerSlide><StaticImage src='../../images/banners/slide-1.webp' alt="Slide-1" placeholder="blurred" layout="constrained"  /></BannerSlide>
-            <BannerSlide><StaticImage src='../../images/banners/slide-4.webp' alt="Slide-2" placeholder="blurred" layout="constrained" /></BannerSlide>
+            <BannerSlide><Image src='../../images/banners/slide-1.webp' alt="Slide-1" placeholder="blur" layout="constrained"  /></BannerSlide>
+            <BannerSlide><Image src='../../images/banners/slide-4.webp' alt="Slide-2" placeholder="blur" layout="constrained" /></BannerSlide>
         </Carousel>
     )
 }
