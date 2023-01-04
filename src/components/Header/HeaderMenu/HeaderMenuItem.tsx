@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "gatsby";
+import Link from 'next/link';
 import styled from "styled-components"
 import { MenuItemType } from "../../../types/MenuItemType";
 import HeaderSubMenu from "./HeaderSubMenu";
@@ -29,7 +29,7 @@ const HeaderMenuItem = (props: HeaderMenuItemProps) => {
                 data.child_items !== null || data.slug === 'catalog'
                     ? <HeaderSubMenu data={data} />
                     :
-                    <Link to={data.path}>
+                    <Link href={data.path}>
                         {data.title}
                     </Link>
             }

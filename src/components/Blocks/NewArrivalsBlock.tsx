@@ -1,4 +1,4 @@
-import { Link } from "gatsby"
+import Link from 'next/link'
 import React, { useContext } from "react"
 import { useFetchProducts } from "../../services/hooks/graphql/useFetchProducts"
 import useActualDate from "../../services/hooks/useActualDate"
@@ -25,7 +25,7 @@ const NewArrivalsBlock = () => {
                 `}
             >
                 <p>{BLOCK_NEW_ARRIVALS_DETAILS}</p>
-                <Link to="new-arrivals">{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
+                <Link href="new-arrivals">{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
             </BlockContent>
         </TileBlock >
     )

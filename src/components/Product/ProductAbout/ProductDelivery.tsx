@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import { StaticImage } from "gatsby-plugin-image";
 import styled from "styled-components"
 import { LangContext } from "../../Layouts/Layout";
-import { Link } from "gatsby";
+import Link from 'next/link';
 
 const StyledProductDelivery = styled.div`
     display: flex;
@@ -33,8 +33,8 @@ const ProductDelivery = () => {
     return (
         <StyledProductDelivery>
             <DeliveryAbout>
-                <Link to={`/${langPrefix}shipping-and-payment`}>{DELIVERY_ABOUT_DELIVERY_INFO}</Link>
-                <Link to={`/${langPrefix}shipping-and-payment`}>{DELIVERY_ABOUT_AFTERPAY_INFO}</Link>
+                <Link href={`/${langPrefix}shipping-and-payment`}>{DELIVERY_ABOUT_DELIVERY_INFO}</Link>
+                <Link href={`/${langPrefix}shipping-and-payment`}>{DELIVERY_ABOUT_AFTERPAY_INFO}</Link>
             </DeliveryAbout>
             <DeliveryIcons>
                 <StaticImage src="../../../images/delivery/nova_poshta.svg" alt="nova-poshta-icon" width={30} height={30} layout="fixed" placeholder="blurred" />

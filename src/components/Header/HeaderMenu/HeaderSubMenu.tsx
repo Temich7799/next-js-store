@@ -1,4 +1,4 @@
-import { Link } from "gatsby";
+import Link from 'next/link';
 import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
 import useMobile from "../../../services/hooks/useMobile";
@@ -97,7 +97,7 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
                         <SubMenuIcon isOpened={isSubMenuOpened} />
                     </SubMenuTitle>
                     :
-                    <Link to={data.path}>
+                    <Link href={data.path}>
                         <SubMenuTitle onMouseOver={() => onMouseOverHandler()} onMouseLeave={(e: any) => onMouseLeaveHandler(e)}>
                             {data.title}
                             <SubMenuIcon isOpened={isSubMenuOpened} />
@@ -110,7 +110,7 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
                     {
                         isMobile &&
                         <SubMenuItem>
-                            <Link to={data.path}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
+                            <Link href={data.path}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
                         </SubMenuItem>
                     }
                     {
@@ -118,7 +118,7 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
                             ? <CatalogSubMenuItems />
                             : data.child_items.map((item: MenuItemType, index: number) => {
                                 <SubMenuItem key={index}>
-                                    <Link to={item.path}>
+                                    <Link href={item.path}>
                                         {item.title}
                                     </Link>
                                 </SubMenuItem>

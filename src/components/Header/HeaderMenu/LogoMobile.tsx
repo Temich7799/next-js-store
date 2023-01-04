@@ -1,4 +1,4 @@
-import { Link } from "gatsby";
+import Link from 'next/link';
 import { StaticImage } from "gatsby-plugin-image";
 import React, { useContext } from "react";
 import HideOnDesktopWrapper from "../../Wrappers/HideOnDesktopWrapper";
@@ -10,7 +10,7 @@ const LogoMobile = () => {
 
   return (
     <HideOnDesktopWrapper>
-      <Link to={`/${langPrefix}`}>
+      <Link href={`/${langPrefix}`}>
         <StaticImage src="../../../images/logo/mobile_logo.svg" alt="Logo" placeholder="blurred" />
       </Link>
     </HideOnDesktopWrapper>

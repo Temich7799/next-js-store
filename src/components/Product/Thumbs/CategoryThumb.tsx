@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { Link } from "gatsby";
+import Link from 'next/link';
 import styled from "styled-components"
 import Button from "../../Buttons/Button";
 import getRandomColor from "../../../services/getRandomColor";
@@ -93,7 +93,7 @@ const CategoryThumb = (props: CategoryThumbProps) => {
     return (
         <StyledCategoryThumb>
             <ImageFigure>
-                <Link to={data.slug}>
+                <Link href={data.slug}>
                     {
                         data.image
                             ? <InteractiveImageWrapper><img src={data.image.src} alt={data.image.alt} /></InteractiveImageWrapper>
@@ -108,7 +108,7 @@ const CategoryThumb = (props: CategoryThumbProps) => {
             </ImageFigure>
             <Caption>
                 <p dangerouslySetInnerHTML={{ __html: data.description }} />
-                <Link to={data.slug}>
+                <Link href={data.slug}>
                     <Button>{CATEGORY_THUMB_BUTTON}</Button>
                 </Link>
             </Caption>

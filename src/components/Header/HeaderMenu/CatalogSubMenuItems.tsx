@@ -26,7 +26,7 @@ const CatalogSubMenuItems = () => {
 
     return data[language].map((item: any, index: number) =>
         <SubMenuItem key={index}>
-            <Link to={`/${langPrefix}catalog/${item.slug}`}>
+            <Link href={`/${langPrefix}catalog/${item.slug}`}>
                 {item.name}
             </Link>
         </SubMenuItem>

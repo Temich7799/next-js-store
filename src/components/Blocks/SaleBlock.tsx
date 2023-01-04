@@ -1,4 +1,4 @@
-import { Link } from "gatsby";
+import Link from 'next/link';
 import React, { useContext } from "react"
 import { useFetchProducts } from "../../services/hooks/graphql/useFetchProducts";
 import { LangContext } from "../Layouts/Layout";
@@ -22,7 +22,7 @@ const SaleBlock = () => {
                     "Count Count . .
                 `}
             >
-                <Link to="sale">{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
+                <Link href="sale">{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
                 <p>⬅️ {BLOCK_SALE_DETAILS} %</p>
             </BlockContent>
         </TileBlock>

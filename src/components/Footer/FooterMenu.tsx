@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from "react"
-import { Link } from "gatsby"
+import Link from 'next/link'
 import styled from "styled-components"
 import { LangContext } from "../Layouts/Layout";
 import { useFooterMenuItems } from "../../services/hooks/gatsby/useFooterMenuItems";
@@ -25,12 +25,12 @@ const FooterMenu = () => {
                 data.map((item: MenuItemType, index: number) =>
                     index === data.length - 1
                         ?
-                        <Link to={`/${langPrefix}${item.slug}`} key={index}>
+                        <Link href={`/${langPrefix}${item.slug}`} key={index}>
                             {item.title}
                         </Link>
                         :
                         <Fragment key={index}>
-                            <Link to={`/${langPrefix}${item.slug}`}>
+                            <Link href={`/${langPrefix}${item.slug}`}>
                                 {item.title}
                             </Link>
                             {'/'}

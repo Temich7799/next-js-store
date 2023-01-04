@@ -1,4 +1,4 @@
-import { Link } from "gatsby";
+import Link from 'next/link';
 import React, { useContext } from "react";
 import { LangContext } from "../Layouts/Layout";
 import Button from "./Button";
@@ -28,7 +28,7 @@ const GoToCartButton = (props: GoToCartButtonProps) => {
                         }
                     </Button>
                     :
-                    <Link to={`/${langPrefix}shopping-cart`}>
+                    <Link href={`/${langPrefix}shopping-cart`}>
                         <Button buttonStyle="accent" disabled={isButtonDisabled}>
                             {ORDER_FINAL_BUTTON_CONTINUE}
                         </Button>
