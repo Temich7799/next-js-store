@@ -11,7 +11,7 @@ const LogoMobile = () => {
   return (
     <HideOnDesktopWrapper>
       <Link href={`/${langPrefix}`}>
-        <Image src="../../../images/logo/mobile_logo.svg" alt="Logo" placeholder="blur" />
+        <Image src="../../../images/logo/mobile_logo.svg" alt="Logo" />
       </Link>
     </HideOnDesktopWrapper>
   )

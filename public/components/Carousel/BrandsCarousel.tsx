@@ -18,19 +18,19 @@ const BrandsCarousel = (props: CarouselOptions) => {
     return (
         <Carousel title={CAROUSEL_BRANDS_TITLE} maxWidth="850px" options={props}>
             <BrandThumb>
-                <Image src="../../images/brands/cry_babies.jpg" alt="Cry Babies logo" width={100} height={100} placeholder="blur" layout='fixed' />
+                <Image src="../../images/brands/cry_babies.jpg" alt="Cry Babies logo" width={100} height={100} layout='fixed' />
             </BrandThumb>
             <BrandThumb>
-                <Image src="../../images/brands/lol.png" alt="LOL logo" width={100} height={100} placeholder="blur" layout='fixed' />
+                <Image src="../../images/brands/lol.png" alt="LOL logo" width={100} height={100} layout='fixed' />
             </BrandThumb>
             <BrandThumb>
-                <Image src="../../images/brands/manolo_dolls.png" alt="Manollo Dolls logo" width={100} height={100} placeholder="blur" layout='fixed' />
+                <Image src="../../images/brands/manolo_dolls.png" alt="Manollo Dolls logo" width={100} height={100} layout='fixed' />
             </BrandThumb>
             <BrandThumb>
-                <Image src="../../images/brands/skip_hop.jpeg" alt="Skip Hop logo" width={100} height={100} placeholder="blur" layout='fixed' />
+                <Image src="../../images/brands/skip_hop.jpeg" alt="Skip Hop logo" width={100} height={100} layout='fixed' />
             </BrandThumb>
             <BrandThumb>
-                <Image src="../../images/brands/nines_d_onill.jpg" alt="Nines d'Onil" width={100} height={100} placeholder="blur" layout='fixed' />
+                <Image src="../../images/brands/nines_d_onill.jpg" alt="Nines d'Onil" width={100} height={100} layout='fixed' />
             </BrandThumb>
         </Carousel>
     )

@@ -41,7 +41,7 @@ const HeaderShoppingCartButton = () => {
     return (
         <StyledHeaderShoppingCartButton>
             <Button buttonSize="shrink" buttonStyle="transparent" onClick={buttonOnClickHandler}>
-                <Image src="../../images/cart/shopping_cart.svg" alt="shopping-cart-icon" width={35} height={35} layout="fixed" placeholder="blur" />
+                <Image src="../../images/cart/shopping_cart.svg" alt="shopping-cart-icon" width={35} height={35} layout="fixed" />
                 <PurchasesCount>
                     <p>{purchasesCount}</p>
                 </PurchasesCount>
