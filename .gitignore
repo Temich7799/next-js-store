@@ -1,7 +1,6 @@
 node_modules/
-.cache/
 .env
-public
+.next
 src/gatsby-types.d.ts
 .env.production
 .env.development
