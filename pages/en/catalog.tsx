@@ -1,6 +1,6 @@
 import React from "react"
 import { gql } from "@apollo/client";
-import client from "../../apollo-client";
+import { apolloClient } from "../../public/components/Layouts/Layout";
 import Layout from "../../public//components/Layouts/Layout";
 import CatalogPageContent from "../../public//components/Content/CatalogPageContent";
 import MetaData from "../../public//components/Layouts/MetaData";
@@ -12,7 +12,7 @@ const CatalogPage = ({ catalogPageDataEn }) => {
 
   return (
     <Layout language="en">
-      <CatalogPageContent data={data.allMultilangWcCategories} />
+      <CatalogPageContent data={data.allWcProductsCategories} />
     </Layout>
   )
 }
@@ -21,17 +21,17 @@ export default CatalogPage;
 
 export const Head = ({ catalogPageDataEn }) => {
 
-  const { metaData, openGraphData } = parsePageMetaData(catalogPageDataEn.multilangWpMetaData);
+  const { metaData, openGraphData } = parsePageMetaData(catalogPageDataEn.wpMetaData);
 
   return <MetaData data={metaData} openGraphData={openGraphData} />
 }
 
 export async function getStaticProps() {
 
-  const { data } = await client.query({
+  const { data } = await apolloClient.query({
     query: gql`
       query getCatalogPageDataEn {
-        allMultilangWcCategories(params: {hide_empty: true}, language: en) {
+        allWcProductsCategories(params: {hide_empty: true}, language: en) {
           image {
             alt
             src
@@ -41,7 +41,7 @@ export async function getStaticProps() {
           description
         }
       
-        multilangWpMetaData(pageId: 271, endpoint: pages, language: en) {
+        wpMetaData(pageId: 271, endpoint: pages, language: en) {
             title
             description
             og_title

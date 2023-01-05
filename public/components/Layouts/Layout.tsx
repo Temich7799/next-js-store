@@ -21,7 +21,7 @@ const Main = styled.main<any>`
     flex: 1 0 auto;
 `;
 
-const apolloClient = new ApolloClient({
+export const apolloClient = new ApolloClient({
     link: new BatchHttpLink({
         uri: process.env.GATSBY_APOLLO_SERVER_URL,
         batchMax: 5,

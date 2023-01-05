@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import client from "../apollo-client";
+import { apolloClient } from "../public/components/Layouts/Layout";
 import React from "react"
 import Layout from "../public/components/Layouts/Layout";
 import CatalogPageContent from "../public/components/Content/CatalogPageContent";
@@ -12,7 +12,7 @@ const CatalogPage = ({ catalogPageDataRu }) => {
 
   return (
     <Layout>
-      <CatalogPageContent data={data.allMultilangWcCategories} />
+      <CatalogPageContent data={data.allWcProductsCategories} />
     </Layout>
   )
 }
@@ -28,10 +28,10 @@ export const Head = ({ catalogPageDataRu }) => {
 
 export async function getStaticProps() {
 
-  const { data } = await client.query({
+  const { data } = await apolloClient.query({
     query: gql`
       query getCatalogPageDataRu {
-        allMultilangWcCategories(params: {hide_empty: true}) {
+        allWcProductsCategories(params: {hide_empty: true}) {
           image {
             alt
             src
@@ -41,7 +41,7 @@ export async function getStaticProps() {
           description
         }
       
-        multilangWpMetaData(pageId: 271, endpoint: pages) {
+        wpMetaData(pageId: 271, endpoint: pages) {
             title
             description
             og_title
