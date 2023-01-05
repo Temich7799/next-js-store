@@ -20,7 +20,7 @@ const LogoDesktop = () => {
   return (
     <StyledLogoDesktop minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
       <Link href={`/${langPrefix}`}>
-        <Image src="../../../images/logo/desktop_logo.svg" alt="Logo" width={200} height={59.4} />
+        <Image src="/images/logo/desktop_logo.svg" alt="Logo" width={200} height={59.4} />
       </Link>
     </StyledLogoDesktop>
   )
