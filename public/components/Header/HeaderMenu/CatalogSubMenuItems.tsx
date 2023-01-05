@@ -1,17 +1,22 @@
-import { gql } from "@apollo/client";
-import client from "../../../../apollo-client";
+import { gql, useLazyQuery } from "@apollo/client";
 import Link from 'next/link'
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { LangContext } from "../../Layouts/Layout";
 import { SubMenuItem } from "./SubMenuItem";
 
-const CatalogSubMenuItems = ({ allCategoryItems }) => {
+const CatalogSubMenuItems = () => {
 
     const { language, langPrefix } = useContext(LangContext);
 
-    const data = allCategoryItems;
+    const [data, setData] = useState([]);
+    const [getItems] = useLazyQuery(gql`query getAllCategoryItems { ru: allWcProductsCategories(params: { hide_empty: true }) { name slug } uk: allWcProductsCategories(language: uk, params: { hide_empty: true }) { name slug } en: allWcProductsCategories(language: en, params: { hide_empty: true }) { name slug } }`);
+    useEffect(() => {
+        getItems().then(response => {
+            setData(response.data[language]);
+        });
+    }, []);
 
-    return data[language].map((item: any, index: number) =>
+    return data.length && data.map((item: any, index: number) =>
         <SubMenuItem key={index}>
             <Link href={`/${langPrefix}catalog/${item.slug}`}>
                 {item.name}
@@ -21,31 +26,3 @@ const CatalogSubMenuItems = ({ allCategoryItems }) => {
 }
 
 export default CatalogSubMenuItems;
-
-export async function getStaticProps() {
-
-    const { data } = await client.query({
-        query: gql`
-        query getAllCategoryItems {
-            ru: allMultilangWcCategories(params: {hide_empty: true}) {
-                name
-                slug
-            }
-            uk: allMultilangWcCategories(language: uk, params: {hide_empty: true}) {
-                name
-                slug
-            }
-            en: allMultilangWcCategories(language: en, params: {hide_empty: true}) {
-                name
-                slug
-            }
-        }
-      `,
-    });
-
-    return {
-        props: {
-            allCategoryItems: data,
-        },
-    };
-}

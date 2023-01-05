@@ -1,6 +1,6 @@
-import React, { useContext } from "react"
+import { gql, useLazyQuery } from "@apollo/client";
+import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
-import { useHeaderMenuItems } from "../../../services/hooks/gatsby/useHeaderMenuItems";
 import { MenuItemType } from "../../../types/MenuItemType";
 import { LangContext } from "../../Layouts/Layout";
 import HeaderMenuItem from "./HeaderMenuItem";
@@ -40,13 +40,30 @@ const HeaderMenuWrapper = styled.div`
 const HeaderMenuItems = () => {
 
     const { language } = useContext(LangContext);
-    const data: [MenuItemType] = useHeaderMenuItems(language);
+
+    const [data, setData] = useState([]);
+    const [getItems] = useLazyQuery(gql` query getAllMultilangHeaderMenuItems { ru: allWpMenuItems(slug: "header", language: ru) { url title slug child_items { url title } } uk: allWpMenuItems(slug: "header", language: uk) { url title slug child_items { url title } } en: allWpMenuItems(slug: "header", language: en) { url title slug child_items { url title } } } `);
+    useEffect(() => {
+        getItems().then(response => {
+            setData(addPathFields(response.data[language]));
+        });
+    }, []);
+
+    function addPathFields(items: [MenuItemType]): any {
+        return items.map((item: MenuItemType): MenuItemType => {
+            return {
+                ...item,
+                path: item.url.split('.com')[1].replace(/\/+$/, '').replace('home', ''),
+                child_items: item.child_items ? item.child_items : item.child_items !== null ? addPathFields(item.child_items) : null,
+            }
+        });
+    }
 
     return (
         <HeaderMenuWrapper>
             <StyledHeaderMenuItems minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
                 {
-                    data.map((item: MenuItemType, index: number) => <HeaderMenuItem data={item} key={index} />)
+                    data.length && data.map((item: MenuItemType, index: number) => <HeaderMenuItem data={item} key={index} />)
                 }
             </StyledHeaderMenuItems>
         </HeaderMenuWrapper>

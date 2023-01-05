@@ -1,5 +1,5 @@
-import React, { useContext } from "react"
-import { useShippingMethods } from "../../../../services/hooks/gatsby/useShippingMethods";
+import { gql, useLazyQuery } from "@apollo/client";
+import React, { useContext, useEffect, useState } from "react"
 import Select from "../../../Form/Select/Select";
 import SelectOption from "../../../Form/Select/SelectOption";
 import { LangContext } from "../../../Layouts/Layout";
@@ -12,7 +12,13 @@ const ShippingMethodSelector = () => {
 
     const { selectedShippingLine } = useContext(DeliveryFormContext);
 
-    const data = useShippingMethods(language);
+    const [data, setData] = useState([]);
+    const [getItems] = useLazyQuery(gql` query getAllShippingZonesMethods { ru: allMultilangWcShippingMethods(zoneId: 1) { method_id method_title method_description } uk: allMultilangWcShippingMethods(zoneId: 1, language: uk) { method_id method_title method_description } en: allMultilangWcShippingMethods(zoneId: 1, language: en) { method_id method_title method_description } } `);
+    useEffect(() => {
+        getItems().then(response => {
+            setData(response.data[language]);
+        });
+    }, []);
 
     function selectOnChangeHandler(onChangeEvent: any): void {
         selectedShippingLine.set(onChangeEvent.target.value);
@@ -26,7 +32,7 @@ const ShippingMethodSelector = () => {
             onChangeHandler={selectOnChangeHandler}
         >
             {
-                data && data.map((method: any, index: number) =>
+                data.length && data.map((method: any, index: number) =>
                     <SelectOption value={method.method_id} key={index}>
                         {method.method_title}
                     </SelectOption>)
