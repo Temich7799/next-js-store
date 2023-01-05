@@ -4,7 +4,7 @@ import Footer from "../Footer/Footer";
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BatchHttpLink } from "@apollo/client/link/batch-http";
 import styled from "styled-components";
-require('../../styles/global.css');
+import { GlobalStyle } from "../../styles/GlobalStyle";
 
 type LayoutProps = {
     children: JSX.Element | string
@@ -23,7 +23,7 @@ const Main = styled.main<any>`
 
 export const apolloClient = new ApolloClient({
     link: new BatchHttpLink({
-        uri: process.env.GATSBY_APOLLO_SERVER_URL,
+        uri: 'https://server.malinikids.com/',
         batchMax: 5,
         batchInterval: 25
     }),
@@ -62,6 +62,7 @@ const Layout = (props: LayoutProps) => {
     return (
         <ApolloProvider client={apolloClient} >
             <LangContext.Provider value={langContext}>
+                <GlobalStyle />
                 <Header />
                 <Main minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
                     {children}

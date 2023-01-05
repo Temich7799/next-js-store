@@ -5,7 +5,7 @@ import styled from "styled-components";
 import NotFoundPageContent from "../../Content/NotFoundPageContent";
 import MetaData from "../MetaData";
 import { parsePageMetaData } from "../../../services/parsePageMetaData";
-require('../../../styles/wp.css');
+import { GlobalWpStyle } from "../../../styles/GlobalWpStyle";
 
 type PostPageLayoutProps = {
   pageContext: {
@@ -42,6 +42,7 @@ const PostPageLayout = (props: PostPageLayoutProps) => {
   return (
     <Layout language={language}>
       <>
+        <GlobalWpStyle />
         <PageTitle>{pageData.title.rendered}</PageTitle>
         {
           (pageData.content.rendered)
