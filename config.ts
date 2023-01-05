@@ -4,7 +4,7 @@ require("dotenv").config({
 
 export default {
     title: process.env.SITE_TITLE,
-    url: process.env.GATSBY_SITE_URL,
+    url: process.env.NEXT_PUBLIC_SITE_URL,
     author: {
         name: 'Artem Glushenko'
     }

@@ -23,7 +23,7 @@ const Main = styled.main<any>`
 
 export const apolloClient = new ApolloClient({
     link: new BatchHttpLink({
-        uri: 'https://server.malinikids.com/',
+        uri: process.env.NEXT_PUBLIC_APOLLO_SERVER_URL,
         batchMax: 5,
         batchInterval: 25
     }),
@@ -64,7 +64,7 @@ const Layout = (props: LayoutProps) => {
             <LangContext.Provider value={langContext}>
                 <GlobalStyle />
                 <Header />
-                <Main minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+                <Main minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
                     {children}
                 </Main>
                 <Footer />

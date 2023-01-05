@@ -7,10 +7,10 @@ async function wooCommerceQuery(endpoint, params = {}, method = 'get', language 
     params.lang = language;
 
     const query = new WooCommerceRestApi({
-        url: process.env.GATSBY_WP_URL,
-        consumerKey: process.env.GATSBY_WC_KEY,
-        consumerSecret: process.env.GATSBY_WC_SECRET,
-        version: process.env.GATSBY_WC_VERSION
+        url: process.env.NEXT_PUBLIC_WP_URL,
+        consumerKey: process.env.NEXT_PUBLIC_WC_KEY,
+        consumerSecret: process.env.NEXT_PUBLIC_WC_SECRET,
+        version: process.env.NEXT_PUBLIC_WC_VERSION
     });
 
     const data = params.per_page <= 100 ? query[method](endpoint, params).then(response => response.data) : await makeBatchQuery();

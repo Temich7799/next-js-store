@@ -10,7 +10,7 @@ const StyledHideOnMobileWrapper = styled.div<any>`
 const HideOnMobileWrapper = ({ children }: any) => {
 
     return (
-        <StyledHideOnMobileWrapper minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+        <StyledHideOnMobileWrapper minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
             {children}
         </StyledHideOnMobileWrapper>
     )

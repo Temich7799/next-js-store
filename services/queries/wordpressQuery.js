@@ -12,7 +12,7 @@ const wordpressQuery = async (endpoint, options = {}, dataPathArray, version = '
     const data = per_page <= 100 ? await fetchPageData() : await makeBatchQuery();
 
     async function fetchPageData() {
-        return await fetch(`${process.env.GATSBY_WP_URL}/wp-json/${version === 'none' ? '' : version}${endpoint}?per_page=${per_page}&offset=${offset}&lang=${language}`)
+        return await fetch(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/${version === 'none' ? '' : version}${endpoint}?per_page=${per_page}&offset=${offset}&lang=${language}`)
             .then(response => response.text())
             .then(response => {
                 const json = JSON.parse(response.replace(/@/g, ''));

@@ -65,7 +65,7 @@ const Header = () => {
   }
 
   return (
-    <StyledHeader minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH} isScrollingDown={isScrollingDown}>
+    <StyledHeader minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH} isScrollingDown={isScrollingDown}>
       <HeaderColumnLeft isMobileMenuOpened={isMobileMenuOpened} setIsMobileMenuOpened={setIsMobileMenuOpened} />
       <HeaderColumnCenter />
       <HeaderColumnRight />

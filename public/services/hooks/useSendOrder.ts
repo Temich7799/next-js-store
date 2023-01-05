@@ -25,7 +25,7 @@ export function useSendOrder() {
 
         const formData = new FormData(formElement);
 
-        return fetch(process.env.GATSBY_APOLLO_SERVER_URL, {
+        return fetch(process.env.NEXT_PUBLIC_APOLLO_SERVER_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

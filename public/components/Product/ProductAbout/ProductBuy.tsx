@@ -52,7 +52,7 @@ const ProductBuy = () => {
     }, [updatedData]);
 
     return (
-        <StyledProductBuy minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+        <StyledProductBuy minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
             <ProductPrice price={updatedData && updatedData.price} salePrice={updatedData && updatedData.sale_price} isPriceLoading={isDataLoading} />
             {
                 isInTheCart(data.id)

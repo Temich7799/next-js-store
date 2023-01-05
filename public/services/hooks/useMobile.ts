@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function useMobile(mobileWidth: number = parseInt(process.env.GATSBY_MIN_DESKTOP_WIDTH)): boolean | undefined {
+export default function useMobile(mobileWidth: number = parseInt(process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH)): boolean | undefined {
     const [isMobile, setIsMobile] = useState<boolean>();
 
     useEffect(() => {

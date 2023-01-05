@@ -61,7 +61,7 @@ const HeaderMenuItems = () => {
 
     return (
         <HeaderMenuWrapper>
-            <StyledHeaderMenuItems minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+            <StyledHeaderMenuItems minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
                 {
                     data.length && data.map((item: MenuItemType, index: number) => <HeaderMenuItem data={item} key={index} />)
                 }

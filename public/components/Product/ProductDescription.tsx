@@ -20,7 +20,7 @@ const ProductDescription = () => {
     const { PRODUCT_DESCRIPTION_TITLE } = require(`../../languages/${language}/languages`);
 
     return (
-        <StyledProductDescription minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+        <StyledProductDescription minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
             <CopyProtectedWrapper>
                 <h3>{PRODUCT_DESCRIPTION_TITLE}</h3>
                 <div dangerouslySetInnerHTML={{ __html: description }} />

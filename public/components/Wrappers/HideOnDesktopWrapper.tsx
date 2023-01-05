@@ -10,7 +10,7 @@ const StyledHideOnDesktopWrapper = styled.div<any>`
 const HideOnDesktopWrapper = ({ children }: any) => {
 
     return (
-        <StyledHideOnDesktopWrapper minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+        <StyledHideOnDesktopWrapper minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
             {children}
         </StyledHideOnDesktopWrapper>
     )

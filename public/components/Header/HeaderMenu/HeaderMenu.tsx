@@ -49,9 +49,9 @@ const HeaderMenu = (props: HeaderMenuProps) => {
   const { isMobileMenuOpened } = props;
 
   return (
-    <StyledHeaderMenu isMobileMenuOpened={isMobileMenuOpened} minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+    <StyledHeaderMenu isMobileMenuOpened={isMobileMenuOpened} minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
       <HeaderMenuItems />
-      <MobileHeaderMenuFooter minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH}>
+      <MobileHeaderMenuFooter minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
         <SocialsList />
         <LanguageSelector />
       </MobileHeaderMenuFooter>

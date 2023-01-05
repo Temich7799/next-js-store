@@ -92,7 +92,7 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
             {
                 isMobile
                     ?
-                    <SubMenuTitle minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH} onClick={() => onClickHandler()} >
+                    <SubMenuTitle minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH} onClick={() => onClickHandler()} >
                         {data.title}
                         <SubMenuIcon isOpened={isSubMenuOpened} />
                     </SubMenuTitle>
@@ -106,7 +106,7 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
 
             }
             {
-                <SubMenuItems ref={ref} isSubMenuOpened={isSubMenuOpened} minDesktopWidth={process.env.GATSBY_MIN_DESKTOP_WIDTH} onMouseLeave={(e: any) => onMouseLeaveHandler(e)}>
+                <SubMenuItems ref={ref} isSubMenuOpened={isSubMenuOpened} minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH} onMouseLeave={(e: any) => onMouseLeaveHandler(e)}>
                     {
                         isMobile &&
                         <SubMenuItem>
