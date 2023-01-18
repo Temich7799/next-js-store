@@ -13,7 +13,7 @@ const ShippingMethodSelector = () => {
     const { selectedShippingLine } = useContext(DeliveryFormContext);
 
     const [data, setData] = useState([]);
-    const [getItems] = useLazyQuery(gql` query getAllShippingZonesMethods { ru: allMultilangWcShippingMethods(zoneId: 1) { method_id method_title method_description } uk: allMultilangWcShippingMethods(zoneId: 1, language: uk) { method_id method_title method_description } en: allMultilangWcShippingMethods(zoneId: 1, language: en) { method_id method_title method_description } } `);
+    const [getItems] = useLazyQuery(gql` query getAllShippingZonesMethods { ru: allWcShippingZonesMethods(zoneId: 1) { method_id method_title method_description } uk: allWcShippingZonesMethods(zoneId: 1, language: uk) { method_id method_title method_description } en: allWcShippingZonesMethods(zoneId: 1, language: en) { method_id method_title method_description } } `);
     useEffect(() => {
         getItems().then(response => {
             setData(response.data[language]);

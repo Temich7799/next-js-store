@@ -31,7 +31,7 @@ const ProductsListPageContent = (props: ProductsListPageContentProps) => {
 
     const { data, compImages, categoryId = 0 } = props;
 
-    const { data: fetchedData, loading, error } = data ? { data: data, loading: false, error: false } : useFetchProductsOnScroll(categoryId.toString());
+    const { data: fetchedData, loading, error } = useFetchProductsOnScroll(categoryId.toString(), data);
 
     return (
         <>

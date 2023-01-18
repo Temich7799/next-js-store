@@ -1,4 +1,4 @@
-import { ApolloError, gql, useLazyQuery } from "@apollo/client";
+import { ApolloError, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { FETCH_WC_PRODUCTS } from "../../../components/apollo/gql/getAllWcProducts";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
@@ -9,7 +9,7 @@ type ProductQueryResult = {
     error: ApolloError | undefined
 }
 
-export function useFetchProductsOnScroll(categoryId: string): ProductQueryResult {
+export function useFetchProductsOnScroll(categoryId: string, existingData?: [ProductFetched]): ProductQueryResult {
 
     const [fetchOffset, setFetchOffset] = useState<number>(0);
     const [fetchLimit, setFetchLimit] = useState<number>(50);
@@ -20,20 +20,21 @@ export function useFetchProductsOnScroll(categoryId: string): ProductQueryResult
 
         setFetchLimit(Math.floor((window.innerHeight * window.innerWidth) / 20000));
 
-        makeQuery({
-            variables: {
-                params: {
-                    category: categoryId,
-                    stock_status: 'instock',
-                    status: 'publish',
-                    per_page: Math.floor((window.innerHeight * window.innerWidth) / 20000),
-                    offset: fetchOffset
-                }
-            },
-        }).then((response) => {
-            setFetchOffset(response.data.allWcProducts.length + fetchOffset);
-        });
-
+        existingData && existingData.length > 0
+            ? setFetchOffset(existingData.length)
+            : makeQuery({
+                variables: {
+                    params: {
+                        category: categoryId,
+                        stock_status: 'instock',
+                        status: 'publish',
+                        per_page: Math.floor((window.innerHeight * window.innerWidth) / 20000),
+                        offset: fetchOffset
+                    }
+                },
+            }).then((response) => {
+                setFetchOffset(response.data.allWcProducts.length + fetchOffset);
+            });
     }, []);
 
     useEffect(() => {
