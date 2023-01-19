@@ -93,7 +93,7 @@ const CategoryThumb = (props: CategoryThumbProps) => {
     return (
         <StyledCategoryThumb>
             <ImageFigure>
-                <Link href={data.slug}>
+                <Link href={`catalog/${data.slug}`}>
                     {
                         data.image
                             ? <InteractiveImageWrapper><img src={data.image.src} alt={data.image.alt} /></InteractiveImageWrapper>
@@ -108,7 +108,7 @@ const CategoryThumb = (props: CategoryThumbProps) => {
             </ImageFigure>
             <Caption>
                 <p dangerouslySetInnerHTML={{ __html: data.description }} />
-                <Link href={data.slug}>
+                <Link href={`catalog/${data.slug}`}>
                     <Button>{CATEGORY_THUMB_BUTTON}</Button>
                 </Link>
             </Caption>

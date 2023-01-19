@@ -1,6 +1,6 @@
 import React from "react"
-import Layout, { apolloClient } from "../../public/components/Layouts/Layout";
-import ProductPageContent from '../../public/components/Content/ProductPageContent';
+import Layout, { apolloClient } from "../../../public/components/Layouts/Layout";
+import ProductPageContent from '../../../public/components/Content/ProductPageContent';
 import { gql } from "@apollo/client";
 
 const ProductPage = ({ productPageData }) => {

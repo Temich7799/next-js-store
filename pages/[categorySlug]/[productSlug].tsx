@@ -55,7 +55,7 @@ export async function getServerSideProps(context: any) {
             }
         `,
         variables: {
-            language: 'uk',
+            language: 'ru',
             params: {
                 per_page: 1,
                 slug: context.params.productSlug
