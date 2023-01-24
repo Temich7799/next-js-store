@@ -4,7 +4,7 @@ import { useFetchProductsOnScroll } from "../../services/hooks/graphql/useFetchP
 import ContainerCenteredWrapper from "../Wrappers/ContainerCenteredWrapper";
 import { ProductFetched } from "../../interfaces/InterfaceProduct";
 import InfoLayout from "../Layouts/InfoLayout";
-import { LangContext } from "../Layouts/Layout";
+import { PageContext } from "../Layouts/Layout";
 import LoadingBar from "../LoadingBars/LoadingBar";
 import ProductThumb from "../Product/Thumbs/ProductThumb";
 
@@ -26,7 +26,7 @@ const Content = styled.div`
 
 const ProductsListPageContent = (props: ProductsListPageContentProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } = require(`../../languages/${language}/languages`);
 
     const { data, compImages, categoryId = 0 } = props;

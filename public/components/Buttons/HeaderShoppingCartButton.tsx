@@ -10,7 +10,7 @@ import { PurchasesCount } from "../../styles/PurchasesCount";
 import Image from 'next/image';
 import PopUpToaster from "../PopUp/PopUpToaster";
 import toast from 'react-hot-toast';
-import { LangContext } from "../Layouts/Layout";
+import { PageContext } from "../Layouts/Layout";
 
 const StyledHeaderShoppingCartButton = styled.div`
     position: relative;
@@ -18,7 +18,7 @@ const StyledHeaderShoppingCartButton = styled.div`
 
 const HeaderShoppingCartButton = () => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { ORDER_FINAL_BUTTON_DISABLED } = require(`../../languages/${language}/languages`);
 
     const [showPopUpWindow, setShowPopUpWindow] = useState<boolean>(false);

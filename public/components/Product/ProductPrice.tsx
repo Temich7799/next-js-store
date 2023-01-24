@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { LangContext } from "../Layouts/Layout";
+import { PageContext } from "../Layouts/Layout";
 import LoadingSpinner from "../LoadingBars/LoadingSpinner";
 
 type ProductPriceProps = {
@@ -36,7 +36,7 @@ const SalePrice = styled.span`
 
 const ProductPrice = (props: ProductPriceProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { PRODUCT_PRICE_TITLE, PRODUCT_PRICE_EMPTY, CURRENCY } = require(`../../languages/${language}/languages`);
 
     let { price, salePrice, isPriceLoading = false, showTitle = true } = props;

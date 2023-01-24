@@ -2,11 +2,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import React, { useContext } from "react";
 import HideOnDesktopWrapper from "../../Wrappers/HideOnDesktopWrapper";
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 
 const LogoMobile = () => {
 
-  const { langPrefix } = useContext(LangContext);
+  const { langPrefix } = useContext(PageContext);
 
   return (
     <HideOnDesktopWrapper>

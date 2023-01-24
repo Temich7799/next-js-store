@@ -1,8 +1,7 @@
-import { gql, useLazyQuery } from "@apollo/client";
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import { MenuItemType } from "../../../types/MenuItemType";
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 import HeaderMenuItem from "./HeaderMenuItem";
 
 const StyledHeaderMenuItems = styled.ul<any>`
@@ -39,15 +38,9 @@ const HeaderMenuWrapper = styled.div`
 
 const HeaderMenuItems = () => {
 
-    const { language } = useContext(LangContext);
+    const { menuItems } = useContext(PageContext);
 
-    const [data, setData] = useState([]);
-    const [getItems] = useLazyQuery(gql` query getAllMultilangHeaderMenuItems { ru: allWpMenuItems(slug: "header", language: ru) { url title slug child_items { url title } } uk: allWpMenuItems(slug: "header", language: uk) { url title slug child_items { url title } } en: allWpMenuItems(slug: "header", language: en) { url title slug child_items { url title } } } `);
-    useEffect(() => {
-        getItems().then(response => {
-            setData(addPathFields(response.data[language]));
-        });
-    }, []);
+    const items = addPathFields(menuItems.headerMenuItems);
 
     function addPathFields(items: [MenuItemType]): any {
         return items.map((item: MenuItemType): MenuItemType => {
@@ -63,7 +56,7 @@ const HeaderMenuItems = () => {
         <HeaderMenuWrapper>
             <StyledHeaderMenuItems minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
                 {
-                    data.length && data.map((item: MenuItemType, index: number) => <HeaderMenuItem data={item} key={index} />)
+                    items.map((item: MenuItemType, index: number) => <HeaderMenuItem data={item} key={index} />)
                 }
             </StyledHeaderMenuItems>
         </HeaderMenuWrapper>

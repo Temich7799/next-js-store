@@ -2,12 +2,13 @@ import React from "react"
 import Layout, { apolloClient } from "../../public/components/Layouts/Layout";
 import ProductPageContent from '../../public/components/Content/ProductPageContent';
 import { gql } from "@apollo/client";
+import { getMenuItems } from "../../public/services/getMenuItems"
 
-const ProductPage = ({ productPageData }) => {
+const ProductPage = (props: any) => {
 
     return (
-        <Layout>
-            <ProductPageContent data={productPageData} />
+        <Layout data={props.menuItemsData} language="ru">
+            <ProductPageContent data={props.productPageData} />
         </Layout>
     )
 }
@@ -15,6 +16,8 @@ const ProductPage = ({ productPageData }) => {
 export default ProductPage;
 
 export async function getServerSideProps(context: any) {
+
+    const language = 'ru';
 
     const { data } = await apolloClient.query({
         query: gql`
@@ -55,7 +58,7 @@ export async function getServerSideProps(context: any) {
             }
         `,
         variables: {
-            language: 'ru',
+            language: language,
             params: {
                 per_page: 1,
                 slug: context.params.productSlug
@@ -65,7 +68,8 @@ export async function getServerSideProps(context: any) {
 
     return {
         props: {
-            productPageData: data.allWcProducts[0]
+            productPageData: data.allWcProducts[0],
+            menuItemsData: await getMenuItems(language)
         }
     }
 }

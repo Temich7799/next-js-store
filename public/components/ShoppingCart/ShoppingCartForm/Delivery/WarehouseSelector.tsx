@@ -4,12 +4,12 @@ import { GET_NOVA_POSHTA_WAREHOUSES } from "../../../apollo/gql/getAllNovaPoshta
 import InputField from "../../../Form/InputField";
 import Select from "../../../Form/Select/Select";
 import SelectOption from "../../../Form/Select/SelectOption";
-import { LangContext } from "../../../Layouts/Layout";
+import { PageContext } from "../../../Layouts/Layout";
 import { DeliveryFormContext } from "./Delivery";
 
 const WarehouseSelector = () => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { WAREHOUSE_SELECTOR_ERROR_MESSAGE, WAREHOUSE_SELECTOR_PLACEHOLDER, WAREHOUSE_SELECTOR_TITLE } = require(`../../../../languages/${language}/languages`);
 
     const { selectedShippingLine, selectedCity, warehousesData } = useContext(DeliveryFormContext);

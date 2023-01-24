@@ -1,37 +1,38 @@
 import React from "react"
-import Layout from "../../public//components/Layouts/Layout";
+import Layout from "../../public/components/Layouts/Layout";
 import { gql } from "@apollo/client";
 import { apolloClient } from "../../public/components/Layouts/Layout";
-import HomePageContent from "../../public//components/Content/HomePageContent";
-import MetaData from "../../public//components/Layouts/MetaData";
-import { parsePageMetaData } from "../../public//services/parsePageMetaData";
+import HomePageContent from "../../public/components/Content/HomePageContent"
+import MetaData from "../../public/components/Layouts/MetaData";
+import { parsePageMetaData } from "../../public/services/parsePageMetaData";
+import { getMenuItems } from "../../public/services/getMenuItems"
 
-const IndexPage = ({ homePageDataEn }) => {
-
-  const { wpPage } = homePageDataEn;
+const IndexPage = (props: any) => {
 
   return (
-    <Layout language="en">
-      <HomePageContent data={wpPage} />
+    <Layout data={props.menuItemsData} language="en">
+      <HomePageContent data={props.content} />
     </Layout>
   )
 }
 
 export default IndexPage;
 
-export const Head = ({ homePageDataEn }) => {
+export const Head = ({ content }) => {
 
-  const { metaData, openGraphData } = parsePageMetaData(homePageDataEn.wpPage.yoast_head_json);
+  const { metaData, openGraphData } = parsePageMetaData(content.wpPage.yoast_head_json);
 
   return <MetaData data={metaData} openGraphData={openGraphData} />
 }
 
 export async function getStaticProps() {
 
+  const language = 'en';
+
   const { data } = await apolloClient.query({
     query: gql`
-      query getHomePageDataEn {
-        wpPage(pageId: 25, language: en) {
+      query homePageDataRu($language: LanguagesEnum) {
+        wpPage(pageId: 25, language: $language) {
           content {
             rendered
           }
@@ -47,11 +48,15 @@ export async function getStaticProps() {
         }    
       }
     `,
+    variables: {
+      language: language
+    }
   });
 
   return {
     props: {
-      homePageDataEn: data,
+      content: data.wpPage.content.rendered,
+      menuItemsData: await getMenuItems(language)
     },
   };
 }

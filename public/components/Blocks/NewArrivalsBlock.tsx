@@ -2,13 +2,13 @@ import Link from 'next/link'
 import React, { useContext } from "react"
 import { useFetchProducts } from "../../services/hooks/graphql/useFetchProducts"
 import useActualDate from "../../services/hooks/useActualDate"
-import { LangContext } from "../Layouts/Layout"
+import { PageContext } from "../Layouts/Layout"
 import BlockContent from "./BlockContent"
 import TileBlock from "./TileBlock"
 
 const NewArrivalsBlock = () => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { BLOCK_NEW_ARRIVALS_TITLE, BLOCK_NEW_ARRIVALS_DETAILS, MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../languages/${language}/languages`);
 
     const date = useActualDate();

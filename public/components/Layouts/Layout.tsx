@@ -5,21 +5,50 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BatchHttpLink } from "@apollo/client/link/batch-http";
 import styled from "styled-components";
 import { GlobalStyle } from "../../styles/GlobalStyle";
-
-type LayoutProps = {
-    children: JSX.Element | string
-    language?: string
-}
+import { LayoutProps } from "../../types/LayoutProps";
 
 const Main = styled.main<any>`
-
     @media (max-width: ${props => props.minDesktopWidth}px) {
         margin-top: 105px;
     }
-
     margin-top: 0;
     flex: 1 0 auto;
 `;
+
+const Layout = (props: LayoutProps) => {
+
+    const { data, children, language = 'ru' } = props;
+
+    const pageContext = {
+        language: language,
+        langPrefix: language === 'ru' ? '' : `${language}/`,
+        menuItems: data.menuItems
+    }
+
+    return (
+        <ApolloProvider client={apolloClient} >
+            <PageContext.Provider value={pageContext}>
+                <GlobalStyle />
+                <Header />
+                <Main minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
+                    {children}
+                </Main>
+                <Footer />
+            </PageContext.Provider>
+        </ApolloProvider>
+    )
+}
+
+export default Layout;
+
+export const PageContext = createContext({
+    language: 'ru',
+    langPrefix: '',
+    menuItems: {
+        headerMenuItems: [],
+        footerMenuItems: []
+    }
+});
 
 export const apolloClient = new ApolloClient({
     link: new BatchHttpLink({
@@ -44,35 +73,4 @@ export const apolloClient = new ApolloClient({
         }
     ),
 });
-
-export const LangContext = createContext({
-    language: 'ru',
-    langPrefix: ''
-});
-
-const Layout = (props: LayoutProps) => {
-
-    const { children, language = 'ru' } = props;
-
-    const langContext = {
-        language: language,
-        langPrefix: language === 'ru' ? '' : `${language}/`
-    }
-
-    return (
-        <ApolloProvider client={apolloClient} >
-            <LangContext.Provider value={langContext}>
-                <GlobalStyle />
-                <Header />
-                <Main minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
-                    {children}
-                </Main>
-                <Footer />
-            </LangContext.Provider>
-        </ApolloProvider>
-    )
-}
-
-export default Layout;
-
 

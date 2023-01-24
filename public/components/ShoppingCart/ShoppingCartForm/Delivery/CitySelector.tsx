@@ -4,12 +4,12 @@ import { GET_NOVA_POSHTA_CITIES } from "../../../apollo/gql/getAllNovaPoshtaCiti
 import InputField from "../../../Form/InputField";
 import Select from "../../../Form/Select/Select";
 import SelectOption from "../../../Form/Select/SelectOption";
-import { LangContext } from "../../../Layouts/Layout";
+import { PageContext } from "../../../Layouts/Layout";
 import { DeliveryFormContext } from "./Delivery";
 
 const CitySelector = () => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { CITY_SELECTOR_ERROR_MESSAGE, CITY_SELECTOR_TITLE, CITY_SELECTOR__PLACEHOLDER } = require(`../../../../languages/${language}/languages`);
 
     const { selectedShippingLine, selectedCity, warehousesData } = useContext(DeliveryFormContext);

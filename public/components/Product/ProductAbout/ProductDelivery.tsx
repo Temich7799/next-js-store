@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import Image from 'next/image';
 import styled from "styled-components"
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 import Link from 'next/link';
 
 const StyledProductDelivery = styled.div`
@@ -27,7 +27,7 @@ const DeliveryIcons = styled.div`
 
 const ProductDelivery = () => {
 
-    const { language, langPrefix } = useContext(LangContext);
+    const { language, langPrefix } = useContext(PageContext);
     const { DELIVERY_ABOUT_AFTERPAY_INFO, DELIVERY_ABOUT_DELIVERY_INFO } = require(`../../../languages/${language}/languages`);
 
     return (

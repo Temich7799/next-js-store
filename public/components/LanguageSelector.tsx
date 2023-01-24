@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useContext, useEffect } from "react"
 import styled, { keyframes } from "styled-components";
 import ImageSVG from "./ImageSVG";
-import { LangContext } from "./Layouts/Layout";
+import { PageContext } from "./Layouts/Layout";
 
 const SlideFromUpAnimation = keyframes`
     0% {top: -500px; opacity: 0}
@@ -74,7 +74,7 @@ const Language = styled.li<any>`
 const LanguageSelector = (props: any) => {
 
     const languages = ['RU', 'UA', 'EN'];
-    const { language, langPrefix } = useContext(LangContext);
+    const { language, langPrefix } = useContext(PageContext);
     const selectedLanguage = language.toLocaleUpperCase();
 
     function onClickHandler(language: string) {

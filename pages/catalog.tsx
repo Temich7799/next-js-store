@@ -5,33 +5,34 @@ import Layout from "../public/components/Layouts/Layout";
 import CatalogPageContent from "../public/components/Content/CatalogPageContent";
 import MetaData from "../public/components/Layouts/MetaData";
 import { parsePageMetaData } from "../public/services/parsePageMetaData";
+import { getMenuItems } from "../public/services/getMenuItems"
 
-const CatalogPage = ({ catalogPageDataRu }) => {
-
-  const data = catalogPageDataRu;
+const CatalogPage = (props: any) => {
 
   return (
-    <Layout>
-      <CatalogPageContent data={data.allWcProductsCategories} />
+    <Layout data={props.menuItemsData} language="ru">
+      <CatalogPageContent data={props.catalogPageData.allWcProductsCategories} />
     </Layout>
   )
 }
 
 export default CatalogPage;
 
-export const Head = ({ catalogPageDataRu }) => {
+export const Head = (props: any) => {
 
-  const { metaData, openGraphData } = parsePageMetaData(catalogPageDataRu);
+  const { metaData, openGraphData } = parsePageMetaData(props.catalogPageData.wpMetaData);
 
   return <MetaData data={metaData} openGraphData={openGraphData} />
 }
 
 export async function getStaticProps() {
 
+  const language = 'ru';
+
   const { data } = await apolloClient.query({
     query: gql`
-      query getCatalogPageDataRu {
-        allWcProductsCategories(params: {hide_empty: true}) {
+      query catalogPageDataRu($language: LanguagesEnum) {
+        allWcProductsCategories(params: {hide_empty: true}, language: $language) {
           image {
             alt
             src
@@ -41,7 +42,7 @@ export async function getStaticProps() {
           description
         }
       
-        wpMetaData(pageId: 271, endpoint: pages) {
+        wpMetaData(pageId: 271, endpoint: pages, language: $language) {
             title
             description
             og_title
@@ -52,11 +53,15 @@ export async function getStaticProps() {
           }
       }
     `,
+    variables: {
+      language: language
+    }
   });
 
   return {
     props: {
-      catalogPageDataRu: data,
+      catalogPageData: data,
+      menuItemsData: await getMenuItems(language)
     },
   };
 }

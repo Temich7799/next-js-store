@@ -3,7 +3,7 @@ import styled from "styled-components"
 import ContinueShoppingButton from "../../Buttons/ContinueShoppingButton";
 import SendOrderButton from "../../Buttons/SendOrderButton";
 import GoToCartButton from "../../Buttons/GoToCartButton";
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 import { ProductInCart } from "../../../interfaces/InterfaceProduct";
 
 type OrderFinalProps = {
@@ -31,7 +31,7 @@ const StyledOrderFinal = styled.div`
 
 const OrderFinal = (props: OrderFinalProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { ORDER_FINAL_TITLE, CURRENCY } = require(`../../../languages/${language}/languages`);
 
     const { data, isOrderSending } = props;

@@ -1,16 +1,17 @@
 import React, { useState } from "react"
 import styled from "styled-components";
-import Layout from "../../public//components/Layouts/Layout";
-import ShoppingCartContent from "../../public//components/Content/ShoppingCartContent";
-import SuccessOrderContent from "../../public//components/Content/SuccessOrderContent";
-import MetaData from "../../public//components/Layouts/MetaData";
+import Layout from "../../public/components/Layouts/Layout";
+import ShoppingCartContent from "../../public/components/Content/ShoppingCartContent";
+import SuccessOrderContent from "../../public/components/Content/SuccessOrderContent";
+import MetaData from "../../public/components/Layouts/MetaData";
+import { getMenuItems } from "../../public/services/getMenuItems"
 
 const StyledShoppingCartPage = styled.main`
     max-width: 1700px;
     padding: 2.5% 2.5%;
 `;
 
-const ShoppingCartPage = () => {
+const ShoppingCartPage = (props: any) => {
 
   const [orderDetailsData, setOrderDetailsData] = useState<object | any>();
   const [isOrderSending, setIsOrderSending] = useState<boolean>(false);
@@ -23,7 +24,7 @@ const ShoppingCartPage = () => {
   const data = { isOrderSending: isOrderSending }
 
   return (
-    <Layout language="en">
+    <Layout data={props.menuItemsData} language='en'>
       <StyledShoppingCartPage>
         {
           orderDetailsData
@@ -41,7 +42,7 @@ export const Head = () => {
 
   const language = 'en';
 
-  const { SHOPPING_CART_PAGE_META_TITLE } = require(`../../public/languages/${language}/languages`);
+  const { SHOPPING_CART_PAGE_META_TITLE } = require(`../public/languages/${language}/languages`);
 
   const metaData = {
     title: SHOPPING_CART_PAGE_META_TITLE,
@@ -49,4 +50,13 @@ export const Head = () => {
   };
 
   return <MetaData data={metaData} />
+}
+
+export async function getStaticProps() {
+
+  return {
+    props: {
+      menuItemsData: await getMenuItems('en')
+    },
+  };
 }

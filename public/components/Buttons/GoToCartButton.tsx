@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { useContext } from "react";
-import { LangContext } from "../Layouts/Layout";
+import { PageContext } from "../Layouts/Layout";
 import Button from "./Button";
 
 type GoToCartButtonProps = {
@@ -10,7 +10,7 @@ type GoToCartButtonProps = {
 
 const GoToCartButton = (props: GoToCartButtonProps) => {
 
-    const { language, langPrefix } = useContext(LangContext);
+    const { language, langPrefix } = useContext(PageContext);
     const { ORDER_FINAL_BUTTON_CONTINUE, ORDER_FINAL_BUTTON_DISABLED, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } = require(`../../languages/${language}/languages`);
 
     const { isButtonDisabled, isOutOfStock } = props;

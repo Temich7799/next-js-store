@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import React, { useContext } from "react"
 import { useFetchProducts } from "../../services/hooks/graphql/useFetchProducts";
-import { LangContext } from "../Layouts/Layout";
+import { PageContext } from "../Layouts/Layout";
 import BlockContent from "./BlockContent";
 import TileBlock from "./TileBlock"
 
 const SaleBlock = () => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { BLOCK_SALE_TITLE, BLOCK_SALE_DETAILS, MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../languages/${language}/languages`);
 
     const { data } = useFetchProducts(language, { on_sale: true });

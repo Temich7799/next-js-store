@@ -4,7 +4,7 @@ import Button from "../../Buttons/Button";
 import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShoppingCartVar";
 import { useLastProductPageVar } from "../../../services/hooks/apollo_vars/useLastProductPageVar";
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 import { PurchasesCount } from "../../../styles/PurchasesCount";
 import { ProductInCart } from "../../../interfaces/InterfaceProduct";
@@ -58,7 +58,7 @@ const ProductCaption = styled.div`
 
 const ProductThumb = (props: ProductProps) => {
 
-    const { language, langPrefix } = useContext(LangContext);
+    const { language, langPrefix } = useContext(PageContext);
     const { PRODUCT_SKU, NO_PRODUCT_IMAGE, PRODUCT_ADDED_TO_CART, PRODUCT_NOT_ENOUGH_IN_STOCK } = require(`../../../languages/${language}/languages`);
 
     const { data, gatsbyImagePath } = props;

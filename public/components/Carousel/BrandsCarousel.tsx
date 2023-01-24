@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { CarouselOptions } from "../../types/CarouselPropsType";
-import { LangContext } from "../Layouts/Layout";
+import { PageContext } from "../Layouts/Layout";
 import Carousel from "./Carousel";
 
 const BrandThumb = styled.div`
@@ -12,7 +12,7 @@ const BrandThumb = styled.div`
 
 const BrandsCarousel = (props: CarouselOptions) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { CAROUSEL_BRANDS_TITLE } = require(`../../languages/${language}/languages`);
 
     return (

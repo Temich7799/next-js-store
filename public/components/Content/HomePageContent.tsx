@@ -8,11 +8,7 @@ import LastSeenProductsCarousel from "../Carousel/LastSeenProductsCarousel";
 import TileBlockMenuWrapper from "../Wrappers/TileBlockMenuWrapper";
 
 type HomePageContentProps = {
-    data: {
-        content: {
-            rendered: string
-        }
-    }
+    data: string
 }
 
 const StyledHomePageContent = styled.div`
@@ -38,7 +34,7 @@ const HomePageContent = (props: HomePageContentProps) => {
             </TileBlockMenuWrapper>
             <LastSeenProductsCarousel maxItemsPerSlide={4} />
             <BrandsCarousel maxItemsPerSlide={3} />
-            <StyledHomePageContent dangerouslySetInnerHTML={{ __html: data.content.rendered }} />
+            <StyledHomePageContent dangerouslySetInnerHTML={{ __html: data }} />
         </>
     )
 

@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 import { ProductInCart } from "../../../interfaces/InterfaceProduct"
-import { LangContext } from "../../Layouts/Layout"
+import { PageContext } from "../../Layouts/Layout"
 import PurchasedProduct from "./PurchasedProduct"
 
 type PurchasedProductsProps = {
@@ -29,7 +29,7 @@ const PurchasedProductsWrapper = styled.div`
 
 const PurchasedProducts = (props: PurchasedProductsProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { ORDER_FINAL_BUTTON_DISABLED } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;

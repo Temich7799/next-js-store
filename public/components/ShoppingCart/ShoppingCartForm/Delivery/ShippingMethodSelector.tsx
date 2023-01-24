@@ -2,12 +2,12 @@ import { gql, useLazyQuery } from "@apollo/client";
 import React, { useContext, useEffect, useState } from "react"
 import Select from "../../../Form/Select/Select";
 import SelectOption from "../../../Form/Select/SelectOption";
-import { LangContext } from "../../../Layouts/Layout";
+import { PageContext } from "../../../Layouts/Layout";
 import { DeliveryFormContext } from "./Delivery";
 
 const ShippingMethodSelector = () => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { SHIPPING_LINE_SELECTOR_ERROR_MESSAGE, SHIPPING_LINE_SELECTOR_TITLE } = require(`../../../../languages/${language}/languages`);
 
     const { selectedShippingLine } = useContext(DeliveryFormContext);

@@ -4,7 +4,7 @@ import { useFetchProducts } from "../../services/hooks/graphql/useFetchProducts"
 import Carousel from "./Carousel";
 import ProductThumb from "../Product/Thumbs/ProductThumb";
 import { CarouselOptions } from "../../types/CarouselPropsType";
-import { LangContext } from "../Layouts/Layout";
+import { PageContext } from "../Layouts/Layout";
 
 type CarouselWithFetchedProductsProps = {
     title: string
@@ -26,7 +26,7 @@ type QueryParams = {
 
 const CarouselWithFetchedProducts = (props: CarouselWithFetchedProductsProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
 
     const { compImages, title, params, options } = props;
 

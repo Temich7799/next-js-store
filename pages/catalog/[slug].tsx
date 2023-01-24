@@ -2,12 +2,13 @@ import React from "react";
 import Layout from "../../public/components/Layouts/Layout";
 import ProductsListPageContent from "../../public/components/Content/ProductsListPageContent";
 import { getServerSidePropsForProductsListPageContent } from "../../public/services/getServerSidePropsForProductsListPageContent";
+import { getMenuItems } from "../../public/services/getMenuItems"
 
-const ProductsListPage = ({ categoryId, data }) => {
+const ProductsListPage = (props: any) => {
 
   return (
-    <Layout language="ru" >
-      <ProductsListPageContent data={data} categoryId={categoryId} />
+    <Layout data={props.menuItemsData} language="ru" >
+      <ProductsListPageContent data={props.productsListPageData.data} categoryId={props.productsListPageData.categoryId} />
     </Layout>
   )
 }
@@ -15,5 +16,13 @@ const ProductsListPage = ({ categoryId, data }) => {
 export default ProductsListPage;
 
 export async function getServerSideProps({ params }) {
-  return await getServerSidePropsForProductsListPageContent(params);
+
+  const language = 'ru';
+
+  return {
+    props: {
+      productsListPageData: await getServerSidePropsForProductsListPageContent(params),
+      menuItemsData: await getMenuItems(language)
+    }
+  }
 }

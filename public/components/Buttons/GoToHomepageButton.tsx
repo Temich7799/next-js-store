@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import React, { useContext } from "react";
-import { LangContext } from "../Layouts/Layout";
+import { PageContext } from "../Layouts/Layout";
 import Button from "./Button";
 
 const GoToHomepageButton = () => {
 
-    const { language, langPrefix } = useContext(LangContext);
+    const { language, langPrefix } = useContext(PageContext);
     const { ORDER_FINAL_BUTTON_HOME } = require(`../../languages/${language}/languages`);
 
     return (

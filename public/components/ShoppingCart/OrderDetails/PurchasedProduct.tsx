@@ -5,7 +5,7 @@ import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct"
 import ProductPrice from "../../Product/ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
 import { ProductInCart } from "../../../interfaces/InterfaceProduct"
-import { LangContext } from "../../Layouts/Layout"
+import { PageContext } from "../../Layouts/Layout"
 
 type PurchasedProductProps = {
     data: ProductInCart
@@ -43,7 +43,7 @@ const PurchasedProductName = styled.div`
 
 const PurchasedProduct = (props: PurchasedProductProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { NO_PRODUCT_IMAGE } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;

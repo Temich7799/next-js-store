@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 import { ProductPageContext } from "../../Content/ProductPageContent";
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 import InnerImageZoom from 'react-inner-image-zoom';
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css'
 
@@ -16,7 +16,7 @@ const StyledProductGallerySelectedImage = styled.div`
 
 const ProductGallerySelectedImage = (props: ProductGallerySelectedImageProps) => {
 
-    //const { language } = useContext(LangContext);
+    //const { language } = useContext(PageContext);
     //const { NO_PRODUCT_IMAGE } = require(`../../../languages/${language}/languages`);
 
     const { images } = useContext(ProductPageContext);

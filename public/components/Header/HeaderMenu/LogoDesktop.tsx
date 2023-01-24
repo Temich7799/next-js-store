@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 
 const StyledLogoDesktop = styled.div<any>`
 
@@ -15,7 +15,7 @@ const StyledLogoDesktop = styled.div<any>`
 
 const LogoDesktop = () => {
 
-  const { langPrefix } = useContext(LangContext);
+  const { langPrefix } = useContext(PageContext);
 
   return (
     <StyledLogoDesktop minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>

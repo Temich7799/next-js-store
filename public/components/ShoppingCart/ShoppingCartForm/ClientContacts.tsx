@@ -1,10 +1,10 @@
 import React, { useContext } from "react"
 import InputField from "../../Form/InputField";
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 
 const ClientContacts = () => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const {
         CLIENT_CONTACTS_LAST_NAME_TITLE,
         CLIENT_CONTACTS_NAME_ERROR_MESSAGE,

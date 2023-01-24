@@ -1,12 +1,12 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from "react";
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 import { SubMenuItem } from "./SubMenuItem";
 
 const CatalogSubMenuItems = () => {
 
-    const { language, langPrefix } = useContext(LangContext);
+    const { language, langPrefix } = useContext(PageContext);
 
     const [data, setData] = useState([]);
     const [getItems] = useLazyQuery(gql`query getAllCategoryItems { ru: allWcProductsCategories(params: { hide_empty: true }) { name slug } uk: allWcProductsCategories(language: uk, params: { hide_empty: true }) { name slug } en: allWcProductsCategories(language: en, params: { hide_empty: true }) { name slug } }`);

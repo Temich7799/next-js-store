@@ -4,7 +4,7 @@ import styled from "styled-components";
 import useMobile from "../../../services/hooks/useMobile";
 import toogle from "../../../services/toogle";
 import { MenuItemType } from "../../../types/MenuItemType";
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 import CatalogSubMenuItems from "./CatalogSubMenuItems";
 import SubMenuIcon from "./SubMenuIcon";
 import { SubMenuItem } from "./SubMenuItem";
@@ -64,7 +64,7 @@ const SubMenuItems = styled.ul<any>`
 
 const HeaderSubMenu = (props: HeaderSubMenuProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;

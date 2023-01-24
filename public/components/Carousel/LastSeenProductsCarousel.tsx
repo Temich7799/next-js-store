@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { LangContext } from "../Layouts/Layout";
+import { PageContext } from "../Layouts/Layout";
 import Carousel from "./Carousel";
 import { useLastSeenProductsVar } from "../../services/hooks/apollo_vars/useLastSeenProductsVar";
 import { ProductFetched } from "../../interfaces/InterfaceProduct";
@@ -8,7 +8,7 @@ import { CarouselOptions } from "../../types/CarouselPropsType";
 
 const LastSeenProductsCarousel = (props: CarouselOptions) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { CAROUSEL_LAST_SEEN_PRODUCTS_TITLE } = require(`../../languages/${language}/languages`);
 
     const { data } = useLastSeenProductsVar();

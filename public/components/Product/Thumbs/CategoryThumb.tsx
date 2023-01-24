@@ -4,7 +4,7 @@ import styled from "styled-components"
 import Button from "../../Buttons/Button";
 import getRandomColor from "../../../services/getRandomColor";
 import InteractiveImageWrapper from "../../Wrappers/InteractiveImageWrapper";
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 
 type CategoryThumbProps = {
     data: {
@@ -85,7 +85,7 @@ const Line = styled.div`
 
 const CategoryThumb = (props: CategoryThumbProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { CATEGORY_THUMB_BUTTON } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;

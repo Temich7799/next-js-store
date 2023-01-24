@@ -34,9 +34,7 @@ export async function getServerSidePropsForProductsListPageContent(params: any) 
     })
 
     return {
-        props: {
-            data: data,
-            categoryId: categoryId
-        },
+        data: data,
+        categoryId: categoryId
     };
 }

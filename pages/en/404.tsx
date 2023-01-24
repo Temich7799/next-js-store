@@ -1,11 +1,12 @@
 import React, { useContext } from "react"
-import Layout, { LangContext } from "../../public//components/Layouts/Layout"
-import NotFoundPageContent from "../../public//components/Content/NotFoundPageContent"
-import MetaData from "../../public//components/Layouts/MetaData"
+import Layout, { PageContext } from "../../public/components/Layouts/Layout"
+import NotFoundPageContent from "../../public/components/Content/NotFoundPageContent"
+import MetaData from "../../public/components/Layouts/MetaData"
+import { getMenuItems } from "../../public/services/getMenuItems"
 
-const NotFoundPage = () => {
+const NotFoundPage = (props: any) => {
   return (
-    <Layout language="en">
+    <Layout data={props.menuItemsData} language="en">
       <NotFoundPageContent />
     </Layout>
   )
@@ -15,8 +16,8 @@ export default NotFoundPage;
 
 export const Head = () => {
 
-  const { language } = useContext(LangContext);
-  const { PAGE_NOT_FOUND_TITLE, PAGE_NOT_FOUND_DESCRIPTION } = require(`../../public/languages/${language}/languages`);
+  const { language } = useContext(PageContext);
+  const { PAGE_NOT_FOUND_TITLE, PAGE_NOT_FOUND_DESCRIPTION } = require(`../public/languages/${language}/languages`);
 
   const metaData = {
     title: PAGE_NOT_FOUND_TITLE,
@@ -24,4 +25,13 @@ export const Head = () => {
   };
 
   return <MetaData data={metaData} />
+}
+
+export async function getStaticProps() {
+
+  return {
+    props: {
+      menuItemsData: await getMenuItems('en')
+    },
+  };
 }

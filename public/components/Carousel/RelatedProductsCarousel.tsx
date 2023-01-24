@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ProductGatsby } from "../../interfaces/InterfaceProduct";
 import { CarouselOptions } from "../../types/CarouselPropsType";
-import { LangContext } from "../Layouts/Layout";
+import { PageContext } from "../Layouts/Layout";
 import CarouselWithFetchedProducts from "./CarouselWithFetchedProducts";
 
 type RelatedProductsCarouselProps = {
@@ -12,7 +12,7 @@ type RelatedProductsCarouselProps = {
 
 const RelatedProductsCarousel = (props: RelatedProductsCarouselProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { CAROUSEL_RELATED_PRODUCTS_TITLE } = require(`../../languages/${language}/languages`);
 
     const { data, compImages, options } = props;

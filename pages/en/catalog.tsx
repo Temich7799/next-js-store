@@ -1,37 +1,38 @@
-import React from "react"
 import { gql } from "@apollo/client";
 import { apolloClient } from "../../public/components/Layouts/Layout";
-import Layout from "../../public//components/Layouts/Layout";
-import CatalogPageContent from "../../public//components/Content/CatalogPageContent";
-import MetaData from "../../public//components/Layouts/MetaData";
-import { parsePageMetaData } from "../../public//services/parsePageMetaData";
+import React from "react"
+import Layout from "../../public/components/Layouts/Layout";
+import CatalogPageContent from "../../public/components/Content/CatalogPageContent";
+import MetaData from "../../public/components/Layouts/MetaData";
+import { parsePageMetaData } from "../../public/services/parsePageMetaData";
+import { getMenuItems } from "../../public/services/getMenuItems"
 
-const CatalogPage = ({ catalogPageDataEn }) => {
-
-  const data = catalogPageDataEn;
+const CatalogPage = (props: any) => {
 
   return (
-    <Layout language="en">
-      <CatalogPageContent data={data.allWcProductsCategories} />
+    <Layout data={props.menuItemsData} language="en">
+      <CatalogPageContent data={props.catalogPageData.allWcProductsCategories} />
     </Layout>
   )
 }
 
 export default CatalogPage;
 
-export const Head = ({ catalogPageDataEn }) => {
+export const Head = (props: any) => {
 
-  const { metaData, openGraphData } = parsePageMetaData(catalogPageDataEn.wpMetaData);
+  const { metaData, openGraphData } = parsePageMetaData(props.catalogPageData.wpMetaData);
 
   return <MetaData data={metaData} openGraphData={openGraphData} />
 }
 
 export async function getStaticProps() {
 
+  const language = 'en';
+
   const { data } = await apolloClient.query({
     query: gql`
-      query getCatalogPageDataEn {
-        allWcProductsCategories(params: {hide_empty: true}, language: en) {
+      query catalogPageDataRu($language: LanguagesEnum) {
+        allWcProductsCategories(params: {hide_empty: true}, language: $language) {
           image {
             alt
             src
@@ -41,7 +42,7 @@ export async function getStaticProps() {
           description
         }
       
-        wpMetaData(pageId: 271, endpoint: pages, language: en) {
+        wpMetaData(pageId: 271, endpoint: pages, language: $language) {
             title
             description
             og_title
@@ -52,11 +53,15 @@ export async function getStaticProps() {
           }
       }
     `,
+    variables: {
+      language: language
+    }
   });
 
   return {
     props: {
-      catalogPageDataEn: data,
+      catalogPageData: data,
+      menuItemsData: await getMenuItems(language)
     },
   };
 }

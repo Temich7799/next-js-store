@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import styled from "styled-components";
 import CategoryThumb from "../Product/Thumbs/CategoryThumb";
 import PageTitle from "../../components/PageTitle";
-import { LangContext } from "../Layouts/Layout";
+import { PageContext } from "../Layouts/Layout";
 
 type CatalogPageContentProps = {
     data: [CatalogItem]
@@ -31,7 +31,7 @@ const Content = styled.div`
 
 const CatalogPageContent = (props: CatalogPageContentProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { CATALOG_PAGE_TITLE } = require(`../../languages/${language}/languages`);
 
     const { data } = props;

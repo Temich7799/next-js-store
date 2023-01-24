@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import styled from "styled-components"
 import ImageSVG from "../../ImageSVG";
 import { useProductAttributes } from "../../../services/hooks/useProductAttributes";
-import { LangContext } from "../../Layouts/Layout";
+import { PageContext } from "../../Layouts/Layout";
 
 type ProductNameProps = {
     name: string
@@ -40,7 +40,7 @@ const StyledHeightAttribute = styled.div`
 
 const ProductName = (props: ProductNameProps) => {
 
-    const { language } = useContext(LangContext);
+    const { language } = useContext(PageContext);
     const { PRODUCT_SKU, PRODUCT_SKU_EMPTY } = require(`../../../languages/${language}/languages`);
 
     const { name, sku, attributes } = props;
