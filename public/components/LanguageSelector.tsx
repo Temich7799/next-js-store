@@ -94,7 +94,7 @@ const LanguageSelector = (props: any) => {
 
     return (
         <StyledLanguageSelector minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
-            <Image src="/images/language.svg" alt="decrease-quantity-icon" width={25} height={25} layout="fixed" />
+            <Image src="/images/language.svg" alt="decrease-quantity-icon" width={25} height={25}/>
             <LanguagesList minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
                 {
                     languages.map((language: string, index: number) =>

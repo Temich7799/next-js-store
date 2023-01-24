@@ -37,8 +37,8 @@ const ProductDelivery = () => {
                 <Link href={`/${langPrefix}shipping-and-payment`}>{DELIVERY_ABOUT_AFTERPAY_INFO}</Link>
             </DeliveryAbout>
             <DeliveryIcons>
-                <Image src="/images/delivery/nova_poshta.svg" alt="nova-poshta-icon" width={30} height={30} layout="fixed" />
-                <Image src="/images/delivery/ukrposhta.svg" alt="ukrposhta-icon" width={30} height={30} layout="fixed" />
+                <Image src="/images/delivery/nova_poshta.svg" alt="nova-poshta-icon" width={30} height={30}/>
+                <Image src="/images/delivery/ukrposhta.svg" alt="ukrposhta-icon" width={30} height={30}/>
             </DeliveryIcons>
         </StyledProductDelivery>
     )

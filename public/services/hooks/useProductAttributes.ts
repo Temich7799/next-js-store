@@ -22,7 +22,7 @@ export function useProductAttributes() {
     }
 
     function makePath(attributeName: string): string {
-        return `/svg/product/attributes${getName(attributeName)}.svg`
+        return `/images/product/attributes${getName(attributeName)}.svg`
     }
 
     function getHeightAttribute(productAttributes: ProductAttributes): ProductAttribute | void {

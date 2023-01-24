@@ -46,7 +46,7 @@ const PopUpWindow = (props: PopUpWindowProps) => {
         <PopUpWindowContext.Provider value={{ setVisible: setVisible }}>
             <StyledPopUpWindow isVisible={visible} >
                 <CloseButton buttonStyle="transparent" buttonSize="shrink" onClick={buttonOnClickHandler}>
-                    <ImageSVG path="/svg/close.svg" height="15px" width="15px" />
+                    <ImageSVG path="/images/close.svg" height="15px" width="15px" />
                 </CloseButton >
                 {children}
             </StyledPopUpWindow >

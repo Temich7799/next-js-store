@@ -22,7 +22,7 @@ const MobileMenuButton = (props: MobileMenuButtonProps) => {
     return (
         <HideOnDesktopWrapper>
             <Button buttonStyle="transparent" buttonSize="shrink" onClick={buttonOnClickHandler}>
-                <ImageSVG path={isMobileMenuOpened ? "/svg/close.svg" : "/svg/open_mobile_menu.svg"} height="30px" width="30px" />
+                <ImageSVG path={isMobileMenuOpened ? "/images/close.svg" : "/images/open_mobile_menu.svg"} height="30px" width="30px" />
             </Button>
         </HideOnDesktopWrapper>
     )

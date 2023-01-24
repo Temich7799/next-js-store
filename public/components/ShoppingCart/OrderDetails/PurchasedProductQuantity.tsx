@@ -38,7 +38,7 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
                     }}
                     disabled={shoppingCartData[data.id] && shoppingCartData[data.id].quantity === data.stock_quantity}
                 >
-                    <ImageSVG path='/svg/cart/increase.svg' height="25px" width="25px" />
+                    <ImageSVG path='/images/cart/increase.svg' height="25px" width="25px" />
                 </Button>
                 <Button buttonSize="shrink" buttonStyle="transparent"
                     onClick={(e: any) => {
@@ -47,7 +47,7 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
                     }}
                     disabled={shoppingCartData[data.id] && shoppingCartData[data.id].quantity === 1}
                 >
-                    <ImageSVG path='/svg/cart/decrease.svg' height="25px" width="25px" />
+                    <ImageSVG path='/images/cart/decrease.svg' height="25px" width="25px" />
                 </Button>
             </div>
             <Button buttonSize="shrink" buttonStyle="transparent"
@@ -56,7 +56,7 @@ const PurchasedProductQuantity = (props: PurchasedProductQuantityProps) => {
                     clear(data.id);
                 }}
             >
-                <ImageSVG path="/svg/cart/clear_cart.svg" width="25px" height="25px" />
+                <ImageSVG path="/images/cart/clear_cart.svg" width="25px" height="25px" />
             </Button>
         </StyledPurchasedProductQuantity >
     )
