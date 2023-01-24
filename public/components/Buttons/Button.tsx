@@ -61,6 +61,7 @@ const StyledButton = styled.button<any>`
     justify-content: space-around;
     align-items: center;
     border-radius: 5px;
+    border: none;
     cursor: pointer;
     @media (hover: hover) and (pointer: fine) {
         :hover {
