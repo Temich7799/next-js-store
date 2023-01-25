@@ -14,7 +14,7 @@ const SalePage = (props: any) => {
 
 export default SalePage;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
     return {
         props: {

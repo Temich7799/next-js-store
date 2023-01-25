@@ -25,7 +25,7 @@ export const Head = (props: any) => {
   return <MetaData data={metaData} openGraphData={openGraphData} />
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
   const language = 'uk';
 

@@ -14,7 +14,7 @@ const NewArrivalsPage = (props: any) => {
 
 export default NewArrivalsPage;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
     return {
         props: {
