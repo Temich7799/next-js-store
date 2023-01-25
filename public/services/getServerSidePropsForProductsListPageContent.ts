@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { FETCH_WC_PRODUCTS } from "../components/apollo/gql/getAllWcProducts";
+import { FETCH_WC_PRODUCTS } from "../apollo/gql/getAllWcProducts";
 import { apolloClient } from "../templates/BaseTemplate";
 
 export async function getServerSidePropsForProductsListPageTemplate(params: any) {

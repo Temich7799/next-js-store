@@ -1,6 +1,6 @@
 import { ApolloError, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { FETCH_WC_PRODUCTS } from "../../../components/apollo/gql/getAllWcProducts";
+import { FETCH_WC_PRODUCTS } from "../../../apollo/gql/getAllWcProducts";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 
 type ProductQueryResult = {

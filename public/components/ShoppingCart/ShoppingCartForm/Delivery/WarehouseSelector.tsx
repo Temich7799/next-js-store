@@ -1,6 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
 import React, { useContext } from "react"
-import { GET_NOVA_POSHTA_WAREHOUSES } from "../../../apollo/gql/getAllNovaPoshtaWarehouses";
+import { GET_NOVA_POSHTA_WAREHOUSES } from "../../../../apollo/gql/getAllNovaPoshtaWarehouses";
 import InputField from "../../../Form/InputField";
 import Select from "../../../Form/Select/Select";
 import SelectOption from "../../../Form/Select/SelectOption";
