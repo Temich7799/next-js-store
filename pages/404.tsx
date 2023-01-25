@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import BaseTemplate, { PageContext } from "../public/templates/BaseTemplate"
 import NotFoundPageTemplate from "../public/templates/NotFoundPageTemplate"
-import MetaData from "../public/components/Layouts/MetaData"
+import MetaData from "../public/components/MetaData"
 import { getMenuItems } from "../public/services/getMenuItems"
 
 const NotFoundPage = (props: any) => {

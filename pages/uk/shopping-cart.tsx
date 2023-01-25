@@ -3,7 +3,7 @@ import styled from "styled-components";
 import BaseTemplate from "../../public/templates/BaseTemplate";
 import ShoppingCartTemplate from "../../public/templates/ShoppingCartTemplate";
 import SuccessOrderTemplate from "../../public/templates/SuccessOrderTemplate";
-import MetaData from "../../public/components/Layouts/MetaData";
+import MetaData from "../../public/components/MetaData";
 import { getMenuItems } from "../../public/services/getMenuItems"
 
 const StyledShoppingCartPage = styled.main`

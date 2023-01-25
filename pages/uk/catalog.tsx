@@ -3,7 +3,7 @@ import { apolloClient } from "../../public/templates/BaseTemplate";
 import React from "react"
 import BaseTemplate from "../../public/templates/BaseTemplate";
 import CatalogPageTemplate from "../../public/templates/CatalogPageTemplate";
-import MetaData from "../../public/components/Layouts/MetaData";
+import MetaData from "../../public/components/MetaData";
 import { parsePageMetaData } from "../../public/services/parsePageMetaData";
 import { getMenuItems } from "../../public/services/getMenuItems"
 

@@ -3,7 +3,7 @@ import BaseTemplate from "../public/templates/BaseTemplate";
 import { gql } from "@apollo/client";
 import { apolloClient } from "../public/templates/BaseTemplate";
 import HomePageTemplate from "../public/templates/HomePageTemplate"
-import MetaData from "../public/components/Layouts/MetaData";
+import MetaData from "../public/components/MetaData";
 import { parsePageMetaData } from "../public/services/parsePageMetaData";
 import { getMenuItems } from "../public/services/getMenuItems"
 
