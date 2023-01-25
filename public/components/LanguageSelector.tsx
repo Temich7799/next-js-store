@@ -74,7 +74,7 @@ const Language = styled.li<any>`
 const LanguageSelector = () => {
 
     const router = useRouter();
-    console.log(router);
+
     const languages = ['RU', 'UA', 'EN'];
     const { language, langPrefix } = useContext(PageContext);
     const selectedLanguage = language.toLocaleUpperCase();
