@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import ContinueShoppingButton from "../components/Buttons/ContinueShoppingButton";
-import InfoLayout from "../components/Layouts/InfoLayout";
+import InfoLayout from "../components/InfoLayout";
 import { PageContext } from "./BaseTemplate";
 
 const NotFoundPageTemplate = () => {

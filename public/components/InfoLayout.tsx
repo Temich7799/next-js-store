@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import ContainerCenteredWrapper from "../Wrappers/ContainerCenteredWrapper";
-import ImageSVG from "../ImageSVG";
+import ContainerCenteredWrapper from "./Wrappers/ContainerCenteredWrapper";
+import ImageSVG from "./ImageSVG";
 
 type InfoLayoutProps = {
     title: string

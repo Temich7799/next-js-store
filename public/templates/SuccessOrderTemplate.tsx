@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import ContainerCenteredWrapper from "../components/Wrappers/ContainerCenteredWrapper";
 import ContinueShoppingButton from "../components/Buttons/ContinueShoppingButton";
 import GoToHomepageButton from "../components/Buttons/GoToHomepageButton";
-import InfoLayout from "../components/Layouts/InfoLayout";
+import InfoLayout from "../components/InfoLayout";
 import { PageContext } from "./BaseTemplate";
 
 type SuccessOrderTemplateProps = {

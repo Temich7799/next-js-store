@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useFetchProductsOnScroll } from "../services/hooks/graphql/useFetchProductsOnScroll";
 import ContainerCenteredWrapper from "../components/Wrappers/ContainerCenteredWrapper";
 import { ProductFetched } from "../interfaces/InterfaceProduct";
-import InfoLayout from "../components/Layouts/InfoLayout";
+import InfoLayout from "../components/InfoLayout";
 import { PageContext } from "./BaseTemplate";
 import LoadingBar from "../components/LoadingBars/LoadingBar";
 import ProductThumb from "../components/Product/Thumbs/ProductThumb";
