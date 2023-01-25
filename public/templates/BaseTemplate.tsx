@@ -5,7 +5,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BatchHttpLink } from "@apollo/client/link/batch-http";
 import styled from "styled-components";
 import { GlobalStyle } from "../styles/GlobalStyle";
-import { BaseTemplateProps } from "../types/BaseTemplateProps";
+import { BaseTemplateProps } from "../types/BaseTemplatePropsType";
 
 const Main = styled.main<any>`
     @media (max-width: ${props => props.minDesktopWidth}px) {
