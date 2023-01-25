@@ -1,14 +1,14 @@
 import React from "react"
-import SalePageContent from "../../public/components/Content/SalePageContent";
-import Layout from "../../public/components/Layouts/Layout";
+import SalePageTemplate from "../../public/templates/SalePageTemplate";
+import BaseTemplate from "../../public/templates/BaseTemplate";
 import { getMenuItems } from "../../public/services/getMenuItems"
 
 const SalePage = (props: any) => {
 
     return (
-        <Layout data={props.menuItemsData} language="en">
-            <SalePageContent />
-        </Layout>
+        <BaseTemplate data={props.menuItemsData} language="en">
+            <SalePageTemplate />
+        </BaseTemplate>
     )
 }
 

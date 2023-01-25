@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import styled from "styled-components"
 import ImageSVG from "../../ImageSVG";
 import { useProductAttributes } from "../../../services/hooks/useProductAttributes";
-import { PageContext } from "../../Layouts/Layout";
+import { PageContext } from "../../../templates/BaseTemplate";
 
 type ProductNameProps = {
     name: string

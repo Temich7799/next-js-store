@@ -2,7 +2,7 @@ import { gql, useLazyQuery } from "@apollo/client";
 import React, { useContext, useEffect, useState } from "react"
 import Select from "../../../Form/Select/Select";
 import SelectOption from "../../../Form/Select/SelectOption";
-import { PageContext } from "../../../Layouts/Layout";
+import { PageContext } from "../../../../templates/BaseTemplate";
 import { DeliveryFormContext } from "./Delivery";
 
 const ShippingMethodSelector = () => {

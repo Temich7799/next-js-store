@@ -5,7 +5,7 @@ import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct"
 import ProductPrice from "../../Product/ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
 import { ProductInCart } from "../../../interfaces/InterfaceProduct"
-import { PageContext } from "../../Layouts/Layout"
+import { PageContext } from "../../../templates/BaseTemplate"
 
 type PurchasedProductProps = {
     data: ProductInCart

@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 import { FETCH_WC_PRODUCTS } from "../components/apollo/gql/getAllWcProducts";
-import { apolloClient } from "../components/Layouts/Layout";
+import { apolloClient } from "../templates/BaseTemplate";
 
-export async function getServerSidePropsForProductsListPageContent(params: any) {
+export async function getServerSidePropsForProductsListPageTemplate(params: any) {
     const { data: categoryData } = await apolloClient.query({
         query: gql`
           query getCategoryIdBySlug($params: WC_ProductCategoryParams) {

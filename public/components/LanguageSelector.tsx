@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useContext, useEffect } from "react"
 import styled, { keyframes } from "styled-components";
 import ImageSVG from "./ImageSVG";
-import { PageContext } from "./Layouts/Layout";
+import { PageContext } from "../templates/BaseTemplate";
 
 const SlideFromUpAnimation = keyframes`
     0% {top: -500px; opacity: 0}

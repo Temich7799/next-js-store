@@ -1,8 +1,8 @@
 import React from "react"
-import Layout from "../public/components/Layouts/Layout";
+import BaseTemplate from "../public/templates/BaseTemplate";
 import { gql } from "@apollo/client";
-import { apolloClient } from "../public/components/Layouts/Layout";
-import HomePageContent from "../public/components/Content/HomePageContent"
+import { apolloClient } from "../public/templates/BaseTemplate";
+import HomePageTemplate from "../public/templates/HomePageTemplate"
 import MetaData from "../public/components/Layouts/MetaData";
 import { parsePageMetaData } from "../public/services/parsePageMetaData";
 import { getMenuItems } from "../public/services/getMenuItems"
@@ -10,9 +10,9 @@ import { getMenuItems } from "../public/services/getMenuItems"
 const IndexPage = (props: any) => {
 
   return (
-    <Layout data={props.menuItemsData} language="ru">
-      <HomePageContent data={props.content} />
-    </Layout>
+    <BaseTemplate data={props.menuItemsData} language="ru">
+      <HomePageTemplate data={props.content} />
+    </BaseTemplate>
   )
 }
 

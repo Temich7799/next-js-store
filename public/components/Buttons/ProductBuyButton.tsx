@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ImageSVG from "../ImageSVG";
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 import Button from "./Button";
 
 type ProductBuyButtonProps = {

@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import styled from "styled-components";
-import Layout from "../public/components/Layouts/Layout";
-import ShoppingCartContent from "../public/components/Content/ShoppingCartContent";
-import SuccessOrderContent from "../public/components/Content/SuccessOrderContent";
+import BaseTemplate from "../public/templates/BaseTemplate";
+import ShoppingCartTemplate from "../public/templates/ShoppingCartTemplate";
+import SuccessOrderTemplate from "../public/templates/SuccessOrderTemplate";
 import MetaData from "../public/components/Layouts/MetaData";
 import { getMenuItems } from "../public/services/getMenuItems"
 
@@ -24,15 +24,15 @@ const ShoppingCartPage = (props: any) => {
   const data = { isOrderSending: isOrderSending }
 
   return (
-    <Layout data={props.menuItemsData} language='ru'>
+    <BaseTemplate data={props.menuItemsData} language='ru'>
       <StyledShoppingCartPage>
         {
           orderDetailsData
-            ? <SuccessOrderContent orderId={orderDetailsData.id} />
-            : <ShoppingCartContent setters={setters} data={data} />
+            ? <SuccessOrderTemplate orderId={orderDetailsData.id} />
+            : <ShoppingCartTemplate setters={setters} data={data} />
         }
       </StyledShoppingCartPage>
-    </Layout >
+    </BaseTemplate >
   )
 }
 

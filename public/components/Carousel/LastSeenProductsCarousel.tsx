@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 import Carousel from "./Carousel";
 import { useLastSeenProductsVar } from "../../services/hooks/apollo_vars/useLastSeenProductsVar";
 import { ProductFetched } from "../../interfaces/InterfaceProduct";

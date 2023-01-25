@@ -1,7 +1,7 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from "react";
-import { PageContext } from "../../Layouts/Layout";
+import { PageContext } from "../../../templates/BaseTemplate";
 import { SubMenuItem } from "./SubMenuItem";
 
 const CatalogSubMenuItems = () => {

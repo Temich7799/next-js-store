@@ -1,14 +1,14 @@
 import React, { useContext } from "react"
-import Layout, { PageContext } from "../public/components/Layouts/Layout"
-import NotFoundPageContent from "../public/components/Content/NotFoundPageContent"
+import BaseTemplate, { PageContext } from "../public/templates/BaseTemplate"
+import NotFoundPageTemplate from "../public/templates/NotFoundPageTemplate"
 import MetaData from "../public/components/Layouts/MetaData"
 import { getMenuItems } from "../public/services/getMenuItems"
 
 const NotFoundPage = (props: any) => {
   return (
-    <Layout data={props.menuItemsData} language="ru">
-      <NotFoundPageContent />
-    </Layout>
+    <BaseTemplate data={props.menuItemsData} language="ru">
+      <NotFoundPageTemplate />
+    </BaseTemplate>
   )
 }
 

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 import LoadingSpinner from "../LoadingBars/LoadingSpinner";
 import Button from "./Button";
 

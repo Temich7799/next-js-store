@@ -4,7 +4,7 @@ import Button from "../../Buttons/Button";
 import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShoppingCartVar";
 import { useLastProductPageVar } from "../../../services/hooks/apollo_vars/useLastProductPageVar";
-import { PageContext } from "../../Layouts/Layout";
+import { PageContext } from "../../../templates/BaseTemplate";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 import { PurchasesCount } from "../../../styles/PurchasesCount";
 import { ProductInCart } from "../../../interfaces/InterfaceProduct";

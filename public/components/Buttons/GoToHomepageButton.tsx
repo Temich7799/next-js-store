@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { useContext } from "react";
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 import Button from "./Button";
 
 const GoToHomepageButton = () => {

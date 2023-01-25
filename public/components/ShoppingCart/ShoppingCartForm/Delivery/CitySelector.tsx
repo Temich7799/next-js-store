@@ -4,7 +4,7 @@ import { GET_NOVA_POSHTA_CITIES } from "../../../apollo/gql/getAllNovaPoshtaCiti
 import InputField from "../../../Form/InputField";
 import Select from "../../../Form/Select/Select";
 import SelectOption from "../../../Form/Select/SelectOption";
-import { PageContext } from "../../../Layouts/Layout";
+import { PageContext } from "../../../../templates/BaseTemplate";
 import { DeliveryFormContext } from "./Delivery";
 
 const CitySelector = () => {

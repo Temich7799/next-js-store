@@ -3,7 +3,7 @@ import styled from "styled-components"
 import ContinueShoppingButton from "../../Buttons/ContinueShoppingButton";
 import SendOrderButton from "../../Buttons/SendOrderButton";
 import GoToCartButton from "../../Buttons/GoToCartButton";
-import { PageContext } from "../../Layouts/Layout";
+import { PageContext } from "../../../templates/BaseTemplate";
 import { ProductInCart } from "../../../interfaces/InterfaceProduct";
 
 type OrderFinalProps = {

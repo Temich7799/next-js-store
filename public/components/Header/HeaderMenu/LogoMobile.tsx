@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import React, { useContext } from "react";
 import HideOnDesktopWrapper from "../../Wrappers/HideOnDesktopWrapper";
-import { PageContext } from "../../Layouts/Layout";
+import { PageContext } from "../../../templates/BaseTemplate";
 
 const LogoMobile = () => {
 

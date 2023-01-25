@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import Image from 'next/image';
 import styled from "styled-components"
-import { PageContext } from "../../Layouts/Layout";
+import { PageContext } from "../../../templates/BaseTemplate";
 import Link from 'next/link';
 
 const StyledProductDelivery = styled.div`

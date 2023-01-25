@@ -1,10 +1,10 @@
 import React, { useContext } from "react"
 import styled from "styled-components";
-import CategoryThumb from "../Product/Thumbs/CategoryThumb";
-import PageTitle from "../../components/PageTitle";
-import { PageContext } from "../Layouts/Layout";
+import CategoryThumb from "../components/Product/Thumbs/CategoryThumb";
+import PageTitle from "../components/PageTitle";
+import { PageContext } from "./BaseTemplate";
 
-type CatalogPageContentProps = {
+type CatalogPageTemplateProps = {
     data: [CatalogItem]
 }
 
@@ -29,10 +29,10 @@ const Content = styled.div`
   row-gap: 50px;
 `
 
-const CatalogPageContent = (props: CatalogPageContentProps) => {
+const CatalogPageTemplate = (props: CatalogPageTemplateProps) => {
 
     const { language } = useContext(PageContext);
-    const { CATALOG_PAGE_TITLE } = require(`../../languages/${language}/languages`);
+    const { CATALOG_PAGE_TITLE } = require(`../languages/${language}/languages`);
 
     const { data } = props;
 
@@ -49,4 +49,4 @@ const CatalogPageContent = (props: CatalogPageContentProps) => {
     )
 }
 
-export default CatalogPageContent;
+export default CatalogPageTemplate;

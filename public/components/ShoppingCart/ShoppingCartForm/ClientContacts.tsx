@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import InputField from "../../Form/InputField";
-import { PageContext } from "../../Layouts/Layout";
+import { PageContext } from "../../../templates/BaseTemplate";
 
 const ClientContacts = () => {
 

@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client"
-import { apolloClient } from "../components/Layouts/Layout"
+import { apolloClient } from "../templates/BaseTemplate"
 
 export async function getMenuItems(language: string = 'ru') {
 

@@ -1,8 +1,8 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 import CopyProtectedWrapper from "../Wrappers/CopyProtectedWrapper";
-import { ProductPageContext } from "../Content/ProductPageContent";
-import { PageContext } from "../Layouts/Layout";
+import { ProductPageContext } from "../../templates/ProductPageTemplate";
+import { PageContext } from "../../templates/BaseTemplate";
 
 const StyledProductDescription = styled.div<any>`
 

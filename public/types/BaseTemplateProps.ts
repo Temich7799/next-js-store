@@ -1,6 +1,6 @@
 import { MenuItemType } from "./MenuItemType"
 
-export type LayoutProps = {
+export type BaseTemplateProps = {
     data: {
         menuItems: {
             headerMenuItems: [MenuItemType]

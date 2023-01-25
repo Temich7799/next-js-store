@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components";
-import OrderDetails from "../ShoppingCart/OrderDetails/OrderDetails";
-import ShoppingCartForm from "../ShoppingCart/ShoppingCartForm/ShoppingCartForm";
+import OrderDetails from "../components/ShoppingCart/OrderDetails/OrderDetails";
+import ShoppingCartForm from "../components/ShoppingCart/ShoppingCartForm/ShoppingCartForm";
 
-type ShoppingCartContentProps = {
+type ShoppingCartTemplateProps = {
   setters: {
     setOrderDetailsData: React.Dispatch<React.SetStateAction<object>>
     setIsOrderSending: React.Dispatch<React.SetStateAction<boolean>>
@@ -13,7 +13,7 @@ type ShoppingCartContentProps = {
   }
 }
 
-const StyledShoppingCartContent = styled.div<any>`
+const StyledShoppingCartTemplate = styled.div<any>`
   display: flex;
   align-items: stretch;
   flex-wrap: wrap;
@@ -21,7 +21,7 @@ const StyledShoppingCartContent = styled.div<any>`
   justify-content: space-around;
 `;
 
-const ShoppingCartContent = (props: ShoppingCartContentProps) => {
+const ShoppingCartTemplate = (props: ShoppingCartTemplateProps) => {
 
   const { setOrderDetailsData, setIsOrderSending } = props.setters;
   const { isOrderSending } = props.data;
@@ -29,11 +29,11 @@ const ShoppingCartContent = (props: ShoppingCartContentProps) => {
   const setters = { setOrderDetailsData: setOrderDetailsData, setIsOrderSending: setIsOrderSending };
 
   return (
-    <StyledShoppingCartContent>
+    <StyledShoppingCartTemplate>
       <ShoppingCartForm setters={setters} />
       <OrderDetails isOrderSending={isOrderSending} />
-    </StyledShoppingCartContent>
+    </StyledShoppingCartTemplate>
   )
 }
 
-export default ShoppingCartContent;
+export default ShoppingCartTemplate;

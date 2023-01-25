@@ -4,7 +4,7 @@ import styled from "styled-components"
 import Button from "../../Buttons/Button";
 import getRandomColor from "../../../services/getRandomColor";
 import InteractiveImageWrapper from "../../Wrappers/InteractiveImageWrapper";
-import { PageContext } from "../../Layouts/Layout";
+import { PageContext } from "../../../templates/BaseTemplate";
 
 type CategoryThumbProps = {
     data: {

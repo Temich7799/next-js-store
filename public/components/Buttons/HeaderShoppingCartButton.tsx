@@ -10,7 +10,7 @@ import { PurchasesCount } from "../../styles/PurchasesCount";
 import Image from 'next/image';
 import PopUpToaster from "../PopUp/PopUpToaster";
 import toast from 'react-hot-toast';
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 
 const StyledHeaderShoppingCartButton = styled.div`
     position: relative;

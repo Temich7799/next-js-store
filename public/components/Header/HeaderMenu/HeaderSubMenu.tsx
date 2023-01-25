@@ -4,7 +4,7 @@ import styled from "styled-components";
 import useMobile from "../../../services/hooks/useMobile";
 import toogle from "../../../services/toogle";
 import { MenuItemType } from "../../../types/MenuItemType";
-import { PageContext } from "../../Layouts/Layout";
+import { PageContext } from "../../../templates/BaseTemplate";
 import CatalogSubMenuItems from "./CatalogSubMenuItems";
 import SubMenuIcon from "./SubMenuIcon";
 import { SubMenuItem } from "./SubMenuItem";

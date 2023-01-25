@@ -1,11 +1,11 @@
 import React, { createContext } from "react";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BatchHttpLink } from "@apollo/client/link/batch-http";
 import styled from "styled-components";
-import { GlobalStyle } from "../../styles/GlobalStyle";
-import { LayoutProps } from "../../types/LayoutProps";
+import { GlobalStyle } from "../styles/GlobalStyle";
+import { BaseTemplateProps } from "../types/BaseTemplateProps";
 
 const Main = styled.main<any>`
     @media (max-width: ${props => props.minDesktopWidth}px) {
@@ -15,7 +15,7 @@ const Main = styled.main<any>`
     flex: 1 0 auto;
 `;
 
-const Layout = (props: LayoutProps) => {
+const BaseTemplate = (props: BaseTemplateProps) => {
 
     const { data, children, language = 'ru' } = props;
 
@@ -39,7 +39,7 @@ const Layout = (props: LayoutProps) => {
     )
 }
 
-export default Layout;
+export default BaseTemplate;
 
 export const PageContext = createContext({
     language: 'ru',

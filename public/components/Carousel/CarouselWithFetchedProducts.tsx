@@ -4,7 +4,7 @@ import { useFetchProducts } from "../../services/hooks/graphql/useFetchProducts"
 import Carousel from "./Carousel";
 import ProductThumb from "../Product/Thumbs/ProductThumb";
 import { CarouselOptions } from "../../types/CarouselPropsType";
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 
 type CarouselWithFetchedProductsProps = {
     title: string

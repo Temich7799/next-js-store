@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShoppingCartVar";
 import OrderFinal from "./OrderFinal";
 import PurchasedProducts from "./PurchasedProducts";
-import { PageContext } from "../../Layouts/Layout";
+import { PageContext } from "../../../templates/BaseTemplate";
 import { ProductInCart } from "../../../interfaces/InterfaceProduct";
 
 type OrderDetailsProps = {

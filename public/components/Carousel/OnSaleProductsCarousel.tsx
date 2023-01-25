@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import CarouselWithFetchedProducts from "./CarouselWithFetchedProducts";
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 import { CarouselOptions } from "../../types/CarouselPropsType";
 
 const OnSaleProductsCarousel = (props: CarouselOptions) => {

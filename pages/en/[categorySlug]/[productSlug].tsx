@@ -1,15 +1,15 @@
 import React from "react"
-import Layout, { apolloClient } from "../../../public/components/Layouts/Layout";
-import ProductPageContent from '../../../public/components/Content/ProductPageContent';
+import BaseTemplate, { apolloClient } from "../../../public/templates/BaseTemplate";
+import ProductPageTemplate from '../../../public/templates/ProductPageTemplate';
 import { gql } from "@apollo/client";
 import { getMenuItems } from "../../../public/services/getMenuItems"
 
 const ProductPage = (props: any) => {
 
     return (
-        <Layout data={props.menuItemsData} language="en">
-            <ProductPageContent data={props.productPageData} />
-        </Layout>
+        <BaseTemplate data={props.menuItemsData} language="en">
+            <ProductPageTemplate data={props.productPageData} />
+        </BaseTemplate>
     )
 }
 

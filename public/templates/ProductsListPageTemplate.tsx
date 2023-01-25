@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { useFetchProductsOnScroll } from "../../services/hooks/graphql/useFetchProductsOnScroll";
-import ContainerCenteredWrapper from "../Wrappers/ContainerCenteredWrapper";
-import { ProductFetched } from "../../interfaces/InterfaceProduct";
-import InfoLayout from "../Layouts/InfoLayout";
-import { PageContext } from "../Layouts/Layout";
-import LoadingBar from "../LoadingBars/LoadingBar";
-import ProductThumb from "../Product/Thumbs/ProductThumb";
+import { useFetchProductsOnScroll } from "../services/hooks/graphql/useFetchProductsOnScroll";
+import ContainerCenteredWrapper from "../components/Wrappers/ContainerCenteredWrapper";
+import { ProductFetched } from "../interfaces/InterfaceProduct";
+import InfoLayout from "../components/Layouts/InfoLayout";
+import { PageContext } from "./BaseTemplate";
+import LoadingBar from "../components/LoadingBars/LoadingBar";
+import ProductThumb from "../components/Product/Thumbs/ProductThumb";
 
-type ProductsListPageContentProps = {
+type ProductsListPageTemplateProps = {
     compImages?: object | any
     categoryId?: string
     data?: [ProductFetched]
@@ -24,10 +24,10 @@ const Content = styled.div`
     padding: 2.5%;
 `;
 
-const ProductsListPageContent = (props: ProductsListPageContentProps) => {
+const ProductsListPageTemplate = (props: ProductsListPageTemplateProps) => {
 
     const { language } = useContext(PageContext);
-    const { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } = require(`../../languages/${language}/languages`);
+    const { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } = require(`../languages/${language}/languages`);
 
     const { data, compImages, categoryId = 0 } = props;
 
@@ -61,4 +61,4 @@ const ProductsListPageContent = (props: ProductsListPageContentProps) => {
     )
 }
 
-export default ProductsListPageContent;
+export default ProductsListPageTemplate;

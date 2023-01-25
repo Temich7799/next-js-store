@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { ProductPageContext } from "../../Content/ProductPageContent";
-import { PageContext } from "../../Layouts/Layout";
+import { ProductPageContext } from "../../../templates/ProductPageTemplate";
+import { PageContext } from "../../../templates/BaseTemplate";
 import InnerImageZoom from 'react-inner-image-zoom';
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css'
 

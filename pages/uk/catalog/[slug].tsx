@@ -1,15 +1,15 @@
 import React from "react";
-import Layout from "../../../public/components/Layouts/Layout";
-import ProductsListPageContent from "../../../public/components/Content/ProductsListPageContent";
-import { getServerSidePropsForProductsListPageContent } from "../../../public/services/getServerSidePropsForProductsListPageContent";
+import BaseTemplate from "../../../public/templates/BaseTemplate";
+import ProductsListPageTemplate from "../../../public/templates/ProductsListPageTemplate";
+import { getServerSidePropsForProductsListPageTemplate } from "../../../public/services/getServerSidePropsForProductsListPageContent";
 import { getMenuItems } from "../../../public/services/getMenuItems"
 
 const ProductsListPage = (props: any) => {
 
   return (
-    <Layout data={props.menuItemsData} language="uk" >
-      <ProductsListPageContent data={props.productsListPageData.data} categoryId={props.productsListPageData.categoryId} />
-    </Layout>
+    <BaseTemplate data={props.menuItemsData} language="uk" >
+      <ProductsListPageTemplate data={props.productsListPageData.data} categoryId={props.productsListPageData.categoryId} />
+    </BaseTemplate>
   )
 }
 
@@ -21,7 +21,7 @@ export async function getServerSideProps({ params }) {
 
   return {
     props: {
-      productsListPageData: await getServerSidePropsForProductsListPageContent(params),
+      productsListPageData: await getServerSidePropsForProductsListPageTemplate(params),
       menuItemsData: await getMenuItems(language)
     }
   }

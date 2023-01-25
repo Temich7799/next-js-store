@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
-import { apolloClient } from "../public/components/Layouts/Layout";
+import { apolloClient } from "../public/templates/BaseTemplate";
 import React from "react"
-import Layout from "../public/components/Layouts/Layout";
-import CatalogPageContent from "../public/components/Content/CatalogPageContent";
+import BaseTemplate from "../public/templates/BaseTemplate";
+import CatalogPageTemplate from "../public/templates/CatalogPageTemplate";
 import MetaData from "../public/components/Layouts/MetaData";
 import { parsePageMetaData } from "../public/services/parsePageMetaData";
 import { getMenuItems } from "../public/services/getMenuItems"
@@ -10,9 +10,9 @@ import { getMenuItems } from "../public/services/getMenuItems"
 const CatalogPage = (props: any) => {
 
   return (
-    <Layout data={props.menuItemsData} language="ru">
-      <CatalogPageContent data={props.catalogPageData.allWcProductsCategories} />
-    </Layout>
+    <BaseTemplate data={props.menuItemsData} language="ru">
+      <CatalogPageTemplate data={props.catalogPageData.allWcProductsCategories} />
+    </BaseTemplate>
   )
 }
 

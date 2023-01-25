@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from "react"
 import Link from 'next/link'
 import styled from "styled-components"
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 import { MenuItemType } from "../../types/MenuItemType";
 
 const StyledFooterMenu = styled.nav`

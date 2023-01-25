@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 import LoadingSpinner from "../LoadingBars/LoadingSpinner";
 
 type ProductPriceProps = {

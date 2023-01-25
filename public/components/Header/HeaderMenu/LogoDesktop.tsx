@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { PageContext } from "../../Layouts/Layout";
+import { PageContext } from "../../../templates/BaseTemplate";
 
 const StyledLogoDesktop = styled.div<any>`
 

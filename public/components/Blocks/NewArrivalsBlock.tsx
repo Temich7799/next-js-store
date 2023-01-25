@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React, { useContext } from "react"
 import { useFetchProducts } from "../../services/hooks/graphql/useFetchProducts"
 import useActualDate from "../../services/hooks/useActualDate"
-import { PageContext } from "../Layouts/Layout"
+import { PageContext } from "../../templates/BaseTemplate"
 import BlockContent from "./BlockContent"
 import TileBlock from "./TileBlock"
 

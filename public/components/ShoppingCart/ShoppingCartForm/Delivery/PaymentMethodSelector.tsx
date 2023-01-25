@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import { usePaymentMethods } from "../../../../services/hooks/graphql/usePaymentMethods";
 import Select from "../../../Form/Select/Select";
 import SelectOption from "../../../Form/Select/SelectOption";
-import { PageContext } from "../../../Layouts/Layout";
+import { PageContext } from "../../../../templates/BaseTemplate";
 import { DeliveryFormContext } from "./Delivery";
 
 type PaymentMethod = {

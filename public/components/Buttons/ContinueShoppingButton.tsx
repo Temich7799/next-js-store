@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useLastProductPageVar } from "../../services/hooks/apollo_vars/useLastProductPageVar";
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 import { PopUpWindowContext } from "../PopUp/PopUpWindow";
 import Button from "./Button";
 

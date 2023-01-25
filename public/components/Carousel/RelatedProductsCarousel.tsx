@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ProductGatsby } from "../../interfaces/InterfaceProduct";
 import { CarouselOptions } from "../../types/CarouselPropsType";
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 import CarouselWithFetchedProducts from "./CarouselWithFetchedProducts";
 
 type RelatedProductsCarouselProps = {

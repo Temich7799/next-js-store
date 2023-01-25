@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 import { ProductInCart } from "../../../interfaces/InterfaceProduct"
-import { PageContext } from "../../Layouts/Layout"
+import { PageContext } from "../../../templates/BaseTemplate"
 import PurchasedProduct from "./PurchasedProduct"
 
 type PurchasedProductsProps = {

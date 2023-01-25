@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { CarouselOptions } from "../../types/CarouselPropsType";
-import { PageContext } from "../Layouts/Layout";
+import { PageContext } from "../../templates/BaseTemplate";
 import Carousel from "./Carousel";
 
 const BrandThumb = styled.div`
