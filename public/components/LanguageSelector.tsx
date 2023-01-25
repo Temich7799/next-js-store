@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import React, { useContext, useEffect } from "react"
+import React, { useContext } from "react"
 import styled, { keyframes } from "styled-components";
-import ImageSVG from "./ImageSVG";
 import { PageContext } from "../templates/BaseTemplate";
+import { useRouter } from 'next/router'
 
 const SlideFromUpAnimation = keyframes`
     0% {top: -500px; opacity: 0}
@@ -71,30 +71,31 @@ const Language = styled.li<any>`
     }
 `;
 
-const LanguageSelector = (props: any) => {
+const LanguageSelector = () => {
 
+    const router = useRouter();
+    console.log(router);
     const languages = ['RU', 'UA', 'EN'];
     const { language, langPrefix } = useContext(PageContext);
     const selectedLanguage = language.toLocaleUpperCase();
 
     function onClickHandler(language: string) {
 
+        if (language === 'UA') language = 'UK';
+
         const origin = document.location.origin;
-
-        language = language === 'UA' ? 'UK' : language;
-
-        let newPrefix = language === 'RU' ? '' : `/${language}`.toLowerCase();
-
+        const newPrefix = language === 'RU' ? '' : `/${language}`.toLowerCase();
         const search = document.location.search;
 
-        const path = langPrefix !== '' ? '/' + document.location.pathname.split(langPrefix)[1] : document.location.pathname;
+        const clearPath = router.asPath.split(langPrefix);
+        const newPath = langPrefix !== '' && clearPath.length > 1 ? '/' + clearPath[1] : clearPath.length === 1 ? '' : router.asPath;
 
-        document.location = origin + newPrefix + path + search;
+        document.location = origin + newPrefix + newPath + search;
     }
 
     return (
         <StyledLanguageSelector minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
-            <Image src="/images/language.svg" alt="decrease-quantity-icon" width={25} height={25}/>
+            <Image src="/images/language.svg" alt="decrease-quantity-icon" width={25} height={25} />
             <LanguagesList minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
                 {
                     languages.map((language: string, index: number) =>
