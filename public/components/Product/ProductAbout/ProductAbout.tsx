@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { ProductGatsby } from "../../../interfaces/InterfaceProduct";
+import { wpProduct } from "../../../interfaces/InterfaceProduct";
 import { ProductPageContext } from "../../../templates/ProductPageTemplate";
 import ProductAttributes from "./ProductAttributes";
 import ProductBuy from "./ProductBuy";
@@ -16,7 +16,7 @@ const StyledProductAbout = styled.div`
 
 const ProductAbout = () => {
 
-    const { name, sku, attributes }: ProductGatsby = useContext(ProductPageContext);
+    const { name, sku, attributes }: wpProduct = useContext(ProductPageContext);
 
     return (
         <StyledProductAbout>

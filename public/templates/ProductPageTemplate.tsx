@@ -3,13 +3,13 @@ import styled from "styled-components";
 import ProductAbout from "../components/Product/ProductAbout/ProductAbout";
 import ProductDescription from "../components/Product/ProductDescription";
 import ProductGallery from "../components/Product/ProductGallery/ProductGallery";
-import { ProductGatsby } from "../interfaces/InterfaceProduct";
+import { wpProduct } from "../interfaces/InterfaceProduct";
 import LastSeenProductsCarousel from "../components/Carousel/LastSeenProductsCarousel";
 import OnSaleProductsCarousel from "../components/Carousel/OnSaleProductsCarousel";
 import RelatedProductsCarousel from "../components/Carousel/RelatedProductsCarousel";
 
 type ProductPageTemplateProps = {
-    data: ProductGatsby
+    data: wpProduct
     compImages?: any | undefined
 }
 
@@ -23,7 +23,7 @@ const StyledProductsListPageTemplate = styled.div`
     padding: 5%;
 `;
 
-export const ProductPageContext: React.Context<ProductGatsby> = createContext({});
+export const ProductPageContext: React.Context<wpProduct> = createContext({});
 
 const ProductPageTemplate = (props: ProductPageTemplateProps) => {
 

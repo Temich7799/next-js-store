@@ -41,9 +41,9 @@ const CarouselWithFetchedProducts = (props: CarouselWithFetchedProductsProps) =>
                         fetchedData.map((product: ProductFetched) => {
 
                             const productCompImages = compImages && compImages[parseInt(product.id)];
-                            const gatsbyImagePath = productCompImages && productCompImages.length >= 1 && productCompImages[0];
+                            const staticImagePath = productCompImages && productCompImages.length >= 1 && productCompImages[0];
 
-                            return <ProductThumb data={product} gatsbyImagePath={gatsbyImagePath} key={product.id} />
+                            return <ProductThumb data={product} staticImagePath={staticImagePath} key={product.id} />
                         })
                     }
                 </Carousel>

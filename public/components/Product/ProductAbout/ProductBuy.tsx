@@ -7,7 +7,7 @@ import { ProductPageContext } from "../../../templates/ProductPageTemplate";
 import ProductBuyButton from "../../Buttons/ProductBuyButton";
 import PurchasedProductQuantity from "../../ShoppingCart/OrderDetails/PurchasedProductQuantity";
 import GoToCartButton from "../../Buttons/GoToCartButton";
-import { ProductGatsby } from "../../../interfaces/InterfaceProduct";
+import { wpProduct } from "../../../interfaces/InterfaceProduct";
 import PopUpWindow from "../../PopUp/PopUpWindow";
 import OrderDetails from "../../ShoppingCart/OrderDetails/OrderDetails";
 import { useLastProductPageVar } from "../../../services/hooks/apollo_vars/useLastProductPageVar";
@@ -30,7 +30,7 @@ const StyledProductBuy = styled.div<any>`
 
 const ProductBuy = () => {
 
-    const data: ProductGatsby = useContext(ProductPageContext);
+    const data: wpProduct = useContext(ProductPageContext);
 
     const { loading: isDataLoading, data: updatedData, isOutOfStock } = useUpdatedProduct(data);
 

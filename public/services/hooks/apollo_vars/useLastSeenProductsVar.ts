@@ -1,5 +1,4 @@
 import { makeVar, useReactiveVar } from "@apollo/client";
-import { profile } from "console";
 import { useEffect } from "react";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
 

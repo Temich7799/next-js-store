@@ -112,7 +112,7 @@ export async function getStaticProps({ params }) {
       }
     }
   });
-console.log(params.wpPageSlug)
+
   return {
     props: {
       wpPageData: data.allWpPages[0],

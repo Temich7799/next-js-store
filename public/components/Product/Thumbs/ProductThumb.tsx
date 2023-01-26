@@ -17,7 +17,7 @@ import { makeProductUrlFromOgUrl } from "../../../services/makeProductUrlFromOgU
 
 type ProductProps = {
     data: ProductFetched
-    gatsbyImagePath?: object | undefined | any
+    staticImagePath?: object | undefined | any
 }
 
 const StyledProductThumb = styled.div`
@@ -61,12 +61,12 @@ const ProductThumb = (props: ProductProps) => {
     const { language, langPrefix } = useContext(PageContext);
     const { PRODUCT_SKU, NO_PRODUCT_IMAGE, PRODUCT_ADDED_TO_CART, PRODUCT_NOT_ENOUGH_IN_STOCK } = require(`../../../languages/${language}/languages`);
 
-    const { data, gatsbyImagePath } = props;
+    const { data, staticImagePath } = props;
     const sku = data.sku === '' ? data.id : data.sku;
 
     const [showPopUpWindow, setShowPopUpWindow] = useState<boolean>(false);
 
-    const imageSource = gatsbyImagePath ? process.env.NEXT_PUBLIC_SITE_URL + gatsbyImagePath : data.images.length > 0 ? data.images[0].src : 'https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png';
+    const imageSource = staticImagePath ? process.env.NEXT_PUBLIC_SITE_URL + staticImagePath : data.images.length > 0 ? data.images[0].src : 'https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png';
     const imageAlt = data.images.length > 0 ? data.images[0].alt : NO_PRODUCT_IMAGE;
 
     const url = `${process.env.NEXT_PUBLIC_SITE_URL}/${makeProductUrlFromOgUrl(data.categories[0].slug, data.yoast_head_json.og_url, language)}`;

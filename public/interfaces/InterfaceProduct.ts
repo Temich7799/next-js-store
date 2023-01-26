@@ -28,7 +28,7 @@ export interface ProductInCart extends ProductFetched {
     quantity?: number
 }
 
-export interface ProductGatsby extends ProductBase {
+export interface wpProduct extends ProductBase {
     description: string
     related_ids: [string]
     attributes: [
@@ -39,4 +39,4 @@ export interface ProductGatsby extends ProductBase {
     ]
 }
 
-export interface Product extends ProductFetched, ProductGatsby { }
+export interface Product extends ProductFetched, wpProduct { }

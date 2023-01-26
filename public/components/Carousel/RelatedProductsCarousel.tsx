@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { ProductGatsby } from "../../interfaces/InterfaceProduct";
+import { wpProduct } from "../../interfaces/InterfaceProduct";
 import { CarouselOptions } from "../../types/CarouselPropsType";
 import { PageContext } from "../../templates/BaseTemplate";
 import CarouselWithFetchedProducts from "./CarouselWithFetchedProducts";
 
 type RelatedProductsCarouselProps = {
-    data: ProductGatsby
+    data: wpProduct
     compImages?: any | undefined
     options?: CarouselOptions
 }
