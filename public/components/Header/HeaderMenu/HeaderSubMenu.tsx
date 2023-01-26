@@ -37,7 +37,7 @@ const SubMenuItems = styled.ul<any>`
 
     @media (min-width: ${props => props.minDesktopWidth}px) {
         position: absolute;
-        top: 45px;
+        top: 55px;
         width: fit-content;
         align-items: flex-start;
         min-height: 50px;

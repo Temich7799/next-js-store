@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
             }
     }
 
-    #gatsby-focus-wrapper {
+    #__next {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
