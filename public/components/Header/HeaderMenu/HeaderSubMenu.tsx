@@ -5,7 +5,6 @@ import useMobile from "../../../services/hooks/useMobile";
 import toogle from "../../../services/toogle";
 import { MenuItemType } from "../../../types/MenuItemType";
 import { PageContext } from "../../../templates/BaseTemplate";
-import CatalogSubMenuItems from "./CatalogSubMenuItems";
 import SubMenuIcon from "./SubMenuIcon";
 import { SubMenuItem } from "./SubMenuItem";
 
@@ -64,7 +63,7 @@ const SubMenuItems = styled.ul<any>`
 
 const HeaderSubMenu = (props: HeaderSubMenuProps) => {
 
-    const { language } = useContext(PageContext);
+    const { language, langPrefix, menuItems } = useContext(PageContext);
     const { MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../../languages/${language}/languages`);
 
     const { data } = props;
@@ -113,17 +112,25 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
                             <Link href={data.path}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
                         </SubMenuItem>
                     }
+
                     {
                         data.slug === 'catalog'
-                            ? <CatalogSubMenuItems />
-                            : data.child_items.map((item: MenuItemType, index: number) => {
+                            ? menuItems.allWcProductsCategories.map((category, index: number) =>
                                 <SubMenuItem key={index}>
-                                    <Link href={item.path}>
+                                    <Link href={`/${langPrefix}catalog/${category.slug}`}>
+                                        {category.name}
+                                    </Link>
+                                </SubMenuItem>
+                            )
+                            : data.child_items.map((item: MenuItemType, index: number) =>
+                                <SubMenuItem key={index}>
+                                    <Link href={item.path} >
                                         {item.title}
                                     </Link>
                                 </SubMenuItem>
-                            })
+                            )
                     }
+
                 </SubMenuItems>
             }
         </>

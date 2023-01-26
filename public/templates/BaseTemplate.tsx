@@ -45,8 +45,9 @@ export const PageContext = createContext({
     language: 'ru',
     langPrefix: '',
     menuItems: {
-        headerMenuItems: [],
-        footerMenuItems: []
+        headerMenuItems: new Array,
+        footerMenuItems: new Array,
+        allWcProductsCategories: new Array
     }
 });
 
