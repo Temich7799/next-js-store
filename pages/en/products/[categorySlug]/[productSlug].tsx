@@ -1,13 +1,13 @@
 import React from "react"
-import BaseTemplate, { apolloClient } from "../../../public/templates/BaseTemplate";
-import ProductPageTemplate from '../../../public/templates/ProductPageTemplate';
+import BaseTemplate, { apolloClient } from "../../../../public/templates/BaseTemplate";
+import ProductPageTemplate from '../../../../public/templates/ProductPageTemplate';
 import { gql } from "@apollo/client";
-import { getMenuItems } from "../../../public/services/getMenuItems"
+import { getMenuItems } from "../../../../public/services/getMenuItems"
 
 const ProductPage = (props: any) => {
 
     return (
-        <BaseTemplate data={props.menuItemsData} language="uk">
+        <BaseTemplate data={props.menuItemsData} language="en">
             <ProductPageTemplate data={props.productPageData} />
         </BaseTemplate>
     )
@@ -17,7 +17,7 @@ export default ProductPage;
 
 export async function getServerSideProps(context: any) {
 
-    const language = 'uk';
+    const language = 'en';
 
     const { data } = await apolloClient.query({
         query: gql`

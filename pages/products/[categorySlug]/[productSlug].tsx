@@ -1,8 +1,8 @@
 import React from "react"
-import BaseTemplate, { apolloClient } from "../../public/templates/BaseTemplate";
-import ProductPageTemplate from '../../public/templates/ProductPageTemplate';
+import BaseTemplate, { apolloClient } from "../../../public/templates/BaseTemplate";
+import ProductPageTemplate from '../../../public/templates/ProductPageTemplate';
 import { gql } from "@apollo/client";
-import { getMenuItems } from "../../public/services/getMenuItems"
+import { getMenuItems } from "../../../public/services/getMenuItems"
 
 const ProductPage = (props: any) => {
 
