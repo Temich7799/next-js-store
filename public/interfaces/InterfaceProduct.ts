@@ -2,13 +2,13 @@ export interface ProductBase {
     id: string
     name: string
     sku: string
-    images: [
+    images: Array<null> | [
         {
             src: string
             alt: string
         }
     ]
-    categories: [
+    categories: Array<null> | [
         {
             slug: string
         }
@@ -30,8 +30,8 @@ export interface ProductInCart extends ProductFetched {
 
 export interface wpProduct extends ProductBase {
     description: string
-    related_ids: [string]
-    attributes: [
+    related_ids: Array<null> | [string]
+    attributes: Array<null> | [
         {
             options: [string]
             name: string
@@ -39,4 +39,6 @@ export interface wpProduct extends ProductBase {
     ]
 }
 
-export interface Product extends ProductFetched, wpProduct { }
+export interface Product extends ProductFetched, wpProduct {
+    stock_status?: string;
+}

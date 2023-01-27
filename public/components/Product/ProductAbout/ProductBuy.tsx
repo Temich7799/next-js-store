@@ -2,12 +2,11 @@ import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import ProductPrice from "../ProductPrice";
 import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShoppingCartVar";
-import useUpdatedProduct from "../../../services/hooks/useUpdatedProduct";
 import { ProductPageContext } from "../../../templates/ProductPageTemplate";
 import ProductBuyButton from "../../Buttons/ProductBuyButton";
 import PurchasedProductQuantity from "../../ShoppingCart/OrderDetails/PurchasedProductQuantity";
 import GoToCartButton from "../../Buttons/GoToCartButton";
-import { wpProduct } from "../../../interfaces/InterfaceProduct";
+import { Product } from "../../../interfaces/InterfaceProduct";
 import PopUpWindow from "../../PopUp/PopUpWindow";
 import OrderDetails from "../../ShoppingCart/OrderDetails/OrderDetails";
 import { useLastProductPageVar } from "../../../services/hooks/apollo_vars/useLastProductPageVar";
@@ -30,9 +29,9 @@ const StyledProductBuy = styled.div<any>`
 
 const ProductBuy = () => {
 
-    const data: wpProduct | any = useContext(ProductPageContext);
+    const data: Product = useContext(ProductPageContext);
 
-    const { loading: isDataLoading, data: updatedData, isOutOfStock } = useUpdatedProduct(data);
+    const isOutOfStock = data.stock_quantity > 0 || data.stock_status === 'instock' ? false : true;
 
     const [showPopUpWindow, setShowPopUpWindow] = useState<boolean>(false);
 
@@ -41,27 +40,27 @@ const ProductBuy = () => {
     const { save: saveLastProductPage } = useLastProductPageVar();
 
     function buttonOnClickHandler() {
-        updatedData && addToCart(data.id, updatedData);
+        addToCart(data.id, data);
         saveLastProductPage();
         setShowPopUpWindow(true);
     }
 
     const { add: addToLastSeen } = useLastSeenProductsVar();
     useEffect(() => {
-        updatedData && addToLastSeen(data.id, updatedData);
-    }, [updatedData]);
+        addToLastSeen(data.id, data);
+    }, []);
 
     return (
         <StyledProductBuy minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH}>
-            <ProductPrice price={updatedData && updatedData.price} salePrice={updatedData && updatedData.sale_price} isPriceLoading={isDataLoading} />
+            <ProductPrice price={data.price} salePrice={data.sale_price} />
             {
                 isInTheCart(data.id)
                     ?
                     <StyledProductBuy>
-                        <GoToCartButton isButtonDisabled={isDataLoading || isOutOfStock} />
-                        <PurchasedProductQuantity data={updatedData} />
+                        <GoToCartButton isButtonDisabled={isOutOfStock} />
+                        <PurchasedProductQuantity data={data} />
                     </StyledProductBuy>
-                    : <ProductBuyButton onClickHandler={buttonOnClickHandler} isDataLoading={isDataLoading} isOutOfStock={isOutOfStock} />
+                    : <ProductBuyButton onClickHandler={buttonOnClickHandler} isOutOfStock={isOutOfStock} />
             }
             <PopUpWindow visible={showPopUpWindow} setVisible={setShowPopUpWindow} >
                 <OrderDetails />

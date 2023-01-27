@@ -3,13 +3,13 @@ import styled from "styled-components";
 import ProductAbout from "../components/Product/ProductAbout/ProductAbout";
 import ProductDescription from "../components/Product/ProductDescription";
 import ProductGallery from "../components/Product/ProductGallery/ProductGallery";
-import { wpProduct } from "../interfaces/InterfaceProduct";
+import { Product } from "../interfaces/InterfaceProduct";
 import LastSeenProductsCarousel from "../components/Carousel/LastSeenProductsCarousel";
 import OnSaleProductsCarousel from "../components/Carousel/OnSaleProductsCarousel";
 import RelatedProductsCarousel from "../components/Carousel/RelatedProductsCarousel";
 
 type ProductPageTemplateProps = {
-    data: wpProduct
+    data: Product
     compImages?: any | undefined
 }
 
@@ -23,7 +23,22 @@ const StyledProductsListPageTemplate = styled.div`
     padding: 5%;
 `;
 
-export const ProductPageContext = createContext({});
+export const ProductPageContext = createContext<Product>({
+    price: "",
+    sale_price: "",
+    stock_quantity: 0,
+    yoast_head_json: {
+        og_url: ""
+    },
+    id: "",
+    name: "",
+    sku: "",
+    images: [],
+    categories: [],
+    description: "",
+    related_ids: [],
+    attributes: []
+});
 
 const ProductPageTemplate = (props: ProductPageTemplateProps) => {
 

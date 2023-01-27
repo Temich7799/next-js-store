@@ -5,7 +5,6 @@ import Button from "./Button";
 
 type ProductBuyButtonProps = {
     onClickHandler: Function
-    isDataLoading: boolean
     isOutOfStock: boolean
 }
 
@@ -14,10 +13,10 @@ const ProductBuyButton = (props: ProductBuyButtonProps) => {
     const { language } = useContext(PageContext);
     const { PRODUCT_BUY_BUTTON_TITLE, PRODUCT_OUT_OF_STOCK_BUTTON_TITLE } = require(`../../languages/${language}/languages`);
 
-    const { onClickHandler, isDataLoading, isOutOfStock } = props;
+    const { onClickHandler, isOutOfStock } = props;
 
     return (
-        <Button onClick={onClickHandler} disabled={isDataLoading || isOutOfStock}>
+        <Button onClick={onClickHandler} disabled={isOutOfStock}>
             {
                 isOutOfStock
                     ? PRODUCT_OUT_OF_STOCK_BUTTON_TITLE
