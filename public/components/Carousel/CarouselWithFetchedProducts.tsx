@@ -18,7 +18,9 @@ type QueryParams = {
     offset?: number
     per_page?: number
     on_sale?: boolean
-    include?: [string]
+    include?: {
+        id: Array<number>
+    }
     stock_status?: string
     status?: string
     category?: string

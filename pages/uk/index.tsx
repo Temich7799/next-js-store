@@ -7,11 +7,11 @@ import MetaData from "../../public/components/MetaData";
 import { parsePageMetaData } from "../../public/services/parsePageMetaData";
 import { getMenuItems } from "../../public/services/getMenuItems"
 
-const IndexPage = (props: any) => {
+const IndexPage = ({ menuItemsData, content }) => {
 
   return (
-    <BaseTemplate data={props.menuItemsData} language="uk">
-      <HomePageTemplate data={props.content} />
+    <BaseTemplate data={menuItemsData} language="uk">
+      <HomePageTemplate data={content} />
     </BaseTemplate>
   )
 }

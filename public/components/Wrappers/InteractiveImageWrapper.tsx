@@ -12,9 +12,7 @@ const StyledInteractiveImageWrapper = styled.div`
     }
 `;
 
-const InteractiveImageWrapper = (props: any) => {
-
-    const { children } = props;
+const InteractiveImageWrapper = ({ children }) => {
 
     return (
         <StyledInteractiveImageWrapper>

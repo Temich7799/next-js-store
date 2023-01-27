@@ -23,7 +23,7 @@ const RelatedProductsCarousel = (props: RelatedProductsCarouselProps) => {
                 data && data.related_ids.length > 0 &&
                 <CarouselWithFetchedProducts
                     title={CAROUSEL_RELATED_PRODUCTS_TITLE}
-                    params={{ include: data && data.related_ids }}
+                    params={{ include: { id: data && data.related_ids.map((id: string) => parseInt(id)) } }}
                     compImages={compImages}
                     options={options}
                 />

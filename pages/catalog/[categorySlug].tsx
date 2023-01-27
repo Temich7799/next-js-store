@@ -4,11 +4,11 @@ import ProductsListPageTemplate from "../../public/templates/ProductsListPageTem
 import { getServerSidePropsForProductsListPageTemplate } from "../../public/services/getServerSidePropsForProductsListPageContent";
 import { getMenuItems } from "../../public/services/getMenuItems"
 
-const ProductsListPage = (props: any) => {
+const ProductsListPage = ({ menuItemsData, productsListPageData }) => {
 
   return (
-    <BaseTemplate data={props.menuItemsData} language="ru" >
-      <ProductsListPageTemplate data={props.productsListPageData.data} categoryId={props.productsListPageData.categoryId} />
+    <BaseTemplate data={menuItemsData} language="ru" >
+      <ProductsListPageTemplate data={productsListPageData.data} categoryId={productsListPageData.categoryId} />
     </BaseTemplate>
   )
 }

@@ -7,20 +7,20 @@ import MetaData from "../../public/components/MetaData";
 import { parsePageMetaData } from "../../public/services/parsePageMetaData";
 import { getMenuItems } from "../../public/services/getMenuItems"
 
-const CatalogPage = (props: any) => {
+const CatalogPage = ({ menuItemsData, catalogPageData }) => {
 
   return (
-    <BaseTemplate data={props.menuItemsData} language="en">
-      <CatalogPageTemplate data={props.catalogPageData.allWcProductsCategories} />
+    <BaseTemplate data={menuItemsData} language="en">
+      <CatalogPageTemplate data={catalogPageData.allWcProductsCategories} />
     </BaseTemplate>
   )
 }
 
 export default CatalogPage;
 
-export const Head = (props: any) => {
+export const Head = ({ catalogPageData }) => {
 
-  const { metaData, openGraphData } = parsePageMetaData(props.catalogPageData.wpMetaData);
+  const { metaData, openGraphData } = parsePageMetaData(catalogPageData.wpMetaData);
 
   return <MetaData data={metaData} openGraphData={openGraphData} />
 }

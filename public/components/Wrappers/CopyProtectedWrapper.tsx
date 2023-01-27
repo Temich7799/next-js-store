@@ -4,9 +4,7 @@ import styled from "styled-components";
 const StyledCopyProtectedWrapper = styled.div<any>`
     user-select: none;
 `;
-const CopyProtectedWrapper = (props: any) => {
-
-    const { children } = props;
+const CopyProtectedWrapper = ({ children }) => {
 
     const notCopyArea = useRef<any>(null);
 

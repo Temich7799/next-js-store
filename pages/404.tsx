@@ -4,9 +4,9 @@ import NotFoundPageTemplate from "../public/templates/NotFoundPageTemplate"
 import MetaData from "../public/components/MetaData"
 import { getMenuItems } from "../public/services/getMenuItems"
 
-const NotFoundPage = (props: any) => {
+const NotFoundPage = ({ menuItemsData }) => {
   return (
-    <BaseTemplate data={props.menuItemsData} language="ru">
+    <BaseTemplate data={menuItemsData} language="ru">
       <NotFoundPageTemplate />
     </BaseTemplate>
   )

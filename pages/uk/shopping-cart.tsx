@@ -11,7 +11,7 @@ const StyledShoppingCartPage = styled.main`
     padding: 2.5% 2.5%;
 `;
 
-const ShoppingCartPage = (props: any) => {
+const ShoppingCartPage = ({ menuItemsData }) => {
 
   const [orderDetailsData, setOrderDetailsData] = useState<object | any>();
   const [isOrderSending, setIsOrderSending] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const ShoppingCartPage = (props: any) => {
   const data = { isOrderSending: isOrderSending }
 
   return (
-    <BaseTemplate data={props.menuItemsData} language='uk'>
+    <BaseTemplate data={menuItemsData} language='uk'>
       <StyledShoppingCartPage>
         {
           orderDetailsData

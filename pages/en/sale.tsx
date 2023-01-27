@@ -3,10 +3,10 @@ import SalePageTemplate from "../../public/templates/SalePageTemplate";
 import BaseTemplate from "../../public/templates/BaseTemplate";
 import { getMenuItems } from "../../public/services/getMenuItems"
 
-const SalePage = (props: any) => {
+const SalePage = ({ menuItemsData }) => {
 
     return (
-        <BaseTemplate data={props.menuItemsData} language="en">
+        <BaseTemplate data={menuItemsData} language="en">
             <SalePageTemplate />
         </BaseTemplate>
     )

@@ -80,9 +80,7 @@ const StyledButton = styled.button<any>`
     ${(props) => buttonStylePropsHandler(props.buttonStyle)}
 `;
 
-const Button = (props: any) => {
-
-    const { children, ...rest } = props;
+const Button = ({ children, ...rest }) => {
 
     return (
         <StyledButton {...rest}>

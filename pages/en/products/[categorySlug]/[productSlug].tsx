@@ -4,11 +4,11 @@ import ProductPageTemplate from '../../../../public/templates/ProductPageTemplat
 import { gql } from "@apollo/client";
 import { getMenuItems } from "../../../../public/services/getMenuItems"
 
-const ProductPage = (props: any) => {
+const ProductPage = ({ menuItemsData, productPageData }) => {
 
     return (
-        <BaseTemplate data={props.menuItemsData} language="en">
-            <ProductPageTemplate data={props.productPageData} />
+        <BaseTemplate data={menuItemsData} language="en">
+            <ProductPageTemplate data={productPageData} />
         </BaseTemplate>
     )
 }

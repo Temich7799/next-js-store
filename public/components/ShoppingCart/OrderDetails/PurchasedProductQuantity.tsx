@@ -4,7 +4,6 @@ import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShopp
 import { ProductInCart } from "../../../interfaces/InterfaceProduct"
 import Button from "../../Buttons/Button"
 import ImageSVG from "../../ImageSVG"
-import Image from 'next/image';
 
 type PurchasedProductQuantityProps = {
     data: ProductInCart

@@ -21,16 +21,16 @@ const Content = styled.div`
     padding: 2.5%;
 `;
 
-const WpPageLayout = (props: any) => {
+const WpPageLayout = ({ menuItemsData, wpPageData }) => {
 
   return (
-    <BaseTemplate data={props.menuItemsData} language='ru'>
+    <BaseTemplate data={menuItemsData} language='ru'>
       <>
         <GlobalWpStyle />
-        <PageTitle>{props.wpPageData.title.rendered}</PageTitle>
+        <PageTitle>{wpPageData.title.rendered}</PageTitle>
         {
-          (props.wpPageData.content.rendered)
-            ? <Content dangerouslySetInnerHTML={{ __html: props.wpPageData.content.rendered }} />
+          (wpPageData.content.rendered)
+            ? <Content dangerouslySetInnerHTML={{ __html: wpPageData.content.rendered }} />
             : <NotFoundPageTemplate />
         }
       </>
@@ -40,9 +40,9 @@ const WpPageLayout = (props: any) => {
 
 export default WpPageLayout;
 
-export const Head = (props: any) => {
+export const Head = ({pageContext}) => {
 
-  const { metaData, openGraphData } = parsePageMetaData(props.pageContext.pageData.yoast_head_json);
+  const { metaData, openGraphData } = parsePageMetaData(pageContext.pageData.yoast_head_json);
 
   return <MetaData data={metaData} openGraphData={openGraphData} />
 }
@@ -108,7 +108,7 @@ export async function getStaticProps({ params }) {
       language: language,
       filter: {
         exclude: { slug: ["home", "catalog"] },
-        include: { status: 'publish', slug:[ params.wpPageSlug] }
+        include: { status: 'publish', slug: [params.wpPageSlug] }
       }
     }
   });
