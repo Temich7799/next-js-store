@@ -1,9 +1,10 @@
 import React, { createContext, useState } from "react"
+import { WarehousesData } from "../../../../types/WarehousesDataType"
 import CitySelector from "./CitySelector"
 import PaymentMethodSelector from "./PaymentMethodSelector"
 import ShippingMethodSelector from "./ShippingMethodSelector"
 import WarehouseSelector from "./WarehouseSelector"
-import { WarehousesData } from "../../../../types/warehousesDataType"
+
 
 type DeliveryFormContextType = {
     selectedShippingLine: {
@@ -19,8 +20,6 @@ type DeliveryFormContextType = {
         set: React.Dispatch<React.SetStateAction<WarehousesData>>;
     };
 }
-
-export const DeliveryFormContext = createContext<DeliveryFormContextType>({});
 
 const Delivery = () => {
 
@@ -54,3 +53,27 @@ const Delivery = () => {
 }
 
 export default Delivery;
+
+export const DeliveryFormContext = createContext<DeliveryFormContextType>({
+    selectedShippingLine: {
+        get: "",
+        set: function (value: React.SetStateAction<string>): void {
+            throw new Error("Function not implemented.")
+        }
+    },
+    selectedCity: {
+        get: "",
+        set: function (value: React.SetStateAction<string>): void {
+            throw new Error("Function not implemented.")
+        }
+    },
+    warehousesData: {
+        get: {
+            SettlementRef: "",
+            data: []
+        },
+        set: function (value: React.SetStateAction<WarehousesData>): void {
+            throw new Error("Function not implemented.")
+        }
+    }
+});

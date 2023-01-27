@@ -19,7 +19,7 @@ const ProductGallerySelectedImage = (props: ProductGallerySelectedImageProps) =>
     //const { language } = useContext(PageContext);
     //const { NO_PRODUCT_IMAGE } = require(`../../../languages/${language}/languages`);
 
-    const { images } = useContext(ProductPageContext);
+    const { images }: any = useContext(ProductPageContext);
 
     const { selectedImage } = props;
 

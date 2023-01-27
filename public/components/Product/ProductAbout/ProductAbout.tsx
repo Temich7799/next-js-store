@@ -16,7 +16,7 @@ const StyledProductAbout = styled.div`
 
 const ProductAbout = () => {
 
-    const { name, sku, attributes }: wpProduct = useContext(ProductPageContext);
+    const { name, sku, attributes }: wpProduct | any = useContext(ProductPageContext);
 
     return (
         <StyledProductAbout>

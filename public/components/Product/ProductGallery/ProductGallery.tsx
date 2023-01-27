@@ -18,7 +18,7 @@ const StyledProductGallery = styled.div`
 
 const ProductGallery = (props: ProductGalleryProps) => {
 
-    const { images, id } = useContext(ProductPageContext);
+    const { images, id }: any = useContext(ProductPageContext);
 
     const { compImages } = props;
 

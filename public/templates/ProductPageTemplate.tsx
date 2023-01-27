@@ -23,7 +23,7 @@ const StyledProductsListPageTemplate = styled.div`
     padding: 5%;
 `;
 
-export const ProductPageContext: React.Context<wpProduct> = createContext({});
+export const ProductPageContext = createContext({});
 
 const ProductPageTemplate = (props: ProductPageTemplateProps) => {
 

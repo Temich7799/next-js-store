@@ -38,7 +38,7 @@ const HeaderMenuWrapper = styled.div`
 
 const HeaderMenuItems = () => {
 
-    const { menuItems } = useContext(PageContext);
+    const { menuItems }: any = useContext(PageContext);
 
     const items = addPathFields(menuItems.headerMenuItems);
 

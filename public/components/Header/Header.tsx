@@ -42,28 +42,28 @@ const Header = () => {
 
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState<boolean>(false);
   const [isScrollingDown, setIsScrollingDown] = useState<boolean>(false);
-
-  const isMobile = useMobile();
-
-  useEffect(() => {
-    if (isMobile === true) {
-      window.scrolled = window.scrollY;
-      window.addEventListener('scroll', onScrollHandler);
-      return () => window.removeEventListener('scroll', onScrollHandler);
-    }
-  }, []);
-
-  function onScrollHandler() {
-    if (window.scrollY - window.scrolled > 75) {
-      setIsScrollingDown(true);
-      window.scrolled = window.scrollY;
-    }
-    if (window.scrolled > window.scrollY) {
-      setIsScrollingDown(false);
-      window.scrolled = window.scrollY;
-    }
-  }
-
+  /*
+   const isMobile = useMobile();
+  
+     useEffect(() => {
+       if (isMobile === true) {
+         window.scrolled = window.scrollY;
+         window.addEventListener('scroll', onScrollHandler);
+         return () => window.removeEventListener('scroll', onScrollHandler);
+       }
+     }, []);
+   
+     function onScrollHandler() {
+       if (window.scrollY - window.scrolled > 75) {
+         setIsScrollingDown(true);
+         window.scrolled = window.scrollY;
+       }
+       if (window.scrolled > window.scrollY) {
+         setIsScrollingDown(false);
+         window.scrolled = window.scrollY;
+       }
+     }
+   */
   return (
     <StyledHeader minDesktopWidth={process.env.NEXT_PUBLIC_MIN_DESKTOP_WIDTH} isScrollingDown={isScrollingDown}>
       <HeaderColumnLeft isMobileMenuOpened={isMobileMenuOpened} setIsMobileMenuOpened={setIsMobileMenuOpened} />

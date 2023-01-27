@@ -19,7 +19,7 @@ const BaseTemplate = (props: BaseTemplateProps) => {
 
     const { data, children, language = 'ru' } = props;
 
-    const pageContext = {
+    const pageContext: any = {
         language: language,
         langPrefix: language === 'ru' ? '' : `${language}/`,
         menuItems: data.menuItems

@@ -30,7 +30,7 @@ const StyledProductBuy = styled.div<any>`
 
 const ProductBuy = () => {
 
-    const data: wpProduct = useContext(ProductPageContext);
+    const data: wpProduct | any = useContext(ProductPageContext);
 
     const { loading: isDataLoading, data: updatedData, isOutOfStock } = useUpdatedProduct(data);
 

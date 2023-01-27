@@ -42,7 +42,7 @@ export const Head = () => {
 
   const language = 'uk';
 
-  const { SHOPPING_CART_PAGE_META_TITLE } = require(`../public/languages/${language}/languages`);
+  const { SHOPPING_CART_PAGE_META_TITLE } = require(`../../public/languages/${language}/languages`);
 
   const metaData = {
     title: SHOPPING_CART_PAGE_META_TITLE,
