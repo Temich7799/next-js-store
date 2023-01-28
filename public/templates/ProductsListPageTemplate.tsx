@@ -7,10 +7,11 @@ import InfoLayout from "../components/InfoLayout";
 import { PageContext } from "./BaseTemplate";
 import LoadingBar from "../components/LoadingBars/LoadingBar";
 import ProductThumb from "../components/Product/Thumbs/ProductThumb";
+import { FetchProductsQueryParams } from "../types/FetchProductsQueryParamsType";
 
 type ProductsListPageTemplateProps = {
     compImages?: object | any
-    categoryId?: string
+    queryParams?: FetchProductsQueryParams
     data?: [ProductFetched]
 }
 
@@ -29,14 +30,14 @@ const ProductsListPageTemplate = (props: ProductsListPageTemplateProps) => {
     const { language } = useContext(PageContext);
     const { LOADING_ERROR_DESCRIPTION, LOADING_ERROR_TITLE } = require(`../languages/${language}/languages`);
 
-    const { data, compImages, categoryId = 0 } = props;
+    const { data, compImages, queryParams } = props;
 
-    const { data: fetchedData, loading, error } = useFetchProductsOnScroll(categoryId.toString(), data);
+    const { data: fetchedData, loading, error } = useFetchProductsOnScroll(queryParams, data);
 
     return (
         <>
             {
-                loading
+                loading && !data
                     ?
                     <ContainerCenteredWrapper>
                         <LoadingBar />

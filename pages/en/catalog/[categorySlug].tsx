@@ -1,14 +1,14 @@
 import React from "react";
 import BaseTemplate from "../../../public/templates/BaseTemplate";
 import ProductsListPageTemplate from "../../../public/templates/ProductsListPageTemplate";
-import { getServerSidePropsForProductsListPageTemplate } from "../../../public/services/getServerSidePropsForProductsListPageContent";
+import { getProductsListPageData } from "../../../public/services/getProductsListPageData";
 import { getMenuItems } from "../../../public/services/getMenuItems"
 
 const ProductsListPage = ({ menuItemsData, productsListPageData }) => {
 
   return (
     <BaseTemplate data={menuItemsData} language="en" >
-      <ProductsListPageTemplate data={productsListPageData.data} categoryId={productsListPageData.categoryId} />
+      <ProductsListPageTemplate data={productsListPageData.data} queryParams={{ category: productsListPageData.categoryId }} />
     </BaseTemplate>
   )
 }
@@ -21,7 +21,7 @@ export async function getServerSideProps({ params }) {
 
   return {
     props: {
-      productsListPageData: await getServerSidePropsForProductsListPageTemplate(params),
+      productsListPageData: await getProductsListPageData(params.categorySlug),
       menuItemsData: await getMenuItems(language)
     }
   }

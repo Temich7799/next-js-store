@@ -2,39 +2,55 @@ import { ApolloError, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { FETCH_WC_PRODUCTS } from "../../../apollo/gql/getAllWcProducts";
 import { ProductFetched } from "../../../interfaces/InterfaceProduct";
+import { FetchProductsQueryParams } from "../../../types/FetchProductsQueryParamsType";
 
 type ProductQueryResult = {
-    data: [ProductFetched] | undefined
+    data: Array<ProductFetched | null> | undefined
     loading: boolean
     error: ApolloError | undefined
 }
 
-export function useFetchProductsOnScroll(categoryId: string, existingData?: [ProductFetched]): ProductQueryResult {
+export function useFetchProductsOnScroll(queryParams: FetchProductsQueryParams, existingData: Array<ProductFetched | null> = []): ProductQueryResult {
 
-    const [fetchOffset, setFetchOffset] = useState<number>(0);
+    const [fetchOffset, setFetchOffset] = useState<number>(existingData.length > 0 ? existingData.length : 0);
     const [fetchLimit, setFetchLimit] = useState<number>(50);
 
     const [makeQuery, { loading, error, data, fetchMore }] = useLazyQuery(FETCH_WC_PRODUCTS);
+
+    const makeQueryParams = {
+        variables: {
+            params: {
+                ...queryParams,
+                stock_status: 'instock',
+                status: 'publish',
+                offset: fetchOffset
+            }
+        },
+    }
+
+    const fetchMoreParams = {
+        variables: {
+            params: {
+                ...makeQueryParams.variables.params,
+                per_page: fetchLimit,
+            }
+        }
+    }
+
+    const makeFirstQuery = () => {
+
+        makeQueryParams.variables.params.per_page = Math.floor((window.innerHeight * window.innerWidth) / 20000);
+
+        makeQuery(makeQueryParams).then((response) => {
+            setFetchOffset(response.data.allWcProducts.length + fetchOffset);
+        });
+    }
 
     useEffect(() => {
 
         setFetchLimit(Math.floor((window.innerHeight * window.innerWidth) / 20000));
 
-        existingData && existingData.length > 0
-            ? setFetchOffset(existingData.length)
-            : makeQuery({
-                variables: {
-                    params: {
-                        category: categoryId,
-                        stock_status: 'instock',
-                        status: 'publish',
-                        per_page: Math.floor((window.innerHeight * window.innerWidth) / 20000),
-                        offset: fetchOffset
-                    }
-                },
-            }).then((response) => {
-                setFetchOffset(response.data.allWcProducts.length + fetchOffset);
-            });
+        existingData.length === 0 && makeFirstQuery();
     }, []);
 
     useEffect(() => {
@@ -52,26 +68,17 @@ export function useFetchProductsOnScroll(categoryId: string, existingData?: [Pro
 
             window.removeEventListener('scroll', onScrollHandler);
 
-            fetchMore(
-                {
-                    variables: {
-                        params: {
-                            category: categoryId,
-                            stock_status: 'instock',
-                            status: 'publish',
-                            per_page: fetchLimit,
-                            offset: fetchOffset
-                        }
-                    }
-                }
-            ).then((response) => {
-                setFetchOffset(response.data.allWcProducts.length + fetchOffset);
-            });
+            fetchOffset > existingData.length
+                ? fetchMore(fetchMoreParams).then((response) => {
+                    setFetchOffset(response.data.allWcProducts.length + fetchOffset);
+                    window.removeEventListener('scroll', onScrollHandler);
+                })
+                : makeFirstQuery();
         }
     }
 
     return {
-        data: data ? data.allWcProducts : data,
+        data: existingData.concat(data ? data.allWcProducts : []),
         loading,
         error,
     }

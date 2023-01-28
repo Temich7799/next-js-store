@@ -8,7 +8,7 @@ const SalePage = ({ pageData, menuItemsData }) => {
 
     return (
         <BaseTemplate data={menuItemsData} language="ru">
-            <ProductsListPageTemplate data={pageData} />
+            <ProductsListPageTemplate data={pageData} queryParams={{ on_sale: true }} />
         </BaseTemplate>
     )
 }

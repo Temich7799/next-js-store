@@ -2,7 +2,8 @@ import { gql } from "@apollo/client";
 import { FETCH_WC_PRODUCTS } from "../apollo/gql/getAllWcProducts";
 import { apolloClient } from "../templates/BaseTemplate";
 
-export async function getServerSidePropsForProductsListPageTemplate(params: any) {
+export async function getProductsListPageData(pageSlug: string) {
+
     const { data: categoryData } = await apolloClient.query({
         query: gql`
           query getCategoryIdBySlug($params: WC_ProductCategoryParams) {
@@ -13,13 +14,13 @@ export async function getServerSidePropsForProductsListPageTemplate(params: any)
         `,
         variables: {
             params: {
-                slug: params.slug
+                slug: pageSlug
             }
         }
     });
-
+    
     const categoryId = categoryData.allWcProductsCategories[0].id;
-
+   
     const { data } = await apolloClient.query({
         query: FETCH_WC_PRODUCTS,
         variables: {
@@ -32,9 +33,9 @@ export async function getServerSidePropsForProductsListPageTemplate(params: any)
             }
         }
     })
-
+    
     return {
-        data: data,
+        data: data.allWcProducts,
         categoryId: categoryId
     };
 }

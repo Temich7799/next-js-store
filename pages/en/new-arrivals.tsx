@@ -9,7 +9,7 @@ const NewArrivalsPage = ({ pageData, menuItemsData }) => {
 
     return (
         <BaseTemplate data={menuItemsData} language="en">
-            <ProductsListPageTemplate data={pageData} />
+            <ProductsListPageTemplate data={pageData} queryParams={{ after: getActualDate() }} />
         </BaseTemplate>
     )
 }
