@@ -1,13 +1,14 @@
 import React from "react"
-import SalePageTemplate from "../../public/templates/SalePageTemplate";
-import BaseTemplate from "../../public/templates/BaseTemplate";
+import BaseTemplate, { apolloClient } from "../../public/templates/BaseTemplate";
 import { getMenuItems } from "../../public/services/getMenuItems"
+import { FETCH_WC_PRODUCTS } from "../../public/apollo/gql/getAllWcProducts";
+import ProductsListPageTemplate from "../../public/templates/ProductsListPageTemplate";
 
-const SalePage = ({ menuItemsData }) => {
+const SalePage = ({ pageData, menuItemsData }) => {
 
     return (
         <BaseTemplate data={menuItemsData} language="uk">
-            <SalePageTemplate />
+            <ProductsListPageTemplate data={pageData} />
         </BaseTemplate>
     )
 }
@@ -16,8 +17,22 @@ export default SalePage;
 
 export async function getServerSideProps() {
 
+    const language = 'uk';
+
+    const { data } = await apolloClient.query({
+        query: FETCH_WC_PRODUCTS,
+        variables: {
+            language: language,
+            params: {
+                on_sale: true,
+                stock_status: "instock"
+            }
+        }
+    });
+
     return {
         props: {
+            pageData: data.allWcProducts,
             menuItemsData: await getMenuItems('uk')
         },
     };
