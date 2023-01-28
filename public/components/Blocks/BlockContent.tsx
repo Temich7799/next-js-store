@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ImageSVG from "../ImageSVG";
+import LoadingSpinner from "../LoadingBars/LoadingSpinner";
 
 type BlockContentProps = {
     title: string
@@ -8,6 +9,7 @@ type BlockContentProps = {
     iconPath: string
     gridTemplateAreas: string
     children?: any
+    isDataFetching?: boolean
 }
 
 const StyledBlockContent = styled.div<any>`
@@ -42,12 +44,18 @@ const Details = styled.div`
 
 const BlockContent = (props: BlockContentProps) => {
 
-    const { title, count, iconPath, children, gridTemplateAreas } = props;
+    const { title, count, iconPath, children, gridTemplateAreas, isDataFetching = false } = props;
 
     return (
         <StyledBlockContent gridTemplateAreas={gridTemplateAreas}>
             <Title>{title}</Title>
-            <Count>{count}</Count>
+            <Count>
+                {
+                    isDataFetching
+                        ? <LoadingSpinner />
+                        : count
+                }
+            </Count>
             <Icon><ImageSVG path={iconPath} width='30px' height="30px" /></Icon>
             <Details>
                 {children}

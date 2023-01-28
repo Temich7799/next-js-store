@@ -12,11 +12,11 @@ const NewArrivalsBlock = () => {
     const { BLOCK_NEW_ARRIVALS_TITLE, BLOCK_NEW_ARRIVALS_DETAILS, MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../languages/${language}/languages`);
 
     const date = getActualDate();
-    const { data } = useFetchProducts(language, { after: date });
+    const { data, loading } = useFetchProducts(language, { after: date });
 
     return (
         <TileBlock color="#c2ef80">
-            <BlockContent title={BLOCK_NEW_ARRIVALS_TITLE} count={data ? data.length : 0} iconPath={""} gridTemplateAreas={
+            <BlockContent title={BLOCK_NEW_ARRIVALS_TITLE} isDataFetching={loading} count={data ? data.length : 0} iconPath={""} gridTemplateAreas={
                 `
                     Title Title Title Icon"
                     "Title Title Title Icon"

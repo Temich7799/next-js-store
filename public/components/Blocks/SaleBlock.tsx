@@ -10,11 +10,11 @@ const SaleBlock = () => {
     const { language } = useContext(PageContext);
     const { BLOCK_SALE_TITLE, BLOCK_SALE_DETAILS, MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../languages/${language}/languages`);
 
-    const { data } = useFetchProducts(language, { on_sale: true });
+    const { data, loading } = useFetchProducts(language, { on_sale: true });
 
     return (
         <TileBlock color="#f4e77c">
-            <BlockContent title={BLOCK_SALE_TITLE} count={data ? data.length : 0} iconPath={""} gridTemplateAreas={
+            <BlockContent title={BLOCK_SALE_TITLE} isDataFetching={loading} count={data ? data.length : 0} iconPath={""} gridTemplateAreas={
                 `
                     Icon Title Title Title"
                     "Count Count . ."
