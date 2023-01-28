@@ -117,16 +117,16 @@ const HeaderSubMenu = (props: HeaderSubMenuProps) => {
                         data.slug === 'catalog'
                             ? menuItems.allWcProductsCategories.map((category, index: number) =>
                                 <SubMenuItem key={index}>
-                                    <Link href={`/${langPrefix}catalog/${category.slug}`}>
+                                    <a href={`/${langPrefix}catalog/${category.slug}`}>
                                         {category.name}
-                                    </Link>
+                                    </a>
                                 </SubMenuItem>
                             )
                             : data.child_items.map((item: MenuItemType, index: number) =>
                                 <SubMenuItem key={index}>
-                                    <Link href={item.path} >
+                                    <a href={item.path} >
                                         {item.title}
-                                    </Link>
+                                    </a>
                                 </SubMenuItem>
                             )
                     }
