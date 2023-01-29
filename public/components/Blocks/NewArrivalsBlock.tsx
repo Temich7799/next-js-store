@@ -8,7 +8,7 @@ import TileBlock from "./TileBlock"
 
 const NewArrivalsBlock = () => {
 
-    const { language } = useContext(PageContext);
+    const { language, langPrefix } = useContext(PageContext);
     const { BLOCK_NEW_ARRIVALS_TITLE, BLOCK_NEW_ARRIVALS_DETAILS, MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../languages/${language}/languages`);
 
     const date = getActualDate();
@@ -25,7 +25,7 @@ const NewArrivalsBlock = () => {
                 `}
             >
                 <p>{BLOCK_NEW_ARRIVALS_DETAILS}</p>
-                <Link href="new-arrivals">{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
+                <Link href={`${langPrefix}new-arrivals`}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
             </BlockContent>
         </TileBlock >
     )

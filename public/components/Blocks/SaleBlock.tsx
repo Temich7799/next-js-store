@@ -7,7 +7,7 @@ import TileBlock from "./TileBlock"
 
 const SaleBlock = () => {
 
-    const { language } = useContext(PageContext);
+    const { language, langPrefix } = useContext(PageContext);
     const { BLOCK_SALE_TITLE, BLOCK_SALE_DETAILS, MOBILE_HEADER_SUBMENU_SEE_ALL } = require(`../../languages/${language}/languages`);
 
     const { data, loading } = useFetchProducts(language, { on_sale: true });
@@ -22,7 +22,7 @@ const SaleBlock = () => {
                     "Count Count . .
                 `}
             >
-                <Link href="sale">{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
+                <Link href={`${langPrefix}sale`}>{MOBILE_HEADER_SUBMENU_SEE_ALL}</Link>
                 <p>⬅️ {BLOCK_SALE_DETAILS} %</p>
             </BlockContent>
         </TileBlock>
