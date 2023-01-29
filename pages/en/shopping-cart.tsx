@@ -13,6 +13,15 @@ const StyledShoppingCartPage = styled.main`
 
 const ShoppingCartPage = ({ menuItemsData }) => {
 
+  const language = 'en';
+
+  const { SHOPPING_CART_PAGE_META_TITLE } = require(`../../public/languages/${language}/languages`);
+
+  const metaData = {
+    title: SHOPPING_CART_PAGE_META_TITLE,
+    description: ''
+  };
+
   const [orderDetailsData, setOrderDetailsData] = useState<object | any>();
   const [isOrderSending, setIsOrderSending] = useState<boolean>(false);
 
@@ -24,33 +33,22 @@ const ShoppingCartPage = ({ menuItemsData }) => {
   const data = { isOrderSending: isOrderSending }
 
   return (
-    <BaseTemplate data={menuItemsData} language='en'>
-      <StyledShoppingCartPage>
-        {
-          orderDetailsData
-            ? <SuccessOrderTemplate orderId={orderDetailsData.id} />
-            : <ShoppingCartTemplate setters={setters} data={data} />
-        }
-      </StyledShoppingCartPage>
-    </BaseTemplate >
+    <>
+      <MetaData data={metaData} />
+      <BaseTemplate data={menuItemsData} language={language}>
+        <StyledShoppingCartPage>
+          {
+            orderDetailsData
+              ? <SuccessOrderTemplate orderId={orderDetailsData.id} />
+              : <ShoppingCartTemplate setters={setters} data={data} />
+          }
+        </StyledShoppingCartPage>
+      </BaseTemplate >
+    </>
   )
 }
 
 export default ShoppingCartPage;
-
-export const Head = () => {
-
-  const language = 'en';
-
-  const { SHOPPING_CART_PAGE_META_TITLE } = require(`../../public/languages/${language}/languages`);
-
-  const metaData = {
-    title: SHOPPING_CART_PAGE_META_TITLE,
-    description: ''
-  };
-
-  return <MetaData data={metaData} />
-}
 
 export async function getStaticProps() {
 

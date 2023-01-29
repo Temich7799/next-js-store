@@ -1,4 +1,5 @@
 import React from "react"
+import Head from 'next/head';
 
 type Data = {
     title: string
@@ -59,7 +60,7 @@ const MetaData = (props: MetaDataProps) => {
     }
 
     return (
-        <>
+        <Head>
             <title>{data.title}</title>
             <meta name="description" content={data.description} />
             <meta name="theme-color" content="#9ed6e4"></meta>
@@ -85,7 +86,7 @@ const MetaData = (props: MetaDataProps) => {
             }
             {children}
             <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_CONTENT} />
-        </>
+        </Head>
     )
 }
 

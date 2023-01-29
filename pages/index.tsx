@@ -7,23 +7,21 @@ import MetaData from "../public/components/MetaData";
 import { parsePageMetaData } from "../public/services/parsePageMetaData";
 import { getMenuItems } from "../public/services/getMenuItems"
 
-const IndexPage = ({ menuItemsData, content }) => {
+const IndexPage = ({ menuItemsData, content, metaData }) => {
+
+  const { metaData: meta, openGraphData } = parsePageMetaData(metaData);
 
   return (
-    <BaseTemplate data={menuItemsData} language="ru">
-      <HomePageTemplate data={content} />
-    </BaseTemplate>
+    <>
+      <MetaData data={meta} openGraphData={openGraphData} />
+      <BaseTemplate data={menuItemsData} language="ru">
+        <HomePageTemplate data={content} />
+      </BaseTemplate>
+    </>
   )
 }
 
 export default IndexPage;
-
-export const Head = ({ content }) => {
-
-  const { metaData, openGraphData } = parsePageMetaData(content.wpPage.yoast_head_json);
-
-  return <MetaData data={metaData} openGraphData={openGraphData} />
-}
 
 export async function getStaticProps() {
 
@@ -56,6 +54,7 @@ export async function getStaticProps() {
   return {
     props: {
       content: data.wpPage.content.rendered,
+      metaData: data.wpPage.yoast_head_json,
       menuItemsData: await getMenuItems(language)
     },
   };

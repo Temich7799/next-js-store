@@ -3,13 +3,20 @@ import BaseTemplate, { apolloClient } from "../../../../public/templates/BaseTem
 import ProductPageTemplate from '../../../../public/templates/ProductPageTemplate';
 import { gql } from "@apollo/client";
 import { getMenuItems } from "../../../../public/services/getMenuItems"
+import { parsePageMetaData } from "../../../../public/services/parsePageMetaData";
+import MetaData from "../../../../public/components/MetaData";
 
-const ProductPage = ({ menuItemsData, productPageData }) => {
+const ProductPage = ({ menuItemsData, productPageData, metaData }) => {
+
+    const { metaData: meta, openGraphData } = parsePageMetaData(metaData);
 
     return (
-        <BaseTemplate data={menuItemsData} language="uk">
-            <ProductPageTemplate data={productPageData} />
-        </BaseTemplate>
+        <>
+            <MetaData data={meta} openGraphData={openGraphData} />
+            <BaseTemplate data={menuItemsData} language="uk">
+                <ProductPageTemplate data={productPageData} />
+            </BaseTemplate>
+        </>
     )
 }
 
@@ -69,6 +76,7 @@ export async function getServerSideProps(context: any) {
     return {
         props: {
             productPageData: data.allWcProducts[0],
+            metaData: data.allWcProducts[0].yoast_head_json,
             menuItemsData: await getMenuItems(language)
         }
     }

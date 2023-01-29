@@ -71,8 +71,10 @@ export const LOADING_ERROR_DESCRIPTION = 'Попробуйте перезагр�
 
 export const SHOPPING_CART_PAGE_META_TITLE = 'Корзина | Malini Kids';
 
+export const NEW_ARIVALS_PAGE_META_TITLE = 'Новые поступления | Новинки | Malini Kids';
 export const BLOCK_NEW_ARRIVALS_TITLE = 'Новинки';
 export const BLOCK_NEW_ARRIVALS_DETAILS = 'Новых поступлений:';
 
+export const SALE_PAGE_META_TITLE = 'Распродажа! | Успейте приобрести | Malini Kids';
 export const BLOCK_SALE_TITLE = 'Распродажа!';
 export const BLOCK_SALE_DETAILS = 'Товаров со скидкой';

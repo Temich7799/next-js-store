@@ -21,31 +21,29 @@ const Content = styled.div`
     padding: 2.5%;
 `;
 
-const WpPageLayout = ({ menuItemsData, wpPageData }) => {
+const WpPage = ({ menuItemsData, wpPageData, metaData }) => {
+
+  const { metaData: meta, openGraphData } = parsePageMetaData(metaData);
 
   return (
-    <BaseTemplate data={menuItemsData} language='ru'>
-      <>
-        <GlobalWpStyle />
-        <PageTitle>{wpPageData.title.rendered}</PageTitle>
-        {
-          (wpPageData.content.rendered)
-            ? <Content dangerouslySetInnerHTML={{ __html: wpPageData.content.rendered }} />
-            : <NotFoundPageTemplate />
-        }
-      </>
-    </BaseTemplate>
+    <>
+      <MetaData data={meta} openGraphData={openGraphData} />
+      <BaseTemplate data={menuItemsData} language='ru'>
+        <>
+          <GlobalWpStyle />
+          <PageTitle>{wpPageData.title.rendered}</PageTitle>
+          {
+            (wpPageData.content.rendered)
+              ? <Content dangerouslySetInnerHTML={{ __html: wpPageData.content.rendered }} />
+              : <NotFoundPageTemplate />
+          }
+        </>
+      </BaseTemplate>
+    </>
   )
 }
 
-export default WpPageLayout;
-
-export const Head = ({pageContext}) => {
-
-  const { metaData, openGraphData } = parsePageMetaData(pageContext.pageData.yoast_head_json);
-
-  return <MetaData data={metaData} openGraphData={openGraphData} />
-}
+export default WpPage;
 
 export async function getStaticPaths() {
 
@@ -116,6 +114,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       wpPageData: data.allWpPages[0],
+      metaData: data.allWpPages[0].yoast_head_json,
       menuItemsData: await getMenuItems(language)
     }
   }

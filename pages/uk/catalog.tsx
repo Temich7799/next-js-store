@@ -7,23 +7,21 @@ import MetaData from "../../public/components/MetaData";
 import { parsePageMetaData } from "../../public/services/parsePageMetaData";
 import { getMenuItems } from "../../public/services/getMenuItems"
 
-const CatalogPage = ({ menuItemsData, catalogPageData }) => {
+const CatalogPage = ({ menuItemsData, catalogPageData, metaData }) => {
+
+  const { metaData: meta, openGraphData } = parsePageMetaData(metaData);
 
   return (
-    <BaseTemplate data={menuItemsData} language="uk">
-      <CatalogPageTemplate data={catalogPageData.allWcProductsCategories} />
-    </BaseTemplate>
+    <>
+      <MetaData data={meta} openGraphData={openGraphData} />
+      <BaseTemplate data={menuItemsData} language="uk">
+        <CatalogPageTemplate data={catalogPageData.allWcProductsCategories} />
+      </BaseTemplate>
+    </>
   )
 }
 
 export default CatalogPage;
-
-export const Head = ({ catalogPageData }) => {
-
-  const { metaData, openGraphData } = parsePageMetaData(catalogPageData.wpMetaData);
-
-  return <MetaData data={metaData} openGraphData={openGraphData} />
-}
 
 export async function getServerSideProps() {
 
@@ -61,6 +59,7 @@ export async function getServerSideProps() {
   return {
     props: {
       catalogPageData: data,
+      metaData: data.wpMetaData,
       menuItemsData: await getMenuItems(language)
     },
   };

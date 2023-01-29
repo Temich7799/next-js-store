@@ -9,6 +9,15 @@ export async function getProductsListPageData(pageSlug: string) {
           query getCategoryIdBySlug($params: WC_ProductCategoryParams) {
             allWcProductsCategories(params: $params) {
               id
+              yoast_head_json {
+                title
+                description
+                og_title
+                og_type
+                og_locale
+                og_site_name
+                og_description
+              }
             }
           }
         `,
@@ -18,9 +27,10 @@ export async function getProductsListPageData(pageSlug: string) {
             }
         }
     });
-    
+
     const categoryId = categoryData.allWcProductsCategories[0].id;
-   
+    const categoryMetaData = categoryData.allWcProductsCategories[0].yoast_head_json;
+
     const { data } = await apolloClient.query({
         query: FETCH_WC_PRODUCTS,
         variables: {
@@ -33,9 +43,10 @@ export async function getProductsListPageData(pageSlug: string) {
             }
         }
     })
-    
+
     return {
         data: data.allWcProducts,
+        metaData: categoryMetaData,
         categoryId: categoryId
     };
 }
