@@ -25,7 +25,7 @@ const Title = styled.h4`
     grid-area: Title;
 `;
 
-const Count = styled.p`
+const Count = styled.div`
     height: fit-content;
     margin: auto 15px;
     font-size: 50px;
