@@ -6,6 +6,7 @@ import ProductPrice from "../../Product/ProductPrice"
 import PurchasedProductQuantity from "./PurchasedProductQuantity"
 import { ProductInCart } from "../../../interfaces/InterfaceProduct"
 import { PageContext } from "../../../templates/BaseTemplate"
+import Image from "next/image"
 
 type PurchasedProductProps = {
     data: ProductInCart
@@ -51,7 +52,7 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
     const { loading: isDataLoading, data: updatedData, isOutOfStock } = useUpdatedProduct(data);
     const { update, clear } = useShoppingCartVar();
 
-    const imageSource = data.images.length > 0 ? data.images[0].src : 'https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png';
+    const imageSource = data.images.length > 0 ? data.images[0].src : `https://${process.env.NEXT_PUBLIC_WP_HOST}/wp-content/uploads/woocommerce-placeholder.png`;
     const imageAlt = data.images.length > 0 ? data.images[0].alt : NO_PRODUCT_IMAGE;
 
     useEffect(() => {
@@ -62,7 +63,7 @@ const PurchasedProduct = (props: PurchasedProductProps) => {
     return (
         <StyledPurchasedProduct>
             <PurchasedProductThumb>
-                <img src={imageSource} alt={imageAlt} />
+                <Image src={imageSource} alt={imageAlt} width={60} height={60} quality={100} />
             </PurchasedProductThumb>
             <PurchasedProductName>
                 <p>{updatedData ? updatedData.name : data.name}</p>

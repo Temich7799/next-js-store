@@ -1,3 +1,4 @@
+import Image from "next/image"
 import React from "react"
 import styled from "styled-components"
 
@@ -62,7 +63,7 @@ const ProductGalleryCarousel = (props: ProductGalleryCarouselProps) => {
                         onClick={() => { setSelectedImage(data.indexOf(image)) }}
                         key={index}
                     >
-                        <img src={compImages && compImages[productId] && compImages[productId].length > 1 && compImages[productId][index] ? compImages[productId][index] : image.src} alt={image.alt} />
+                        <Image src={compImages && compImages[productId] && compImages[productId].length > 1 && compImages[productId][index] ? compImages[productId][index] : image.src} alt={image.alt} width={100} height={100} />
                     </ProductGalleryCarouselImage>
                 )
             }

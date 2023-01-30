@@ -14,6 +14,7 @@ import PopUpWindow from "../../PopUp/PopUpWindow";
 import OrderDetails from "../../ShoppingCart/OrderDetails/OrderDetails";
 import PopUpToaster from "../../PopUp/PopUpToaster";
 import { makeProductUrlFromOgUrl } from "../../../services/makeProductUrlFromOgUrl";
+import Image from "next/image";
 
 type ProductProps = {
     data: ProductFetched
@@ -58,7 +59,7 @@ const ProductCaption = styled.div`
 
 const ProductThumb = (props: ProductProps) => {
 
-    const { language, langPrefix } = useContext(PageContext);
+    const { language } = useContext(PageContext);
     const { PRODUCT_SKU, NO_PRODUCT_IMAGE, PRODUCT_ADDED_TO_CART, PRODUCT_NOT_ENOUGH_IN_STOCK } = require(`../../../languages/${language}/languages`);
 
     const { data, staticImagePath } = props;
@@ -66,7 +67,7 @@ const ProductThumb = (props: ProductProps) => {
 
     const [showPopUpWindow, setShowPopUpWindow] = useState<boolean>(false);
 
-    const imageSource = staticImagePath ? process.env.NEXT_PUBLIC_SITE_URL + staticImagePath : data.images.length > 0 ? data.images[0].src : 'https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png';
+    const imageSource = staticImagePath ? process.env.NEXT_PUBLIC_SITE_URL + staticImagePath : data.images.length > 0 ? data.images[0].src : `https://${process.env.NEXT_PUBLIC_WP_HOST}/wp-content/uploads/woocommerce-placeholder.png`;
     const imageAlt = data.images.length > 0 ? data.images[0].alt : NO_PRODUCT_IMAGE;
 
     const url = `${process.env.NEXT_PUBLIC_SITE_URL}/${makeProductUrlFromOgUrl(data.categories[0].slug, data.yoast_head_json.og_url, language)}`;
@@ -106,7 +107,7 @@ const ProductThumb = (props: ProductProps) => {
     return (
         <StyledProductThumb onClick={thumbOnClickHandler}>
             <ProductLink href={url}>
-                <img src={imageSource} alt={imageAlt} />
+                <Image src={imageSource} alt={imageAlt} height={320} width={225} />
             </ProductLink>
             <ProductCaption>
                 <div>

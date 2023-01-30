@@ -5,6 +5,7 @@ import Button from "../../Buttons/Button";
 import getRandomColor from "../../../services/getRandomColor";
 import InteractiveImageWrapper from "../../Wrappers/InteractiveImageWrapper";
 import { PageContext } from "../../../templates/BaseTemplate";
+import Image from "next/image";
 
 type CategoryThumbProps = {
     data: {
@@ -97,8 +98,8 @@ const CategoryThumb = (props: CategoryThumbProps) => {
                 <Link href={`catalog/${data.slug}`}>
                     {
                         data.image
-                            ? <InteractiveImageWrapper><img src={data.image.src} alt={data.image.alt} /></InteractiveImageWrapper>
-                            : <NoImage src="https://admin.malinikids.com/wp-content/uploads/woocommerce-placeholder.png" />
+                            ? <InteractiveImageWrapper><Image src={data.image.src} alt={data.image.alt} width={335} height={335} quality={85} /></InteractiveImageWrapper>
+                            : <NoImage src={`https://${process.env.NEXT_PUBLIC_WP_HOST}/wp-content/uploads/woocommerce-placeholder.png`} />
                     }
                 </Link>
                 <ImageCaption captionColor={getRandomColor()}>
