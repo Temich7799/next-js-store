@@ -28,8 +28,7 @@ const OldPrice = styled.s`
 
 const SalePrice = styled.span`
     color: #da4b4b;
-    font-size: larger;
-    font-weight: bolder;
+    font-weight: 500;
 `;
 
 const ProductPrice = (props: ProductPriceProps) => {

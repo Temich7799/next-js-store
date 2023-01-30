@@ -55,7 +55,7 @@ function buttonStylePropsHandler(style: string | undefined) {
 
 const StyledButton = styled.button<any>`
     position: relative;
-    font-family: 'Noto Serif';
+    font-family: 'Montserrat';
     font-size: 16px;
     display: flex;
     justify-content: space-around;

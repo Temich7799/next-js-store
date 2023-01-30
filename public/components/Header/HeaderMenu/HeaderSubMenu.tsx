@@ -28,7 +28,7 @@ const SubMenuTitle = styled.div<any>`
 
 const SubMenuItems = styled.ul<any>`
 
-    font-family: "Didact Gothic";
+    font-family: "Montserrat";
     display: ${props => props.isSubMenuOpened ? 'flex' : 'none'};
     flex-direction: column;
     align-items: center;
@@ -41,11 +41,15 @@ const SubMenuItems = styled.ul<any>`
         align-items: flex-start;
         min-height: 50px;
         padding: 1%;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: normal !important;
         background-color: #fefefe;
-        box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
+        box-shadow: 0px 0px 14px -2px rgba(0,0,0,0.5);
         z-index: 1000;
+
+        li {
+            margin-top: 3.5px;
+        }
     }
 
     @media (max-width: ${props => props.minDesktopWidth}px) {
@@ -55,7 +59,7 @@ const SubMenuItems = styled.ul<any>`
         padding-top: 20px;
         justify-content: center;
         gap: 15px;
-        font-size: 16px;
+        font-size: 15px;
         ::-webkit-scrollbar { display: none }
         overflow-y: scroll;
     }

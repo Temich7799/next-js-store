@@ -16,7 +16,7 @@ const StyledHeader = styled.header<any>`
     position: static;
     top: ${props => props.isScrollingDown ? '-200px' : '0'};
     left: 0;
-    font-family: 'Noto Serif';
+    font-family: 'Montserrat';
     font-size: 16px;
     background-color: white;
     color: #585858;

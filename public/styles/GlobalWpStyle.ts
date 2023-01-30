@@ -52,7 +52,7 @@ export const GlobalWpStyle = createGlobalStyle`
     }
 
     button {
-        font-family: 'Noto Serif';
+        font-family: 'Montserrat';
         font-size: 24px;
         width: 200px;
         height: 50px;
@@ -73,7 +73,7 @@ export const GlobalWpStyle = createGlobalStyle`
     }
 
     .wp-block-button__link {
-        font-family: 'Noto Serif';
+        font-family: 'Montserrat';
         font-size: 24px;
         width: 100%;
         text-align: center;
@@ -132,7 +132,7 @@ export const GlobalWpStyle = createGlobalStyle`
     .blocks-gallery-caption {
         width: 100%;
         text-align: center;
-        font-family: 'Noto Serif';
+        font-family: 'Montserrat';
         font-weight: 700;
         font-size: 25px;
     }
@@ -147,7 +147,7 @@ export const GlobalWpStyle = createGlobalStyle`
 
 
     form {
-        font-family: "Noto Serif";
+        font-family: "Montserrat";
         max-width: 430px;
         padding: 15px;
         background-color: rgb(230, 230, 230);

@@ -26,7 +26,7 @@ export const GlobalStyle = createGlobalStyle`
         width: 100%;
         margin: 10px 0;
         text-align: center;
-        font-family: 'Noto Serif';
+        font-family: 'Montserrat';
     }
 
     h2 {
@@ -55,7 +55,7 @@ export const GlobalStyle = createGlobalStyle`
     p {
         width: 100%;
         margin: 10px 0;
-        font-family: "Didact Gothic";
+        font-family: "Montserrat";
         font-weight: 400;
         font-size: 14px;
         line-height: 21px;

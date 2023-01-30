@@ -9,8 +9,8 @@ const PopUpToaster = () => {
             toastOptions={{
                 style: {
                     padding: '5px',
-                    fontFamily: 'Didact Gothic',
-                    fontSize: '15px',
+                    fontFamily: 'Montserrat',
+                    fontSize: '12px',
                     borderRadius: '5px',
                     border: 'none',
                     backgroundColor: 'white',

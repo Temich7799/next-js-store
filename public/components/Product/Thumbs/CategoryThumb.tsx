@@ -54,8 +54,9 @@ const ImageCaption = styled.figcaption<ImageCaptionProps>`
     height: 40px;
     background-color: ${props => props.captionColor};
     p {
-        font-family: 'Comfortaa';
-        font-size: 22px;
+        font-family: 'Montserrat';
+        font-size: 20px;
+        font-weight: 500;
     }    
 `;
 
@@ -73,7 +74,7 @@ const Caption = styled.div`
     justify-content: space-between;
     p {
         text-align: center;
-        font-family: 'Noto Serif';
+        font-family: 'Montserrat';
         overflow: scroll;
     }
 `;

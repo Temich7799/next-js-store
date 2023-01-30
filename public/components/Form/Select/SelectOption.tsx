@@ -10,7 +10,7 @@ type SelectOptionProps = {
 const StyledSelectOption = styled.div<any>`
     margin: 0;
     padding: 7px 15px;
-    font-family: 'Didact Gothic';
+    font-family: 'Montserrat';
     font-size: 15px;
     color: #393939;
     border-bottom: #c7cbcf 1px solid;

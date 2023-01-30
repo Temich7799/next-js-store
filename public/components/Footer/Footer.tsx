@@ -4,7 +4,7 @@ import SocialsList from "../SocialsList";
 import FooterMenu from "./FooterMenu";
 
 const StyledFooter = styled.footer`
-    font-family: 'Noto Serif';
+    font-family: 'Montserrat';
     font-size: 12px;
     color: black;
     a {

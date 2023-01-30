@@ -36,7 +36,7 @@ const StyledShoppingCartForm = styled.form<any>`
         margin: 5px 0;
     }
     label {
-        font-family: "Didact Gothic";
+        font-family: "Montserrat";
         font-size: 16px;
         margin: 4px 0 8px;
         color:#393939

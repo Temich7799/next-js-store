@@ -42,14 +42,14 @@ const ProductLink = styled.a`
 `;
 
 const ProductCaption = styled.div`
-    font-family: 'Noto Serif';
-    font-size: 20px;
     height: 55px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
     p {
+        font-size: 12px;
+        font-weight: 500;
         width: auto;
         text-align: left;
         margin: 0;
