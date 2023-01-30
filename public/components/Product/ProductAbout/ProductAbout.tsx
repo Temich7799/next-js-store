@@ -10,7 +10,7 @@ import ProductName from "./ProductName";
 const StyledProductAbout = styled.div`
     position: relative;
     width: fit-content;
-    max-width: 450px;
+    max-width: 525px;
     max-height: 400px;
 `;
 

@@ -10,7 +10,7 @@ const StyledProductDescription = styled.div<any>`
         width: 95vw;
     }
 
-    width: 60vw;
+    width: 75vw;
 `;
 
 const ProductDescription = () => {
