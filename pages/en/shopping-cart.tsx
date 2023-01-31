@@ -1,8 +1,7 @@
-import React, { useState } from "react"
+import React from "react"
 import styled from "styled-components";
 import BaseTemplate from "../../public/templates/BaseTemplate";
 import ShoppingCartTemplate from "../../public/templates/ShoppingCartTemplate";
-import SuccessOrderTemplate from "../../public/templates/SuccessOrderTemplate";
 import MetaData from "../../public/components/MetaData";
 import { getMenuItems } from "../../public/services/getMenuItems"
 
@@ -22,26 +21,12 @@ const ShoppingCartPage = ({ menuItemsData }) => {
     description: ''
   };
 
-  const [orderDetailsData, setOrderDetailsData] = useState<object | any>();
-  const [isOrderSending, setIsOrderSending] = useState<boolean>(false);
-
-  const setters = {
-    setOrderDetailsData: setOrderDetailsData,
-    setIsOrderSending: setIsOrderSending
-  };
-
-  const data = { isOrderSending: isOrderSending }
-
   return (
     <>
       <MetaData data={metaData} />
       <BaseTemplate data={menuItemsData} language={language}>
         <StyledShoppingCartPage>
-          {
-            orderDetailsData
-              ? <SuccessOrderTemplate orderId={orderDetailsData.id} />
-              : <ShoppingCartTemplate setters={setters} data={data} />
-          }
+          <ShoppingCartTemplate />
         </StyledShoppingCartPage>
       </BaseTemplate >
     </>

@@ -39,7 +39,7 @@ export function useSendOrder() {
                             first_name: formData.get('first_name'),
                             last_name: formData.get('last_name'),
                             address_1: formData.get('address_1') ? formData.get('address_1') : 'Самовывоз',
-                            city: formData.get('city'),
+                            city: formData.get('city') ? formData.get('city') : 'Самовывоз',
                             phone: formData.get('phone'),
                         },
                         billing: {
@@ -60,11 +60,18 @@ export function useSendOrder() {
         })
             .then((response) => response.json())
             .then((result) => {
-                localStorage.removeItem('purchased-products');
-                result.data.wpWcCreateOrder;
+                if (result.errors) {
+                    setIsSending(false);
+                }
+                else {
+                    localStorage.removeItem('purchased-products');
+                    document.location.href += `/order/${result.data.wpWcCreateOrder.id}`;
+                }
             })
-            .catch((error) => { console.log(error) })
-            .finally(() => { setIsSending(false); })
+            .catch((error) => {
+                console.log(error)
+                setIsSending(false);
+            });
     }
 
     function getLineItemsData(orderedProducts: object | any): Array<LineItem> {

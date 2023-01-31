@@ -6,10 +6,7 @@ import { useShoppingCartVar } from "../../../services/hooks/apollo_vars/useShopp
 import { useSendOrder } from "../../../services/hooks/useSendOrder";
 
 type ShoppingCartFormProps = {
-    setters: {
-        setOrderDetailsData: React.Dispatch<React.SetStateAction<object>>
-        setIsOrderSending: React.Dispatch<React.SetStateAction<boolean>>
-    }
+    setIsOrderSending: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const StyledShoppingCartForm = styled.form<any>`
@@ -47,10 +44,10 @@ const StyledShoppingCartForm = styled.form<any>`
 
 const ShoppingCartForm = (props: ShoppingCartFormProps) => {
 
-    const { setIsOrderSending, setOrderDetailsData } = props.setters;
+    const { setIsOrderSending } = props;
 
     const { data: orderedProducts }: any = useShoppingCartVar();
-    const { send: sendOrder } = useSendOrder();
+    const { send: sendOrder, isSending } = useSendOrder();
 
     function formOnSubmitHandler(onSubmitEvent: any) {
 
@@ -58,11 +55,9 @@ const ShoppingCartForm = (props: ShoppingCartFormProps) => {
 
         setIsOrderSending(true);
 
-        sendOrder(onSubmitEvent.target, orderedProducts)
-            .then((response) => {
-                setOrderDetailsData(response);
-                setIsOrderSending(false);
-            })
+        sendOrder(onSubmitEvent.target, orderedProducts).then(() => {
+            setIsOrderSending(isSending);
+        });
     }
 
     return (
