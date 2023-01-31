@@ -26,7 +26,7 @@ const SendOrderButton = (props: SendOrderButtonProps) => {
                     ? isButtonDisabled
                         ? ORDER_FINAL_BUTTON_DISABLED
                         : ORDER_FINAL_BUTTON_SUBMIT
-                    : <LoadingSpinner />
+                    : <LoadingSpinner size="15px"/>
             }
         </Button>
     )

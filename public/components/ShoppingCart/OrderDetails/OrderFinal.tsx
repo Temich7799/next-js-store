@@ -17,7 +17,7 @@ const StyledOrderFinal = styled.div`
         text-align: center;
         font-size: 20px;
     }
-    div {  
+    >div {  
         margin-top: 25px;
         display: flex;
         justify-content: center;
