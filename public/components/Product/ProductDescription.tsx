@@ -6,10 +6,14 @@ import { PageContext } from "../../templates/BaseTemplate";
 
 const StyledProductDescription = styled.div<any>`
 
+    * {
+        max-width: 75vw;
+    }
+
     @media (max-width: ${props => props.minDesktopWidth}px) {
         width: 95vw;
     }
-
+    padding: 0 15%;
     width: 75vw;
 `;
 

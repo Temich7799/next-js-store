@@ -7,6 +7,7 @@ import CopyProtectedWrapper from "../Wrappers/CopyProtectedWrapper";
 import LoadingBar from "../LoadingBars/LoadingBar";
 
 const StyledCarousel = styled.div<any>`
+    width: 100%;
     max-width: ${props => props.maxWidth};
     margin: ${props => props.mode === 'fullSize' ? 0 : '1.5%'} auto;
     text-align: center;
@@ -126,7 +127,7 @@ const Carousel = (props: CarouselProps) => {
         itemWidth && setItemsGap(
             carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
                 ? calcItemsGap(carouselSlider.current.clientWidth, itemWidth, maxItemsPerSlide)
-                : minGap
+                : minGap * 5
         )
     }, [itemWidth, sliderClientWidth]);
 

@@ -1,6 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalWpStyle = createGlobalStyle`
+
+    * {
+        font-family: 'Montserrat';
+    }
+
     .has-text-align-right {
         text-align: right;
     }
@@ -23,6 +28,10 @@ export const GlobalWpStyle = createGlobalStyle`
 
     .is-vertically-aligned-top {
         vertical-align: top;
+    }
+
+    ul {
+        width: 100%;
     }
 
     p.has-medium-font-size {
