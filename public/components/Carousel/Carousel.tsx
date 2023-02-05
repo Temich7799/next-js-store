@@ -118,13 +118,13 @@ const Carousel = (props: CarouselProps) => {
 
             carouselWrapper.current.addEventListener('pointerdown', onPointerDownHandler);
         }
-        //return () => carouselWrapper.current.removeEventListener(`${pointerType}down`, onPointerDownHandler);
+
     }, [children]);
 
     useEffect(() => {
 
         itemWidth && setItemsGap(
-            carouselSlider.current.clientWidth <= carouselSlider.current.scrollWidth
+            carouselSlider.current.clientWidth < carouselSlider.current.scrollWidth
                 ? calcItemsGap(carouselSlider.current.clientWidth, itemWidth, maxItemsPerSlide)
                 : minGap
         )
