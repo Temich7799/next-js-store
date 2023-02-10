@@ -6,9 +6,11 @@ import BannerHomePage from "../components/Carousel/BannerHomePage";
 import BrandsCarousel from "../components/Carousel/BrandsCarousel";
 import LastSeenProductsCarousel from "../components/Carousel/LastSeenProductsCarousel";
 import TileBlockMenuWrapper from "../components/Wrappers/TileBlockMenuWrapper";
+import { BannerFolderContent } from "../types/BannerFolderContentType";
 
 type HomePageTemplateProps = {
     data: string
+    bannerFolderContent: BannerFolderContent
 }
 
 const StyledHomePageTemplate = styled.div`
@@ -23,11 +25,11 @@ const StyledHomePageTemplate = styled.div`
 
 const HomePageTemplate = (props: HomePageTemplateProps) => {
 
-    const { data } = props;
+    const { data, bannerFolderContent } = props;
 
     return (
         <>
-            <BannerHomePage />
+            <BannerHomePage content={bannerFolderContent} />
             <TileBlockMenuWrapper>
                 <NewArrivalsBlock />
                 <SaleBlock />

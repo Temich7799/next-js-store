@@ -9,7 +9,7 @@ import { BaseTemplateProps } from "../types/BaseTemplatePropsType";
 
 const Main = styled.main<any>`
     @media (max-width: ${props => props.minDesktopWidth}px) {
-        margin-top: 105px;
+        margin-top: 84px;
     }
     margin-top: 0;
     flex: 1 0 auto;

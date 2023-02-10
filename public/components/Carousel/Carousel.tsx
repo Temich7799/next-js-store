@@ -142,6 +142,7 @@ const Carousel = (props: CarouselProps) => {
 
             carouselSlider.current.style.left = `${slider.current.position}px`;
         }
+
     }, [itemsGap, sliderClientWidth]);
 
     function onPointerDownHandler(pointerDownEvent: any): void {
@@ -222,9 +223,12 @@ const Carousel = (props: CarouselProps) => {
         let array = [];
 
         if (mode === 'fullSize') {
+
             Array.isArray(children) && children.forEach(() => {
-                array.push(startFrom);
-                startFrom -= carouselSlider.current.firstChild.clientWidth;
+                if (startFrom - carouselSlider.current.firstChild.clientWidth >= carouselSlider.current.scrollWidth * (-1)) {
+                    array.push(startFrom);
+                    startFrom -= carouselSlider.current.firstChild.clientWidth;
+                }
             });
         }
         else {

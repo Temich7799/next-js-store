@@ -7,7 +7,7 @@ import MetaData from "../public/components/MetaData";
 import { parsePageMetaData } from "../public/services/parsePageMetaData";
 import { getMenuItems } from "../public/services/getMenuItems"
 
-const IndexPage = ({ menuItemsData, content, metaData }) => {
+const IndexPage = ({ menuItemsData, content, metaData, bannerFolderContent }) => {
 
   const { metaData: meta, openGraphData } = parsePageMetaData(metaData);
 
@@ -15,7 +15,7 @@ const IndexPage = ({ menuItemsData, content, metaData }) => {
     <>
       <MetaData data={meta} openGraphData={openGraphData} />
       <BaseTemplate data={menuItemsData} language="ru">
-        <HomePageTemplate data={content} />
+        <HomePageTemplate data={content} bannerFolderContent={bannerFolderContent} />
       </BaseTemplate>
     </>
   )
@@ -26,6 +26,9 @@ export default IndexPage;
 export async function getStaticProps() {
 
   const language = 'ru';
+
+  const bannerFolderPath = 'images/banners';
+  const fs = require('fs');
 
   const { data } = await apolloClient.query({
     query: gql`
@@ -55,7 +58,11 @@ export async function getStaticProps() {
     props: {
       content: data.wpPage.content.rendered,
       metaData: data.wpPage.yoast_head_json,
-      menuItemsData: await getMenuItems(language)
+      menuItemsData: await getMenuItems(language),
+      bannerFolderContent: {
+        desktop: fs.readdirSync('public/' + bannerFolderPath).map((file: string) => '/' + bannerFolderPath + '/' + file),
+        mobile: fs.readdirSync('public/' + bannerFolderPath + '/mobile').map((file: string) => '/' + bannerFolderPath + '/mobile/' + file)
+      }
     },
   };
 }
