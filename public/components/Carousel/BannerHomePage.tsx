@@ -27,7 +27,8 @@ const BannerHomePage = (props: BannerHomePageProps) => {
     const height = isMobile ? 692 : 729;
 
     const options: CarouselOptions = {
-        mode: 'fullSize'
+        mode: 'fullSize',
+        autoScroll: true
     }
 
     const imageStyle: any = {
@@ -40,7 +41,6 @@ const BannerHomePage = (props: BannerHomePageProps) => {
     return (
         <Carousel options={options}>
             {
-
                 images.map((imageSrc, index: number) =>
                     imageSrc !== '/images/banners/mobile' && < BannerSlide key={index} > <Image src={imageSrc} alt={`Slide-${index}`} width={width} height={height} style={imageStyle} /></BannerSlide>)
             }

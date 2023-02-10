@@ -11,4 +11,5 @@ export type CarouselOptions = {
     maxItemsPerSlide?: number
     minGap?: number
     mode?: string
+    autoScroll?: boolean
 }

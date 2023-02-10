@@ -81,12 +81,14 @@ const Carousel = (props: CarouselProps) => {
         maxItemsPerSlide = 10,
         mode,
         minGap = mode === 'fullSize' ? 0 : 24,
+        autoScroll = false,
     } = options;
 
     const [sliderClientWidth, setSliderClientWidth] = useState<number>(0);
     const [itemWidth, setItemWidth] = useState<number>(0);
     const [itemsGap, setItemsGap] = useState<number>(0);
     const [positions, setPositions] = useState<Array<number>>([]);
+    const [isPointerOver, setIsPointerOver] = useState<boolean>(false);
 
     const showButtons = true;
 
@@ -95,7 +97,7 @@ const Carousel = (props: CarouselProps) => {
 
     const slider = useRef<any>();
     slider.current = {
-        isPointerDown: false,
+        isPointerOver: false,
         prevPosition: 0,
         prevClientX: 0,
         position: 0,
@@ -144,6 +146,18 @@ const Carousel = (props: CarouselProps) => {
         }
 
     }, [itemsGap, sliderClientWidth]);
+
+    useEffect(() => {
+        if (autoScroll && !isPointerOver) {
+            const timer = setInterval(
+                makeSwipe,
+                10000,
+                'right'
+            );
+
+            return () => clearInterval(timer);
+        }
+    }, []);
 
     function onPointerDownHandler(pointerDownEvent: any): void {
 
@@ -206,16 +220,20 @@ const Carousel = (props: CarouselProps) => {
 
     function makeSwipe(direction: string): void {
 
-        slider.current.position = slider.current.positionsMap[
-            direction == 'left'
-                ? slider.current.positionsMap[--slider.current.positionIndex] == undefined
-                    ? ++slider.current.positionIndex
-                    : slider.current.positionIndex
-                : slider.current.positionsMap[++slider.current.positionIndex] == undefined
-                    ? --slider.current.positionIndex
-                    : slider.current.positionIndex];
+        if (isPointerOver === false) {
+            slider.current.position = slider.current.positionsMap[
+                direction == 'left'
+                    ? slider.current.positionsMap[--slider.current.positionIndex] == undefined
+                        ? ++slider.current.positionIndex
+                        : slider.current.positionIndex
+                    : slider.current.position - carouselSlider.current.firstChild.clientWidth === - carouselSlider.current.scrollWidth
+                        ? slider.current.positionIndex = 0
+                        : slider.current.positionsMap[++slider.current.positionIndex] == undefined
+                            ? --slider.current.positionIndex
+                            : slider.current.positionIndex];
 
-        if (carouselSlider.current) carouselSlider.current.style = `left: ${slider.current.position}px; transition: ${animationSpeed};`;
+            if (carouselSlider.current) carouselSlider.current.style = `left: ${slider.current.position}px; transition: ${animationSpeed};`;
+        }
     }
 
     function makePositionsMap(startFrom: number): Array<number> {
