@@ -32,7 +32,7 @@ export async function getStaticProps() {
 
   const { data } = await apolloClient.query({
     query: gql`
-      query homePageDataRu($language: LanguagesEnum) {
+      query homePageDataUk($language: LanguagesEnum) {
         wpPage(pageId: 25, language: $language) {
           content {
             rendered

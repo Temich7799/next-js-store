@@ -29,7 +29,7 @@ export async function getServerSideProps() {
 
   const { data } = await apolloClient.query({
     query: gql`
-      query catalogPageDataRu($language: LanguagesEnum) {
+      query catalogPageDataUk($language: LanguagesEnum) {
         allWcProductsCategories(params: {hide_empty: true}, language: $language) {
           image {
             alt
