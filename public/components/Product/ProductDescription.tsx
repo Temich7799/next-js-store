@@ -13,7 +13,7 @@ const StyledProductDescription = styled.div<any>`
     @media (max-width: ${props => props.minDesktopWidth}px) {
         width: 95vw;
     }
-    padding: 0 15%;
+    padding: 50px 15% 0;
     width: 75vw;
 `;
 

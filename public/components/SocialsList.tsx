@@ -15,6 +15,9 @@ const StyledSocialsList = styled.div<any>`
         list-style: none;
         li {
             display: block;
+            a {
+                margin-top: 7px;
+            }
         }
     }
 `;

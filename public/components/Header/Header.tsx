@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react"
-import styled, { keyframes } from "styled-components"
+import React, { useState } from "react"
+import styled from "styled-components"
 import HeaderColumnLeft from "./HeaderColumnLeft";
 import HeaderColumnRight from "./HeaderColumnRight";
 import HeaderColumnCenter from "./HeaderColumnCenter";
-import useMobile from "../../services/hooks/useMobile";
 
 const StyledHeader = styled.header<any>`
 

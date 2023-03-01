@@ -18,8 +18,8 @@ const StyledProductsListPageTemplate = styled.div`
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 25px;
+    justify-content: center;
+    gap: 10%;
     padding: 5%;
 `;
 
