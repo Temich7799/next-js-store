@@ -29,7 +29,7 @@ const resolvers = {
 
         }),
         allWcProducts: (_, { language, params }) => wooCommerceQuery('products', params, 'get', language),
-        allWcProductsCategories: (_, { params }) => wooCommerceQuery('products/categories', params),
+        allWcProductsCategories: (_, { language, params }) => wooCommerceQuery('products/categories', params, 'get', language),
         allWcShippingZonesMethods: (_, { zoneId, language, params }) => wooCommerceQuery(`shipping/zones${zoneId !== undefined ? `/${zoneId}/` : '/'}methods`, { per_page: 10, ...params }, 'get', language),
         allWcPaymentMethods: (_, { language, params }) => wooCommerceQuery('payment_gateways', { per_page: 10, ...params }, 'get', language),
         allWpMetaData: (_, { endpoint, language, params }) => wordpressQuery(endpoint, { language: language, params: params }).then((res) => res.map((page) => page.yoast_head_json)),

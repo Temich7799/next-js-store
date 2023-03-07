@@ -6,10 +6,16 @@ const WC_ProductParams = `#graphql
         offset: Int
         per_page: Int
         on_sale: Boolean
-        include: [String]
+        include: WC_ProductFilterInclude
         stock_status: StockStatusesEnum
         status: PublishStatusesEnum
         category: String
+        slug: String
+    }
+
+    input WC_ProductFilterInclude {
+        slug: [String]
+        id: [Int]
     }
 `;
 
